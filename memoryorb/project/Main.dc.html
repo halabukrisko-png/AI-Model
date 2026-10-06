@@ -487,6 +487,27 @@ footer h2,footer p,footer nav a{text-shadow:0 2px 7px rgba(0,0,0,.6)}
 @media (min-width:640px){.stat-grid{grid-template-columns:repeat(3,1fr)}.fc-top{flex-direction:column;align-items:flex-start;gap:18px}.fc-face{min-height:260px}}
 @media (min-width:900px){.buy-grid>.cue{display:none}}
 
+
+/* ---- trust flip cards ---- */
+.trust-grid{display:grid;grid-template-columns:1fr;gap:14px;margin-top:40px}
+.fc.tc .fc-face{min-height:158px;background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.2)}
+.fc.tc .fc-back{background:linear-gradient(180deg,rgba(217,181,107,.16),rgba(0,0,0,.3));border-color:rgba(217,181,107,.45)}
+.fc.tc:hover .fc-face{border-color:rgba(217,181,107,.5)}
+.tc-top{display:flex;align-items:center;gap:16px;text-align:left}
+.tc-top .t-ico{flex:none;background:rgba(255,255,255,.1);color:var(--mint);box-shadow:inset 0 0 0 1px rgba(255,255,255,.12)}
+.tc-t{display:flex;flex-direction:column;gap:4px}
+.tc-title{font-size:18px;font-weight:600;letter-spacing:-.02em;line-height:1.25;color:var(--fg)}
+.tc-sub{font-size:14.5px;line-height:1.5;color:var(--fg-2)}
+.fc.tc .fc-back{justify-content:flex-start;gap:12px}
+.fc.tc .fc-back .fc-hint{margin-top:auto}
+@media (min-width:640px){.trust-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.fc.tc.main{grid-column:1/-1}}
+@media (min-width:900px){
+  .trust-grid{grid-template-columns:repeat(4,minmax(0,1fr));margin-top:56px}
+  .fc.tc.main{grid-column:auto}
+  .fc.tc .fc-face{min-height:250px;padding:26px 22px 20px}
+  .tc-top{flex-direction:column;align-items:flex-start;gap:18px}
+}
+
 /* ---- scroll reveal ---- */
 
 /* ---- responsive ---- */
@@ -767,22 +788,21 @@ footer h2,footer p,footer nav a{text-shadow:0 2px 7px rgba(0,0,0,.6)}
       <div class="wrap">
         <div class="sec-head rv"><span class="eyebrow c">Guarantee</span><h2 class="h2">Shop with <em>confidence</em></h2></div>
         <div class="trust-grid">
-          <div class="t-card main rv" style="--d:60ms">
-            <span class="t-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2.500l8 3v6c0 5-3.500 8.700-8 10.500-4.500-1.800-8-5.500-8-10.500v-6z"/><path d="M8.300 12.200l2.700 2.700 4.800-5.300"/></svg></span>
-            <div><div class="tt">Damage Protection Guarantee</div><p>Shop with confidence, risk-free.</p></div>
-          </div>
-          <div class="t-card rv" style="--d:140ms">
-            <span class="t-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1.500 5.500h12v10.500h-12zM13.500 9h4.500l3.500 3.500v3.500h-8"/><circle cx="6" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg></span>
-            <span class="tt">Free Shipping Today</span>
-          </div>
-          <div class="t-card rv" style="--d:220ms">
-            <span class="t-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5.500l3.500 2"/></svg></span>
-            <span class="tt">30-Day Guarantee</span>
-          </div>
-          <div class="t-card rv" style="--d:300ms">
-            <span class="t-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.500"/><path d="M2 20c0-4 3-6 7-6s7 2 7 6zM16 4.500a3.500 3.500 0 010 7M18 14c2.500.7 4 2.500 4 6h-3"/></svg></span>
-            <span class="tt">5000+ Happy Customers</span>
-          </div>
+          <sc-for list="{{trust}}" as="t" hint-placeholder-count="4">
+            <button type="button" class="fc tc {{t.cls}}" aria-pressed="{{t.pressed}}" aria-label="{{t.title}}" onClick="{{t.toggle}}">
+              <span class="fc-in">
+                <span class="fc-face fc-front">
+                  <span class="tc-top"><span class="t-ico"><sc-if value="{{t.i0}}" hint-placeholder-val="{{ false }}"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2.500l8 3v6c0 5-3.500 8.700-8 10.500-4.500-1.800-8-5.500-8-10.500v-6z"/><path d="M8.300 12.200l2.700 2.700 4.800-5.300"/></svg></sc-if><sc-if value="{{t.i1}}" hint-placeholder-val="{{ false }}"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1.500 5.500h12v10.500h-12zM13.500 9h4.500l3.500 3.500v3.500h-8"/><circle cx="6" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg></sc-if><sc-if value="{{t.i2}}" hint-placeholder-val="{{ false }}"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5.500l3.500 2"/></svg></sc-if><sc-if value="{{t.i3}}" hint-placeholder-val="{{ false }}"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.500"/><path d="M2 20c0-4 3-6 7-6s7 2 7 6zM16 4.500a3.500 3.500 0 010 7M18 14c2.500.7 4 2.500 4 6h-3"/></svg></sc-if></span><span class="tc-t"><span class="tc-title">{{t.title}}</span><span class="tc-sub">{{t.text}}</span></span></span>
+                  <span class="fc-hint"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 11a8 8 0 00-14-4.500L4 9M4 4v5h5M4 13a8 8 0 0014 4.500L20 15M20 20v-5h-5"/></svg>Tap to see more</span>
+                </span>
+                <span class="fc-face fc-back" aria-hidden="{{t.backHidden}}">
+                  <span class="fc-eyebrow">{{t.kicker}}</span>
+                  <span class="fc-body">{{t.back}}</span>
+                  <span class="fc-hint"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 11a8 8 0 00-14-4.500L4 9M4 4v5h5M4 13a8 8 0 0014 4.500L20 15M20 20v-5h-5"/></svg>Tap to go back</span>
+                </span>
+              </span>
+            </button>
+          </sc-for>
         </div>
       </div>
     </section>
@@ -929,22 +949,18 @@ footer h2,footer p,footer nav a{text-shadow:0 2px 7px rgba(0,0,0,.6)}
     <div class="wrap">
       <div class="sec-head rv"><span class="eyebrow c">By the numbers</span><h2 class="h2">The future is <em>an orb!</em></h2></div>
       <div class="stat-grid">
-        <sc-for list="{{stats}}" as="s" hint-placeholder-count="3">
-          <button type="button" class="fc {{s.cls}}" aria-pressed="{{s.pressed}}" aria-label="{{s.label}}" onClick="{{s.toggle}}" style="--v:{{s.v}}">
-            <span class="fc-in">
-              <span class="fc-face fc-front">
-                <span class="fc-top"><svg width="76" height="76" viewBox="0 0 68 68" aria-hidden="true"><circle class="trk" cx="34" cy="34" r="29" fill="none" stroke-width="3.5"/><circle class="bar" cx="34" cy="34" r="29" fill="none" stroke-width="3.5" stroke-linecap="round" pathLength="100" transform="rotate(-90 34 34)"/><text x="34" y="39.500" text-anchor="middle" font-family="Manrope,sans-serif" font-weight="700" font-size="15" letter-spacing="-.5" fill="#f5efe4">{{s.pct}}</text></svg><span class="fc-txt">{{s.text}}</span></span>
-                <span class="fc-hint"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 11a8 8 0 00-14-4.500L4 9M4 4v5h5M4 13a8 8 0 0014 4.500L20 15M20 20v-5h-5"/></svg>Tap to see more</span>
-              </span>
-              <span class="fc-face fc-back" aria-hidden="{{s.backHidden}}">
-                <span class="fc-eyebrow">{{s.pct}} · {{s.kicker}}</span>
-                <span class="fc-title">{{s.backTitle}}</span>
-                <span class="fc-body">{{s.backText}}</span>
-                <span class="fc-hint"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 11a8 8 0 00-14-4.500L4 9M4 4v5h5M4 13a8 8 0 0014 4.500L20 15M20 20v-5h-5"/></svg>Tap to go back</span>
-              </span>
-            </span>
-          </button>
-        </sc-for>
+        <div class="stat rv" style="--d:60ms;--v:92">
+          <svg width="84" height="84" viewBox="0 0 68 68" aria-hidden="true"><circle class="trk" cx="34" cy="34" r="29" fill="none" stroke-width="3.5"/><circle class="bar" cx="34" cy="34" r="29" fill="none" stroke-width="3.5" stroke-linecap="round" pathLength="100" transform="rotate(-90 34 34)"/><text x="34" y="39.500" text-anchor="middle" font-family="Manrope,sans-serif" font-weight="700" font-size="15" letter-spacing="-.5" fill="#f5efe4">92%</text></svg>
+          <p>Said the Orb helps them relive memories more vividly compared to a phone screen.</p>
+        </div>
+        <div class="stat rv" style="--d:160ms;--v:89">
+          <svg width="84" height="84" viewBox="0 0 68 68" aria-hidden="true"><circle class="trk" cx="34" cy="34" r="29" fill="none" stroke-width="3.5"/><circle class="bar" cx="34" cy="34" r="29" fill="none" stroke-width="3.5" stroke-linecap="round" pathLength="100" transform="rotate(-90 34 34)"/><text x="34" y="39.500" text-anchor="middle" font-family="Manrope,sans-serif" font-weight="700" font-size="15" letter-spacing="-.5" fill="#f5efe4">89%</text></svg>
+          <p>Reported feeling closer to loved ones when replaying moments through the Orb.</p>
+        </div>
+        <div class="stat rv" style="--d:260ms;--v:95">
+          <svg width="84" height="84" viewBox="0 0 68 68" aria-hidden="true"><circle class="trk" cx="34" cy="34" r="29" fill="none" stroke-width="3.5"/><circle class="bar" cx="34" cy="34" r="29" fill="none" stroke-width="3.5" stroke-linecap="round" pathLength="100" transform="rotate(-90 34 34)"/><text x="34" y="39.500" text-anchor="middle" font-family="Manrope,sans-serif" font-weight="700" font-size="15" letter-spacing="-.5" fill="#f5efe4">95%</text></svg>
+          <p>Agreed the Orb made special occasions unforgettable, from birthdays to weddings.</p>
+        </div>
       </div>
       <p class="stat-foot rv">These results are based on verified customer feedback.</p>
       <div class="stat-cta rv"><a class="btn btn-light btn-lg" href="#shop">Adopt Your Orb<svg class="arr" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a></div>
@@ -991,7 +1007,7 @@ footer h2,footer p,footer nav a{text-shadow:0 2px 7px rgba(0,0,0,.6)}
 class Component extends DCLogic {
   constructor(props) {
     super(props);
-    this.state = { prod: false, page: 'home', sent: false, tab: 0, tsent: false, bundle: 2, thumb: 0, colour: 0, outlet: 0, qty: 1, cf: 0, menu: false, flip: [false, false, false] };
+    this.state = { prod: false, page: 'home', sent: false, tab: 0, tsent: false, bundle: 2, thumb: 0, colour: 0, outlet: 0, qty: 1, cf: 0, menu: false, flip: [false, false, false, false] };
   }
   componentDidMount() {
     const root = document.documentElement;
@@ -1097,14 +1113,15 @@ class Component extends DCLogic {
       { title: '30-Day Guarantee', text: '[DESCRIPTION]' },
       { title: '5000+ Happy Customers', text: '[DESCRIPTION]' }
     ];
-    const statDefs = [
-      { pct: '92%', v: 92, kicker: 'Vivid memories', text: 'Said the Orb helps them relive memories more vividly compared to a phone screen.', backTitle: '4GB Built-In Storage', backText: 'The MemoryOrb comes with 4GB of built-in storage for your photos and videos.' },
-      { pct: '89%', v: 89, kicker: 'Closer together', text: 'Reported feeling closer to loved ones when replaying moments through the Orb.', backTitle: 'One-Touch Controls', backText: 'One-touch controls let you move between your memories with a single tap.' },
-      { pct: '95%', v: 95, kicker: 'Unforgettable', text: 'Agreed the Orb made special occasions unforgettable, from birthdays to weddings.', backTitle: 'Damage Protection Guarantee', backText: 'Shop with confidence, risk-free.' }
+    const trustDefs = [
+      { title: 'Damage Protection Guarantee', text: 'Shop with confidence, risk-free.', kicker: 'Guarantee', back: 'If your MemoryOrb ever arrives damaged, we make it right. Shop with confidence, risk-free.', main: true },
+      { title: 'Free Shipping Today', text: 'Delivered to your door.', kicker: 'Shipping', back: 'Free shipping today on your MemoryOrb. Follow your parcel any time from the Tracking page.' },
+      { title: '30-Day Guarantee', text: 'Try it risk-free.', kicker: 'Returns', back: 'Not feeling it? You have 30 days to decide. Questions? Reach us any time from the Contact page.' },
+      { title: '5000+ Happy Customers', text: 'Loved by families everywhere.', kicker: 'Reviews', back: 'Verified buyers replay birthdays, weddings and everyday moments through their orb. 92% say it helps them relive memories more vividly.' }
     ];
-    const stats = statDefs.map((d, i) => {
+    const trust = trustDefs.map((d, i) => {
       const on = !!this.state.flip[i];
-      return { ...d, cls: on ? 'is-flipped' : '', pressed: on ? 'true' : 'false', backHidden: on ? 'false' : 'true', label: d.pct + ' - ' + d.backTitle, toggle: () => { const f = this.state.flip.slice(); f[i] = !f[i]; this.setState({ flip: f }); } };
+      return { ...d, cls: (d.main ? 'main ' : '') + (on ? 'is-flipped' : ''), pressed: on ? 'true' : 'false', backHidden: on ? 'false' : 'true', i0: i === 0, i1: i === 1, i2: i === 2, i3: i === 3, toggle: () => { const f = this.state.flip.slice(); f[i] = !f[i]; this.setState({ flip: f }); } };
     });
     const ci = this.state.cf;
     const cf = { ...cfs[ci], ic0: ci === 0, ic1: ci === 1, ic2: ci === 2, ic3: ci === 3 };
@@ -1157,7 +1174,7 @@ class Component extends DCLogic {
       goContact: (e) => { this.setState({ page: 'contact', menu: false, sent: false }); try { window.scrollTo(0, 0); } catch (x) {} },
       sendContact: (e) => { try { e.preventDefault(); } catch (x) {} this.setState({ sent: true }); },
       menuOpen: this.state.menu, openMenu: () => this.setState({ menu: true }), closeMenu: () => this.setState({ menu: false }),
-      stats, bundles, thumbs, cColours, cName: cs[this.state.colour].name, cOutlets, cf, cfDots, cfPrev, cfNext, cfPrevColor, cfNextColor, cQty: this.state.qty, ctaTotal,
+      trust, bundles, thumbs, cColours, cName: cs[this.state.colour].name, cOutlets, cf, cfDots, cfPrev, cfNext, cfPrevColor, cfNextColor, cQty: this.state.qty, ctaTotal,
       cInc: () => this.setState({ qty: Math.min(9, this.state.qty + 1) }),
       cDec: () => this.setState({ qty: Math.max(1, this.state.qty - 1) })
     };

@@ -2,7 +2,7 @@
 class Component extends DCLogic {
   constructor(props) {
     super(props);
-    this.state = { prod: false, page: 'home', sent: false, tab: 0, tsent: false, bundle: 2, thumb: 0, colour: 0, outlet: 0, qty: 1, cf: 0, menu: false, flip: [false, false, false] };
+    this.state = { prod: false, page: 'home', sent: false, tab: 0, tsent: false, bundle: 2, thumb: 0, colour: 0, outlet: 0, qty: 1, cf: 0, menu: false, flip: [false, false, false, false] };
   }
   componentDidMount() {
     const root = document.documentElement;
@@ -108,14 +108,15 @@ class Component extends DCLogic {
       { title: '30-Day Guarantee', text: '[DESCRIPTION]' },
       { title: '5000+ Happy Customers', text: '[DESCRIPTION]' }
     ];
-    const statDefs = [
-      { pct: '92%', v: 92, kicker: 'Vivid memories', text: 'Said the Orb helps them relive memories more vividly compared to a phone screen.', backTitle: '4GB Built-In Storage', backText: 'The MemoryOrb comes with 4GB of built-in storage for your photos and videos.' },
-      { pct: '89%', v: 89, kicker: 'Closer together', text: 'Reported feeling closer to loved ones when replaying moments through the Orb.', backTitle: 'One-Touch Controls', backText: 'One-touch controls let you move between your memories with a single tap.' },
-      { pct: '95%', v: 95, kicker: 'Unforgettable', text: 'Agreed the Orb made special occasions unforgettable, from birthdays to weddings.', backTitle: 'Damage Protection Guarantee', backText: 'Shop with confidence, risk-free.' }
+    const trustDefs = [
+      { title: 'Damage Protection Guarantee', text: 'Shop with confidence, risk-free.', kicker: 'Guarantee', back: 'If your MemoryOrb ever arrives damaged, we make it right. Shop with confidence, risk-free.', main: true },
+      { title: 'Free Shipping Today', text: 'Delivered to your door.', kicker: 'Shipping', back: 'Free shipping today on your MemoryOrb. Follow your parcel any time from the Tracking page.' },
+      { title: '30-Day Guarantee', text: 'Try it risk-free.', kicker: 'Returns', back: 'Not feeling it? You have 30 days to decide. Questions? Reach us any time from the Contact page.' },
+      { title: '5000+ Happy Customers', text: 'Loved by families everywhere.', kicker: 'Reviews', back: 'Verified buyers replay birthdays, weddings and everyday moments through their orb. 92% say it helps them relive memories more vividly.' }
     ];
-    const stats = statDefs.map((d, i) => {
+    const trust = trustDefs.map((d, i) => {
       const on = !!this.state.flip[i];
-      return { ...d, cls: on ? 'is-flipped' : '', pressed: on ? 'true' : 'false', backHidden: on ? 'false' : 'true', label: d.pct + ' - ' + d.backTitle, toggle: () => { const f = this.state.flip.slice(); f[i] = !f[i]; this.setState({ flip: f }); } };
+      return { ...d, cls: (d.main ? 'main ' : '') + (on ? 'is-flipped' : ''), pressed: on ? 'true' : 'false', backHidden: on ? 'false' : 'true', i0: i === 0, i1: i === 1, i2: i === 2, i3: i === 3, toggle: () => { const f = this.state.flip.slice(); f[i] = !f[i]; this.setState({ flip: f }); } };
     });
     const ci = this.state.cf;
     const cf = { ...cfs[ci], ic0: ci === 0, ic1: ci === 1, ic2: ci === 2, ic3: ci === 3 };
@@ -168,7 +169,7 @@ class Component extends DCLogic {
       goContact: (e) => { this.setState({ page: 'contact', menu: false, sent: false }); try { window.scrollTo(0, 0); } catch (x) {} },
       sendContact: (e) => { try { e.preventDefault(); } catch (x) {} this.setState({ sent: true }); },
       menuOpen: this.state.menu, openMenu: () => this.setState({ menu: true }), closeMenu: () => this.setState({ menu: false }),
-      stats, bundles, thumbs, cColours, cName: cs[this.state.colour].name, cOutlets, cf, cfDots, cfPrev, cfNext, cfPrevColor, cfNextColor, cQty: this.state.qty, ctaTotal,
+      trust, bundles, thumbs, cColours, cName: cs[this.state.colour].name, cOutlets, cf, cfDots, cfPrev, cfNext, cfPrevColor, cfNextColor, cQty: this.state.qty, ctaTotal,
       cInc: () => this.setState({ qty: Math.min(9, this.state.qty + 1) }),
       cDec: () => this.setState({ qty: Math.max(1, this.state.qty - 1) })
     };
