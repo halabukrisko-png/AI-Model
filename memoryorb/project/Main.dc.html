@@ -503,7 +503,8 @@ footer h2,footer p,footer nav a{text-shadow:0 2px 7px rgba(0,0,0,.6)}
 .tc-t{display:flex;flex-direction:column;gap:4px}
 .tc-title{font-size:13px;font-weight:600;line-height:1.35;letter-spacing:.01em;color:var(--fg)}
 .fc.tc.main .tc-title{font-size:17px;font-weight:700;line-height:1.3;letter-spacing:-.01em}
-.tc-sub{font-size:14px;line-height:1.5;color:var(--fg-2)}
+.tc-sub{font-size:11.5px;font-weight:600;line-height:1.4;letter-spacing:.02em;color:var(--brass);opacity:.9}
+.fc:hover .tc-sub{color:var(--brass-hi)}
 .tc-sub:empty{display:none}
 .fc.tc .fc-eyebrow{font-size:10px;letter-spacing:.16em}
 .fc.tc .fc-body{font-size:12.5px;line-height:1.45;flex:none}
@@ -512,7 +513,6 @@ footer h2,footer p,footer nav a{text-shadow:0 2px 7px rgba(0,0,0,.6)}
 .fc-flip{position:absolute;right:8px;top:8px;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--fg-3);background:rgba(255,255,255,.06);transition:color var(--t-base),background var(--t-base),transform .5s var(--ease)}
 .fc.tc:hover .fc-flip{color:var(--brass-hi);background:rgba(217,181,107,.14);transform:rotate(180deg)}
 .fc.tc.main .fc-flip{right:12px;top:12px}
-.fc.tc:not(.main) .fc-back{padding-top:36px}
 @media (min-width:640px){.fc.tc .fc-face{padding:26px 16px}.tc-title{font-size:14px}.fc.tc .fc-body{font-size:13.5px}}
 @media (min-width:900px){
   .trust-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin-top:64px}
@@ -523,7 +523,7 @@ footer h2,footer p,footer nav a{text-shadow:0 2px 7px rgba(0,0,0,.6)}
   .fc.tc.main .tc-title{font-size:15px}
   .tc-title{font-size:15px}
   .fc.tc .fc-body,.fc.tc.main .fc-body{font-size:14px}
-  .tc-sub{font-size:13.5px}
+  .tc-sub{font-size:12.5px}
 }
 
 /* ---- scroll reveal ---- */
@@ -810,14 +810,11 @@ footer h2,footer p,footer nav a{text-shadow:0 2px 7px rgba(0,0,0,.6)}
             <button type="button" class="fc tc {{t.cls}}" aria-pressed="{{t.pressed}}" aria-label="{{t.title}}" onClick="{{t.toggle}}">
               <span class="fc-in">
                 <span class="fc-face fc-front">
-                  <span class="tc-top"><span class="t-ico"><sc-if value="{{t.i0}}" hint-placeholder-val="{{ false }}"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2.500l8 3v6c0 5-3.500 8.700-8 10.500-4.500-1.800-8-5.500-8-10.500v-6z"/><path d="M8.300 12.200l2.700 2.700 4.800-5.300"/></svg></sc-if><sc-if value="{{t.i1}}" hint-placeholder-val="{{ false }}"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1.500 5.500h12v10.500h-12zM13.500 9h4.500l3.500 3.500v3.500h-8"/><circle cx="6" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg></sc-if><sc-if value="{{t.i2}}" hint-placeholder-val="{{ false }}"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5.500l3.500 2"/></svg></sc-if><sc-if value="{{t.i3}}" hint-placeholder-val="{{ false }}"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.500"/><path d="M2 20c0-4 3-6 7-6s7 2 7 6zM16 4.500a3.500 3.500 0 010 7M18 14c2.500.7 4 2.500 4 6h-3"/></svg></sc-if></span><span class="tc-t"><span class="tc-title">{{t.title}}</span><span class="tc-sub">{{t.text}}</span></span></span>
-                  <span class="fc-flip" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11a8 8 0 00-14-4.500L4 9M4 4v5h5M4 13a8 8 0 0014 4.500L20 15M20 20v-5h-5"/></svg></span>
-                </span>
+                  <span class="tc-top"><span class="t-ico"><sc-if value="{{t.i0}}" hint-placeholder-val="{{ false }}"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2.500l8 3v6c0 5-3.500 8.700-8 10.500-4.500-1.800-8-5.500-8-10.500v-6z"/><path d="M8.300 12.200l2.700 2.700 4.800-5.300"/></svg></sc-if><sc-if value="{{t.i1}}" hint-placeholder-val="{{ false }}"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1.500 5.500h12v10.500h-12zM13.500 9h4.500l3.500 3.500v3.500h-8"/><circle cx="6" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg></sc-if><sc-if value="{{t.i2}}" hint-placeholder-val="{{ false }}"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5.500l3.500 2"/></svg></sc-if><sc-if value="{{t.i3}}" hint-placeholder-val="{{ false }}"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.500"/><path d="M2 20c0-4 3-6 7-6s7 2 7 6zM16 4.500a3.500 3.500 0 010 7M18 14c2.500.7 4 2.500 4 6h-3"/></svg></sc-if></span><span class="tc-t"><span class="tc-title">{{t.title}}</span><span class="tc-sub">{{t.text}}</span></span></span>                </span>
                 <span class="fc-face fc-back" aria-hidden="{{t.backHidden}}">
                   <span class="fc-eyebrow">{{t.kicker}}</span>
                   <span class="fc-body">{{t.back}}</span>
-                  <span class="fc-flip" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11a8 8 0 00-14-4.500L4 9M4 4v5h5M4 13a8 8 0 0014 4.500L20 15M20 20v-5h-5"/></svg></span>
-                </span>
+                  <span class="tc-sub">Tap to go back</span>                </span>
               </span>
             </button>
           </sc-for>
@@ -1126,16 +1123,16 @@ class Component extends DCLogic {
     const cents = 5999 * this.state.qty;
     const ctaTotal = '$' + Math.floor(cents / 100) + '.' + String(cents % 100).padStart(2, '0');
     const cfs = [
-      { title: 'Damage Protection Guarantee', text: 'Shop with confidence, risk-free.' },
-      { title: 'Free Shipping Today', text: '[DESCRIPTION]' },
-      { title: '30-Day Guarantee', text: '[DESCRIPTION]' },
-      { title: '5000+ Happy Customers', text: '[DESCRIPTION]' }
+      { title: 'Damage Protection Guarantee', text: 'Tap to see more info' },
+      { title: 'Free Shipping Today', text: 'Tap to see more info' },
+      { title: '30-Day Guarantee', text: 'Tap to see more info' },
+      { title: '5000+ Happy Customers', text: 'Tap to see more info' }
     ];
     const trustDefs = [
-      { title: 'Damage Protection Guarantee', text: 'Shop with confidence, risk-free.', kicker: 'Guarantee', back: 'If your MemoryOrb ever arrives damaged, we make it right. Shop with confidence, risk-free.', main: true },
-      { title: 'Free Shipping Today', text: '', kicker: 'Shipping', back: 'Free shipping today. Track it on the Tracking page.' },
-      { title: '30-Day Guarantee', text: '', kicker: 'Returns', back: 'Not happy? You have 30 days to decide.' },
-      { title: '5000+ Happy Customers', text: '', kicker: 'Reviews', back: '92% say it helps them relive memories vividly.' }
+      { title: 'Damage Protection Guarantee', text: 'Tap to see more info', kicker: 'Guarantee', back: 'If your MemoryOrb ever arrives damaged, we make it right. Shop with confidence, risk-free.', main: true },
+      { title: 'Free Shipping Today', text: 'Tap to see more info', kicker: 'Shipping', back: 'Free shipping today. Track it on the Tracking page.' },
+      { title: '30-Day Guarantee', text: 'Tap to see more info', kicker: 'Returns', back: 'Not happy? You have 30 days to decide.' },
+      { title: '5000+ Happy Customers', text: 'Tap to see more info', kicker: 'Reviews', back: '92% say it helps them relive memories vividly.' }
     ];
     const trust = trustDefs.map((d, i) => {
       const on = !!this.state.flip[i];
