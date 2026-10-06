@@ -9,13 +9,14 @@ class Component extends DCLogic {
     const reduce = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
     // scroll-reveal (fade + translate, staggered through --d)
     try {
-      const els = document.querySelectorAll('.rv, .rvb');
+      const els = document.querySelectorAll('.rv, .rvb, .lg-ftr');
       if (els.length && 'IntersectionObserver' in window) {
         root.classList.add('js-rv');
         const io = new IntersectionObserver((es) => es.forEach((e) => {
           if (!e.isIntersecting) return;
           const t = e.target;
           t.classList.add('in');
+          if (t.classList.contains('lg-ftr')) t.classList.add('go');
           if (t.classList.contains('hg')) {
             document.querySelectorAll('.rvf').forEach((x) => x.classList.add('in'));
             setTimeout(() => document.querySelectorAll('.rvs').forEach((x) => x.classList.add('in')), 1500);
