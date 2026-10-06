@@ -103,16 +103,16 @@ class Component extends DCLogic {
     const cents = 5999 * this.state.qty;
     const ctaTotal = '$' + Math.floor(cents / 100) + '.' + String(cents % 100).padStart(2, '0');
     const cfs = [
-      { title: 'Damage Protection Guarantee', text: 'Tap to see more info' },
-      { title: 'Free Shipping Today', text: 'Tap to see more info' },
-      { title: '30-Day Guarantee', text: 'Tap to see more info' },
-      { title: '5000+ Happy Customers', text: 'Tap to see more info' }
+      { title: 'Damage Protection Guarantee', text: '' },
+      { title: 'Free Shipping Today', text: '' },
+      { title: '30-Day Guarantee', text: '' },
+      { title: '5000+ Happy Customers', text: '' }
     ];
     const trustDefs = [
-      { title: 'Damage Protection Guarantee', text: 'Tap to see more info', kicker: 'Guarantee', back: 'If your MemoryOrb ever arrives damaged, we make it right. Shop with confidence, risk-free.', main: true },
-      { title: 'Free Shipping Today', text: 'Tap to see more info', kicker: 'Shipping', back: 'Free shipping today. Track it on the Tracking page.' },
-      { title: '30-Day Guarantee', text: 'Tap to see more info', kicker: 'Returns', back: 'Not happy? You have 30 days to decide.' },
-      { title: '5000+ Happy Customers', text: 'Tap to see more info', kicker: 'Reviews', back: '92% say it helps them relive memories vividly.' }
+      { title: 'Damage Protection Guarantee', text: '', kicker: 'Guarantee', back: 'If your MemoryOrb ever arrives damaged, we make it right. Shop with confidence, risk-free.', main: true },
+      { title: 'Free Shipping Today', text: '', kicker: 'Shipping', back: 'Free shipping today. Track it on the Tracking page.' },
+      { title: '30-Day Guarantee', text: '', kicker: 'Returns', back: 'Not happy? You have 30 days to decide.' },
+      { title: '5000+ Happy Customers', text: '', kicker: 'Reviews', back: '92% say it helps them relive memories vividly.' }
     ];
     const trust = trustDefs.map((d, i) => {
       const on = !!this.state.flip[i];

@@ -509,6 +509,7 @@ footer h2,footer p,footer nav a{text-shadow:0 2px 7px rgba(0,0,0,.6)}
 .tc-sub{font-size:11.5px;font-weight:600;line-height:1.4;letter-spacing:.02em;color:var(--brass);opacity:.9}
 .fc:hover .tc-sub{color:var(--brass-hi)}
 .tc-sub:empty{display:none}
+.tc-note{margin-top:18px;text-align:center;font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--brass);opacity:.9}
 .fc.tc .fc-eyebrow{font-size:10px;letter-spacing:.16em}
 .fc.tc .fc-body{font-size:12.5px;line-height:1.45;flex:none}
 .fc.tc.main .fc-body{font-size:15px;line-height:1.55}
@@ -816,12 +817,12 @@ footer h2,footer p,footer nav a{text-shadow:0 2px 7px rgba(0,0,0,.6)}
                   <span class="tc-top"><span class="t-ico"><sc-if value="{{t.i0}}" hint-placeholder-val="{{ false }}"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2.500l8 3v6c0 5-3.500 8.700-8 10.500-4.500-1.800-8-5.500-8-10.500v-6z"/><path d="M8.300 12.200l2.700 2.700 4.800-5.300"/></svg></sc-if><sc-if value="{{t.i1}}" hint-placeholder-val="{{ false }}"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1.500 5.500h12v10.500h-12zM13.500 9h4.500l3.500 3.500v3.500h-8"/><circle cx="6" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg></sc-if><sc-if value="{{t.i2}}" hint-placeholder-val="{{ false }}"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5.500l3.500 2"/></svg></sc-if><sc-if value="{{t.i3}}" hint-placeholder-val="{{ false }}"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.500"/><path d="M2 20c0-4 3-6 7-6s7 2 7 6zM16 4.500a3.500 3.500 0 010 7M18 14c2.500.7 4 2.500 4 6h-3"/></svg></sc-if></span><span class="tc-t"><span class="tc-title">{{t.title}}</span><span class="tc-sub">{{t.text}}</span></span></span>                </span>
                 <span class="fc-face fc-back" aria-hidden="{{t.backHidden}}">
                   <span class="fc-eyebrow">{{t.kicker}}</span>
-                  <span class="fc-body">{{t.back}}</span>
-                  <span class="tc-sub">Tap to go back</span>                </span>
+                  <span class="fc-body">{{t.back}}</span>                </span>
               </span>
             </button>
           </sc-for>
         </div>
+        <p class="tc-note">Tap to see more info</p>
       </div>
     </section>
     <section class="lens-sec" aria-label="Where memories take shape">
