@@ -150,6 +150,7 @@ class Component extends DCLogic {
       goTracking: (e) => { this.setState({ page: 'tracking', menu: false, tsent: false }); try { window.scrollTo(0, 0); } catch (x) {} },
       sendTrack: (e) => { try { e.preventDefault(); } catch (x) {} this.setState({ tsent: true }); },
       skyBg: this.state.page === 'home' ? 'transparent' : 'url(#skyG)',
+      skyVig: this.state.page === 'home' ? 'transparent' : 'url(#vigG)',
       colDisp: (this.state.page === 'home' || this.state.page === 'products') ? 'block' : 'none',
       prodDisp: this.state.page === 'products' ? 'block' : 'none',
       prodExp: this.state.page === 'products' ? 'true' : 'false',

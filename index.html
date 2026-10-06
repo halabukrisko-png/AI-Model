@@ -255,14 +255,16 @@ html.is-scrolled .hdr-in{height:var(--hdr-s)}
 .t-card.main p{margin-top:6px;font-size:14.5px;line-height:1.5;color:var(--paper-mute)}
 
 /* ---- lens (visual) ---- */
-.lens-sec{position:relative;background:radial-gradient(60% 40% at 50% 58%,rgba(217,181,107,.1),transparent 72%),var(--black-rich);padding-block:var(--section) calc(var(--section)*.8);border-top:1px solid var(--line)}
+.lens-sec{position:relative;background:radial-gradient(78% 40% at 50% 60%,rgba(26,96,70,.24),transparent 74%),radial-gradient(46% 24% at 50% 60%,rgba(222,186,116,.07),transparent 76%),var(--black-rich);padding-block:var(--section) calc(var(--section)*.8);border-top:1px solid var(--line)}
 .lens-sec .sec-head{position:relative;z-index:2}
 .lens-stage{position:relative;width:min(100%,560px);margin:28px auto 0;aspect-ratio:1/1}
 .lens-stage img{position:absolute;left:-10%;top:-10%;width:120%;height:120%;object-fit:cover;mix-blend-mode:lighten;-webkit-mask-image:radial-gradient(circle closest-side,#000 80%,transparent 100%);mask-image:radial-gradient(circle closest-side,#000 80%,transparent 100%)}
-.lens-stage .ring{position:absolute;border-radius:50%;border:1px solid var(--line-2);pointer-events:none}
-.lens-stage .r1{inset:5%;opacity:.55}
-.lens-stage .r2{inset:-4%;opacity:.3}
-.lens-stage .r3{inset:-14%;opacity:.14}
+.lens-stage::before{content:"";position:absolute;inset:-46%;border-radius:50%;pointer-events:none;background:radial-gradient(closest-side,rgba(30,104,76,.4),rgba(24,84,60,.2) 34%,rgba(214,176,108,.05) 56%,transparent 74%)}
+.lens-stage::after{content:"";position:absolute;left:18%;right:18%;bottom:-6%;height:9%;border-radius:50%;pointer-events:none;background:radial-gradient(closest-side,rgba(0,0,0,.6),transparent);filter:blur(10px)}
+.lens-stage .ring{position:absolute;border-radius:50%;pointer-events:none;background:linear-gradient(128deg,rgba(247,232,190,.62) 0%,rgba(247,232,190,.06) 30%,rgba(90,190,146,.1) 52%,rgba(255,255,255,.03) 72%,rgba(247,232,190,.3) 100%);-webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 1.2px),#000 calc(100% - 1.2px));mask:radial-gradient(farthest-side,transparent calc(100% - 1.2px),#000 calc(100% - 1.2px));filter:drop-shadow(0 0 6px rgba(214,178,108,.12))}
+.lens-stage .r1{inset:5%;opacity:.9}
+.lens-stage .r2{inset:-4%;opacity:.5;transform:rotate(60deg)}
+.lens-stage .r3{inset:-14%;opacity:.26;transform:rotate(-40deg)}
 
 /* ---- compare ---- */
 .why{background:linear-gradient(180deg,var(--ink-3),var(--ink-2));border-top:1px solid var(--line)}
@@ -369,10 +371,12 @@ textarea.field{height:140px;padding:16px 18px;resize:none;line-height:1.5}
 
 :root{--black-rich:
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 .93 0 0 0 0 .82 0 0 0 .045 0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E"),
-    radial-gradient(60% 24% at 50% 46%,rgba(214,178,108,.06),transparent 74%),
-    radial-gradient(52% 26% at 104% 52%,rgba(20,76,56,.34),transparent 74%),
-    radial-gradient(52% 24% at -4% 68%,rgba(96,18,34,.2),transparent 74%),
-    linear-gradient(180deg,#0a0907,#0b0a08 50%,#0a0907)}
+    linear-gradient(90deg,rgba(0,0,0,.4),transparent 24%,transparent 76%,rgba(0,0,0,.4)),
+    radial-gradient(62% 22% at 50% 44%,rgba(222,186,116,.075),transparent 74%),
+    radial-gradient(56% 24% at 50% 56%,rgba(18,70,52,.3),transparent 76%),
+    radial-gradient(54% 26% at 106% 50%,rgba(22,84,60,.42),transparent 74%),
+    radial-gradient(54% 24% at -6% 70%,rgba(104,20,38,.26),transparent 74%),
+    linear-gradient(180deg,#0a0907,#0a0b09 34%,#0a0a08 66%,#0a0907)}
 .black-zone{background:var(--black-rich)}
 /* ---- christmas green: waves, hill, snow, garland ---- */
 :root{--green:#09251b;
@@ -400,6 +404,7 @@ textarea.field{height:140px;padding:16px 18px;resize:none;line-height:1.5}
 .wave.top{top:-1px}
 .wave.bot{bottom:-1px;transform:scaleY(-1)}
 .wave .sky{fill:url(#skyG)}
+.wave .vig{fill:url(#vigG)}
 .wave .ln{fill:none;stroke:url(#lineG);stroke-width:2.2;stroke-linecap:round;vector-effect:non-scaling-stroke;filter:drop-shadow(0 0 5px rgba(242,219,163,.3))}
 .gz{position:relative;overflow:hidden;isolation:isolate;color:#fff;background:var(--emerald-zone)}
 .fl{position:absolute;top:-2%;z-index:2;pointer-events:none;border-radius:50%;background:#fff;box-shadow:0 0 5px 1px rgba(255,255,255,.6);opacity:0;animation:fall 9s linear infinite,sway 3s ease-in-out infinite alternate}
@@ -623,7 +628,7 @@ footer h2,footer p,footer nav a{text-shadow:0 2px 7px rgba(0,0,0,.6)}
 </style>
 </helmet>
 <div class="page">
-<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs><linearGradient id="skyG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#100f0d"/><stop offset=".5" stop-color="#100f0d"/><stop offset="1" stop-color="#0c1c16"/></linearGradient><linearGradient id="lineG" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#f1f6ee" stop-opacity=".2"/><stop offset=".25" stop-color="#f7f1e3" stop-opacity=".9"/><stop offset=".5" stop-color="#fffaf0"/><stop offset=".75" stop-color="#f7f1e3" stop-opacity=".9"/><stop offset="1" stop-color="#f1f6ee" stop-opacity=".2"/></linearGradient></defs></svg>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs><linearGradient id="skyG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#100f0d"/><stop offset=".5" stop-color="#100f0d"/><stop offset="1" stop-color="#0c1c16"/></linearGradient><linearGradient id="vigG" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#000" stop-opacity=".4"/><stop offset=".24" stop-color="#000" stop-opacity="0"/><stop offset=".76" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".4"/></linearGradient><linearGradient id="lineG" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#f1f6ee" stop-opacity=".2"/><stop offset=".25" stop-color="#f7f1e3" stop-opacity=".9"/><stop offset=".5" stop-color="#fffaf0"/><stop offset=".75" stop-color="#f7f1e3" stop-opacity=".9"/><stop offset="1" stop-color="#f1f6ee" stop-opacity=".2"/></linearGradient></defs></svg>
 
   <!-- mobile menu -->
   <sc-if value="{{menuOpen}}" hint-placeholder-val="{{ false }}">
@@ -834,8 +839,8 @@ footer h2,footer p,footer nav a{text-shadow:0 2px 7px rgba(0,0,0,.6)}
   <!-- home page: trust, visual, comparison -->
   <div style="display:{{infoDisp}}">
     <section class="on-green sec" aria-label="Shop with confidence">
-      <svg class="wave top" aria-hidden="true" viewBox="0 0 432 44" preserveAspectRatio="none" style="--sky:var(--ink)"><path class="sky" d="M0 0H432V30C410 32 380 36 330 32C230 24 110 22 0 34Z"/><path class="ln" d="M0 34C110 22 230 24 330 32C380 36 410 32 432 30"/></svg>
-      <svg class="wave bot" aria-hidden="true" viewBox="0 0 432 44" preserveAspectRatio="none" style="--sky:var(--ink-2)"><path class="sky" d="M0 0H432V30C410 32 380 36 330 32C230 24 110 22 0 34Z"/><path class="ln" d="M0 34C110 22 230 24 330 32C380 36 410 32 432 30"/></svg>
+      <svg class="wave top" aria-hidden="true" viewBox="0 0 432 44" preserveAspectRatio="none" style="--sky:var(--ink)"><path class="sky" d="M0 0H432V30C410 32 380 36 330 32C230 24 110 22 0 34Z"/><path class="vig" d="M0 0H432V30C410 32 380 36 330 32C230 24 110 22 0 34Z"/><path class="ln" d="M0 34C110 22 230 24 330 32C380 36 410 32 432 30"/></svg>
+      <svg class="wave bot" aria-hidden="true" viewBox="0 0 432 44" preserveAspectRatio="none" style="--sky:var(--ink-2)"><path class="sky" d="M0 0H432V30C410 32 380 36 330 32C230 24 110 22 0 34Z"/><path class="vig" d="M0 0H432V30C410 32 380 36 330 32C230 24 110 22 0 34Z"/><path class="ln" d="M0 34C110 22 230 24 330 32C380 36 410 32 432 30"/></svg>
       <div class="wrap">
         <div class="sec-head rv"><span class="eyebrow c">Guarantee</span><h2 class="h2 serif">Shop with <em>confidence</em></h2></div>
         <div class="trust-grid">
@@ -864,7 +869,7 @@ footer h2,footer p,footer nav a{text-shadow:0 2px 7px rgba(0,0,0,.6)}
       </div>
     </section>
     <section class="why sec">
-      <svg class="wave top" aria-hidden="true" viewBox="0 0 432 44" preserveAspectRatio="none" style="--sky:var(--ink-2)"><path class="sky" d="M0 0H432V30C410 32 380 36 330 32C230 24 110 22 0 34Z"/><path class="ln" d="M0 34C110 22 230 24 330 32C380 36 410 32 432 30"/></svg>
+      <svg class="wave top" aria-hidden="true" viewBox="0 0 432 44" preserveAspectRatio="none" style="--sky:var(--ink-2)"><path class="sky" d="M0 0H432V30C410 32 380 36 330 32C230 24 110 22 0 34Z"/><path class="vig" d="M0 0H432V30C410 32 380 36 330 32C230 24 110 22 0 34Z"/><path class="ln" d="M0 34C110 22 230 24 330 32C380 36 410 32 432 30"/></svg>
       <div class="wrap">
         <div class="sec-head rv">
           <span class="eyebrow c">Why MemoryOrb</span>
@@ -989,7 +994,7 @@ footer h2,footer p,footer nav a{text-shadow:0 2px 7px rgba(0,0,0,.6)}
       <i class="fl" style="left:42.9%;width:4px;height:4px;--dx:-25px;animation-duration:17.6s,6.5s;animation-delay:5.7s,0s"></i>
     </div>
   <div aria-hidden="true" style="position:relative;height:120px">
-    <svg viewBox="0 0 432 120" preserveAspectRatio="none" style="position:absolute;left:0;bottom:0;width:100%;height:120px;display:block"><g class="hg"><path d="M0 0H432V54C400 66 350 75 290 62C190 40 90 38 0 78Z" fill="{{skyBg}}"/><path d="M0 78C90 38 190 40 290 62C350 75 400 66 432 54" fill="none" stroke="url(#lineG)" stroke-width="2.2" stroke-linecap="round" vector-effect="non-scaling-stroke" style="filter:drop-shadow(0 0 5px rgba(242,219,163,.3))"/></g></svg>
+    <svg viewBox="0 0 432 120" preserveAspectRatio="none" style="position:absolute;left:0;bottom:0;width:100%;height:120px;display:block"><g class="hg"><path d="M0 0H432V54C400 66 350 75 290 62C190 40 90 38 0 78Z" fill="{{skyBg}}"/><path d="M0 0H432V54C400 66 350 75 290 62C190 40 90 38 0 78Z" fill="{{skyVig}}"/><path d="M0 78C90 38 190 40 290 62C350 75 400 66 432 54" fill="none" stroke="url(#lineG)" stroke-width="2.2" stroke-linecap="round" vector-effect="non-scaling-stroke" style="filter:drop-shadow(0 0 5px rgba(242,219,163,.3))"/></g></svg>
   </div>
   <!-- stats -->
   <section class="stats sec">
