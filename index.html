@@ -417,72 +417,6 @@ html.js-rv .rv.in{opacity:1;transform:none}
 @media (min-width:1200px){
   .quote{padding:48px 56px}
 }
-/* ==== DESKTOP-FIRST LAYOUT (>=900px): editorial, asymmetric, wide ==== */
-@media (min-width:900px){
-  :root{--maxw:1320px;--gutter:clamp(40px,5vw,72px)}
-  .h1{font-size:clamp(56px,7.2vw,116px)}
-  .h2{font-size:clamp(40px,4.6vw,68px)}
-  /* hero: full-height, collage of 3 product frames */
-  .hero{min-height:calc(100vh - 132px);display:flex;align-items:center;padding:24px 0 var(--section)}
-  .hero>.wrap{width:100%}
-  .hero-grid{grid-template-columns:minmax(0,1fr) minmax(0,1.12fr);gap:clamp(48px,6vw,110px)}
-  .hero-copy .lead{max-width:30ch;font-size:clamp(18px,1.5vw,22px)}
-  .price{font-size:40px}
-  .gal{display:block;position:relative;aspect-ratio:1/1.04;margin:0;padding:0;overflow:visible}
-  .slide{position:absolute;width:auto;aspect-ratio:auto;flex:none}
-  .slide:nth-child(1){grid-column:auto;aspect-ratio:auto;right:0;top:0;width:76%;height:88%;border-radius:var(--r-xl)}
-  .slide:nth-child(2){left:0;bottom:7%;width:44%;height:40%;box-shadow:0 0 0 9px var(--ink),var(--sh-lg);z-index:2}
-  .slide:nth-child(3){right:4%;bottom:0;width:32%;height:25%;box-shadow:0 0 0 9px var(--ink),var(--sh-lg);z-index:2}
-  .float-chip{left:auto;right:-22px;top:46%}
-  .hero.is-compact .hero-media{max-width:700px;margin-inline:auto;width:100%}
-  /* split sections: editorial heading left, content right */
-  .split{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);column-gap:clamp(56px,7vw,128px);align-items:start}
-  .split>.sec-head{grid-column:1;grid-row:1;margin:0;max-width:none;text-align:left;align-items:flex-start}
-  .split>.sec-head .eyebrow.c::after{display:none}
-  .split>.sec-head .lead{max-width:34ch}
-  /* buy */
-  .buy .split>.buy-grid{display:contents}
-  .buy .buy-grid>.panel{grid-column:1;grid-row:2;margin-top:44px}
-  .buy .buy-grid>div:last-child{grid-column:2;grid-row:1/span 2;position:sticky;top:calc(var(--hdr-s) + 24px);padding-top:8px}
-  .buy .swatches{gap:18px 12px}
-  .bundle-btn{min-height:92px;padding:0 26px}
-  .bundle-n b{font-size:23px}.bundle-p b{font-size:27px}
-  .bundles{gap:18px}
-  /* trust */
-  .trust-grid{grid-column:2;grid-row:1;grid-template-columns:repeat(2,minmax(0,1fr));margin-top:0;gap:18px}
-  .t-card,.t-card.main{flex-direction:row;text-align:left;justify-content:flex-start;gap:20px;padding:30px 28px}
-  .t-card.main{grid-column:1/-1;padding:38px 34px}
-  .t-card .tt{font-size:17px;letter-spacing:-.02em}
-  .t-card.main .tt{font-size:22px}
-  .t-card.main p{font-size:15.5px}
-  /* lens */
-  .lens-sec .split{align-items:center}
-  .lens-stage{grid-column:2;grid-row:1;width:100%;max-width:700px;margin:0 0 0 auto}
-  /* why */
-  .compare{grid-column:2;grid-row:1/span 2;margin:0;max-width:none}
-  .why-cta{grid-column:1;grid-row:2;justify-content:flex-start;margin-top:36px;align-self:start}
-  /* stats */
-  .stat-grid{grid-column:2;grid-row:1/span 3;grid-template-columns:1fr;margin-top:0}
-  .stat{flex-direction:row;align-items:center;gap:30px;padding:30px 34px}
-  .stat svg{width:104px;height:104px}
-  .stat p{font-size:17px}
-  .stat-cta{grid-column:1;grid-row:2;justify-content:flex-start;margin-top:36px;align-self:start}
-  .stats .split{grid-template-rows:auto auto 1fr}
-  .pays{padding-right:64px}
-  .stat-foot{grid-column:1;grid-row:3;text-align:left;margin-top:20px;align-self:start}
-  /* faq / forms */
-  .faq .split>.ac-list{grid-column:2;grid-row:1;margin:0;max-width:none}
-  .form-page .split{align-items:center}
-  .form-page .form-card{grid-column:2;grid-row:1;margin:0;max-width:none}
-  .form-page .sec-head .h2{font-size:clamp(48px,5.6vw,84px)}
-  .details-sec .wrap{max-width:calc(1000px + var(--gutter)*2)!important}
-  /* mega footer */
-  .footer{overflow:hidden;padding-bottom:0}
-  .foot-grid{grid-template-columns:5fr 3fr 4fr;gap:clamp(48px,6vw,110px)}
-  .foot-brand .logo{font-size:38px}
-  .foot-bot{margin-top:72px}
-  .footer::after{content:"MemoryOrb";display:block;margin-top:20px;text-align:center;font-weight:700;letter-spacing:-.06em;line-height:.8;font-size:clamp(90px,17.5vw,300px);color:transparent;background:linear-gradient(180deg,rgba(245,239,228,.1),rgba(245,239,228,0) 85%);-webkit-background-clip:text;background-clip:text;white-space:nowrap;pointer-events:none;transform:translateY(.12em)}
-}
 @media (hover:none){
   .slide:hover img,.sw:hover .sw-art img,.story-img:hover img{transform:none}
 }
@@ -582,7 +516,7 @@ html.js-rv .rv.in{opacity:1;transform:none}
 
   <!-- colour & bundle -->
   <section id="colours" class="buy" style="display:{{colDisp}}">
-    <div class="wrap split">
+    <div class="wrap">
       <div class="sec-head rv">
         <span class="eyebrow c">Choose your EverOrb</span>
         <h2 class="h2">Same magic, <em>different colours.</em></h2>
@@ -671,7 +605,7 @@ html.js-rv .rv.in{opacity:1;transform:none}
     </section>
 
     <section class="faq sec">
-      <div class="wrap split">
+      <div class="wrap">
         <div class="sec-head rv"><span class="eyebrow c">Support</span><h2 class="h2">FAQs</h2></div>
         <div class="ac-list rv" style="--d:100ms">
           <details class="ac"><summary><svg class="q-ico" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg><span>How much storage does it have?</span><svg class="acc" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary><p>The MemoryOrb comes with 4GB of built-in storage for your photos and videos.</p></details>
@@ -713,7 +647,7 @@ html.js-rv .rv.in{opacity:1;transform:none}
   <div style="display:{{infoDisp}}">
 
     <section class="on-paper sec sheet" aria-label="Shop with confidence">
-      <div class="wrap split">
+      <div class="wrap">
         <div class="sec-head rv"><span class="eyebrow c">Guarantee</span><h2 class="h2">Shop with <em>confidence</em></h2></div>
         <div class="trust-grid">
           <div class="t-card main rv" style="--d:60ms">
@@ -737,7 +671,7 @@ html.js-rv .rv.in{opacity:1;transform:none}
     </section>
 
     <section class="lens-sec sheet" aria-label="Where memories take shape">
-      <div class="wrap split">
+      <div class="wrap">
         <div class="sec-head rv"><span class="eyebrow c">MemoryOrb</span><h2 class="h2">Where memories <em>take shape</em></h2></div>
         <div class="lens-stage rv rv-s" style="--d:120ms">
           <i class="ring r3" aria-hidden="true"></i><i class="ring r2" aria-hidden="true"></i><i class="ring r1" aria-hidden="true"></i>
@@ -747,7 +681,7 @@ html.js-rv .rv.in{opacity:1;transform:none}
     </section>
 
     <section class="why sec sheet">
-      <div class="wrap split">
+      <div class="wrap">
         <div class="sec-head rv">
           <span class="eyebrow c">Why MemoryOrb</span>
           <h2 class="h2">Why choose the <em>MemoryOrb?</em></h2>
@@ -767,7 +701,7 @@ html.js-rv .rv.in{opacity:1;transform:none}
 
   <!-- contact page -->
   <section class="form-page" style="display:{{contactDisp}}">
-    <div class="wrap split">
+    <div class="wrap">
       <div class="sec-head"><span class="eyebrow c">MemoryOrb</span><h1 class="h2">Get in <em>touch</em></h1></div>
       <div class="form-card">
         <form onSubmit="{{sendContact}}">
@@ -784,7 +718,7 @@ html.js-rv .rv.in{opacity:1;transform:none}
 
   <!-- tracking page -->
   <section class="form-page" style="display:{{trackDisp}}">
-    <div class="wrap split">
+    <div class="wrap">
       <div class="sec-head"><span class="eyebrow c">MemoryOrb</span><h1 class="h2">Track your <em>order</em></h1></div>
       <div class="form-card">
         <div class="tabs" role="tablist">
@@ -805,7 +739,7 @@ html.js-rv .rv.in{opacity:1;transform:none}
   <!-- stats -->
   <section class="stats sec sheet">
     <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs><linearGradient id="ringGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f3dda6"/><stop offset="1" stop-color="#c49b4d"/></linearGradient></defs></svg>
-    <div class="wrap split">
+    <div class="wrap">
       <div class="sec-head rv"><span class="eyebrow c">By the numbers</span><h2 class="h2">The future is <em>an orb!</em></h2></div>
       <div class="stat-grid">
         <div class="stat rv" style="--d:60ms;--v:92">
