@@ -5,20 +5,39 @@ class Component extends DCLogic {
     this.state = { prod: false, page: 'home', sent: false, tab: 0, tsent: false, bundle: 2, thumb: 0, colour: 0, outlet: 0, qty: 1, cf: 0, menu: false };
   }
   componentDidMount() {
+    const root = document.documentElement;
+    const reduce = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+    // scroll-reveal (fade + translate, staggered through --d)
     try {
-      const els = document.querySelectorAll('.rv, .rvb, .rvt, .lg-ftr, .btnf');
-      if (!els.length || !('IntersectionObserver' in window)) return;
-      document.documentElement.classList.add('js-rv');
-      const io = new IntersectionObserver((es) => es.forEach((e) => {
-        if (!e.isIntersecting) return;
-        const t = e.target;
-        t.classList.add('in');
-        if (t.classList.contains('lg-ftr')) t.classList.add('go');
-        if (t.classList.contains('hg')) document.querySelectorAll('.rvf').forEach((x) => x.classList.add('in'));
-        if (t.classList.contains('hg')) setTimeout(() => document.querySelectorAll('.rvs').forEach((x) => x.classList.add('in')), 1500);
-        io.unobserve(t);
-      }), { threshold: 0.12 });
-      els.forEach((el) => io.observe(el));
+      const els = document.querySelectorAll('.rv');
+      if (els.length && 'IntersectionObserver' in window) {
+        root.classList.add('js-rv');
+        const io = new IntersectionObserver((es) => es.forEach((e) => {
+          if (!e.isIntersecting) return;
+          e.target.classList.add('in');
+          io.unobserve(e.target);
+        }), { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+        els.forEach((el) => io.observe(el));
+      }
+    } catch (err) {}
+    // header compact state + very light parallax (transform only, rAF-throttled)
+    try {
+      let tick = false;
+      const frame = () => {
+        tick = false;
+        root.classList.toggle('is-scrolled', (window.scrollY || 0) > 24);
+        if (reduce) return;
+        const vh = window.innerHeight;
+        document.querySelectorAll('[data-px]').forEach((el) => {
+          const r = el.parentElement.getBoundingClientRect();
+          if (r.bottom < -240 || r.top > vh + 240) return;
+          el.style.transform = 'translate3d(0,' + ((r.top + r.height / 2 - vh / 2) * parseFloat(el.getAttribute('data-px'))).toFixed(1) + 'px,0)';
+        });
+      };
+      const onScroll = () => { if (!tick) { tick = true; requestAnimationFrame(frame); } };
+      window.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('resize', onScroll, { passive: true });
+      frame();
     } catch (err) {}
   }
   renderVals() {
@@ -40,6 +59,7 @@ class Component extends DCLogic {
         borderColor: selected ? '#f3d27a' : '#6f6339',
         bg: selected ? '#16130a' : '#000',
         ringColor: selected ? '#f3d27a' : '#8a7a4a',
+        cls: selected ? 'is-on' : '',
         pick: () => this.setState({ bundle: d.id })
       };
     });
@@ -95,6 +115,12 @@ class Component extends DCLogic {
     const cfPrevColor = ci === 0 ? 'rgba(111,208,122,.3)' : '#6fd07a';
     const cfNextColor = ci === cfs.length - 1 ? 'rgba(111,208,122,.3)' : '#6fd07a';
     return {
+      heroCls: this.state.page === 'products' ? 'is-compact' : '',
+      curHome: this.state.page === 'home' ? 'page' : 'false',
+      curContact: this.state.page === 'contact' ? 'page' : 'false',
+      curTrack: this.state.page === 'tracking' ? 'page' : 'false',
+      selOrder: this.state.tab === 0 ? 'true' : 'false',
+      selTrack: this.state.tab === 1 ? 'true' : 'false',
       trackDisp: this.state.page === 'tracking' ? 'block' : 'none',
       trackBg: this.state.page === 'tracking' ? 'rgba(255,255,255,.07)' : 'transparent',
       trackSentDisp: this.state.tsent ? 'block' : 'none',

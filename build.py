@@ -13,8 +13,9 @@ open('index.html', 'w', encoding='utf-8').write(f'''<!doctype html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0a0907">
 <title>{title}</title>
-<style>html,body{{margin:0;background:#0b0d09}}</style>
+<style>html,body{{margin:0;background:#0a0907}}</style>
 </head>
 <body>
 <div id="app"></div>
