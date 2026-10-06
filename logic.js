@@ -110,9 +110,9 @@ class Component extends DCLogic {
     ];
     const trustDefs = [
       { title: 'Damage Protection Guarantee', text: 'Shop with confidence, risk-free.', kicker: 'Guarantee', back: 'If your MemoryOrb ever arrives damaged, we make it right. Shop with confidence, risk-free.', main: true },
-      { title: 'Free Shipping Today', text: 'Delivered to your door.', kicker: 'Shipping', back: 'Free shipping today on your MemoryOrb. Follow your parcel any time from the Tracking page.' },
-      { title: '30-Day Guarantee', text: 'Try it risk-free.', kicker: 'Returns', back: 'Not feeling it? You have 30 days to decide. Questions? Reach us any time from the Contact page.' },
-      { title: '5000+ Happy Customers', text: 'Loved by families everywhere.', kicker: 'Reviews', back: 'Verified buyers replay birthdays, weddings and everyday moments through their orb. 92% say it helps them relive memories more vividly.' }
+      { title: 'Free Shipping Today', text: '', kicker: 'Shipping', back: 'Free shipping today. Track it on the Tracking page.' },
+      { title: '30-Day Guarantee', text: '', kicker: 'Returns', back: 'Not happy? You have 30 days to decide.' },
+      { title: '5000+ Happy Customers', text: '', kicker: 'Reviews', back: '92% say it helps them relive memories vividly.' }
     ];
     const trust = trustDefs.map((d, i) => {
       const on = !!this.state.flip[i];
