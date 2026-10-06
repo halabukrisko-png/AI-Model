@@ -2,14 +2,14 @@
 class Component extends DCLogic {
   constructor(props) {
     super(props);
-    this.state = { prod: false, page: 'home', sent: false, tab: 0, tsent: false, bundle: 2, thumb: 0, colour: 0, outlet: 0, qty: 1, cf: 0, menu: false };
+    this.state = { prod: false, page: 'home', sent: false, tab: 0, tsent: false, bundle: 2, thumb: 0, colour: 0, outlet: 0, qty: 1, cf: 0, menu: false, flip: [false, false, false] };
   }
   componentDidMount() {
     const root = document.documentElement;
     const reduce = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
     // scroll-reveal (fade + translate, staggered through --d)
     try {
-      const els = document.querySelectorAll('.rvt, .rvb, .lg-ftr');
+      const els = document.querySelectorAll('.rvt, .hg, .lg-ftr');
       if (els.length && 'IntersectionObserver' in window) {
         root.classList.add('js-rv');
         const io = new IntersectionObserver((es) => es.forEach((e) => {
@@ -108,6 +108,15 @@ class Component extends DCLogic {
       { title: '30-Day Guarantee', text: '[DESCRIPTION]' },
       { title: '5000+ Happy Customers', text: '[DESCRIPTION]' }
     ];
+    const statDefs = [
+      { pct: '92%', v: 92, kicker: 'Vivid memories', text: 'Said the Orb helps them relive memories more vividly compared to a phone screen.', backTitle: '4GB Built-In Storage', backText: 'The MemoryOrb comes with 4GB of built-in storage for your photos and videos.' },
+      { pct: '89%', v: 89, kicker: 'Closer together', text: 'Reported feeling closer to loved ones when replaying moments through the Orb.', backTitle: 'One-Touch Controls', backText: 'One-touch controls let you move between your memories with a single tap.' },
+      { pct: '95%', v: 95, kicker: 'Unforgettable', text: 'Agreed the Orb made special occasions unforgettable, from birthdays to weddings.', backTitle: 'Damage Protection Guarantee', backText: 'Shop with confidence, risk-free.' }
+    ];
+    const stats = statDefs.map((d, i) => {
+      const on = !!this.state.flip[i];
+      return { ...d, cls: on ? 'is-flipped' : '', pressed: on ? 'true' : 'false', backHidden: on ? 'false' : 'true', label: d.pct + ' - ' + d.backTitle, toggle: () => { const f = this.state.flip.slice(); f[i] = !f[i]; this.setState({ flip: f }); } };
+    });
     const ci = this.state.cf;
     const cf = { ...cfs[ci], ic0: ci === 0, ic1: ci === 1, ic2: ci === 2, ic3: ci === 3 };
     const cfDots = cfs.map((s, i) => ({
@@ -139,7 +148,7 @@ class Component extends DCLogic {
       tabTrack: () => this.setState({ tab: 1, tsent: false }),
       goTracking: (e) => { this.setState({ page: 'tracking', menu: false, tsent: false }); try { window.scrollTo(0, 0); } catch (x) {} },
       sendTrack: (e) => { try { e.preventDefault(); } catch (x) {} this.setState({ tsent: true }); },
-      skyBg: this.state.page === 'home' ? '#09251b' : '#0b0d09',
+      skyBg: this.state.page === 'home' ? 'transparent' : '#0a0907',
       colDisp: (this.state.page === 'home' || this.state.page === 'products') ? 'block' : 'none',
       prodDisp: this.state.page === 'products' ? 'block' : 'none',
       prodExp: this.state.page === 'products' ? 'true' : 'false',
@@ -159,7 +168,7 @@ class Component extends DCLogic {
       goContact: (e) => { this.setState({ page: 'contact', menu: false, sent: false }); try { window.scrollTo(0, 0); } catch (x) {} },
       sendContact: (e) => { try { e.preventDefault(); } catch (x) {} this.setState({ sent: true }); },
       menuOpen: this.state.menu, openMenu: () => this.setState({ menu: true }), closeMenu: () => this.setState({ menu: false }),
-      bundles, thumbs, cColours, cName: cs[this.state.colour].name, cOutlets, cf, cfDots, cfPrev, cfNext, cfPrevColor, cfNextColor, cQty: this.state.qty, ctaTotal,
+      stats, bundles, thumbs, cColours, cName: cs[this.state.colour].name, cOutlets, cf, cfDots, cfPrev, cfNext, cfPrevColor, cfNextColor, cQty: this.state.qty, ctaTotal,
       cInc: () => this.setState({ qty: Math.min(9, this.state.qty + 1) }),
       cDec: () => this.setState({ qty: Math.max(1, this.state.qty - 1) })
     };
