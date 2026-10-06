@@ -9,7 +9,7 @@ class Component extends DCLogic {
     const reduce = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
     // scroll-reveal (fade + translate, staggered through --d)
     try {
-      const els = document.querySelectorAll('.rv, .rvb, .lg-ftr');
+      const els = document.querySelectorAll('.rvt, .rvb, .lg-ftr');
       if (els.length && 'IntersectionObserver' in window) {
         root.classList.add('js-rv');
         const io = new IntersectionObserver((es) => es.forEach((e) => {
