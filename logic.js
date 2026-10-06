@@ -139,7 +139,7 @@ class Component extends DCLogic {
       tabTrack: () => this.setState({ tab: 1, tsent: false }),
       goTracking: (e) => { this.setState({ page: 'tracking', menu: false, tsent: false }); try { window.scrollTo(0, 0); } catch (x) {} },
       sendTrack: (e) => { try { e.preventDefault(); } catch (x) {} this.setState({ tsent: true }); },
-      skyBg: this.state.page === 'home' ? '#113a00' : '#0b0d09',
+      skyBg: this.state.page === 'home' ? '#09251b' : '#0b0d09',
       colDisp: (this.state.page === 'home' || this.state.page === 'products') ? 'block' : 'none',
       prodDisp: this.state.page === 'products' ? 'block' : 'none',
       prodExp: this.state.page === 'products' ? 'true' : 'false',

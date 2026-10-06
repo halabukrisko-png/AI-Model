@@ -26,7 +26,7 @@
   --fg:#f5efe4; --fg-2:rgba(245,239,228,.74); --fg-3:rgba(245,239,228,.5);
   --line:rgba(245,239,228,.09); --line-2:rgba(245,239,228,.16); --line-3:rgba(245,239,228,.3);
   --brass:#d9b56b; --brass-hi:#f2dba3; --brass-lo:#a9843f;
-  --forest:#0f2b17; --forest-2:#173f24; --mint:#8fd99b;
+  --forest:#072018; --forest-2:#0d3326; --mint:#8fd99b;
   /* radius */
   --r-xs:8px; --r-sm:12px; --r-md:18px; --r-lg:26px; --r-xl:34px; --r-pill:999px;
   /* shadow */
@@ -366,7 +366,20 @@ textarea.field{height:140px;padding:16px 18px;resize:none;line-height:1.5}
 
 
 /* ---- christmas green: waves, hill, snow, garland ---- */
-:root{--green:#113a00}
+:root{--green:#09251b;
+  --emerald:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .75 0 0 0 0 .95 0 0 0 0 .85 0 0 0 .1 0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E"),
+    radial-gradient(70% 60% at 50% 46%,rgba(24,96,68,.5) 0%,rgba(16,70,50,.26) 42%,transparent 76%),
+    radial-gradient(130% 100% at 50% 50%,transparent 52%,rgba(0,8,5,.5) 100%),
+    linear-gradient(90deg,rgba(0,8,5,.4),transparent 22%,transparent 78%,rgba(0,8,5,.4)),
+    var(--green);
+  --emerald-zone:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .75 0 0 0 0 .95 0 0 0 0 .85 0 0 0 .1 0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E"),
+    radial-gradient(75% 24% at 50% 24%,rgba(24,96,68,.5),transparent 75%),
+    radial-gradient(75% 22% at 50% 70%,rgba(20,84,60,.4),transparent 75%),
+    linear-gradient(90deg,rgba(0,8,5,.42),transparent 24%,transparent 76%,rgba(0,8,5,.42)),
+    linear-gradient(180deg,transparent 80%,rgba(0,8,5,.35)),
+    var(--green)}
 .wave{display:block;width:100%;height:56px;margin-top:-1px;background:var(--ink)}
 .wave.flip{transform:scaleY(-1);margin-top:-1px}
 .wave.lens{background:var(--ink-2)}
@@ -388,19 +401,19 @@ html.js-rv .rvb{opacity:0;transition:opacity 5.5s cubic-bezier(.4,0,.2,1)}
 html.js-rv .rvb.in{opacity:1}
 html.js-rv .rvf{opacity:0;-webkit-mask-image:linear-gradient(to bottom,#000 40%,transparent 100%);mask-image:linear-gradient(to bottom,#000 40%,transparent 100%);-webkit-mask-size:100% 250%;mask-size:100% 250%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-position:0 100%;mask-position:0 100%;transition:opacity 5.5s cubic-bezier(.4,0,.2,1),-webkit-mask-position 7s cubic-bezier(.25,.6,.3,1),mask-position 7s cubic-bezier(.25,.6,.3,1)}
 html.js-rv .rvf.in{opacity:1;-webkit-mask-position:0 0;mask-position:0 0}
-.on-green{background:var(--green);padding-block:clamp(36px,6vw,80px) clamp(48px,7vw,96px)}
+.on-green{background:var(--emerald);padding-block:clamp(36px,6vw,80px) clamp(48px,7vw,96px)}
 .on-green .t-card{background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.2);color:var(--fg);box-shadow:var(--sh-sm)}
 .on-green .t-card:hover{border-color:rgba(143,217,155,.5);box-shadow:var(--sh-md)}
 .on-green .t-ico{background:rgba(255,255,255,.1);color:var(--mint);box-shadow:inset 0 0 0 1px rgba(255,255,255,.12)}
 .on-green .t-card.main p{color:var(--fg-2)}
 .on-green .eyebrow{color:var(--brass)}
-.why{background:var(--green);border-top:0;padding-block:clamp(36px,6vw,80px) clamp(48px,7vw,96px)}
+.why{background:linear-gradient(180deg,transparent 80%,var(--green)),var(--emerald);border-top:0;padding-block:clamp(36px,6vw,80px) clamp(48px,7vw,96px)}
 .lens-sec{padding-block:clamp(48px,8vw,96px) clamp(40px,7vw,80px);border-top:0}
 .stats{background:none;border-top:0;padding-block:clamp(40px,7vw,80px) var(--section)}
 .stat{background:rgba(0,0,0,.2)}
 .footer{background:none;border-top:0;border-radius:0;margin-top:0;padding:0 0 84px;overflow:visible}
 .footer>.wrap{padding-top:34px}
-.to-top{top:120px;background:#0d2c00;border-color:rgba(255,255,255,.18)}
+.to-top{top:120px;background:#06190f;border-color:rgba(255,255,255,.18)}
 
 
 /* ---- animated logo (letters write in, hat drops, balloons pop) ---- */
@@ -713,7 +726,7 @@ html.js-rv .rv.in{opacity:1;transform:none}
   <!-- home page: trust, visual, comparison -->
   <div style="display:{{infoDisp}}">
 
-    <svg class="wave " aria-hidden="true" viewBox="0 0 432 44" preserveAspectRatio="none"><path d="M0 24C100 4 220 4 300 20C360 32 400 20 432 16V44H0Z" fill="#a3b39d" fill-opacity=".55"/><path d="M0 30C90 16 210 16 300 28C370 36 410 28 432 26V44H0Z" fill="#5f7a58" fill-opacity=".85"/><path d="M0 34C110 22 230 24 330 32C380 36 410 32 432 30V44H0Z" fill="#113a00"/><path d="M0 34C110 22 230 24 330 32C380 36 410 32 432 30" fill="none" stroke="#f1f6ee" stroke-width="3" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg>
+    <svg class="wave " aria-hidden="true" viewBox="0 0 432 44" preserveAspectRatio="none"><path d="M0 24C100 4 220 4 300 20C360 32 400 20 432 16V44H0Z" fill="#3f6e5a" fill-opacity=".55"/><path d="M0 30C90 16 210 16 300 28C370 36 410 28 432 26V44H0Z" fill="#1b4a39" fill-opacity=".85"/><path d="M0 34C110 22 230 24 330 32C380 36 410 32 432 30V44H0Z" fill="#09251b"/><path d="M0 34C110 22 230 24 330 32C380 36 410 32 432 30" fill="none" stroke="#f1f6ee" stroke-width="3" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg>
     <section class="on-green sec" aria-label="Shop with confidence">
       <div class="wrap">
         <div class="sec-head rv"><span class="eyebrow c">Guarantee</span><h2 class="h2">Shop with <em>confidence</em></h2></div>
@@ -738,7 +751,7 @@ html.js-rv .rv.in{opacity:1;transform:none}
       </div>
     </section>
 
-    <svg class="wave flip" aria-hidden="true" viewBox="0 0 432 44" preserveAspectRatio="none"><path d="M0 24C100 4 220 4 300 20C360 32 400 20 432 16V44H0Z" fill="#a3b39d" fill-opacity=".55"/><path d="M0 30C90 16 210 16 300 28C370 36 410 28 432 26V44H0Z" fill="#5f7a58" fill-opacity=".85"/><path d="M0 34C110 22 230 24 330 32C380 36 410 32 432 30V44H0Z" fill="#113a00"/><path d="M0 34C110 22 230 24 330 32C380 36 410 32 432 30" fill="none" stroke="#f1f6ee" stroke-width="3" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg>
+    <svg class="wave flip" aria-hidden="true" viewBox="0 0 432 44" preserveAspectRatio="none"><path d="M0 24C100 4 220 4 300 20C360 32 400 20 432 16V44H0Z" fill="#3f6e5a" fill-opacity=".55"/><path d="M0 30C90 16 210 16 300 28C370 36 410 28 432 26V44H0Z" fill="#1b4a39" fill-opacity=".85"/><path d="M0 34C110 22 230 24 330 32C380 36 410 32 432 30V44H0Z" fill="#09251b"/><path d="M0 34C110 22 230 24 330 32C380 36 410 32 432 30" fill="none" stroke="#f1f6ee" stroke-width="3" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg>
     <section class="lens-sec" aria-label="Where memories take shape">
       <div class="wrap">
         <div class="sec-head rv"><span class="eyebrow c">MemoryOrb</span><h2 class="h2">Where memories <em>take shape</em></h2></div>
@@ -749,7 +762,7 @@ html.js-rv .rv.in{opacity:1;transform:none}
       </div>
     </section>
 
-    <svg class="wave lens" aria-hidden="true" viewBox="0 0 432 44" preserveAspectRatio="none"><path d="M0 24C100 4 220 4 300 20C360 32 400 20 432 16V44H0Z" fill="#a3b39d" fill-opacity=".55"/><path d="M0 30C90 16 210 16 300 28C370 36 410 28 432 26V44H0Z" fill="#5f7a58" fill-opacity=".85"/><path d="M0 34C110 22 230 24 330 32C380 36 410 32 432 30V44H0Z" fill="#113a00"/><path d="M0 34C110 22 230 24 330 32C380 36 410 32 432 30" fill="none" stroke="#f1f6ee" stroke-width="3" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg>
+    <svg class="wave lens" aria-hidden="true" viewBox="0 0 432 44" preserveAspectRatio="none"><path d="M0 24C100 4 220 4 300 20C360 32 400 20 432 16V44H0Z" fill="#3f6e5a" fill-opacity=".55"/><path d="M0 30C90 16 210 16 300 28C370 36 410 28 432 26V44H0Z" fill="#1b4a39" fill-opacity=".85"/><path d="M0 34C110 22 230 24 330 32C380 36 410 32 432 30V44H0Z" fill="#09251b"/><path d="M0 34C110 22 230 24 330 32C380 36 410 32 432 30" fill="none" stroke="#f1f6ee" stroke-width="3" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg>
     <section class="why sec">
       <div class="wrap">
         <div class="sec-head rv">
@@ -808,7 +821,7 @@ html.js-rv .rv.in{opacity:1;transform:none}
 
   <!-- green zone: hill, snowfall, stats, footer -->
   <div class="gz">
-    <div class="rvf" aria-hidden="true" style="position:absolute;left:0;right:0;top:119px;bottom:0;z-index:-1;background:var(--green)"></div>
+    <div class="rvf" aria-hidden="true" style="position:absolute;left:0;right:0;top:119px;bottom:0;z-index:-1;background:var(--emerald-zone)"></div>
     <div class="rvs" aria-hidden="true" style="position:absolute;left:0;right:0;top:80px;bottom:0;z-index:2;pointer-events:none">
       <i class="fl" style="left:17.7%;width:5px;height:5px;--dx:-23px;animation-duration:20.0s,6.3s;animation-delay:3.4s,0s"></i>
       <i class="fl" style="left:50.7%;width:4px;height:4px;--dx:-19px;animation-duration:21.2s,6.8s;animation-delay:9.5s,0s"></i>
@@ -877,7 +890,7 @@ html.js-rv .rv.in{opacity:1;transform:none}
     </div>
   <div aria-hidden="true" style="position:relative;height:120px;margin-top:0;background:{{skyBg}}">
     <svg viewBox="0 0 432 120" preserveAspectRatio="none" style="position:absolute;left:0;bottom:0;width:100%;height:120px;display:block">
-      <g class="rvb hg"><path d="M0 68C90 26 190 28 290 50C350 63 400 54 432 42V120H0Z" fill="#a3b39d" fill-opacity=".55"/><path d="M0 73C90 32 190 34 290 56C350 69 400 60 432 48V120H0Z" fill="#5f7a58" fill-opacity=".85"/><path d="M0 78C90 38 190 40 290 62C350 75 400 66 432 54V120H0Z" fill="#113a00"/><path d="M0 78C90 38 190 40 290 62C350 75 400 66 432 54" fill="none" stroke="#f1f6ee" stroke-width="3" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+      <g class="rvb hg"><path d="M0 68C90 26 190 28 290 50C350 63 400 54 432 42V120H0Z" fill="#3f6e5a" fill-opacity=".55"/><path d="M0 73C90 32 190 34 290 56C350 69 400 60 432 48V120H0Z" fill="#1b4a39" fill-opacity=".85"/><path d="M0 78C90 38 190 40 290 62C350 75 400 66 432 54V120H0Z" fill="#09251b"/><path d="M0 78C90 38 190 40 290 62C350 75 400 66 432 54" fill="none" stroke="#f1f6ee" stroke-width="3" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
       </g>
     </svg>
   </div>
