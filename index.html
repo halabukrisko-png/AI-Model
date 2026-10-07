@@ -395,6 +395,7 @@ textarea.field{height:140px;padding:16px 18px;resize:none;line-height:1.5}
 .wave .sky{fill:var(--sky,var(--ink))}
 .wave .ln{fill:none;stroke:#f1f6ee;stroke-width:3;stroke-linecap:round;vector-effect:non-scaling-stroke}
 .gz{position:relative;overflow:hidden;isolation:isolate;color:#fff;background:var(--emerald-zone)}
+.gz::before{content:"";position:absolute;left:0;right:0;top:60px;height:200px;background:radial-gradient(75% 100% at 50% 0%,rgba(70,160,118,.2),transparent 72%);pointer-events:none;z-index:0}
 .fl{position:absolute;top:-2%;z-index:2;pointer-events:none;border-radius:50%;background:#fff;box-shadow:0 0 5px 1px rgba(255,255,255,.6);opacity:0;animation:fall 9s linear infinite,sway 3s ease-in-out infinite alternate}
 @keyframes fall{0%{top:4%;opacity:0}10%{opacity:.9}90%{opacity:.8}100%{top:97%;opacity:0}}
 @keyframes sway{from{margin-left:0}to{margin-left:var(--dx)}}
@@ -976,7 +977,7 @@ footer h2,footer p,footer nav a{text-shadow:0 2px 7px rgba(0,0,0,.6)}
       <i class="fl" style="left:42.9%;width:4px;height:4px;--dx:-25px;animation-duration:17.6s,6.5s;animation-delay:5.7s,0s"></i>
     </div>
   <div aria-hidden="true" style="position:relative;height:120px">
-    <svg viewBox="0 0 432 120" preserveAspectRatio="none" style="position:absolute;left:0;bottom:0;width:100%;height:120px;display:block"><g class="hg"><path d="M0 0H432V54C400 66 350 75 290 62C190 40 90 38 0 78Z" fill="{{skyBg}}"/><path d="M0 78C90 38 190 40 290 62C350 75 400 66 432 54" fill="none" stroke="#f1f6ee" stroke-width="3" stroke-linecap="round" vector-effect="non-scaling-stroke"/></g></svg>
+    <svg viewBox="0 0 432 120" preserveAspectRatio="none" style="position:absolute;left:0;bottom:0;width:100%;height:120px;display:block"><defs><linearGradient id="skyH" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0a0907"/><stop offset=".4" stop-color="#0a0907"/><stop offset=".78" stop-color="#0b1812"/><stop offset="1" stop-color="#10291f"/></linearGradient></defs><g class="hg"><path d="M0 0H432V54C400 66 350 75 290 62C190 40 90 38 0 78Z" fill="{{skyBg}}"/><path d="M0 78C90 38 190 40 290 62C350 75 400 66 432 54" fill="none" stroke="#f1f6ee" stroke-width="3" stroke-linecap="round" vector-effect="non-scaling-stroke" style="filter:drop-shadow(0 0 5px rgba(242,219,163,.28))"/></g></svg>
   </div>
   <!-- stats -->
   <section class="stats sec">
