@@ -27,6 +27,7 @@ button{font-family:inherit;cursor:pointer}
 @keyframes mound{from{transform:translateY(46px)}to{transform:translateY(0)}}
 @keyframes orbGlow{0%,100%{box-shadow:0 0 0 1.5px rgba(255,255,255,.9),0 0 12px 2px rgba(255,226,60,.55)}50%{box-shadow:0 0 0 1.5px #fff,0 0 22px 7px rgba(255,226,60,.95)}}
 .lg-hdr .ch.orb-red{animation:chIn .6s cubic-bezier(.22,.61,.36,1) both,orbGlow 2.8s ease-in-out infinite;animation-delay:calc(var(--d,0s) + var(--i) * .16s),1.6s}
+.dcin::placeholder{color:rgba(255,255,255,.45)}
 .ch{font-weight:inherit}
 b.ch{font-weight:600;display:inline-block}
 @keyframes chIn{from{opacity:0;transform:translateY(8px) scale(.7)}to{opacity:1;transform:none}}
@@ -350,35 +351,38 @@ select{font-family:inherit}
   </div>
 
   <!-- contact page -->
-  <div style="display:{{contactDisp}};background:#0b0d09;color:#fff;font-family:'Poppins','Manrope',sans-serif;padding:56px 16px 64px;min-height:560px;box-sizing:border-box">
-    <h1 style="margin:0 0 28px;text-align:center;font-size:30px;font-weight:700;letter-spacing:.02em;color:#fff">Get in touch</h1>
-    <form onSubmit="{{sendContact}}" style="display:flex;flex-direction:column;gap:16px">
-      <input type="text" placeholder="Name" aria-label="Name" style="height:50px;box-sizing:border-box;padding:0 22px;border:1px solid rgba(255,255,255,.35);border-radius:8px;background:rgba(255,255,255,.04);font:inherit;font-size:16px;letter-spacing:.08em;color:#fff;outline:none">
-      <input type="email" placeholder="Email" aria-label="Email" style="height:50px;box-sizing:border-box;padding:0 22px;border:1px solid rgba(255,255,255,.35);border-radius:8px;background:rgba(255,255,255,.04);font:inherit;font-size:16px;letter-spacing:.08em;color:#fff;outline:none">
-      <input type="tel" placeholder="Phone number" aria-label="Phone number" style="height:50px;box-sizing:border-box;padding:0 22px;border:1px solid rgba(255,255,255,.35);border-radius:8px;background:rgba(255,255,255,.04);font:inherit;font-size:16px;letter-spacing:.08em;color:#fff;outline:none">
-      <textarea placeholder="Comment" aria-label="Comment" style="height:108px;box-sizing:border-box;padding:14px 22px;border:1px solid rgba(255,255,255,.35);border-radius:8px;background:rgba(255,255,255,.04);font:inherit;font-size:16px;letter-spacing:.08em;color:#fff;outline:none;resize:none"></textarea>
-      <button type="submit" style="height:52px;border:0;border-radius:8px;background:#113a00;border:1px solid rgba(243,210,122,.6);color:#fff;font:inherit;font-size:17px;font-weight:700;letter-spacing:.14em;box-shadow:0 4px 10px rgba(0,0,0,.18);cursor:pointer">Send</button>
+  <div style="display:{{contactDisp}};background:radial-gradient(ellipse 70% 40% at 12% 28%,rgba(17,90,10,.55),transparent 70%),radial-gradient(ellipse 60% 35% at 92% 12%,rgba(243,210,122,.20),transparent 70%),#0b0d09;color:#fff;font-family:'Poppins','Manrope',sans-serif;padding:56px 20px 64px;min-height:560px;box-sizing:border-box">
+    <div style="display:flex;align-items:center;justify-content:center;gap:16px;font-size:15px;font-weight:600;letter-spacing:.3em;color:#d9b45f"><span style="width:38px;height:1px;background:#b8923f"></span>MEMORYORB<span style="width:38px;height:1px;background:#b8923f"></span></div>
+    <h1 style="margin:20px 0 34px;text-align:center;font-family:'Cormorant Garamond',serif;font-weight:500;font-size:46px;line-height:1.1;color:#fff">Get in <em style="color:#f1d99a">touch</em></h1>
+    <form onSubmit="{{sendContact}}" style="border:1px solid rgba(243,210,122,.28);border-radius:30px;background:#0d0f0a;padding:28px 24px 30px">
+      <label style="display:block;margin:0 0 10px;font-size:13px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.55)">Name</label><input class="dcin" type="text" placeholder="Name" aria-label="Name" style="width:100%;height:58px;box-sizing:border-box;padding:0 20px;border:1px solid rgba(255,255,255,.14);border-radius:14px;background:#14160f;color:#fff;font:inherit;font-size:17px;outline:none">
+      <label style="display:block;margin:0 0 10px;font-size:13px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-top:22px">Email</label><input class="dcin" type="email" placeholder="Email" aria-label="Email" style="width:100%;height:58px;box-sizing:border-box;padding:0 20px;border:1px solid rgba(255,255,255,.14);border-radius:14px;background:#14160f;color:#fff;font:inherit;font-size:17px;outline:none">
+      <label style="display:block;margin:0 0 10px;font-size:13px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-top:22px">Phone number</label><input class="dcin" type="tel" placeholder="Phone number" aria-label="Phone number" style="width:100%;height:58px;box-sizing:border-box;padding:0 20px;border:1px solid rgba(255,255,255,.14);border-radius:14px;background:#14160f;color:#fff;font:inherit;font-size:17px;outline:none">
+      <label style="display:block;margin:0 0 10px;font-size:13px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-top:22px">Comment</label><textarea class="dcin" placeholder="Comment" aria-label="Comment" style="width:100%;height:58px;box-sizing:border-box;padding:0 20px;border:1px solid rgba(255,255,255,.14);border-radius:14px;background:#14160f;color:#fff;font:inherit;font-size:17px;outline:none;height:150px;padding:16px 20px;resize:none"></textarea>
+      <button type="submit" style="margin-top:28px;width:100%;height:60px;border:0;border-radius:14px;background:linear-gradient(180deg,#f6dd96 0%,#e3bd62 55%,#c9a04a 100%);color:#17140a;font:inherit;font-size:18px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;box-shadow:0 10px 26px rgba(243,210,122,.22)">Send</button>
+      <p style="display:{{sentDisp}};margin:18px 0 0;text-align:center;font-size:15px;color:#7fdc8a">Thank you, your message was sent.</p>
     </form>
-    <p style="display:{{sentDisp}};margin:18px 0 0;text-align:center;font-size:15px;color:#7fdc8a">Thank you, your message was sent.</p>
   </div>
 
   <!-- tracking page -->
-  <div style="display:{{trackDisp}};background:#0b0d09;color:#fff;font-family:'Poppins','Manrope',sans-serif;padding:56px 21px 56px;min-height:560px;box-sizing:border-box">
-    <h1 style="margin:0 0 40px;text-align:center;font-size:34px;font-weight:700;letter-spacing:.02em;color:#fff">Track Your Order</h1>
-    <div role="tablist" style="display:flex">
-      <button role="tab" onClick="{{tabOrder}}" style="flex:1;background:none;border:0;border-bottom:3px solid {{tabOrderLine}};padding:0 0 18px;font:inherit;font-size:17px;letter-spacing:.1em;color:{{tabOrderColor}};cursor:pointer">Order Number</button>
-      <button role="tab" onClick="{{tabTrack}}" style="flex:1;background:none;border:0;border-bottom:3px solid {{tabTrackLine}};padding:0 0 18px;font:inherit;font-size:17px;letter-spacing:.1em;color:{{tabTrackColor}};cursor:pointer">Tracking Number</button>
+  <div style="display:{{trackDisp}};background:radial-gradient(ellipse 70% 40% at 12% 28%,rgba(17,90,10,.55),transparent 70%),radial-gradient(ellipse 60% 35% at 92% 12%,rgba(243,210,122,.20),transparent 70%),#0b0d09;color:#fff;font-family:'Poppins','Manrope',sans-serif;padding:56px 20px 64px;min-height:560px;box-sizing:border-box">
+    <div style="display:flex;align-items:center;justify-content:center;gap:16px;font-size:15px;font-weight:600;letter-spacing:.3em;color:#d9b45f"><span style="width:38px;height:1px;background:#b8923f"></span>MEMORYORB<span style="width:38px;height:1px;background:#b8923f"></span></div>
+    <h1 style="margin:20px 0 34px;text-align:center;font-family:'Cormorant Garamond',serif;font-weight:500;font-size:46px;line-height:1.1;color:#fff">Track your <em style="color:#f1d99a">order</em></h1>
+    <div style="border:1px solid rgba(243,210,122,.28);border-radius:30px;background:#0d0f0a;padding:28px 24px 30px">
+      <div role="tablist" style="display:flex;gap:6px;padding:6px;border:1px solid rgba(255,255,255,.12);border-radius:18px;background:#14160f">
+        <button role="tab" onClick="{{tabOrder}}" style="flex:1;height:54px;border:1px solid {{tabOrderLine}};border-radius:13px;background:{{tabOrderBg}};font:inherit;font-size:14px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:{{tabOrderColor}};cursor:pointer">Order number</button>
+        <button role="tab" onClick="{{tabTrack}}" style="flex:1;height:54px;border:1px solid {{tabTrackLine}};border-radius:13px;background:{{tabTrackBg}};font:inherit;font-size:14px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:{{tabTrackColor}};cursor:pointer">Tracking number</button>
+      </div>
+      <form onSubmit="{{sendTrack}}" style="margin-top:30px">
+        <label style="display:block;margin:0 0 10px;font-size:13px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.55)">{{trackLabel}}</label><input class="dcin" type="text" aria-label="{{trackLabel}}" style="width:100%;height:58px;box-sizing:border-box;padding:0 20px;border:1px solid rgba(255,255,255,.14);border-radius:14px;background:#14160f;color:#fff;font:inherit;font-size:17px;outline:none">
+        <label style="display:block;margin:0 0 10px;font-size:13px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-top:22px">Email or phone number</label><input class="dcin" type="text" aria-label="Email or phone number" style="width:100%;height:58px;box-sizing:border-box;padding:0 20px;border:1px solid rgba(255,255,255,.14);border-radius:14px;background:#14160f;color:#fff;font:inherit;font-size:17px;outline:none">
+        <button type="submit" style="margin-top:28px;width:100%;height:60px;border:0;border-radius:14px;background:linear-gradient(180deg,#f6dd96 0%,#e3bd62 55%,#c9a04a 100%);color:#17140a;font:inherit;font-size:18px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;box-shadow:0 10px 26px rgba(243,210,122,.22)">Track</button>
+      </form>
+      <p style="margin:18px 0 0;text-align:center;font-size:16px;font-style:italic;letter-spacing:.1em;color:rgba(255,255,255,.4)">Powered by Track123</p>
+      <p style="display:{{trackSentDisp}};margin:14px 0 0;text-align:center;font-size:15px;color:#7fdc8a">No order found yet. This is a preview.</p>
     </div>
-    <form onSubmit="{{sendTrack}}" style="margin-top:36px">
-      <label style="display:block;font-size:19px;letter-spacing:.08em;margin-bottom:12px">{{trackLabel}}</label>
-      <input type="text" aria-label="{{trackLabel}}" style="width:100%;height:56px;box-sizing:border-box;padding:0 22px;border:1.5px solid rgba(255,255,255,.45);border-radius:28px;background:rgba(255,255,255,.04);font:inherit;font-size:16px;color:#fff;outline:none">
-      <label style="display:block;font-size:19px;letter-spacing:.08em;margin:28px 0 12px">Email or Phone Number</label>
-      <input type="text" aria-label="Email or Phone Number" style="width:100%;height:56px;box-sizing:border-box;padding:0 22px;border:1.5px solid rgba(255,255,255,.45);border-radius:28px;background:rgba(255,255,255,.04);font:inherit;font-size:16px;color:#fff;outline:none">
-      <button type="submit" style="margin-top:34px;width:100%;height:56px;border:1px solid rgba(243,210,122,.6);border-radius:28px;background:#113a00;color:#fff;font:inherit;font-size:19px;font-weight:700;letter-spacing:.1em;box-shadow:0 4px 12px rgba(0,0,0,.2);cursor:pointer">Track</button>
-    </form>
-    <p style="margin:14px 0 0;text-align:center;font-size:15px;font-style:italic;letter-spacing:.1em;color:#6f716b">Powered by Track123</p>
-    <p style="display:{{trackSentDisp}};margin:14px 0 0;text-align:center;font-size:15px;color:#7fdc8a">No order found yet. This is a preview.</p>
   </div>
+
   <!-- green zone: snowfall from the hill to the bottom -->
   <div style="position:relative;overflow:hidden;isolation:isolate;color:#fff">
     <div class="rvf" aria-hidden="true" style="position:absolute;left:0;right:0;top:119px;bottom:0;z-index:-1;background:#113a00"></div>
@@ -609,10 +613,12 @@ class Component extends DCLogic {
       trackBg: this.state.page === 'tracking' ? 'rgba(255,255,255,.07)' : 'transparent',
       trackSentDisp: this.state.tsent ? 'block' : 'none',
       trackLabel: this.state.tab === 0 ? 'Order Number' : 'Tracking Number',
-      tabOrderLine: this.state.tab === 0 ? '#f3d27a' : '#3a3d38',
-      tabTrackLine: this.state.tab === 1 ? '#f3d27a' : '#3a3d38',
-      tabOrderColor: this.state.tab === 0 ? '#fff' : '#8a8a84',
-      tabTrackColor: this.state.tab === 1 ? '#fff' : '#8a8a84',
+      tabOrderLine: this.state.tab === 0 ? 'rgba(243,210,122,.7)' : 'transparent',
+      tabOrderBg: this.state.tab === 0 ? 'rgba(243,210,122,.12)' : 'transparent',
+      tabTrackBg: this.state.tab === 1 ? 'rgba(243,210,122,.12)' : 'transparent',
+      tabTrackLine: this.state.tab === 1 ? 'rgba(243,210,122,.7)' : 'transparent',
+      tabOrderColor: this.state.tab === 0 ? '#f3d27a' : 'rgba(255,255,255,.55)',
+      tabTrackColor: this.state.tab === 1 ? '#f3d27a' : 'rgba(255,255,255,.55)',
       tabOrder: () => this.setState({ tab: 0, tsent: false }),
       tabTrack: () => this.setState({ tab: 1, tsent: false }),
       goTracking: (e) => { this.setState({ page: 'tracking', menu: false, tsent: false }); try { window.scrollTo(0, 0); } catch (x) {} },
