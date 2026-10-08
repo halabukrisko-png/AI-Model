@@ -561,8 +561,9 @@ html.js-rv .mo-ul.in::after{transform:scaleX(1)}
 .panel{position:relative;border-color:transparent}
 .pa-grid{display:grid;gap:8px}
 .pa-col{min-width:0}
-.panel-all::before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:radial-gradient(110% 80% at 50% 38%,transparent 12%,rgba(14,12,9,.45) 55%,rgba(14,12,9,.9) 100%),linear-gradient(180deg,transparent 0,transparent 40%,rgba(14,12,9,.55) 100%)}
-.panel-all>*{position:relative}
+.panel-all::before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:radial-gradient(110% 80% at 50% 38%,transparent 12%,rgba(14,12,9,.45) 55%,rgba(14,12,9,.9) 100%),linear-gradient(180deg,rgba(14,12,9,.92) 0,rgba(14,12,9,.35) 16%,transparent 34%,transparent 46%,rgba(14,12,9,.6) 100%)}
+.panel-all>.pa-grid{position:relative;z-index:1}
+.panel-all>.pframe,.panel-all>.pdot{z-index:3}
 .panel-all .bundle{background:#14120e}
 .panel-all .bundle.is-on{background:linear-gradient(180deg,#2a2314,#17140d)}
 .panel-all .select select{background:#1d1a14}
