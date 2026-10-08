@@ -9,3 +9,7 @@ Static site, no build step needed for deploy: `index.html` + `runtime.js` + `log
 ## Design system
 
 All visual styling lives in the `<style>` block at the top of `memoryorb/project/Main.dc.html` (tokens in `:root`: colour, radius, shadow, motion, spacing; fonts: Manrope + Cormorant Garamond italic for accent words). Layout is responsive (mobile → tablet → desktop) and honours `prefers-reduced-motion`. After editing, run `python3 build.py`.
+
+## Deploy
+
+Production deploys from `main` (Vercel). After editing `memoryorb/project/Main.dc.html` run `python3 build.py` and commit the regenerated `index.html` and `logic.js` together.
