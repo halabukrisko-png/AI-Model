@@ -557,9 +557,14 @@ footer h2,footer p,footer nav a{text-shadow:0 2px 7px rgba(0,0,0,.6)}
 html.js-rv .mo-ul::after{transform:scaleX(0);transition:transform 1.8s cubic-bezier(.45,.05,.15,1) .7s}
 html.js-rv .mo-ul.in::after{transform:scaleX(1)}
 @media (prefers-reduced-motion:reduce){html.js-rv .mo-ul::after{transform:scaleX(1);transition:none}}
-/* ---- colour panel: gold frame lights up when it scrolls into view ---- */
-.panel{transition:border-color 1.1s var(--ease),box-shadow 1.1s var(--ease)}
-html.js-rv .panel.in{border-color:rgba(217,181,107,.6);box-shadow:inset 0 1px 0 rgba(242,219,163,.18),0 0 0 1px rgba(217,181,107,.14),0 0 34px -8px rgba(217,181,107,.3),0 20px 38px -24px rgba(0,0,0,.75)}
+/* ---- colour panel: gold frame draws itself around the panel when scrolled into view ---- */
+.panel{position:relative}
+.pframe{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible}
+.pframe rect{fill:none;stroke:#d9b56b;stroke-width:1.5;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1;filter:drop-shadow(0 0 5px rgba(217,181,107,.4));opacity:0}
+html.js-rv .panel.in .pframe rect{opacity:1;animation:frameDraw 2.6s cubic-bezier(.45,.05,.2,1) .15s both}
+@keyframes frameDraw{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+html:not(.js-rv) .pframe rect{opacity:1;stroke-dashoffset:0}
+@media (prefers-reduced-motion:reduce){html.js-rv .panel.in .pframe rect{animation:none;stroke-dashoffset:0}}
 /* ---- scroll reveal ---- */
 
 /* ---- responsive ---- */
@@ -712,7 +717,7 @@ html.js-rv .panel.in{border-color:rgba(217,181,107,.6);box-shadow:inset 0 1px 0 
       </div>
 
       <div class="buy-grid">
-        <div class="panel rv" style="--d:80ms">
+        <div class="panel rv" style="--d:80ms"><svg class="pframe" aria-hidden="true"><rect x=".75" y=".75" width="calc(100% - 1.5px)" height="calc(100% - 1.5px)" rx="25" pathLength="1"/></svg>
           <div class="panel-t"><span>Colour</span><b>{{cName}}</b></div>
           <div class="swatches" role="radiogroup" aria-label="Colour">
             <sc-for list="{{cColours}}" as="c" hint-placeholder-count="5">
