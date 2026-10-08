@@ -560,14 +560,11 @@ footer h2,footer p,footer nav a{text-shadow:0 2px 7px rgba(0,0,0,.6)}
 html.js-rv .mo-ul::after{transform:scaleX(0);transition:transform 1.8s cubic-bezier(.45,.05,.15,1) .7s}
 html.js-rv .mo-ul.in::after{transform:scaleX(1)}
 @media (prefers-reduced-motion:reduce){html.js-rv .mo-ul::after{transform:scaleX(1);transition:none}}
-/* ---- colour panel: gold frame draws itself around the panel when scrolled into view ---- */
+/* ---- colour panel: gold frame is drawn progressively as you scroll ---- */
 .panel{position:relative}
 .pframe{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible}
-.pframe rect{fill:none;stroke:#d9b56b;stroke-width:1.5;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1;filter:drop-shadow(0 0 5px rgba(217,181,107,.4));opacity:0}
-html.js-rv .panel.in .pframe rect{opacity:1;animation:frameDraw 2.6s cubic-bezier(.45,.05,.2,1) .15s both}
-@keyframes frameDraw{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
-html:not(.js-rv) .pframe rect{opacity:1;stroke-dashoffset:0}
-@media (prefers-reduced-motion:reduce){html.js-rv .panel.in .pframe rect{animation:none;stroke-dashoffset:0}}
+.pframe rect{fill:none;stroke:#d9b56b;stroke-width:1.5;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:calc(1 - var(--pf,0));filter:drop-shadow(0 0 5px rgba(217,181,107,.4))}
+html:not(.js-rv) .pframe rect{--pf:1}
 /* ---- scroll reveal ---- */
 
 /* ---- responsive ---- */

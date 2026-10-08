@@ -32,6 +32,12 @@ class Component extends DCLogic {
       const frame = () => {
         tick = false;
         root.classList.toggle('is-scrolled', (window.scrollY || 0) > 24);
+        const vh0 = window.innerHeight;
+        document.querySelectorAll('.panel').forEach((pn) => {
+          const r = pn.getBoundingClientRect();
+          const k = reduce ? 1 : Math.max(0, Math.min(1, (vh0 * 0.9 - r.top) / (r.height * 0.85 + vh0 * 0.2)));
+          pn.style.setProperty('--pf', k.toFixed(3));
+        });
         if (reduce) return;
         const vh = window.innerHeight;
         document.querySelectorAll('[data-px]').forEach((el) => {
