@@ -595,6 +595,21 @@ html.js-rv .mo-ul.in::after{transform:scaleX(1)}
 .pframe i{position:absolute;inset:0;border-radius:inherit;padding:1.5px;background:#d9b56b;-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0)}
 .pdot{position:absolute;left:50%;top:0;width:7px;height:7px;margin:-3.5px 0 0 -3.5px;transform:rotate(45deg);background:linear-gradient(135deg,#f7e7bd,#c79a4a);box-shadow:0 0 10px 1px rgba(242,219,163,.55);pointer-events:none;opacity:min(1,calc(var(--pf,0)*14))}
 html:not(.js-rv) .panel{--pf:1}
+/* snow is already falling when the section comes into view */
+.gz .rvs{opacity:1!important;transition:none}
+html.js-rv .gz .rvs:not(.in) .fl{animation-play-state:running!important}
+.gz .fl:nth-child(12n+1){animation-delay:-3s,-1s!important}
+.gz .fl:nth-child(12n+2){animation-delay:-5s,-2s!important}
+.gz .fl:nth-child(12n+3){animation-delay:-7s,-3s!important}
+.gz .fl:nth-child(12n+4){animation-delay:-9s,-4s!important}
+.gz .fl:nth-child(12n+5){animation-delay:-11s,-5s!important}
+.gz .fl:nth-child(12n+6){animation-delay:-13s,-6s!important}
+.gz .fl:nth-child(12n+7){animation-delay:-15s,-7s!important}
+.gz .fl:nth-child(12n+8){animation-delay:-17s,-8s!important}
+.gz .fl:nth-child(12n+9){animation-delay:-19s,-9s!important}
+.gz .fl:nth-child(12n+10){animation-delay:-21s,-10s!important}
+.gz .fl:nth-child(12n+11){animation-delay:-23s,-11s!important}
+.gz .fl:nth-child(12n){animation-delay:-25s,-12s!important}
 /* ---- scroll reveal ---- */
 
 /* ---- responsive ---- */
@@ -961,7 +976,7 @@ html:not(.js-rv) .panel{--pf:1}
 
   <!-- green zone: hill, snowfall, stats, footer -->
   <div class="gz">
-    <div class="rvs" aria-hidden="true" style="position:absolute;left:0;right:0;top:80px;bottom:0;z-index:2;pointer-events:none">
+    <div class="rvs" aria-hidden="true" style="position:absolute;left:0;right:0;top:30px;bottom:0;z-index:2;pointer-events:none">
       <i class="fl" style="left:17.7%;width:5px;height:5px;--dx:-23px;animation-duration:20.0s,6.3s;animation-delay:3.4s,0s"></i>
       <i class="fl" style="left:50.7%;width:4px;height:4px;--dx:-19px;animation-duration:21.2s,6.8s;animation-delay:9.5s,0s"></i>
       <i class="fl" style="left:42.7%;width:3px;height:3px;--dx:-9px;animation-duration:24.4s,5.0s;animation-delay:2.8s,0s"></i>
