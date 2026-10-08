@@ -106,7 +106,7 @@ sup.tm{font-size:.28em;vertical-align:top;position:relative;top:.55em;margin-lef
 .ann:hover{color:#fff}
 .hdr{position:sticky;top:0;z-index:60;transition:background .45s var(--ease),box-shadow .45s var(--ease),border-color .45s var(--ease),backdrop-filter .45s;border-bottom:1px solid transparent;-webkit-backdrop-filter:blur(0);backdrop-filter:blur(0)}
 .hdr-in{display:grid;grid-template-columns:48px 1fr 48px;grid-template-areas:"menu logo act";align-items:center;height:var(--hdr);transition:height .45s var(--ease)}
-.hdr::after{content:"";position:absolute;left:0;right:0;bottom:16px;height:1px;pointer-events:none;background:rgba(217,181,107,.6)}
+.hdr::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:1px;pointer-events:none;background:linear-gradient(90deg,transparent,rgba(242,219,163,.14) 14%,rgba(242,219,163,.55) 50%,rgba(242,219,163,.14) 86%,transparent)}
 html.is-scrolled .hdr{background:rgba(10,9,7,.7);-webkit-backdrop-filter:saturate(1.5) blur(18px);backdrop-filter:saturate(1.5) blur(18px);border-color:var(--line);box-shadow:0 12px 30px -20px rgba(0,0,0,.8)}
 html.is-scrolled .hdr-in{height:var(--hdr-s)}
 .hdr-menu{grid-area:menu;justify-self:start;margin-left:-10px}
