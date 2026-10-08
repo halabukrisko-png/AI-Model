@@ -16,6 +16,15 @@ class Component extends DCLogic {
           if (!e.isIntersecting) return;
           const t = e.target;
           t.classList.add('in');
+          if (t.classList.contains('panel')) {
+            // frame draws itself automatically (time based, independent of scroll)
+            if (reduce) { t.style.setProperty('--pf', '1'); }
+            else {
+              const T0 = performance.now(), DUR = 2600, ease = (x) => (x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2);
+              const step = (now) => { const k = Math.min(1, (now - T0) / DUR); t.style.setProperty('--pf', ease(k).toFixed(3)); if (k < 1) requestAnimationFrame(step); };
+              setTimeout(() => requestAnimationFrame(step), 250);
+            }
+          }
           if (t.classList.contains('lg-ftr')) t.classList.add('go');
           if (t.classList.contains('hg')) {
             document.querySelectorAll('.rvf').forEach((x) => x.classList.add('in'));
@@ -32,12 +41,6 @@ class Component extends DCLogic {
       const frame = () => {
         tick = false;
         root.classList.toggle('is-scrolled', (window.scrollY || 0) > 24);
-        const vh0 = window.innerHeight;
-        document.querySelectorAll('.panel').forEach((pn) => {
-          const r = pn.getBoundingClientRect();
-          const k = reduce ? 1 : Math.max(0, Math.min(1, (vh0 * 0.9 - r.top) / (r.height * 0.85 + vh0 * 0.2)));
-          pn.style.setProperty('--pf', k.toFixed(3));
-        });
         if (reduce) return;
         const vh = window.innerHeight;
         document.querySelectorAll('[data-px]').forEach((el) => {
