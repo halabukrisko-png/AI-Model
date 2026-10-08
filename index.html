@@ -493,9 +493,9 @@ footer h2,footer p,footer nav a{text-shadow:0 2px 7px rgba(0,0,0,.6)}
 .fc-hint{display:inline-flex;align-items:center;gap:8px;align-self:flex-start;height:30px;padding:0 12px;border:1px solid var(--line-2);border-radius:var(--r-pill);font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3);transition:color var(--t-base),border-color var(--t-base),background var(--t-base)}
 .fc:hover .fc-hint{color:var(--brass-hi);border-color:rgba(217,181,107,.5);background:rgba(217,181,107,.08)}
 .fc-back .fc-body{flex:1}
-.pa-grid>.cue{margin:6px 0 10px}
+.buy-grid>.cue{margin:0}
 @media (min-width:640px){.stat-grid{grid-template-columns:repeat(3,1fr)}.fc-top{flex-direction:column;align-items:flex-start;gap:18px}.fc-face{min-height:260px}}
-@media (min-width:900px){.pa-grid>.cue{display:none}}
+@media (min-width:900px){.buy-grid>.cue{display:none}}
 
 
 /* ---- trust flip cards (same layout as before: wide card on top, three tiles below) ---- */
@@ -562,9 +562,7 @@ html.js-rv .mo-ul.in::after{transform:scaleX(1)}
 @media (prefers-reduced-motion:reduce){html.js-rv .mo-ul::after{transform:scaleX(1);transition:none}}
 /* ---- colour panel: champagne-gold frame grows from the top centre to both sides as you scroll ---- */
 .panel{position:relative;border-color:transparent}
-.pa-grid{display:grid;gap:8px}
-.pa-col{min-width:0}
-.panel-all{padding:24px 18px}
+.panel-b .bundles{margin-top:4px}
 .pframe{position:absolute;inset:0;border-radius:inherit;pointer-events:none;filter:drop-shadow(0 0 6px rgba(217,181,107,.3));-webkit-mask:conic-gradient(from 0deg at 50% 50%,#000 calc(var(--pf,0)*215deg - 26deg),transparent calc(var(--pf,0)*215deg)),conic-gradient(from calc(360deg - var(--pf,0)*215deg) at 50% 50%,transparent 0,#000 min(26deg,calc(var(--pf,0)*215deg)),#000 calc(var(--pf,0)*215deg),transparent calc(var(--pf,0)*215deg));mask:conic-gradient(from 0deg at 50% 50%,#000 calc(var(--pf,0)*215deg - 26deg),transparent calc(var(--pf,0)*215deg)),conic-gradient(from calc(360deg - var(--pf,0)*215deg) at 50% 50%,transparent 0,#000 min(26deg,calc(var(--pf,0)*215deg)),#000 calc(var(--pf,0)*215deg),transparent calc(var(--pf,0)*215deg))}
 .pframe i{position:absolute;inset:0;border-radius:inherit;padding:1.5px;background:#d9b56b;-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0)}
 .pdot{position:absolute;left:50%;top:0;width:7px;height:7px;margin:-3.5px 0 0 -3.5px;transform:rotate(45deg);background:linear-gradient(135deg,#f7e7bd,#c79a4a);box-shadow:0 0 10px 1px rgba(242,219,163,.55);pointer-events:none;opacity:min(1,calc(var(--pf,0)*14))}
@@ -601,9 +599,7 @@ html:not(.js-rv) .panel{--pf:1}
   .float-chip .t-ico{width:38px;height:38px}
   .float-chip small{display:block;font-size:11.5px;font-weight:500;color:var(--fg-3)}
   @keyframes floaty{0%,100%{transform:translate3d(0,-6px,0)}50%{transform:translate3d(0,8px,0)}}
-  .buy-grid{grid-template-columns:1fr;gap:26px}
-  .pa-grid{grid-template-columns:minmax(0,1fr) minmax(0,1.08fr);gap:40px;align-items:start}
-  .panel-all{padding:36px 36px}
+  .buy-grid{grid-template-columns:minmax(0,1fr) minmax(0,1.08fr);gap:26px;align-items:start}
   .panel{padding:32px}
   .sw{width:calc((100% - 24px)/3)}
   .cue.mob{display:none!important}
@@ -723,9 +719,7 @@ html:not(.js-rv) .panel{--pf:1}
       </div>
 
       <div class="buy-grid">
-        <div class="panel panel-all"><span class="pframe" aria-hidden="true"><i></i></span><span class="pdot" aria-hidden="true"></span>
-<div class="pa-grid">
-        <div class="pa-col">
+        <div class="panel rv" style="--d:80ms"><span class="pframe" aria-hidden="true"><i></i></span><span class="pdot" aria-hidden="true"></span>
           <div class="panel-t"><span>Colour</span><b>{{cName}}</b></div>
           <div class="swatches" role="radiogroup" aria-label="Colour">
             <sc-for list="{{cColours}}" as="c" hint-placeholder-count="5">
@@ -744,7 +738,8 @@ html:not(.js-rv) .panel{--pf:1}
         </div>
 
         <div class="cue"><a class="dwn" href="#bundles" aria-label="Choose your bundle"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v16M5 13l7 7 7-7"/></svg></a></div>
-        <div class="pa-col">
+        <div class="panel panel-b">
+          <span class="pframe" aria-hidden="true"><i></i></span><span class="pdot" aria-hidden="true"></span>
           <div id="bundles" class="bundles" role="radiogroup" aria-label="Choose a bundle">
             <sc-for list="{{bundles}}" as="b" hint-placeholder-count="3">
               <div class="bundle {{b.cls}}">
@@ -782,8 +777,6 @@ html:not(.js-rv) .panel{--pf:1}
             <span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 018 0v3"/></svg>Secure Checkout</span>
             <span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7z"/><circle cx="7" cy="17.500" r="1.800"/><circle cx="17" cy="17.500" r="1.800"/></svg>Free Shipping</span>
           </div>
-        </div>
-</div>
         </div>
       </div>
     </div>
