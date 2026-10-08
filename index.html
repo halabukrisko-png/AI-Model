@@ -547,6 +547,12 @@ footer h2,footer p,footer nav a{text-shadow:0 2px 7px rgba(0,0,0,.6)}
 .quote p{font-family:'Cormorant Garamond',Georgia,serif;font-weight:500;font-size:clamp(23px,4vw,30px);line-height:1.3;letter-spacing:-.005em}
 .quote .by-n{font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-weight:600;font-size:19px}
 
+/* ---- scroll-triggered champagne underline under "MemoryOrb™" (plays once) ---- */
+.mo-ul{position:relative}
+.mo-ul::after{content:"";position:absolute;left:0;right:0;bottom:-.1em;height:1px;border-radius:1px;pointer-events:none;background:linear-gradient(90deg,rgba(217,181,107,.55),#f2dba3 55%,#e8cf94);box-shadow:0 0 7px rgba(242,219,163,.28);transform-origin:left center;will-change:transform}
+html.js-rv .mo-ul::after{transform:scaleX(0);transition:transform .75s cubic-bezier(.16,1,.3,1) .45s}
+html.js-rv .mo-ul.in::after{transform:scaleX(1)}
+@media (prefers-reduced-motion:reduce){html.js-rv .mo-ul::after{transform:scaleX(1);transition:none}}
 /* ---- scroll reveal ---- */
 
 /* ---- responsive ---- */
@@ -679,7 +685,7 @@ footer h2,footer p,footer nav a{text-shadow:0 2px 7px rgba(0,0,0,.6)}
         </div>
       </div>
       <div class="hero-copy" style="display:{{infoDisp}}">
-        <h1 class="h1 pdp-h1">MemoryOrb<sup class="tm">™</sup> – $59.99</h1>
+        <h1 class="h1 pdp-h1"><span class="mo-ul">MemoryOrb<sup class="tm">™</sup></span> – $59.99</h1>
         <h2 class="lead">Get a MemoryOrb for Every Emotion &amp; Experience You Want to Hold Onto!</h2>
         <div class="cta-stack">
           <button type="button" class="btn btn-ghost btn-lg btn-block" aria-expanded="{{prodExp}}" onClick="{{toggleProd}}"><span>View description</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
