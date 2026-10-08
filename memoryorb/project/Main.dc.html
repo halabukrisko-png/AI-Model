@@ -254,9 +254,10 @@ html.is-scrolled .hdr-in{height:var(--hdr-s)}
 .lens-sec{position:relative;background:radial-gradient(70% 55% at 50% 58%,rgba(217,181,107,.1),transparent 70%),var(--ink-2);padding-block:var(--section) calc(var(--section)*.8);border-top:1px solid var(--line)}
 .lens-sec .sec-head{position:relative;z-index:2}
 .lens-stage{position:relative;width:min(100%,560px);margin:28px auto 0;aspect-ratio:1/1}
-.lens-stage img{position:absolute;left:1.2%;top:-15%;width:120%;height:120%;object-fit:cover;mix-blend-mode:lighten;-webkit-mask-image:radial-gradient(circle closest-side,#000 80%,transparent 100%);mask-image:radial-gradient(circle closest-side,#000 80%,transparent 100%)}
+.lens-stage .lens-img{position:absolute;left:-9.1%;top:-14.7%;width:120%;height:120%}
+.lens-stage img{position:absolute;left:0;top:0;width:100%;height:100%;object-fit:cover;mix-blend-mode:lighten;-webkit-mask-image:radial-gradient(circle closest-side,#000 80%,transparent 100%);mask-image:radial-gradient(circle closest-side,#000 80%,transparent 100%)}
 .lens-stage .ring{position:absolute;border-radius:50%;border:1px solid var(--line-2);pointer-events:none}
-.lens-stage .lframe{position:absolute;inset:12.4% 11.8% 12.4% 13%;border-radius:50%;pointer-events:none;border:1.5px solid #d9b56b;box-shadow:0 0 14px rgba(217,181,107,.28),inset 0 0 12px rgba(217,181,107,.14);z-index:2}
+.lens-stage .lframe{position:absolute;left:18.08%;top:22.72%;width:62.35%;height:62.42%;border-radius:50%;pointer-events:none;border:1.5px solid #d9b56b;box-shadow:0 0 14px rgba(217,181,107,.28),inset 0 0 12px rgba(217,181,107,.14);z-index:2}
 .lens-stage .r1{inset:5%;opacity:.55}
 .lens-stage .r2{inset:-4%;opacity:.3}
 .lens-stage .r3{inset:-14%;opacity:.14}
@@ -879,8 +880,8 @@ html:not(.js-rv) .panel{--pf:1}
         <div class="sec-head rv"><span class="eyebrow c">MemoryOrb</span><h2 class="h2">Where memories <em>take shape</em></h2>
           <p class="lead">It's a way to hold on to the moments that matter most.</p></div>
         <div class="lens-stage rv rv-s" style="--d:120ms">
-          <i class="ring r3" aria-hidden="true"></i><i class="ring r2" aria-hidden="true"></i><i class="ring r1" aria-hidden="true"></i><i class="lframe" aria-hidden="true"></i>
-          <img src="/_blob/a44a6f24bcf91873e9204fc5abe70cc2" alt="A family sharing a birthday moment, shown inside a round MemoryOrb lens" loading="lazy" data-px="-0.03">
+          <i class="ring r3" aria-hidden="true"></i><i class="ring r2" aria-hidden="true"></i><i class="ring r1" aria-hidden="true"></i>
+          <div class="lens-img" data-px="-0.03"><img src="/_blob/a44a6f24bcf91873e9204fc5abe70cc2" alt="A family sharing a birthday moment, shown inside a round MemoryOrb lens" loading="lazy"><i class="lframe" aria-hidden="true"></i></div>
         </div>
       </div>
     </section>
