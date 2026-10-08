@@ -303,7 +303,10 @@ html.is-scrolled .hdr-in{height:var(--hdr-s)}
 .stat:hover{transform:translateY(-3px);border-color:rgba(217,181,107,.45);background:rgba(0,0,0,.26)}
 .stat svg{flex:none;display:block}
 .stat .trk{stroke:rgba(245,239,228,.14)}
-.stat .bar{stroke:url(#ringGrad);stroke-dasharray:0 100;transition:stroke-dasharray 2.2s var(--ease-out) .25s}
+.stat .bar{stroke:url(#ringGrad);stroke-dasharray:0 100;transition:stroke-dasharray 2.6s cubic-bezier(.45,.05,.2,1) calc(.3s + var(--sd,0s))}
+.stat:nth-child(2){--sd:.35s}.stat:nth-child(3){--sd:.7s}
+html:not(.js-rv) .stat .bar{stroke-dasharray:var(--v) 100}
+@media (prefers-reduced-motion:reduce){.stat .bar{stroke-dasharray:var(--v) 100;transition:none}}
 .stat.in .bar{stroke-dasharray:var(--v) 100}
 .stat p{font-size:15px;line-height:1.55;color:var(--fg-2)}
 .stat-foot{margin-top:22px;text-align:center;font-size:12px;color:var(--fg-3);letter-spacing:.03em}
@@ -485,7 +488,6 @@ html.js-rv .rvt.in{opacity:1;transform:none;filter:none}
 html.js-rv .lg-ftr:not(.go) + .gar{opacity:0}
 .lg-ftr.go + .gar{transform-origin:100% 0;animation:garFall 2.6s cubic-bezier(.25,.8,.3,1) 2.5s both,garSway 5s ease-in-out 5.2s infinite alternate}
 footer h2,footer p,footer nav a{text-shadow:0 2px 7px rgba(0,0,0,.6)}
-.stat .bar{stroke-dasharray:var(--v) 100;transition:none}
 @media (min-width:900px){.hero-grid{align-items:start}.hero-copy{padding-top:0}.foot-grid{grid-template-columns:1fr 1fr}.hero.is-compact .hero-grid{grid-template-columns:minmax(0,760px)}}
 
 
@@ -1047,7 +1049,7 @@ html:not(.js-rv) .panel{--pf:1}
         </div>
       </div>
       <p class="stat-foot rv">These results are based on verified customer feedback.</p>
-      <div class="stat-cta rv"><a class="btn btn-light btn-lg" href="#shop">Adopt Your Orb<svg class="arr" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a></div>
+      <div class="stat-cta rv"><a class="btn btn-primary btn-lg" href="#shop">Adopt Your Orb<svg class="arr" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a></div>
     </div>
   </section>
 
@@ -1098,7 +1100,7 @@ class Component extends DCLogic {
     const reduce = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
     // scroll-reveal (fade + translate, staggered through --d)
     try {
-      const els = document.querySelectorAll('.rvt, .hg, .lg-ftr, .mo-ul, .panel');
+      const els = document.querySelectorAll('.rvt, .hg, .lg-ftr, .mo-ul, .panel, .stat');
       if (els.length && 'IntersectionObserver' in window) {
         root.classList.add('js-rv');
         const io = new IntersectionObserver((es) => es.forEach((e) => {
