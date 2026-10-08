@@ -2,7 +2,7 @@
 class Component extends DCLogic {
   constructor(props) {
     super(props);
-    this.state = { prod: false, page: 'home', sent: false, tab: 0, tsent: false, bundle: 2, thumb: 0, colour: 0, outlet: 0, qty: 1, cf: 0, menu: false, flip: [false, false, false, false] };
+    this.state = { prod: false, page: 'home', sent: false, tab: 0, tsent: false, bundle: 2, thumb: 0, colour: 0, outlet: 0, qty: 1, cf: 0, menu: false, flip: [false, false, false, false], cmp: 1 };
   }
   componentDidMount() {
     const root = document.documentElement;
@@ -180,6 +180,15 @@ class Component extends DCLogic {
       goContact: (e) => { this.setState({ page: 'contact', menu: false, sent: false }); try { window.scrollTo(0, 0); } catch (x) {} },
       sendContact: (e) => { try { e.preventDefault(); } catch (x) {} this.setState({ sent: true }); },
       menuOpen: this.state.menu, openMenu: () => this.setState({ menu: true }), closeMenu: () => this.setState({ menu: false }),
+      cmpCls: 'c' + this.state.cmp,
+      cmpPick: (e) => {
+        try {
+          const box = document.querySelector('.compare').getBoundingClientRect();
+          const w = box.width, x = e.clientX - box.left, wide = window.innerWidth >= 640;
+          const yw = wide ? 170 : 108, nw = wide ? 120 : 74;
+          this.setState({ cmp: x < w - yw - nw ? 0 : (x < w - nw ? 1 : 2) });
+        } catch (err) {}
+      },
       trust, bundles, thumbs, cColours, cName: cs[this.state.colour].name, cOutlets, cf, cfDots, cfPrev, cfNext, cfPrevColor, cfNextColor, cQty: this.state.qty, ctaTotal,
       cInc: () => this.setState({ qty: Math.min(9, this.state.qty + 1) }),
       cDec: () => this.setState({ qty: Math.max(1, this.state.qty - 1) })
