@@ -259,6 +259,7 @@ html.is-scrolled .hdr-in{height:var(--hdr-s)}
 .lens-stage{position:relative;width:min(100%,560px);margin:28px auto 0;aspect-ratio:1/1}
 .lens-stage img{position:absolute;left:1.2%;top:-15%;width:120%;height:120%;object-fit:cover;mix-blend-mode:lighten;-webkit-mask-image:radial-gradient(circle closest-side,#000 80%,transparent 100%);mask-image:radial-gradient(circle closest-side,#000 80%,transparent 100%)}
 .lens-stage .ring{position:absolute;border-radius:50%;border:1px solid var(--line-2);pointer-events:none}
+.lens-stage .lframe{position:absolute;inset:12.6%;border-radius:50%;pointer-events:none;border:1.5px solid #d9b56b;box-shadow:0 0 14px rgba(217,181,107,.28),inset 0 0 12px rgba(217,181,107,.14);z-index:2}
 .lens-stage .r1{inset:5%;opacity:.55}
 .lens-stage .r2{inset:-4%;opacity:.3}
 .lens-stage .r3{inset:-14%;opacity:.14}
@@ -881,7 +882,7 @@ html:not(.js-rv) .panel{--pf:1}
         <div class="sec-head rv"><span class="eyebrow c">MemoryOrb</span><h2 class="h2">Where memories <em>take shape</em></h2>
           <p class="lead">It's a way to hold on to the moments that matter most.</p></div>
         <div class="lens-stage rv rv-s" style="--d:120ms">
-          <i class="ring r3" aria-hidden="true"></i><i class="ring r2" aria-hidden="true"></i><i class="ring r1" aria-hidden="true"></i>
+          <i class="ring r3" aria-hidden="true"></i><i class="ring r2" aria-hidden="true"></i><i class="ring r1" aria-hidden="true"></i><i class="lframe" aria-hidden="true"></i>
           <img src="assets/a44a6f24bcf91873e9204fc5abe70cc2.png" alt="A family sharing a birthday moment, shown inside a round MemoryOrb lens" loading="lazy" data-px="-0.03">
         </div>
       </div>
