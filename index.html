@@ -397,6 +397,8 @@ html:not(.js-rv) .stat .bar{stroke-dasharray:var(--v) 100}
 .acct-row:hover .acct-go{transform:translateX(3px);color:var(--brass-hi)}
 .acct-empty{display:flex;flex-direction:column;align-items:center;gap:16px;padding:30px 20px;border:1px dashed rgba(217,181,107,.35);border-radius:var(--r-lg);background:rgba(255,255,255,.02);color:var(--fg-2)}
 .acct-ico.big{width:60px;height:60px}
+.pg-perks span+span{position:relative;padding-left:20px}.pg-perks span+span::before{content:"";position:absolute;left:0;top:50%;height:16px;width:1px;transform:translateY(-50%);background:linear-gradient(180deg,transparent,rgba(217,181,107,.6),transparent)}
+.cart .pg-perks span+span{padding-left:0}.cart .pg-perks span+span::before{display:none}
 .acct-out{display:flex;justify-content:center;margin-top:34px}
 
 .dd-title{display:flex;flex-direction:column;align-items:center;gap:6px;margin-bottom:22px;text-align:center}
