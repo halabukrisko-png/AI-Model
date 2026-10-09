@@ -625,8 +625,17 @@ footer h2,footer p,footer nav a{text-shadow:0 2px 7px rgba(0,0,0,.6)}
 .quote-by{flex-direction:row;flex-wrap:wrap;justify-content:center;align-items:center;gap:10px 16px;margin-top:28px;padding-top:24px;border-top:0;position:relative}
 .quote-by::before{content:"";position:absolute;top:0;left:50%;width:min(220px,60%);height:1px;transform:translateX(-50%);background:linear-gradient(90deg,transparent,rgba(217,181,107,.55),transparent)}
 .quote .avatar{width:54px;height:54px;font-size:15px;box-shadow:0 0 0 4px rgba(217,181,107,.1),0 8px 18px -8px rgba(0,0,0,.8)}
+
+/* ---- review carousel ---- */
+.quote-sec>.wrap{max-width:none;padding-inline:0}
+.q-track{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch;padding:14px max(var(--gutter),calc(50% - 380px)) 30px;overscroll-behavior-x:contain}
+.q-track::-webkit-scrollbar{display:none}
+.q-track .quote{flex:0 0 min(86vw,760px);max-width:none;margin:0!important;scroll-snap-align:center;display:flex;flex-direction:column;justify-content:space-between}
+@media (max-width:520px){.q-track .quote{flex-basis:84vw}}
+@media (min-width:900px){.q-track .quote{margin:0!important}}
+.quote-sec .q-hint{display:block}
 .quote .stars{margin:0!important}
-@media (max-width:520px){.quote{padding-inline:14px}.quote-by{flex-wrap:nowrap;gap:8px}.quote .avatar{width:42px;height:42px;font-size:12px;box-shadow:0 0 0 3px rgba(217,181,107,.1)}.quote .by-n{font-size:16px}.quote .verified{font-size:11px;gap:4px}.quote .stars{gap:1px}.quote .stars svg{width:12px;height:12px}}
+@media (max-width:520px){.quote{padding-inline:10px}.quote-by{flex-wrap:nowrap;gap:6px}.quote-by>*{white-space:nowrap}.quote .avatar{width:36px;height:36px;font-size:11px;box-shadow:0 0 0 3px rgba(217,181,107,.1)}.quote .by-n{font-size:15px}.quote .verified{font-size:10px;gap:3px;letter-spacing:0}.quote .verified svg{width:11px;height:11px}.quote .stars{gap:0;margin-left:2px!important}.quote .stars svg{width:11px;height:11px}}
 .quote{max-width:1040px;margin-inline:calc(var(--gutter)*-.45)!important}.quote p{max-width:44ch}
 @media (min-width:900px){.quote{margin-inline:auto!important}}
 .quote .stars svg{width:17px;height:17px;filter:drop-shadow(0 0 6px rgba(217,181,107,.5))}
@@ -943,7 +952,7 @@ html:not(.js-rv) .panel{--pf:1}
       <svg class="wave top" aria-hidden="true" viewBox="0 0 432 44" preserveAspectRatio="none" style="--sky:var(--ink)"><path class="sky" d="M0 0H432V30C410 32 380 36 330 32C230 24 110 22 0 34Z"/><path class="ln" d="M0 34C110 22 230 24 330 32C380 36 410 32 432 30"/></svg>
       <svg class="wave bot" aria-hidden="true" viewBox="0 0 432 44" preserveAspectRatio="none" style="--sky:var(--ink)"><path class="sky" d="M0 0H432V30C410 32 380 36 330 32C230 24 110 22 0 34Z"/><path class="ln" d="M0 34C110 22 230 24 330 32C380 36 410 32 432 30"/></svg>
       <div class="wrap">
-        <div class="sec-head rv"><span class="eyebrow c">Support</span><h2 class="h2 serif">FAQs</h2></div>
+        <div class="sec-head rv"><span class="eyebrow c">Support</span><h2 class="h2 serif">FAQs</h2><p class="lead">Everything you need to know about your MemoryOrb, from storage and audio to uploading and switching your videos.</p></div>
         <div class="ac-list rv" style="--d:100ms">
           <details class="ac"><summary><svg class="q-ico" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg><span>How much storage does it have?</span><svg class="acc" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary><p>The MemoryOrb comes with 4GB of built-in storage for your photos and videos.</p></details>
           <details class="ac"><summary><svg class="q-ico" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10v4h3l5 4V6L7 10H4zM16 9a4 4 0 010 6"/></svg><span>Can I play audio through the orb?</span><svg class="acc" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary><p>Yes. Videos play with their original sound, so you can hear the moment as well as see it.</p></details>
@@ -956,7 +965,8 @@ html:not(.js-rv) .panel{--pf:1}
 
     <section class="quote-sec">
       <div class="wrap">
-        <figure class="quote rv rv-s" style="margin:0 auto">
+        <div class="q-track" tabindex="0" aria-label="Customer reviews">
+        <figure class="quote rv rv-s">
           <p>I replay my daughter's first birthday through the Orb every night. It's like stepping back into that moment…priceless.</p>
           <figcaption class="quote-by">
             <span class="avatar" aria-hidden="true">SW</span>
@@ -965,6 +975,43 @@ html:not(.js-rv) .panel{--pf:1}
             <span class="stars" role="img" aria-label="5 stars" style="margin-left:auto"><svg viewBox="0 0 24 24"><path d="M12 2.800l2.800 5.900 6.400.8-4.700 4.400 1.200 6.400L12 17.200l-5.700 3.100 1.200-6.400L2.800 9.500l6.400-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2.800l2.800 5.900 6.400.8-4.700 4.400 1.200 6.400L12 17.200l-5.700 3.100 1.200-6.400L2.800 9.500l6.400-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2.800l2.800 5.900 6.400.8-4.700 4.400 1.200 6.400L12 17.200l-5.700 3.100 1.200-6.400L2.800 9.500l6.400-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2.800l2.800 5.900 6.400.8-4.700 4.400 1.200 6.400L12 17.200l-5.700 3.100 1.200-6.400L2.800 9.500l6.400-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2.800l2.800 5.900 6.400.8-4.700 4.400 1.200 6.400L12 17.200l-5.700 3.100 1.200-6.400L2.800 9.500l6.400-.8z"/></svg></span>
           </figcaption>
         </figure>
+        <figure class="quote rv rv-s">
+          <p>My dad passed last year. Now I can still hear his laugh and see his smile whenever I miss him. Best gift I have ever bought.</p>
+          <figcaption class="quote-by">
+            <span class="avatar" aria-hidden="true">MR</span>
+            <span class="by-n">Michael R.</span>
+            <span class="verified"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.500l4.500 4.500L19 7.500"/></svg>Verified Buyer</span>
+            <span class="stars" role="img" aria-label="5 stars" style="margin-left:auto"><svg viewBox="0 0 24 24"><path d="M12 2.800l2.800 5.900 6.400.8-4.700 4.400 1.200 6.400L12 17.200l-5.700 3.100 1.200-6.400L2.800 9.500l6.400-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2.800l2.800 5.900 6.400.8-4.700 4.400 1.200 6.400L12 17.200l-5.700 3.100 1.200-6.400L2.800 9.500l6.400-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2.800l2.800 5.900 6.400.8-4.700 4.400 1.200 6.400L12 17.200l-5.700 3.100 1.200-6.400L2.800 9.500l6.400-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2.800l2.800 5.900 6.400.8-4.700 4.400 1.200 6.400L12 17.200l-5.700 3.100 1.200-6.400L2.800 9.500l6.400-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2.800l2.800 5.900 6.400.8-4.700 4.400 1.200 6.400L12 17.200l-5.700 3.100 1.200-6.400L2.800 9.500l6.400-.8z"/></svg></span>
+          </figcaption>
+        </figure>
+        <figure class="quote rv rv-s">
+          <p>Bought two for Christmas, one for my parents and one for us. Mum cried happy tears the second the orb lit up.</p>
+          <figcaption class="quote-by">
+            <span class="avatar" aria-hidden="true">EL</span>
+            <span class="by-n">Emma L.</span>
+            <span class="verified"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.500l4.500 4.500L19 7.500"/></svg>Verified Buyer</span>
+            <span class="stars" role="img" aria-label="5 stars" style="margin-left:auto"><svg viewBox="0 0 24 24"><path d="M12 2.800l2.800 5.900 6.400.8-4.700 4.400 1.200 6.400L12 17.200l-5.700 3.100 1.200-6.400L2.800 9.500l6.400-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2.800l2.800 5.900 6.400.8-4.700 4.400 1.200 6.400L12 17.200l-5.700 3.100 1.200-6.400L2.800 9.500l6.400-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2.800l2.800 5.900 6.400.8-4.700 4.400 1.200 6.400L12 17.200l-5.700 3.100 1.200-6.400L2.800 9.500l6.400-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2.800l2.800 5.900 6.400.8-4.700 4.400 1.200 6.400L12 17.200l-5.700 3.100 1.200-6.400L2.800 9.500l6.400-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2.800l2.800 5.900 6.400.8-4.700 4.400 1.200 6.400L12 17.200l-5.700 3.100 1.200-6.400L2.800 9.500l6.400-.8z"/></svg></span>
+          </figcaption>
+        </figure>
+        <figure class="quote rv rv-s">
+          <p>It looks stunning on the shelf and the setup took two minutes. Every guest asks about it. Absolutely worth it.</p>
+          <figcaption class="quote-by">
+            <span class="avatar" aria-hidden="true">JK</span>
+            <span class="by-n">James K.</span>
+            <span class="verified"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.500l4.500 4.500L19 7.500"/></svg>Verified Buyer</span>
+            <span class="stars" role="img" aria-label="5 stars" style="margin-left:auto"><svg viewBox="0 0 24 24"><path d="M12 2.800l2.800 5.900 6.400.8-4.700 4.400 1.200 6.400L12 17.200l-5.700 3.100 1.200-6.400L2.800 9.500l6.400-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2.800l2.800 5.900 6.400.8-4.700 4.400 1.200 6.400L12 17.200l-5.700 3.100 1.200-6.400L2.800 9.500l6.400-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2.800l2.800 5.900 6.400.8-4.700 4.400 1.200 6.400L12 17.200l-5.700 3.100 1.200-6.400L2.800 9.500l6.400-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2.800l2.800 5.900 6.400.8-4.700 4.400 1.200 6.400L12 17.200l-5.700 3.100 1.200-6.400L2.800 9.500l6.400-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2.800l2.800 5.900 6.400.8-4.700 4.400 1.200 6.400L12 17.200l-5.700 3.100 1.200-6.400L2.800 9.500l6.400-.8z"/></svg></span>
+          </figcaption>
+        </figure>
+        <figure class="quote rv rv-s">
+          <p>We play our wedding video on the orb every anniversary. It feels like stepping back into that day all over again.</p>
+          <figcaption class="quote-by">
+            <span class="avatar" aria-hidden="true">AT</span>
+            <span class="by-n">Anna T.</span>
+            <span class="verified"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.500l4.500 4.500L19 7.500"/></svg>Verified Buyer</span>
+            <span class="stars" role="img" aria-label="5 stars" style="margin-left:auto"><svg viewBox="0 0 24 24"><path d="M12 2.800l2.800 5.900 6.400.8-4.700 4.400 1.200 6.400L12 17.200l-5.700 3.100 1.200-6.400L2.800 9.500l6.400-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2.800l2.800 5.900 6.400.8-4.700 4.400 1.200 6.400L12 17.200l-5.700 3.100 1.200-6.400L2.800 9.500l6.400-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2.800l2.800 5.900 6.400.8-4.700 4.400 1.200 6.400L12 17.200l-5.700 3.100 1.200-6.400L2.800 9.500l6.400-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2.800l2.800 5.900 6.400.8-4.700 4.400 1.200 6.400L12 17.200l-5.700 3.100 1.200-6.400L2.800 9.500l6.400-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2.800l2.800 5.900 6.400.8-4.700 4.400 1.200 6.400L12 17.200l-5.700 3.100 1.200-6.400L2.800 9.500l6.400-.8z"/></svg></span>
+          </figcaption>
+        </figure>
+        </div>
       </div>
     </section>
   </div>
