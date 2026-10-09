@@ -298,8 +298,7 @@ html.is-scrolled .hdr-in{height:var(--hdr-s)}
 .cmp-h .cmp-n{text-transform:none;letter-spacing:.04em;font-size:12px}
 .chk{width:26px;height:26px;border-radius:50%;background:linear-gradient(180deg,#f3dda6,#cfa95c);color:#1a1307;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 12px -6px rgba(217,181,107,.7)}
 .crs{color:rgba(245,239,228,.32)}
-.vd-head{margin-top:64px;padding-top:44px;border-top:1px solid var(--line)}
-.why-cta{margin-top:44px;display:flex;justify-content:center}
+.why-cta{margin-top:44px;display:flex;flex-direction:column;align-items:center;gap:14px}
 
 /* ---- stats (forest) ---- */
 .stats{background:radial-gradient(60% 80% at 80% 0%,rgba(217,181,107,.14),transparent 65%),linear-gradient(180deg,var(--forest-2),var(--forest));border-top:1px solid rgba(217,181,107,.2)}
@@ -961,13 +960,7 @@ html:not(.js-rv) .panel{--pf:1}
           <div class="cmp-row" role="row"><div class="cmp-c" role="cell">4GB Built-In Storage</div><div class="cmp-c cmp-y" role="cell"><span class="chk"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.500l4.500 4.500L19 7.500"/></svg></span></div><div class="cmp-c cmp-n" role="cell"><svg class="crs" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></div></div>
           <div class="cmp-row" role="row"><div class="cmp-c" role="cell">One-Touch Controls</div><div class="cmp-c cmp-y" role="cell"><span class="chk"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.500l4.500 4.500L19 7.500"/></svg></span></div><div class="cmp-c cmp-n" role="cell"><svg class="crs" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></div></div>
         </div>
-        <div class="why-cta rv" style="--d:160ms"><a class="btn btn-primary btn-lg" href="#shop">Adopt Your Orb<svg class="arr" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a></div>
-        <div class="sec-head vd-head">
-          <span class="eyebrow c">Learn more</span>
-          <h2 class="h2">View <em>description</em></h2>
-          <p class="lead">Everything you need to know about your MemoryOrb.</p>
-          <button type="button" class="btn btn-ghost btn-lg" onClick="{{toggleProd}}"><span>View description</span><svg class="arr" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></button>
-        </div>
+        <div class="why-cta rv" style="--d:160ms"><a class="btn btn-primary btn-lg" href="#shop">Adopt Your Orb<svg class="arr" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a><button type="button" class="btn btn-ghost btn-lg" onClick="{{toggleProd}}"><span>View description</span><svg class="arr" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></button></div>
       </div>
     </section>
 
