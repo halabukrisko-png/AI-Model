@@ -356,6 +356,32 @@ html:not(.js-rv) .stat .bar{stroke-dasharray:var(--v) 100}
 .details-sec .ac[open] .acc{background:rgba(217,181,107,.14);border-color:rgba(217,181,107,.6);color:var(--brass-hi)}
 .details-sec .ac p{padding:0 4px 24px 36px;color:var(--fg-2)}
 .dd-hero{margin-bottom:34px}
+/* ---- cart ---- */
+.cart-btn{position:relative}
+.cart-badge{position:absolute;top:5px;right:3px;min-width:18px;height:18px;padding:0 5px;border-radius:9px;display:grid;place-items:center;font-size:11px;font-weight:800;line-height:1;color:#1a1306;background:linear-gradient(180deg,var(--brass-hi),var(--brass));box-shadow:0 2px 8px rgba(0,0,0,.5)}
+.cart{max-width:640px;margin:0 auto}
+.cart-empty{display:flex;flex-direction:column;align-items:center;gap:16px;margin-top:26px;padding:34px 20px;text-align:center;border:1px dashed rgba(217,181,107,.35);border-radius:var(--r-lg);background:rgba(255,255,255,.02);color:var(--fg-2)}
+.cart-list{margin-top:26px;border:1px solid rgba(217,181,107,.3);border-radius:var(--r-lg);overflow:hidden;background:linear-gradient(180deg,rgba(217,181,107,.05),rgba(0,0,0,.2));box-shadow:0 24px 50px -28px rgba(0,0,0,.9)}
+.cart-item{display:flex;align-items:center;gap:16px;padding:16px 18px;border-bottom:1px solid var(--line)}
+.cart-item:last-child{border-bottom:0}
+.cart-sw{flex:none;position:relative;width:72px;height:72px;border-radius:18px;border:1px solid var(--line-2);overflow:hidden}
+.cart-info{flex:1;min-width:0}
+.cart-name{font-size:16.5px;font-weight:700;letter-spacing:-.01em;color:var(--fg)}
+.cart-name em{font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-weight:600;font-size:1.1em;color:var(--brass-hi)}
+.cart-sub{margin-top:2px;font-size:12.5px;color:var(--fg-3)}
+.cart-qty{display:inline-flex;align-items:center;margin-top:10px;border:1px solid var(--line-2);border-radius:999px}
+.cart-qty button{width:34px;height:34px;border:0;background:transparent;color:var(--fg);font-size:18px;cursor:pointer;border-radius:50%}
+.cart-qty button:hover{color:var(--brass-hi)}
+.cart-qty b{min-width:26px;text-align:center;font-size:14px}
+.cart-side{display:flex;flex-direction:column;align-items:flex-end;gap:10px}
+.cart-price{font-size:17px;font-weight:700;color:var(--brass-hi)}
+.cart-rm{border:0;background:transparent;color:var(--fg-3);font-size:12px;text-decoration:underline;cursor:pointer}
+.cart-rm:hover{color:var(--fg)}
+.cart-sum{margin:24px 0 20px;padding:4px 2px}
+.cart-sum>div{display:flex;justify-content:space-between;padding:10px 0;font-size:15px;color:var(--fg-2)}
+.cart-sum .tot{margin-top:6px;padding-top:16px;border-top:1px solid rgba(217,181,107,.3);font-size:19px;font-weight:700;color:var(--fg)}
+.cart-sum .tot b{color:var(--brass-hi)}
+
 /* ---- account page ---- */
 .acct{max-width:640px;margin:0 auto;text-align:center}
 .acct-av{display:grid;place-items:center;width:84px;height:84px;margin:6px auto 0;border-radius:50%;font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;font-size:38px;color:var(--brass-hi);background:radial-gradient(circle at 35% 28%,rgba(243,221,166,.22),rgba(17,58,40,.9) 70%);border:1px solid rgba(217,181,107,.6);box-shadow:0 0 0 6px rgba(217,181,107,.08),0 18px 36px -14px rgba(0,0,0,.9),0 0 40px -10px rgba(217,181,107,.4)}
@@ -844,8 +870,9 @@ html:not(.js-rv) .panel{--pf:1}
       </nav>
       <div class="hdr-act">
         <a class="icon-btn hdr-login" href="#top" aria-label="Log in" onClick="{{goLogin}}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.500 3.500-7 8-7s8 2.500 8 7z"/></svg></a>
-        <button class="icon-btn" aria-label="Cart">
+        <button class="icon-btn cart-btn" aria-label="Cart" onClick="{{goCart}}">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.500 3.500h2.800l2.400 11.500h11l2-8.200H6"/><circle cx="9.500" cy="19.800" r="1.300"/><circle cx="17" cy="19.800" r="1.300"/></svg>
+          <span class="cart-badge" style="display:{{cartBadgeDisp}}">{{cartCount}}</span>
         </button>
       </div>
     </div>
@@ -968,7 +995,7 @@ html:not(.js-rv) .panel{--pf:1}
               </div>
             </sc-for>
           </div>
-          <div class="buy-cta"><button class="btn btn-primary btn-lg btn-block" type="button">Get my MemoryOrb</button></div>
+          <div class="buy-cta"><button class="btn btn-primary btn-lg btn-block" type="button" onClick="{{addToCart}}">Get my MemoryOrb</button></div>
           <div class="buy-note">
             <span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 018 0v3"/></svg>Secure Checkout</span>
             <span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7z"/><circle cx="7" cy="17.500" r="1.800"/><circle cx="17" cy="17.500" r="1.800"/></svg>Free Shipping</span>
@@ -1129,6 +1156,45 @@ html:not(.js-rv) .panel{--pf:1}
   </div>
 
   <!-- shop page -->
+  <!-- cart page -->
+  <div class="pg pg-flat" style="display:{{cartDisp}}">
+    <div class="cart">
+      <div style="display:flex;justify-content:center"><span class="eyebrow c">Your cart</span></div>
+      <h1 class="pg-h" style="margin:14px 0 8px">Your <em style="color:#f1d99a">cart</em></h1>
+      <div class="cart-empty" style="display:{{cartEmptyDisp}}">
+        <span class="acct-ico big"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.500 3.500h2.800l2.400 11.500h11l2-8.200H6"/><circle cx="9.500" cy="19.800" r="1.300"/><circle cx="17" cy="19.800" r="1.300"/></svg></span>
+        <p>Your cart is empty. Pick the MemoryOrb that fits your story.</p>
+        <a class="btn btn-primary btn-lg" href="#top" onClick="{{goShop}}">Shop the collection</a>
+      </div>
+      <div style="display:{{cartFullDisp}}">
+        <div class="cart-list">
+          <sc-for list="{{cartItems}}" as="ci">
+            <div class="cart-item">
+              <span class="cart-sw sw-art" style="--c:{{ci.color}}"><i class="cap"></i><i class="ball"></i><i class="lens"></i></span>
+              <div class="cart-info">
+                <div class="cart-name">MemoryOrb<sup class="tm">™</sup> <em>{{ci.name}}</em></div>
+                <div class="cart-sub">{{ci.sub}}</div>
+                <div class="cart-qty" role="group" aria-label="Quantity">
+                  <button type="button" aria-label="Decrease" onClick="{{ci.dec}}">−</button><b>{{ci.qty}}</b><button type="button" aria-label="Increase" onClick="{{ci.inc}}">+</button>
+                </div>
+              </div>
+              <div class="cart-side"><div class="cart-price">{{ci.price}}</div><button type="button" class="cart-rm" onClick="{{ci.remove}}">Remove</button></div>
+            </div>
+          </sc-for>
+        </div>
+        <div class="cart-sum">
+          <div><span>Subtotal</span><b>{{cartSub}}</b></div>
+          <div><span>Shipping</span><b style="color:var(--mint)">Free</b></div>
+          <div class="tot"><span>Total</span><b>{{cartSub}}</b></div>
+        </div>
+        <button type="button" class="btn btn-primary btn-lg btn-block" onClick="{{cartCheckout}}">Checkout</button>
+        <p class="notice" style="display:{{cartNoteDisp}}">This is a preview. Checkout is not connected yet.</p>
+        <a class="pg-link" href="#top" style="display:block;text-align:center;margin-top:26px;border:0" onClick="{{goShop}}">Continue shopping</a>
+        <div class="pg-perks"><span>Secure checkout</span><span>Free shipping</span><span>30-day guarantee</span></div>
+      </div>
+    </div>
+  </div>
+
   <!-- account page (shown after log in / sign up) -->
   <div class="pg pg-flat" style="display:{{accountDisp}}">
     <div class="acct">

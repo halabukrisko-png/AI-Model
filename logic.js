@@ -2,7 +2,7 @@
 class Component extends DCLogic {
   constructor(props) {
     super(props);
-    this.state = { prod: false, page: 'home', sent: false, tab: 0, tsent: false, bundle: 2, thumb: 0, colour: 0, outlet: 0, qty: 1, cf: 0, menu: false, flip: [false, false, false, false], cmp: 1, lt: 0, lsent: false, user: null };
+    this.state = { prod: false, page: 'home', sent: false, tab: 0, tsent: false, bundle: 2, thumb: 0, colour: 0, outlet: 0, qty: 1, cf: 0, menu: false, flip: [false, false, false, false], cmp: 1, lt: 0, lsent: false, user: null, cart: [], cnote: false };
   }
   componentDidMount() {
     const root = document.documentElement;
@@ -111,6 +111,18 @@ class Component extends DCLogic {
       const sel = this.state.outlet === i;
       return { ...o, selected: sel, checked: sel ? 'true' : 'false', border: sel ? '#e8353a' : '#2a2d27', bg: sel ? '#1b0f10' : '#10130e', pick: () => this.setState({ outlet: i }) };
     });
+    const money = (c) => '$' + Math.floor(c / 100) + '.' + String(c % 100).padStart(2, '0');
+    const cartLines = this.state.cart;
+    const cartItems = cartLines.map((l, i) => ({
+      name: cs[l.colour].name, color: cs[l.colour].color,
+      sub: l.n === 1 ? 'Adopt 1' : 'Adopt ' + l.n + ' bundle',
+      qty: l.qty, price: money(Math.round(l.unit * l.qty)),
+      inc: () => this.setState({ cart: cartLines.map((x, j) => (j === i ? { ...x, qty: x.qty + 1 } : x)) }),
+      dec: () => this.setState({ cart: cartLines.map((x, j) => (j === i ? { ...x, qty: Math.max(1, x.qty - 1) } : x)) }),
+      remove: () => this.setState({ cart: cartLines.filter((x, j) => j !== i) })
+    }));
+    const cartTotalCents = cartLines.reduce((a, l) => a + Math.round(l.unit * l.qty), 0);
+    const cartCountN = cartLines.reduce((a, l) => a + l.qty, 0);
     const cents = 5999 * this.state.qty;
     const ctaTotal = '$' + Math.floor(cents / 100) + '.' + String(cents % 100).padStart(2, '0');
     const cfs = [
@@ -197,6 +209,20 @@ class Component extends DCLogic {
       shopDisp: this.state.page === 'shop' ? 'block' : 'none',
       loginDisp: this.state.page === 'login' ? 'block' : 'none',
       accountDisp: this.state.page === 'account' ? 'block' : 'none',
+      cartDisp: this.state.page === 'cart' ? 'block' : 'none',
+      cartItems, cartSub: money(cartTotalCents), cartCount: cartCountN, cartBadgeDisp: cartCountN > 0 ? 'grid' : 'none',
+      cartEmptyDisp: cartLines.length ? 'none' : 'flex', cartFullDisp: cartLines.length ? 'block' : 'none',
+      cartNoteDisp: this.state.cnote ? 'flex' : 'none',
+      cartCheckout: () => this.setState({ cnote: true }),
+      goCart: (e) => { try { e.preventDefault(); } catch (x) {} this.setState({ page: 'cart', menu: false, cnote: false }); try { window.scrollTo(0, 0); } catch (x) {} },
+      addToCart: (e) => {
+        try { e.preventDefault(); } catch (x) {}
+        const totals = [5999, 11638, 17097]; const n = this.state.bundle;
+        const unit = totals[n - 1] / n;
+        const ex = cartLines.findIndex((l) => l.colour === this.state.colour && l.n === n);
+        const next = ex >= 0 ? cartLines.map((l, j) => (j === ex ? { ...l, qty: l.qty + 1 } : l)) : cartLines.concat([{ colour: this.state.colour, n, qty: 1, unit: unit * n }]);
+        this.setState({ cart: next, page: 'cart', cnote: false }); try { window.scrollTo(0, 0); } catch (x) {}
+      },
       userName: this.state.user ? this.state.user.name : '', userInit: this.state.user ? this.state.user.name.charAt(0).toUpperCase() : '', userMail: this.state.user ? this.state.user.mail : '',
       noop: (e) => { try { e.preventDefault(); } catch (x) {} },
       logout: (e) => { this.setState({ user: null, page: 'login', lt: 0, lsent: false }); try { window.scrollTo(0, 0); } catch (x) {} },
