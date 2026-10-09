@@ -312,6 +312,9 @@ html:not(.js-rv) .stat .bar{stroke-dasharray:var(--v) 100}
 @media (prefers-reduced-motion:reduce){.stat .bar{stroke-dasharray:var(--v) 100;transition:none}}
 .stat.in .bar{stroke-dasharray:var(--v) 100}
 .stat p{font-size:15px;line-height:1.55;color:var(--fg-2)}
+/* footer: static, no entrance animations */
+.footer .lg-ftr .ch,.footer .lg-ftr .bb,.footer .lg-ftr .hat,.lg-ftr.go .ch,.lg-ftr.go .bb,.lg-ftr.go .hat{opacity:1!important;animation:none!important}
+.footer .rv,.footer .rvt,.footer .rvf,.footer .rvs{opacity:1!important;transform:none!important;filter:none!important;transition:none!important;animation:none!important}
 .stat-foot{margin-top:22px;text-align:center;font-size:12px;color:var(--fg-3);letter-spacing:.03em}
 .stat-cta{margin-top:36px;display:flex;justify-content:center}
 
