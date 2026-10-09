@@ -16,6 +16,7 @@ class Component extends DCLogic {
           if (!e.isIntersecting) return;
           const t = e.target;
           t.classList.add('in');
+          if (t.classList.contains('stat')) document.querySelectorAll('.stat').forEach((x) => x.classList.add('in'));
           if (t.classList.contains('panel')) {
             // frame draws itself automatically (time based, independent of scroll)
             if (reduce) { this._pf = '1'; t.style.setProperty('--pf', '1'); }
