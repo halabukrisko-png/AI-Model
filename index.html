@@ -366,6 +366,19 @@ html:not(.js-rv) .stat .bar{stroke-dasharray:var(--v) 100}
 .details-sec{padding-block:calc(var(--section)*.6) calc(var(--section)*.55)}
 .faq{background:var(--ink-2);border-block:1px solid var(--line)}
 .faq .ac-list{max-width:820px;margin:44px auto 0}
+/* ---- premium FAQ rows ---- */
+.faq .ac-list{border:1px solid rgba(217,181,107,.3);border-radius:var(--r-lg);overflow:hidden;background:linear-gradient(180deg,rgba(217,181,107,.05),rgba(255,255,255,.01) 40%,rgba(0,0,0,.2));box-shadow:0 24px 50px -28px rgba(0,0,0,.9)}
+.faq .ac{transition:background var(--t-base)}
+.faq .ac:last-child{border-bottom:0}
+.faq .ac[open]{background:linear-gradient(90deg,rgba(217,181,107,.09),transparent 70%)}
+.faq .ac summary{gap:14px;min-height:72px;padding:14px var(--gutter);font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;font-size:20px;line-height:1.25;letter-spacing:-.005em}
+.faq .ac .q-ico{box-sizing:content-box;width:20px;height:20px;padding:8px;border:1px solid rgba(217,181,107,.4);border-radius:50%;background:rgba(217,181,107,.07)}
+.faq .ac .acc{width:28px;height:28px;padding:6px;border:1px solid var(--line-2);border-radius:50%}
+.faq .ac summary:hover .acc{border-color:rgba(217,181,107,.6);color:var(--brass-hi)}
+.faq .ac[open] .acc{background:rgba(217,181,107,.14);border-color:rgba(217,181,107,.6);color:var(--brass-hi)}
+.faq .ac p{padding:0 var(--gutter) 24px calc(var(--gutter) + 62px)}
+@media (max-width:480px){.faq .ac .q-ico{width:18px;height:18px;padding:7px}.faq .ac p{padding-left:var(--gutter)}}
+@media (min-width:900px){.faq .ac summary{padding-inline:28px}.faq .ac p{padding-inline:28px 28px;padding-left:90px}}
 .quote-sec{padding-block:var(--section)}
 .quote{position:relative;max-width:820px;margin:0 auto;padding:34px 26px;border:1px solid var(--line-2);border-radius:var(--r-lg);background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.01));box-shadow:var(--sh-md)}
 .quote::before{content:"\201C";position:absolute;left:22px;top:-6px;font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-size:110px;line-height:1;color:var(--brass);opacity:.5}
