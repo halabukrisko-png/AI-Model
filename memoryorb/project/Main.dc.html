@@ -585,7 +585,8 @@ html.js-rv .rvt.in{opacity:1;transform:none;filter:none}
 html.js-rv .lens-stage.rvt{transform:scale(.88);filter:blur(10px);transition:opacity 2s cubic-bezier(.4,0,.2,1),transform 2.2s cubic-bezier(.3,.1,.2,1),filter 1.8s cubic-bezier(.4,0,.2,1)}
 html.js-rv .lens-stage.rvt.in{transform:none;filter:none}
 @keyframes garFall{0%{opacity:0;transform:translate(115%,-46px) rotate(9deg)}55%{opacity:1;transform:translate(-3%,5px) rotate(-1.5deg)}78%{transform:translate(1.2%,-2px) rotate(.6deg)}100%{opacity:1;transform:none}}
-.gar,.lg-ftr + .gar,.lg-ftr.go + .gar{opacity:1!important;transform-origin:100% 0;animation:garSway 4.5s ease-in-out infinite alternate!important}
+.gar,.lg-ftr + .gar,.lg-ftr.go + .gar{opacity:1!important;transform-origin:100% 0;animation:garSwing 3.2s ease-in-out infinite alternate!important}
+@keyframes garSwing{0%{transform:rotate(-1.6deg) translateY(-1px)}100%{transform:rotate(1.6deg) translateY(3px)}}
 footer h2,footer p,footer nav a{text-shadow:0 2px 7px rgba(0,0,0,.6)}
 @media (min-width:900px){.hero-grid{align-items:start}.hero-copy{padding-top:0}.foot-grid{grid-template-columns:1fr 1fr}.hero.is-compact .hero-grid{grid-template-columns:minmax(0,760px)}}
 
