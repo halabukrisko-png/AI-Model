@@ -333,6 +333,8 @@ html:not(.js-rv) .stat .bar{stroke-dasharray:var(--v) 100}
 /* ---- products page extras ---- */
 .details-sec{padding-block:36px 8px!important}
 .details-sec .ac-list{border:1px solid var(--line-2);border-radius:var(--r-lg);background:linear-gradient(180deg,rgba(255,255,255,.035),rgba(255,255,255,.01));box-shadow:inset 0 1px 0 rgba(242,219,163,.14),0 20px 38px -26px rgba(0,0,0,.8);padding:2px 20px}
+.details-sec .ac-list{margin-inline:calc(var(--gutter)*-1);border-left:0;border-right:0;border-radius:0;padding:2px var(--gutter)}
+@media (min-width:900px){.details-sec .ac-list{margin-inline:0;border:1px solid var(--line-2);border-radius:var(--r-lg);padding:2px 24px}}
 .details-sec .ac{border-bottom:1px solid var(--line)}
 .details-sec .ac:last-child{border-bottom:0}
 .details-sec .ac summary{min-height:62px}
