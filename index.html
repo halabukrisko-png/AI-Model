@@ -524,7 +524,7 @@ footer h2,footer p,footer nav a{text-shadow:0 2px 7px rgba(0,0,0,.6)}
 .buy-cta{margin-top:12px}
 .cue-note{margin:14px 0 2px;text-align:center;font-size:14px;line-height:1.5;color:var(--fg-3);position:relative;z-index:1}
 @media (min-width:640px){.stat-grid{grid-template-columns:repeat(3,1fr)}.fc-top{flex-direction:column;align-items:flex-start;gap:18px}.fc-face{min-height:260px}}
-@media (min-width:900px){.pa-grid>.cue,.cue-note{display:none}}
+@media (min-width:900px){.pa-grid>.cue,.pa-head2{display:none}}
 
 
 /* ---- trust flip cards (same layout as before: wide card on top, three tiles below) ---- */
@@ -592,6 +592,7 @@ html.js-rv .mo-ul.in::after{transform:scaleX(1)}
 /* ---- colour panel: champagne-gold frame grows from the top centre to both sides as you scroll ---- */
 .panel{position:relative;border-color:transparent}
 .pa-head{position:relative;z-index:1;margin:6px auto 26px;gap:14px}
+.pa-head2{margin:30px auto 8px}
 .pa-grid{display:grid;gap:8px}
 .pa-col{min-width:0}
 .panel-all::before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:radial-gradient(110% 80% at 50% 38%,transparent 12%,rgba(14,12,9,.45) 55%,rgba(14,12,9,.9) 100%),linear-gradient(180deg,rgba(14,12,9,.92) 0,rgba(14,12,9,.35) 16%,transparent 34%,transparent 46%,rgba(14,12,9,.6) 100%)}
@@ -810,7 +811,11 @@ html:not(.js-rv) .panel{--pf:1}
           </div>
         </div>
 
-        <p class="cue-note">Now choose how many orbs you want to adopt.</p>
+        <div class="sec-head pa-head pa-head2">
+          <span class="eyebrow c">Choose your bundle</span>
+          <h2 class="h2">Adopt more, <em>save more.</em></h2>
+          <p class="lead">Pick how many orbs you want to take home.</p>
+        </div>
         <div class="cue"><a class="dwn" href="#bundles" aria-label="Choose your bundle"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v16M5 13l7 7 7-7"/></svg></a></div>
         <div class="pa-col">
           <div id="bundles" class="bundles" role="radiogroup" aria-label="Choose a bundle">
