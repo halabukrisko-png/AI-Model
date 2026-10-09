@@ -594,6 +594,31 @@ html.js-rv .mo-ul.in::after{transform:scaleX(1)}
 .pframe i{position:absolute;inset:0;border-radius:inherit;padding:1.5px;background:#d9b56b;-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0)}
 .pdot{position:absolute;left:50%;top:0;width:7px;height:7px;margin:-3.5px 0 0 -3.5px;transform:rotate(45deg);background:linear-gradient(135deg,#f7e7bd,#c79a4a);box-shadow:0 0 10px 1px rgba(242,219,163,.55);pointer-events:none;opacity:min(1,calc(var(--pf,0)*14))}
 html:not(.js-rv) .panel{--pf:1}
+/* ---- login + shop pages ---- */
+.pg{background:linear-gradient(180deg,transparent 88%,#0a0907 100%),radial-gradient(ellipse 70% 22% at 12% 20%,rgba(24,92,66,.5),transparent 70%),radial-gradient(ellipse 60% 20% at 92% 8%,rgba(222,186,116,.15),transparent 70%),radial-gradient(ellipse 80% 20% at 6% 50%,rgba(22,84,60,.46),transparent 72%),radial-gradient(ellipse 70% 18% at 96% 42%,rgba(222,186,116,.11),transparent 70%),radial-gradient(ellipse 80% 18% at 4% 76%,rgba(22,84,60,.46),transparent 72%),radial-gradient(ellipse 90% 14% at 50% 90%,rgba(20,76,54,.32),transparent 72%),#0a0907;color:#fff;font-family:'Manrope',sans-serif;padding:56px 20px 170px;min-height:max(560px,calc(100vh - 140px));box-sizing:border-box}
+.pg-h{margin:20px 0 14px;text-align:center;font-family:'Cormorant Garamond',serif;font-weight:500;font-size:46px;line-height:1.1;letter-spacing:-.01em;color:#fff}
+.pg-sub{text-align:center;font-size:15px;color:var(--fg-2);margin:0 auto;max-width:44ch}
+.pg-card{max-width:520px;margin:30px auto 0;padding:26px 22px 22px;border:1px solid rgba(243,210,122,.28);border-radius:30px;background:#0d0f0a}
+.pg-link{align-self:flex-start;font-size:13px;font-weight:600;letter-spacing:.04em;color:var(--brass-hi);text-decoration:none;border-bottom:1px solid rgba(242,219,163,.35);padding-bottom:1px;transition:color var(--t-base),border-color var(--t-base)}
+.pg-link:hover{color:#fff;border-color:#fff}
+.pg-perks{display:flex;justify-content:center;flex-wrap:wrap;gap:8px 20px;margin-top:22px;padding-top:18px;border-top:1px solid var(--line);font-size:12px;font-weight:600;color:var(--fg-3)}
+.pg-perks span{display:inline-flex;align-items:center;gap:7px}.pg-perks svg{color:var(--brass);width:14px;height:14px}
+.shop-grid{display:grid;grid-template-columns:1fr;gap:18px;max-width:1100px;margin:34px auto 0}
+.shop-card{border:1px solid var(--line-2);border-radius:var(--r-lg);background:#0f0d0a;overflow:hidden;box-shadow:inset 0 1px 0 rgba(242,219,163,.16),0 20px 38px -24px rgba(0,0,0,.75);transition:transform var(--t-base) var(--ease),border-color var(--t-base),box-shadow var(--t-base)}
+.shop-card:hover{transform:translateY(-4px);border-color:rgba(217,181,107,.55)}
+.shop-img{all:unset;box-sizing:border-box;display:block;position:relative;width:100%;cursor:pointer}
+.shop-img .sw-art{border-radius:0;border:0;box-shadow:none;aspect-ratio:1/1}
+.shop-img:hover .sw-art img{transform:scale(1.05)}
+.shop-tag{position:absolute;left:14px;top:14px;height:24px;display:inline-flex;align-items:center;padding:0 11px;border-radius:var(--r-pill);background:rgba(10,9,7,.7);border:1px solid rgba(217,181,107,.5);font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--brass-hi);backdrop-filter:blur(6px)}
+.shop-body{padding:18px 18px 20px}
+.shop-name{font-size:20px;font-weight:600;letter-spacing:-.03em;line-height:1.2;margin:0}
+.shop-name em{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:1.15em;color:var(--brass-hi)}
+.shop-desc{margin:6px 0 0;font-size:13.5px;color:var(--fg-3)}
+.shop-price{display:flex;align-items:baseline;gap:10px;margin:14px 0 16px}
+.shop-price b{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:600;color:var(--brass-hi);font-variant-numeric:lining-nums}
+.shop-price s{font-size:14px;color:var(--fg-3)}
+@media (min-width:640px){.shop-grid{grid-template-columns:repeat(2,1fr)}}
+@media (min-width:900px){.shop-grid{grid-template-columns:repeat(3,1fr)}.pg-h{font-size:64px}}
 /* ---- scroll reveal ---- */
 
 /* ---- responsive ---- */
@@ -677,11 +702,12 @@ html:not(.js-rv) .panel{--pf:1}
         </div>
         <div class="drawer-links">
           <a class="drawer-link" style="--i:0" href="#top" aria-current="{{curHome}}" onClick="{{goHome}}">Home<span class="n">01</span></a>
-          <a class="drawer-link" style="--i:1" href="#top" aria-current="{{curContact}}" onClick="{{goContact}}">Contact<span class="n">02</span></a>
-          <a class="drawer-link" style="--i:2" href="#top" aria-current="{{curTrack}}" onClick="{{goTracking}}">Tracking<span class="n">03</span></a>
+          <a class="drawer-link" style="--i:1" href="#top" aria-current="{{curShop}}" onClick="{{goShop}}">Shop<span class="n">02</span></a>
+          <a class="drawer-link" style="--i:2" href="#top" aria-current="{{curContact}}" onClick="{{goContact}}">Contact<span class="n">03</span></a>
+          <a class="drawer-link" style="--i:3" href="#top" aria-current="{{curTrack}}" onClick="{{goTracking}}">Tracking<span class="n">04</span></a>
         </div>
         <div class="drawer-foot">
-          <a class="drawer-login" href="#top" onClick="{{closeMenu}}"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.500 3.500-7 8-7s8 2.500 8 7z"/></svg>Log in</a>
+          <a class="drawer-login" href="#top" aria-current="{{curLogin}}" onClick="{{goLogin}}"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.500 3.500-7 8-7s8 2.500 8 7z"/></svg>Log in</a>
         </div>
       </nav>
     </div>
@@ -703,11 +729,12 @@ html:not(.js-rv) .panel{--pf:1}
       </span></div></a>
       <nav class="hdr-nav" aria-label="Primary">
         <a class="nav-link" href="#top" aria-current="{{curHome}}" onClick="{{goHome}}">Home</a>
+        <a class="nav-link" href="#top" aria-current="{{curShop}}" onClick="{{goShop}}">Shop</a>
         <a class="nav-link" href="#top" aria-current="{{curContact}}" onClick="{{goContact}}">Contact</a>
         <a class="nav-link" href="#top" aria-current="{{curTrack}}" onClick="{{goTracking}}">Tracking</a>
       </nav>
       <div class="hdr-act">
-        <a class="icon-btn hdr-login" href="#top" aria-label="Log in" onClick="{{closeMenu}}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.500 3.500-7 8-7s8 2.500 8 7z"/></svg></a>
+        <a class="icon-btn hdr-login" href="#top" aria-label="Log in" onClick="{{goLogin}}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.500 3.500-7 8-7s8 2.500 8 7z"/></svg></a>
         <button class="icon-btn" aria-label="Cart">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.500 3.500h2.800l2.400 11.500h11l2-8.200H6"/><circle cx="9.500" cy="19.800" r="1.300"/><circle cx="17" cy="19.800" r="1.300"/></svg>
         </button>
@@ -925,8 +952,56 @@ html:not(.js-rv) .panel{--pf:1}
 
   </div>
 
+  <!-- login page -->
+  <div class="pg" style="display:{{loginDisp}}">
+    <div style="display:flex;align-items:center;justify-content:center;gap:16px;font-size:15px;font-weight:600;letter-spacing:.3em;color:#d9b45f"><span style="width:38px;height:1px;background:#b8923f"></span>MEMORYORB<span style="width:38px;height:1px;background:#b8923f"></span></div>
+    <h1 class="pg-h" style="display:{{lgNameDisp0}}">Welcome <em style="color:#f1d99a">back</em></h1>
+    <h1 class="pg-h" style="display:{{lgNameDisp}}">Create your <em style="color:#f1d99a">account</em></h1>
+    <div class="pg-card">
+      <div class="tabs" role="tablist">
+        <button class="tab" role="tab" aria-selected="{{lgIn}}" onClick="{{lgTabIn}}">Log in</button>
+        <button class="tab" role="tab" aria-selected="{{lgUp}}" onClick="{{lgTabUp}}">Create account</button>
+      </div>
+      <form onSubmit="{{sendLogin}}" style="margin-top:24px;display:flex;flex-direction:column;gap:16px">
+        <div style="display:{{lgNameDisp}}"><label class="lbl" for="l-name">Name</label><input id="l-name" class="field" type="text" autocomplete="name" placeholder="Your name"></div>
+        <div><label class="lbl" for="l-mail">Email</label><input id="l-mail" class="field" type="email" autocomplete="email" placeholder="you@example.com"></div>
+        <div><label class="lbl" for="l-pass">Password</label><input id="l-pass" class="field" type="password" autocomplete="current-password" placeholder="••••••••"></div>
+        <a class="pg-link" href="#top" style="display:{{lgForgotDisp}}" onClick="{{goContact}}">Forgot your password?</a>
+        <button type="submit" class="btn btn-primary btn-lg btn-block">{{lgBtn}}</button>
+      </form>
+      <p class="notice" style="display:{{lgSentDisp}}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.500l4.500 4.500L19 7.500"/></svg>Accounts are not enabled yet. This is a preview.</p>
+      <div class="pg-perks"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.500l4.500 4.500L19 7.500"/></svg>Track your orders</span><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.500l4.500 4.500L19 7.500"/></svg>Faster checkout</span></div>
+    </div>
+  </div>
+
+  <!-- shop page -->
+  <div class="pg" style="display:{{shopDisp}}">
+    <div style="display:flex;align-items:center;justify-content:center;gap:16px;font-size:15px;font-weight:600;letter-spacing:.3em;color:#d9b45f"><span style="width:38px;height:1px;background:#b8923f"></span>SHOP<span style="width:38px;height:1px;background:#b8923f"></span></div>
+    <h1 class="pg-h">The <em style="color:#f1d99a">collection</em></h1>
+    <p class="pg-sub">Same magic, different colours. Pick the MemoryOrb that fits their story.</p>
+    <div class="shop-grid">
+      <sc-for list="{{shopItems}}" as="it" hint-placeholder-count="5">
+        <div class="shop-card">
+          <button type="button" class="shop-img" aria-label="Choose {{it.name}}" onClick="{{it.pick}}">
+            <span class="sw-art" style="--c:{{it.color}}"><i class="cap"></i><i class="ball"></i><i class="lens"></i>
+              <sc-if value="{{it.hasPhoto}}" hint-placeholder-val="{{ false }}"><img src="/_blob/628c7c017972c2bd329545a766ecac1a" alt="" loading="lazy"></sc-if>
+            </span>
+            <span class="shop-tag">{{it.tag}}</span>
+          </button>
+          <div class="shop-body">
+            <h2 class="shop-name">MemoryOrb<sup class="tm">™</sup> <em>{{it.name}}</em></h2>
+            <p class="shop-desc">4GB built-in storage · one-touch controls</p>
+            <div class="shop-price"><b>$59.99</b><s>$85.70</s></div>
+            <button type="button" class="btn btn-primary btn-block" onClick="{{it.pick}}">Choose</button>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+    <p class="pg-sub" style="margin-top:34px">Free shipping today · 30-day guarantee</p>
+  </div>
+
   <!-- contact page -->
-  <div style="display:{{contactDisp}};background:linear-gradient(180deg,transparent 88%,#0a0907 100%),radial-gradient(ellipse 70% 22% at 12% 20%,rgba(24,92,66,.5),transparent 70%),radial-gradient(ellipse 60% 20% at 92% 8%,rgba(222,186,116,.15),transparent 70%),radial-gradient(ellipse 80% 20% at 6% 50%,rgba(22,84,60,.46),transparent 72%),radial-gradient(ellipse 70% 18% at 96% 42%,rgba(222,186,116,.11),transparent 70%),radial-gradient(ellipse 80% 18% at 4% 76%,rgba(22,84,60,.46),transparent 72%),radial-gradient(ellipse 70% 18% at 98% 70%,rgba(110,22,40,.3),transparent 70%),radial-gradient(ellipse 90% 14% at 50% 90%,rgba(20,76,54,.32),transparent 72%),#0a0907;color:#fff;font-family:'Poppins','Manrope',sans-serif;padding:56px 20px 170px;min-height:max(560px,calc(100vh - 140px));box-sizing:border-box">
+  <div style="display:{{contactDisp}};background:linear-gradient(180deg,transparent 88%,#0a0907 100%),radial-gradient(ellipse 70% 22% at 12% 20%,rgba(24,92,66,.5),transparent 70%),radial-gradient(ellipse 60% 20% at 92% 8%,rgba(222,186,116,.15),transparent 70%),radial-gradient(ellipse 80% 20% at 6% 50%,rgba(22,84,60,.46),transparent 72%),radial-gradient(ellipse 70% 18% at 96% 42%,rgba(222,186,116,.11),transparent 70%),radial-gradient(ellipse 80% 18% at 4% 76%,rgba(22,84,60,.46),transparent 72%),radial-gradient(ellipse 90% 14% at 50% 90%,rgba(20,76,54,.32),transparent 72%),#0a0907;color:#fff;font-family:'Poppins','Manrope',sans-serif;padding:56px 20px 170px;min-height:max(560px,calc(100vh - 140px));box-sizing:border-box">
     <div style="display:flex;align-items:center;justify-content:center;gap:16px;font-size:15px;font-weight:600;letter-spacing:.3em;color:#d9b45f"><span style="width:38px;height:1px;background:#b8923f"></span>MEMORYORB<span style="width:38px;height:1px;background:#b8923f"></span></div>
     <h1 style="margin:20px 0 34px;text-align:center;font-family:'Cormorant Garamond',serif;font-weight:500;font-size:46px;line-height:1.1;color:#fff">Get in <em style="color:#f1d99a">touch</em></h1>
     <form onSubmit="{{sendContact}}" style="border:1px solid rgba(243,210,122,.28);border-radius:30px;background:#0d0f0a;padding:28px 24px 30px">
@@ -940,7 +1015,7 @@ html:not(.js-rv) .panel{--pf:1}
   </div>
 
   <!-- tracking page -->
-  <div style="display:{{trackDisp}};background:linear-gradient(180deg,transparent 88%,#0a0907 100%),radial-gradient(ellipse 70% 22% at 12% 20%,rgba(24,92,66,.5),transparent 70%),radial-gradient(ellipse 60% 20% at 92% 8%,rgba(222,186,116,.15),transparent 70%),radial-gradient(ellipse 80% 20% at 6% 50%,rgba(22,84,60,.46),transparent 72%),radial-gradient(ellipse 70% 18% at 96% 42%,rgba(222,186,116,.11),transparent 70%),radial-gradient(ellipse 80% 18% at 4% 76%,rgba(22,84,60,.46),transparent 72%),radial-gradient(ellipse 70% 18% at 98% 70%,rgba(110,22,40,.3),transparent 70%),radial-gradient(ellipse 90% 14% at 50% 90%,rgba(20,76,54,.32),transparent 72%),#0a0907;color:#fff;font-family:'Poppins','Manrope',sans-serif;padding:56px 20px 170px;min-height:max(560px,calc(100vh - 140px));box-sizing:border-box">
+  <div style="display:{{trackDisp}};background:linear-gradient(180deg,transparent 88%,#0a0907 100%),radial-gradient(ellipse 70% 22% at 12% 20%,rgba(24,92,66,.5),transparent 70%),radial-gradient(ellipse 60% 20% at 92% 8%,rgba(222,186,116,.15),transparent 70%),radial-gradient(ellipse 80% 20% at 6% 50%,rgba(22,84,60,.46),transparent 72%),radial-gradient(ellipse 70% 18% at 96% 42%,rgba(222,186,116,.11),transparent 70%),radial-gradient(ellipse 80% 18% at 4% 76%,rgba(22,84,60,.46),transparent 72%),radial-gradient(ellipse 90% 14% at 50% 90%,rgba(20,76,54,.32),transparent 72%),#0a0907;color:#fff;font-family:'Poppins','Manrope',sans-serif;padding:56px 20px 170px;min-height:max(560px,calc(100vh - 140px));box-sizing:border-box">
     <div style="display:flex;align-items:center;justify-content:center;gap:16px;font-size:15px;font-weight:600;letter-spacing:.3em;color:#d9b45f"><span style="width:38px;height:1px;background:#b8923f"></span>MEMORYORB<span style="width:38px;height:1px;background:#b8923f"></span></div>
     <h1 style="margin:20px 0 34px;text-align:center;font-family:'Cormorant Garamond',serif;font-weight:500;font-size:46px;line-height:1.1;color:#fff">Track your <em style="color:#f1d99a">order</em></h1>
     <div style="border:1px solid rgba(243,210,122,.28);border-radius:30px;background:#0d0f0a;padding:28px 24px 30px">
@@ -1093,7 +1168,7 @@ html:not(.js-rv) .panel{--pf:1}
 class Component extends DCLogic {
   constructor(props) {
     super(props);
-    this.state = { prod: false, page: 'home', sent: false, tab: 0, tsent: false, bundle: 2, thumb: 0, colour: 0, outlet: 0, qty: 1, cf: 0, menu: false, flip: [false, false, false, false], cmp: 1 };
+    this.state = { prod: false, page: 'home', sent: false, tab: 0, tsent: false, bundle: 2, thumb: 0, colour: 0, outlet: 0, qty: 1, cf: 0, menu: false, flip: [false, false, false, false], cmp: 1, lt: 0, lsent: false };
   }
   componentDidMount() {
     const root = document.documentElement;
@@ -1192,6 +1267,7 @@ class Component extends DCLogic {
       const sel = this.state.colour === i;
       return { ...c, hasPhoto: c.name === 'Black', selected: sel, checked: sel ? 'true' : 'false', border: sel ? '#e8353a' : 'transparent', ringW: sel ? 5 : 3, ringC: sel ? '#113a00' : 'transparent', pick: () => this.setState({ colour: i }) };
     });
+    const shopItems = cs.map((c, i) => ({ name: c.name, color: c.color, hasPhoto: c.name === 'Black', tag: i === 0 ? 'Bestseller' : (i === 1 ? 'New' : ''), pick: () => { this.setState({ colour: i, page: 'products', menu: false }); try { window.scrollTo(0, 0); } catch (x) {} } }));
     const os = [
       { name: 'Type C', desc: 'Fast & modern charging', isUsb: true, isWifi: false },
       { name: 'WiFi', desc: 'Wireless transfer of photos & videos directly to your MemoryOrb', isUsb: false, isWifi: true }
@@ -1280,6 +1356,19 @@ class Component extends DCLogic {
           this.setState({ cmp: x < w - yw - nw ? 0 : (x < w - nw ? 1 : 2) });
         } catch (err) {}
       },
+      curShop: this.state.page === 'shop' ? 'page' : 'false',
+      curLogin: this.state.page === 'login' ? 'page' : 'false',
+      shopDisp: this.state.page === 'shop' ? 'block' : 'none',
+      loginDisp: this.state.page === 'login' ? 'block' : 'none',
+      goShop: (e) => { this.setState({ page: 'shop', menu: false }); try { window.scrollTo(0, 0); } catch (x) {} },
+      goLogin: (e) => { this.setState({ page: 'login', menu: false, lsent: false }); try { window.scrollTo(0, 0); } catch (x) {} },
+      lgNameDisp0: this.state.lt === 0 ? 'block' : 'none',
+      lgIn: this.state.lt === 0 ? 'true' : 'false', lgUp: this.state.lt === 1 ? 'true' : 'false',
+      lgTabIn: () => this.setState({ lt: 0, lsent: false }), lgTabUp: () => this.setState({ lt: 1, lsent: false }),
+      lgNameDisp: this.state.lt === 1 ? 'block' : 'none', lgForgotDisp: this.state.lt === 0 ? 'inline-block' : 'none',
+      lgBtn: this.state.lt === 0 ? 'Log in' : 'Create account', lgSentDisp: this.state.lsent ? 'flex' : 'none',
+      sendLogin: (e) => { try { e.preventDefault(); } catch (x) {} this.setState({ lsent: true }); },
+      shopItems,
       trust, bundles, thumbs, cColours, cName: cs[this.state.colour].name, cOutlets, cf, cfDots, cfPrev, cfNext, cfPrevColor, cfNextColor, cQty: this.state.qty, ctaTotal,
       cInc: () => this.setState({ qty: Math.min(9, this.state.qty + 1) }),
       cDec: () => this.setState({ qty: Math.max(1, this.state.qty - 1) })

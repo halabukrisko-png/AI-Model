@@ -2,7 +2,7 @@
 class Component extends DCLogic {
   constructor(props) {
     super(props);
-    this.state = { prod: false, page: 'home', sent: false, tab: 0, tsent: false, bundle: 2, thumb: 0, colour: 0, outlet: 0, qty: 1, cf: 0, menu: false, flip: [false, false, false, false], cmp: 1 };
+    this.state = { prod: false, page: 'home', sent: false, tab: 0, tsent: false, bundle: 2, thumb: 0, colour: 0, outlet: 0, qty: 1, cf: 0, menu: false, flip: [false, false, false, false], cmp: 1, lt: 0, lsent: false };
   }
   componentDidMount() {
     const root = document.documentElement;
@@ -101,6 +101,7 @@ class Component extends DCLogic {
       const sel = this.state.colour === i;
       return { ...c, hasPhoto: c.name === 'Black', selected: sel, checked: sel ? 'true' : 'false', border: sel ? '#e8353a' : 'transparent', ringW: sel ? 5 : 3, ringC: sel ? '#113a00' : 'transparent', pick: () => this.setState({ colour: i }) };
     });
+    const shopItems = cs.map((c, i) => ({ name: c.name, color: c.color, hasPhoto: c.name === 'Black', tag: i === 0 ? 'Bestseller' : (i === 1 ? 'New' : ''), pick: () => { this.setState({ colour: i, page: 'products', menu: false }); try { window.scrollTo(0, 0); } catch (x) {} } }));
     const os = [
       { name: 'Type C', desc: 'Fast & modern charging', isUsb: true, isWifi: false },
       { name: 'WiFi', desc: 'Wireless transfer of photos & videos directly to your MemoryOrb', isUsb: false, isWifi: true }
@@ -189,6 +190,19 @@ class Component extends DCLogic {
           this.setState({ cmp: x < w - yw - nw ? 0 : (x < w - nw ? 1 : 2) });
         } catch (err) {}
       },
+      curShop: this.state.page === 'shop' ? 'page' : 'false',
+      curLogin: this.state.page === 'login' ? 'page' : 'false',
+      shopDisp: this.state.page === 'shop' ? 'block' : 'none',
+      loginDisp: this.state.page === 'login' ? 'block' : 'none',
+      goShop: (e) => { this.setState({ page: 'shop', menu: false }); try { window.scrollTo(0, 0); } catch (x) {} },
+      goLogin: (e) => { this.setState({ page: 'login', menu: false, lsent: false }); try { window.scrollTo(0, 0); } catch (x) {} },
+      lgNameDisp0: this.state.lt === 0 ? 'block' : 'none',
+      lgIn: this.state.lt === 0 ? 'true' : 'false', lgUp: this.state.lt === 1 ? 'true' : 'false',
+      lgTabIn: () => this.setState({ lt: 0, lsent: false }), lgTabUp: () => this.setState({ lt: 1, lsent: false }),
+      lgNameDisp: this.state.lt === 1 ? 'block' : 'none', lgForgotDisp: this.state.lt === 0 ? 'inline-block' : 'none',
+      lgBtn: this.state.lt === 0 ? 'Log in' : 'Create account', lgSentDisp: this.state.lsent ? 'flex' : 'none',
+      sendLogin: (e) => { try { e.preventDefault(); } catch (x) {} this.setState({ lsent: true }); },
+      shopItems,
       trust, bundles, thumbs, cColours, cName: cs[this.state.colour].name, cOutlets, cf, cfDots, cfPrev, cfNext, cfPrevColor, cfNextColor, cQty: this.state.qty, ctaTotal,
       cInc: () => this.setState({ qty: Math.min(9, this.state.qty + 1) }),
       cDec: () => this.setState({ qty: Math.max(1, this.state.qty - 1) })
