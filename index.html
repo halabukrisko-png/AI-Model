@@ -406,7 +406,7 @@ html:not(.js-rv) .stat .bar{stroke-dasharray:var(--v) 100}
 .acct-ico.big{width:60px;height:60px}
 .pg-perks span+span{position:relative;padding-left:20px}.pg-perks span+span::before{content:"";position:absolute;left:0;top:50%;height:16px;width:1px;transform:translateY(-50%);background:linear-gradient(180deg,transparent,rgba(217,181,107,.6),transparent)}
 .cart .pg-perks span+span{padding-left:0}.cart .pg-perks span+span::before{display:none}
-.free-pill{display:inline-flex;align-items:center;gap:4px;padding:0;border:0;background:none;color:var(--mint);font-size:15px;font-weight:700;letter-spacing:normal;text-transform:none;text-shadow:none;margin-right:-18px}
+.free-pill{display:inline-flex;align-items:center;gap:6px;padding:0;border:0;background:none;color:var(--mint);font-size:15px;font-weight:700;letter-spacing:normal;text-transform:none;text-shadow:none}
 .free-pill svg{flex:none}
 .acct-out{display:flex;justify-content:center;margin-top:34px}
 
@@ -1201,7 +1201,7 @@ html:not(.js-rv) .panel{--pf:1}
         </div>
         <div class="cart-sum">
           <div><span>Subtotal</span><b>{{cartSub}}</b></div>
-          <div><span>Shipping</span><b class="free-pill">Free<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7"/><circle cx="7" cy="18" r="1.4"/><circle cx="17" cy="18" r="1.4"/></svg></b></div>
+          <div><span>Shipping</span><b class="free-pill"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7"/><circle cx="7" cy="18" r="1.4"/><circle cx="17" cy="18" r="1.4"/></svg>Free</b></div>
           <div class="tot"><span>Total</span><b>{{cartSub}}</b></div>
         </div>
         <button type="button" class="btn btn-primary btn-lg btn-block" onClick="{{cartCheckout}}">Checkout</button>
