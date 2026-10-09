@@ -582,6 +582,7 @@ html.js-rv .mo-ul.in::after{transform:scaleX(1)}
 @media (prefers-reduced-motion:reduce){html.js-rv .mo-ul::after{transform:scaleX(1);transition:none}}
 /* ---- colour panel: champagne-gold frame grows from the top centre to both sides as you scroll ---- */
 .panel{position:relative;border-color:transparent}
+.pa-head{position:relative;z-index:1;margin:6px auto 26px;gap:14px}
 .pa-grid{display:grid;gap:8px}
 .pa-col{min-width:0}
 .panel-all::before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:radial-gradient(110% 80% at 50% 38%,transparent 12%,rgba(14,12,9,.45) 55%,rgba(14,12,9,.9) 100%),linear-gradient(180deg,rgba(14,12,9,.92) 0,rgba(14,12,9,.35) 16%,transparent 34%,transparent 46%,rgba(14,12,9,.6) 100%)}
@@ -771,14 +772,14 @@ html:not(.js-rv) .panel{--pf:1}
   <!-- colour & bundle -->
   <section id="colours" class="buy" style="display:{{colDisp}}">
     <div class="wrap">
-      <div class="sec-head rv">
+
+      <div class="buy-grid">
+        <div class="panel panel-all"><span class="pframe" aria-hidden="true"><i></i></span><span class="pdot" aria-hidden="true"></span>
+        <div class="sec-head pa-head">
         <span class="eyebrow c">Choose your EverOrb</span>
         <h2 class="h2">Same magic, <em>different colours.</em></h2>
         <p class="lead">Pick the colour that fits their story.</p>
       </div>
-
-      <div class="buy-grid">
-        <div class="panel panel-all"><span class="pframe" aria-hidden="true"><i></i></span><span class="pdot" aria-hidden="true"></span>
 <div class="pa-grid">
         <div class="pa-col">
           <div class="panel-t"><span>Colour</span><b>{{cName}}</b></div>
