@@ -126,10 +126,11 @@ html.is-scrolled .hdr-in{height:var(--hdr-s)}
 .drawer{position:fixed;inset:0;z-index:200}
 .drawer-bg{position:absolute;inset:0;background:rgba(5,4,3,.62);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);animation:fadeIn .35s var(--ease) both}
 .drawer-panel{position:absolute;left:0;top:0;bottom:0;width:min(88%,380px);display:flex;flex-direction:column;background:linear-gradient(180deg,#14110d,#0a0907);border-right:1px solid var(--line-2);box-shadow:30px 0 60px -20px rgba(0,0,0,.8);animation:drawerIn .45s var(--ease-out) both}
-.drawer-top{display:flex;align-items:center;justify-content:space-between;height:var(--hdr);padding:0 12px 0 24px;border-bottom:1px solid var(--line)}
+.drawer-top{position:relative;display:flex;align-items:center;justify-content:center;height:var(--hdr);padding:0 12px;border-bottom:1px solid var(--line)}
+.drawer-top .icon-btn{position:absolute;right:8px;top:50%;margin-top:-23px}
 .drawer-top .logo{font-size:21px}
 .drawer-links{padding:28px 12px 12px;display:flex;flex-direction:column}
-.drawer-link{position:relative;display:flex;align-items:center;justify-content:space-between;min-height:64px;padding:0 14px;border-radius:var(--r-sm);text-decoration:none;color:var(--fg);font-size:30px;font-weight:600;letter-spacing:-.04em;opacity:.78;animation:riseIn .6s var(--ease-out) both;animation-delay:calc(.12s + var(--i)*.07s);transition:background var(--t-base),opacity var(--t-base),padding var(--t-base) var(--ease)}
+.drawer-link{position:relative;display:flex;align-items:center;justify-content:space-between;min-height:54px;padding:0 14px;border-radius:var(--r-sm);text-decoration:none;color:var(--fg);font-size:22px;font-weight:600;letter-spacing:-.04em;opacity:.78;animation:riseIn .6s var(--ease-out) both;animation-delay:calc(.12s + var(--i)*.07s);transition:background var(--t-base),opacity var(--t-base),padding var(--t-base) var(--ease)}
 .drawer-link span.n{font-size:11px;font-weight:700;letter-spacing:.2em;color:var(--fg-3)}
 .drawer-link:hover{opacity:1;background:rgba(255,255,255,.04);padding-left:20px}
 .drawer-link[aria-current="page"]{opacity:1;color:var(--brass-hi)}
@@ -442,7 +443,7 @@ html.js-rv .rvs:not(.in){opacity:0}
 /* ---- animated logo (letters write in, hat drops, balloons pop) ---- */
 .logo-hdr{transform:scale(.64);transform-origin:center}
 .logo-hdr .lg-hdr{padding-top:12px!important}
-.drawer-top .logo-hdr{transform:scale(.7);transform-origin:left center}
+.drawer-top .logo-hdr{transform:scale(.64);transform-origin:center}
 .logo-ftr{display:block;transform:scale(1);transform-origin:left center}
 .lg-ftr{height:84px;display:flex;align-items:center;padding-top:10px}
 @keyframes orbGlow{0%,100%{box-shadow:0 0 0 1.5px rgba(255,255,255,.9),0 0 12px 2px rgba(255,226,60,.55)}50%{box-shadow:0 0 0 1.5px #fff,0 0 22px 7px rgba(255,226,60,.95)}}
