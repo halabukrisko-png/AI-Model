@@ -347,6 +347,11 @@ html:not(.js-rv) .stat .bar{stroke-dasharray:var(--v) 100}
 .details-sec .ac summary:hover .acc{border-color:rgba(217,181,107,.6);color:var(--brass-hi)}
 .details-sec .ac[open] .acc{background:rgba(217,181,107,.14);border-color:rgba(217,181,107,.6);color:var(--brass-hi)}
 .details-sec .ac p{padding:0 4px 24px 36px;color:var(--fg-2)}
+.dd-title{display:flex;flex-direction:column;align-items:center;gap:6px;margin-bottom:22px;text-align:center}
+.dd-name{margin:0;font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;font-size:clamp(34px,8vw,48px);line-height:1.05;letter-spacing:-.01em;color:var(--fg)}
+.dd-name .tm{font-size:.38em;vertical-align:super;color:var(--fg-3)}
+.dd-price{font-size:22px;font-weight:700;letter-spacing:-.01em;color:var(--brass-hi)}
+.dd-price s{margin-left:8px;font-size:15px;font-weight:500;color:var(--fg-3)}
 .details-sec .ac-list{padding:0}.details-sec .ac summary{padding-inline:var(--gutter)}.details-sec .ac p{padding:0 var(--gutter) 24px calc(var(--gutter) + 36px)}.details-sec .ac:last-child{border-bottom:0}
 @media (min-width:900px){.details-sec .ac-list{border:1px solid var(--line-2);overflow:hidden;padding:0}.details-sec .ac summary{padding-inline:26px}.details-sec .ac p{padding-left:62px}.details-sec .ac:last-child{border-bottom:0}}
 .dd-buy{display:flex;justify-content:center;margin-top:26px}
@@ -845,6 +850,7 @@ html:not(.js-rv) .panel{--pf:1}
   <div style="display:{{prodDisp}}">
     <section class="details-sec">
       <div class="wrap" style="max-width:calc(880px + var(--gutter)*2)">
+        <div class="dd-title rv"><h2 class="dd-name">MemoryOrb<sup class="tm">™</sup></h2><div class="dd-price">$59.99 <s>$85.70</s></div></div>
         <div class="sec-head rv" style="margin-bottom:26px"><span class="eyebrow c">Product details</span></div>
         <div class="ac-list rv" style="margin-top:0;--d:80ms">
           <details class="ac"><summary><span>Description</span><svg class="acc" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary><p>We created the MemoryOrb™ to bring back the feelings you never want to lose, so your moments can shine as bright as the day they were made.</p></details>
