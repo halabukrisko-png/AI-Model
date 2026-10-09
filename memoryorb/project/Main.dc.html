@@ -238,6 +238,7 @@ html.is-scrolled .hdr-in{height:var(--hdr-s)}
 .buy-note{margin-top:16px;display:flex;justify-content:center;gap:18px;flex-wrap:wrap;font-size:12px;font-weight:600;color:var(--fg-3);letter-spacing:.02em}
 .buy-note span{display:inline-flex;align-items:center;gap:7px}
 .buy-note svg{color:var(--brass)}
+.buy-note span+span{position:relative;padding-left:20px}.buy-note span+span::before{content:"";position:absolute;left:0;top:50%;height:16px;width:1px;transform:translateY(-50%);background:linear-gradient(180deg,transparent,rgba(217,181,107,.6),transparent)}
 
 /* ---- trust (paper) ---- */
 .on-paper{background:var(--paper);color:var(--paper-ink)}
