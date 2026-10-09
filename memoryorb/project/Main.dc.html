@@ -617,6 +617,8 @@ html:not(.js-rv) .panel{--pf:1}
 .shop-price{display:flex;align-items:baseline;gap:10px;margin:14px 0 16px}
 .shop-price b{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:600;color:var(--brass-hi);font-variant-numeric:lining-nums}
 .shop-price s{font-size:14px;color:var(--fg-3)}
+
+.pg.pg-flat{background:#0a0907}
 @media (min-width:640px){.shop-grid{grid-template-columns:repeat(2,1fr)}}
 @media (min-width:900px){.shop-grid{grid-template-columns:repeat(3,1fr)}.pg-h{font-size:64px}}
 /* ---- scroll reveal ---- */
@@ -953,7 +955,7 @@ html:not(.js-rv) .panel{--pf:1}
   </div>
 
   <!-- login page -->
-  <div class="pg" style="display:{{loginDisp}}">
+  <div class="pg pg-flat" style="display:{{loginDisp}}">
     <div style="display:flex;align-items:center;justify-content:center;gap:16px;font-size:15px;font-weight:600;letter-spacing:.3em;color:#d9b45f"><span style="width:38px;height:1px;background:#b8923f"></span>MEMORYORB<span style="width:38px;height:1px;background:#b8923f"></span></div>
     <h1 class="pg-h" style="display:{{lgNameDisp0}}">Welcome <em style="color:#f1d99a">back</em></h1>
     <h1 class="pg-h" style="display:{{lgNameDisp}}">Create your <em style="color:#f1d99a">account</em></h1>
@@ -1001,7 +1003,7 @@ html:not(.js-rv) .panel{--pf:1}
   </div>
 
   <!-- contact page -->
-  <div style="display:{{contactDisp}};background:linear-gradient(180deg,transparent 88%,#0a0907 100%),radial-gradient(ellipse 70% 22% at 12% 20%,rgba(24,92,66,.5),transparent 70%),radial-gradient(ellipse 60% 20% at 92% 8%,rgba(222,186,116,.15),transparent 70%),radial-gradient(ellipse 80% 20% at 6% 50%,rgba(22,84,60,.46),transparent 72%),radial-gradient(ellipse 70% 18% at 96% 42%,rgba(222,186,116,.11),transparent 70%),radial-gradient(ellipse 80% 18% at 4% 76%,rgba(22,84,60,.46),transparent 72%),radial-gradient(ellipse 90% 14% at 50% 90%,rgba(20,76,54,.32),transparent 72%),#0a0907;color:#fff;font-family:'Poppins','Manrope',sans-serif;padding:56px 20px 170px;min-height:max(560px,calc(100vh - 140px));box-sizing:border-box">
+  <div style="display:{{contactDisp}};background:#0a0907;color:#fff;font-family:'Poppins','Manrope',sans-serif;padding:56px 20px 170px;min-height:max(560px,calc(100vh - 140px));box-sizing:border-box">
     <div style="display:flex;align-items:center;justify-content:center;gap:16px;font-size:15px;font-weight:600;letter-spacing:.3em;color:#d9b45f"><span style="width:38px;height:1px;background:#b8923f"></span>MEMORYORB<span style="width:38px;height:1px;background:#b8923f"></span></div>
     <h1 style="margin:20px 0 34px;text-align:center;font-family:'Cormorant Garamond',serif;font-weight:500;font-size:46px;line-height:1.1;color:#fff">Get in <em style="color:#f1d99a">touch</em></h1>
     <form onSubmit="{{sendContact}}" style="border:1px solid rgba(243,210,122,.28);border-radius:30px;background:#0d0f0a;padding:28px 24px 30px">
@@ -1015,7 +1017,7 @@ html:not(.js-rv) .panel{--pf:1}
   </div>
 
   <!-- tracking page -->
-  <div style="display:{{trackDisp}};background:linear-gradient(180deg,transparent 88%,#0a0907 100%),radial-gradient(ellipse 70% 22% at 12% 20%,rgba(24,92,66,.5),transparent 70%),radial-gradient(ellipse 60% 20% at 92% 8%,rgba(222,186,116,.15),transparent 70%),radial-gradient(ellipse 80% 20% at 6% 50%,rgba(22,84,60,.46),transparent 72%),radial-gradient(ellipse 70% 18% at 96% 42%,rgba(222,186,116,.11),transparent 70%),radial-gradient(ellipse 80% 18% at 4% 76%,rgba(22,84,60,.46),transparent 72%),radial-gradient(ellipse 90% 14% at 50% 90%,rgba(20,76,54,.32),transparent 72%),#0a0907;color:#fff;font-family:'Poppins','Manrope',sans-serif;padding:56px 20px 170px;min-height:max(560px,calc(100vh - 140px));box-sizing:border-box">
+  <div style="display:{{trackDisp}};background:#0a0907;color:#fff;font-family:'Poppins','Manrope',sans-serif;padding:56px 20px 170px;min-height:max(560px,calc(100vh - 140px));box-sizing:border-box">
     <div style="display:flex;align-items:center;justify-content:center;gap:16px;font-size:15px;font-weight:600;letter-spacing:.3em;color:#d9b45f"><span style="width:38px;height:1px;background:#b8923f"></span>MEMORYORB<span style="width:38px;height:1px;background:#b8923f"></span></div>
     <h1 style="margin:20px 0 34px;text-align:center;font-family:'Cormorant Garamond',serif;font-weight:500;font-size:46px;line-height:1.1;color:#fff">Track your <em style="color:#f1d99a">order</em></h1>
     <div style="border:1px solid rgba(243,210,122,.28);border-radius:30px;background:#0d0f0a;padding:28px 24px 30px">
@@ -1327,7 +1329,7 @@ class Component extends DCLogic {
       tabTrack: () => this.setState({ tab: 1, tsent: false }),
       goTracking: (e) => { this.setState({ page: 'tracking', menu: false, tsent: false }); try { window.scrollTo(0, 0); } catch (x) {} },
       sendTrack: (e) => { try { e.preventDefault(); } catch (x) {} this.setState({ tsent: true }); },
-      skyBg: this.state.page === 'home' ? '#100e0b' : 'url(#skyH)',
+      skyBg: this.state.page === 'home' ? '#100e0b' : '#0a0907',
       colDisp: (this.state.page === 'home' || this.state.page === 'products') ? 'block' : 'none',
       prodDisp: this.state.page === 'products' ? 'block' : 'none',
       prodExp: this.state.page === 'products' ? 'true' : 'false',
