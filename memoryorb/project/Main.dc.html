@@ -514,11 +514,6 @@ footer h2,footer p,footer nav a{text-shadow:0 2px 7px rgba(0,0,0,.6)}
 .fc:hover .fc-hint{color:var(--brass-hi);border-color:rgba(217,181,107,.5);background:rgba(217,181,107,.08)}
 .fc-back .fc-body{flex:1}
 .pa-grid>.cue{margin:0 0 10px}
-.g-note{position:relative;z-index:1;margin:0;text-align:center;font-size:13.5px;line-height:1.5;color:var(--fg-3)}
-.g-top{margin:2px 0 10px}
-.g-mid{margin:0 0 18px}
-.g-cta{margin:14px 0 0}
-.buy-cta{margin-top:12px}
 .cue-note{margin:14px 0 2px;text-align:center;font-size:14px;line-height:1.5;color:var(--fg-3);position:relative;z-index:1}
 @media (min-width:640px){.stat-grid{grid-template-columns:repeat(3,1fr)}.fc-top{flex-direction:column;align-items:flex-start;gap:18px}.fc-face{min-height:260px}}
 @media (min-width:900px){.pa-grid>.cue,.pa-head2{display:none}}
@@ -782,7 +777,6 @@ html:not(.js-rv) .panel{--pf:1}
 
       <div class="buy-grid">
         <div class="panel panel-all"><span class="pframe" aria-hidden="true"><i></i></span><span class="pdot" aria-hidden="true"></span>
-        <p class="g-note g-top">Every orb is made to hold your most precious moments.</p>
         <div class="sec-head pa-head">
         <span class="eyebrow c">Choose your EverOrb</span>
         <h2 class="h2">Same magic, <em>different colours.</em></h2>
@@ -790,7 +784,6 @@ html:not(.js-rv) .panel{--pf:1}
       </div>
 <div class="pa-grid">
         <div class="pa-col">
-          <p class="g-note g-mid">Each colour has the same 4GB storage and one-touch controls.</p>
           <div class="panel-t"><span>Colour</span><b>{{cName}}</b></div>
           <div class="swatches" role="radiogroup" aria-label="Colour">
             <sc-for list="{{cColours}}" as="c" hint-placeholder-count="5">
@@ -847,7 +840,6 @@ html:not(.js-rv) .panel{--pf:1}
               </div>
             </sc-for>
           </div>
-          <p class="g-note g-cta">Free shipping today · 30-day guarantee · Damage protection</p>
           <div class="buy-cta"><button class="btn btn-primary btn-lg btn-block" type="button">Get my MemoryOrb</button></div>
           <div class="buy-note">
             <span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 018 0v3"/></svg>Secure Checkout</span>
