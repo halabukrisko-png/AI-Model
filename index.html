@@ -383,6 +383,7 @@ html:not(.js-rv) .stat .bar{stroke-dasharray:var(--v) 100}
 .cart-price{font-size:17px;font-weight:700;color:var(--brass-hi)}
 .cart-rm{display:inline-flex;align-items:center;gap:6px;padding:8px 12px;border:1px solid rgba(232,90,90,.5);border-radius:999px;background:rgba(232,90,90,.1);color:#ff8d8d;font-size:12.5px;font-weight:700;cursor:pointer;transition:background var(--t-base),border-color var(--t-base),color var(--t-base)}
 .cart-rm:hover{background:rgba(232,90,90,.22);border-color:#ff8d8d;color:#fff}
+.cart-item{position:relative;padding-top:22px}.cart-rm{position:absolute;top:10px;right:10px;padding:7px;gap:0}.cart-rm span{display:none}.cart-side{justify-content:flex-end;align-self:stretch;padding-top:26px}
 .cart-sum{margin:24px 0 20px;padding:4px 2px}
 .cart-sum>div{display:flex;justify-content:space-between;padding:10px 0;font-size:15px;color:var(--fg-2)}
 .cart-sum .tot{margin-top:6px;padding-top:16px;border-top:1px solid rgba(217,181,107,.3);font-size:19px;font-weight:700;color:var(--fg)}
@@ -1192,7 +1193,7 @@ html:not(.js-rv) .panel{--pf:1}
                   <button type="button" aria-label="Decrease" onClick="{{ci.dec}}">−</button><b>{{ci.qty}}</b><button type="button" aria-label="Increase" onClick="{{ci.inc}}">+</button>
                 </div>
               </div>
-              <div class="cart-side"><div class="cart-price">{{ci.price}}</div><button type="button" class="cart-rm" aria-label="Delete item" onClick="{{ci.remove}}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg>Delete</button></div>
+              <div class="cart-side"><div class="cart-price">{{ci.price}}</div><button type="button" class="cart-rm" aria-label="Delete item" onClick="{{ci.remove}}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg><span>Delete</span></button></div>
             </div>
           </sc-for>
         </div>
