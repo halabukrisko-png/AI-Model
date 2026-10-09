@@ -7,6 +7,22 @@ class Component extends DCLogic {
   componentDidMount() {
     const root = document.documentElement;
     const reduce = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+    // gallery indicator (three bars, active one is longer and brighter)
+    try {
+      const gal = document.getElementById('gallery');
+      const dots = document.querySelector('.gal-dots');
+      if (gal && dots) {
+        const upd = () => {
+          const sl = gal.querySelectorAll('.slide');
+          if (!sl.length) return;
+          const step = sl[1] ? sl[1].offsetLeft - sl[0].offsetLeft : gal.clientWidth;
+          const idx = Math.max(0, Math.min(sl.length - 1, Math.round(gal.scrollLeft / (step || 1))));
+          for (let i = 0; i < 3; i++) dots.style.setProperty('--o' + i, i === idx ? '1' : '.4');
+        };
+        gal.addEventListener('scroll', upd, { passive: true });
+        upd();
+      }
+    } catch (e) {}
     // scroll-reveal (fade + translate, staggered through --d)
     try {
       const els = document.querySelectorAll('.rvt, .hg, .lg-ftr, .mo-ul, .panel, .stat');
