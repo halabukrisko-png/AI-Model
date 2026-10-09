@@ -622,10 +622,11 @@ footer h2,footer p,footer nav a{text-shadow:0 2px 7px rgba(0,0,0,.6)}
 .quote::before{left:50%;top:-4px;transform:translateX(-50%);font-size:96px;opacity:.55}
 .quote::after{content:"";position:absolute;left:50%;top:0;width:90px;height:2px;transform:translate(-50%,-1px);background:linear-gradient(90deg,transparent,var(--brass-hi),transparent)}
 .quote p{padding-top:40px;font-style:italic;max-width:30ch;margin-inline:auto}
-.quote-by{flex-direction:column;justify-content:center;gap:8px;margin-top:28px;padding-top:24px;border-top:0;position:relative}
+.quote-by{flex-direction:row;flex-wrap:wrap;justify-content:center;align-items:center;gap:10px 16px;margin-top:28px;padding-top:24px;border-top:0;position:relative}
 .quote-by::before{content:"";position:absolute;top:0;left:50%;width:min(220px,60%);height:1px;transform:translateX(-50%);background:linear-gradient(90deg,transparent,rgba(217,181,107,.55),transparent)}
 .quote .avatar{width:54px;height:54px;font-size:15px;box-shadow:0 0 0 4px rgba(217,181,107,.1),0 8px 18px -8px rgba(0,0,0,.8)}
-.quote .stars{margin:2px 0 0!important}
+.quote .stars{margin:0!important}
+@media (max-width:520px){.quote{padding-inline:14px}.quote-by{flex-wrap:nowrap;gap:8px}.quote .avatar{width:42px;height:42px;font-size:12px;box-shadow:0 0 0 3px rgba(217,181,107,.1)}.quote .by-n{font-size:16px}.quote .verified{font-size:11px;gap:4px}.quote .stars{gap:1px}.quote .stars svg{width:12px;height:12px}}
 .quote{max-width:1040px;margin-inline:calc(var(--gutter)*-.45)!important}.quote p{max-width:44ch}
 @media (min-width:900px){.quote{margin-inline:auto!important}}
 .quote .stars svg{width:17px;height:17px;filter:drop-shadow(0 0 6px rgba(217,181,107,.5))}
