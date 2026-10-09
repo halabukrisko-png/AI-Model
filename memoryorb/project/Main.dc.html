@@ -582,6 +582,8 @@ html.js-rv .lg-ftr:not(.go) .ch,html.js-rv .lg-ftr:not(.go) .bb,html.js-rv .lg-f
 .zoom{position:absolute;left:14px;top:14px;z-index:2;width:36px;height:36px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 6px rgba(0,0,0,.2)}
 html.js-rv .rvt{opacity:0;transform:translateY(26px);filter:blur(5px);transition:opacity 1.3s cubic-bezier(.22,.61,.36,1),transform 1.3s cubic-bezier(.22,.61,.36,1),filter 1.3s cubic-bezier(.22,.61,.36,1)}
 html.js-rv .rvt.in{opacity:1;transform:none;filter:none}
+html.js-rv .lens-stage.rvt{transform:scale(.88);filter:blur(10px);transition:opacity 2s cubic-bezier(.4,0,.2,1),transform 2.2s cubic-bezier(.3,.1,.2,1),filter 1.8s cubic-bezier(.4,0,.2,1)}
+html.js-rv .lens-stage.rvt.in{transform:none;filter:none}
 @keyframes garFall{0%{opacity:0;transform:translate(115%,-46px) rotate(9deg)}55%{opacity:1;transform:translate(-3%,5px) rotate(-1.5deg)}78%{transform:translate(1.2%,-2px) rotate(.6deg)}100%{opacity:1;transform:none}}
 .gar,.lg-ftr + .gar,.lg-ftr.go + .gar{opacity:1!important;transform-origin:100% 0;animation:garSway 4.5s ease-in-out infinite alternate!important}
 footer h2,footer p,footer nav a{text-shadow:0 2px 7px rgba(0,0,0,.6)}
@@ -1103,7 +1105,7 @@ html:not(.js-rv) .panel{--pf:1}
       <div class="wrap">
         <div class="sec-head rv"><span class="eyebrow c">MemoryOrb</span><h2 class="h2">Where memories <em>take shape</em></h2>
           <p class="lead">It's a way to hold on to the moments that matter most.</p></div>
-        <div class="lens-stage">
+        <div class="lens-stage rvt">
           <i class="ring r2" aria-hidden="true"></i><i class="ring r1" aria-hidden="true"></i>
           <div class="lens-img" data-px="-0.03" data-keep-style=""><img src="/_blob/a44a6f24bcf91873e9204fc5abe70cc2" alt="A family sharing a birthday moment, shown inside a round MemoryOrb lens" loading="lazy"><i class="lframe" aria-hidden="true"></i></div>
         </div>
@@ -1111,12 +1113,12 @@ html:not(.js-rv) .panel{--pf:1}
     </section>
     <section class="why sec">
       <div class="wrap">
-        <div class="sec-head rvt">
+        <div class="sec-head">
           <span class="eyebrow c">Why MemoryOrb</span>
           <h2 class="h2 serif">Why choose the <em>MemoryOrb?</em></h2>
           <p class="lead">We designed the <b style="color:var(--fg);font-weight:600">MemoryOrb™</b> to stand apart. It's more than a gadget, it's a way to keep your most <b style="color:var(--fg);font-weight:600">core</b> moments close, in a <b style="color:var(--fg);font-weight:600">form that feels</b> timeless.</p>
         </div>
-        <div class="compare rvt {{cmpCls}}" onClick="{{cmpPick}}" style="transition-delay:.3s" role="table" aria-label="MemoryOrb compared with others">
+        <div class="compare {{cmpCls}}" onClick="{{cmpPick}}" role="table" aria-label="MemoryOrb compared with others">
           <i class="cmp-col" aria-hidden="true"></i>
           <div class="cmp-row cmp-h" role="row"><div class="cmp-c" role="columnheader">Feature</div><div class="cmp-c cmp-y" role="columnheader">MemoryOrb™</div><div class="cmp-c cmp-n" role="columnheader">Others</div></div>
           <div class="cmp-row" role="row"><div class="cmp-c" role="cell">Immersive Orb Design</div><div class="cmp-c cmp-y" role="cell"><span class="chk"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.500l4.500 4.500L19 7.500"/></svg></span></div><div class="cmp-c cmp-n" role="cell"><svg class="crs" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></div></div>
