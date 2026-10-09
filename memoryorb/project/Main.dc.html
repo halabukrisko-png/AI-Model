@@ -718,13 +718,13 @@ html.js-rv .mo-ul.in::after{transform:scaleX(1)}
 .pa-head2{margin:2px auto 8px}
 .pa-grid{display:grid;gap:8px}
 .pa-col{min-width:0}
-.panel-all::before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:radial-gradient(110% 80% at 50% 38%,transparent 12%,rgba(14,12,9,.45) 55%,rgba(14,12,9,.9) 100%),linear-gradient(180deg,rgba(14,12,9,.92) 0,rgba(14,12,9,.35) 16%,transparent 34%,transparent 46%,rgba(14,12,9,.6) 100%)}
+.panel-all::before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:0;background:radial-gradient(70% 60% at 50% 45%,rgba(14,12,9,.55) 0,rgba(14,12,9,.35) 55%,transparent 100%),radial-gradient(110% 80% at 50% 38%,transparent 12%,rgba(14,12,9,.45) 55%,rgba(14,12,9,.9) 100%),linear-gradient(180deg,rgba(14,12,9,.92) 0,rgba(14,12,9,.35) 16%,transparent 34%,transparent 46%,rgba(14,12,9,.6) 100%)}
 .panel-all>.pa-grid{position:relative;z-index:1}
 .panel-all>.pframe,.panel-all>.pdot{z-index:3}
 .panel-all .bundle{background:#14120e}
 .panel-all .bundle.is-on{background:linear-gradient(180deg,#2a2314,#17140d)}
 .panel-all .select select{background:#1d1a14}
-.panel-all{padding:24px 18px;background:repeating-linear-gradient(115deg,rgba(217,181,107,.14) 0 1px,transparent 1px 16px),radial-gradient(90% 40% at 50% 0%,rgba(217,181,107,.1),transparent 70%),linear-gradient(180deg,rgba(255,255,255,.035),rgba(255,255,255,.01))}
+.panel-all{padding:24px 18px;background:repeating-linear-gradient(115deg,rgba(217,181,107,.055) 0 1px,transparent 1px 16px),radial-gradient(90% 40% at 50% 0%,rgba(217,181,107,.1),transparent 70%),linear-gradient(180deg,rgba(255,255,255,.035),rgba(255,255,255,.01))}
 .pframe{position:absolute;inset:0;border-radius:inherit;pointer-events:none;filter:drop-shadow(0 0 6px rgba(217,181,107,.3));-webkit-mask:conic-gradient(from 0deg at 50% 50%,#000 calc(var(--pf,0)*215deg - min(26deg,calc(var(--pf,0)*107deg))),transparent calc(var(--pf,0)*215deg)),conic-gradient(from calc(360deg - var(--pf,0)*215deg) at 50% 50%,transparent 0,#000 min(26deg,calc(var(--pf,0)*107deg)),#000 calc(var(--pf,0)*215deg),transparent calc(var(--pf,0)*215deg));mask:conic-gradient(from 0deg at 50% 50%,#000 calc(var(--pf,0)*215deg - min(26deg,calc(var(--pf,0)*107deg))),transparent calc(var(--pf,0)*215deg)),conic-gradient(from calc(360deg - var(--pf,0)*215deg) at 50% 50%,transparent 0,#000 min(26deg,calc(var(--pf,0)*107deg)),#000 calc(var(--pf,0)*215deg),transparent calc(var(--pf,0)*215deg))}
 .pframe i{position:absolute;inset:0;border-radius:inherit;padding:1.5px;background:#d9b56b;-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0)}
 .pdot{position:absolute;left:50%;top:0;width:7px;height:7px;margin:-3.5px 0 0 -3.5px;transform:rotate(45deg);background:linear-gradient(135deg,#f7e7bd,#c79a4a);box-shadow:0 0 10px 1px rgba(242,219,163,.55);pointer-events:none;opacity:min(1,calc(var(--pf,0)*14))}
