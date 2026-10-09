@@ -18,10 +18,10 @@ class Component extends DCLogic {
           t.classList.add('in');
           if (t.classList.contains('panel')) {
             // frame draws itself automatically (time based, independent of scroll)
-            if (reduce) { t.style.setProperty('--pf', '1'); }
+            if (reduce) { this._pf = '1'; t.style.setProperty('--pf', '1'); }
             else {
               const T0 = performance.now(), DUR = 2600, ease = (x) => (x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2);
-              const step = (now) => { const k = Math.min(1, (now - T0) / DUR); t.style.setProperty('--pf', ease(k).toFixed(3)); if (k < 1) requestAnimationFrame(step); };
+              const step = (now) => { const k = Math.min(1, (now - T0) / DUR); const v = ease(k).toFixed(3); this._pf = v; t.style.setProperty('--pf', v); if (k < 1) requestAnimationFrame(step); };
               setTimeout(() => requestAnimationFrame(step), 250);
             }
           }
@@ -181,6 +181,7 @@ class Component extends DCLogic {
       goContact: (e) => { this.setState({ page: 'contact', menu: false, sent: false }); try { window.scrollTo(0, 0); } catch (x) {} },
       sendContact: (e) => { try { e.preventDefault(); } catch (x) {} this.setState({ sent: true }); },
       menuOpen: this.state.menu, openMenu: () => this.setState({ menu: true }), closeMenu: () => this.setState({ menu: false }),
+      pfv: this._pf || '0',
       cmpCls: 'c' + this.state.cmp,
       cmpPick: (e) => {
         try {
