@@ -358,15 +358,19 @@ html:not(.js-rv) .stat .bar{stroke-dasharray:var(--v) 100}
 .dd-hero{margin-bottom:34px}
 /* ---- account page ---- */
 .acct{max-width:640px;margin:0 auto;text-align:center}
-.acct-band{margin:34px calc(var(--gutter)*-1) 0;padding:14px var(--gutter);text-align:left;font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;font-size:24px;color:var(--fg);background:linear-gradient(90deg,rgba(217,181,107,.14),rgba(217,181,107,.03));border-block:1px solid rgba(217,181,107,.25)}
-.acct-list{display:flex;flex-direction:column;text-align:left}
-.acct-row{display:flex;align-items:center;gap:16px;min-height:68px;padding:10px 2px;border-bottom:1px solid var(--line);color:var(--fg);text-decoration:none;font-size:17px;font-weight:600;letter-spacing:-.01em;transition:color var(--t-base)}
+.acct-av{display:grid;place-items:center;width:84px;height:84px;margin:6px auto 0;border-radius:50%;font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;font-size:38px;color:var(--brass-hi);background:radial-gradient(circle at 35% 28%,rgba(243,221,166,.22),rgba(17,58,40,.9) 70%);border:1px solid rgba(217,181,107,.6);box-shadow:0 0 0 6px rgba(217,181,107,.08),0 18px 36px -14px rgba(0,0,0,.9),0 0 40px -10px rgba(217,181,107,.4)}
+.acct-label{margin:40px 0 14px;display:flex;align-items:center;gap:14px;font-size:11.5px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--brass)}
+.acct-label::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,rgba(217,181,107,.5),transparent)}
+.acct-list{display:flex;flex-direction:column;text-align:left;border:1px solid rgba(217,181,107,.3);border-radius:var(--r-lg);overflow:hidden;background:linear-gradient(180deg,rgba(217,181,107,.05),rgba(0,0,0,.2));box-shadow:0 24px 50px -28px rgba(0,0,0,.9)}
+.acct-row{display:flex;align-items:center;gap:16px;min-height:72px;padding:12px 18px;border-bottom:1px solid var(--line);color:var(--fg);text-decoration:none;font-size:17px;font-weight:600;letter-spacing:-.01em;transition:color var(--t-base),background var(--t-base)}
+.acct-row:last-child{border-bottom:0}.acct-row:hover{background:linear-gradient(90deg,rgba(217,181,107,.1),transparent 80%)}
 .acct-row:hover{color:var(--brass-hi)}
 .acct-ico{flex:none;display:grid;place-items:center;width:42px;height:42px;border-radius:50%;border:1px solid rgba(217,181,107,.4);background:rgba(217,181,107,.07);color:var(--brass)}
 .acct-t{flex:1}
 .acct-go{flex:none;color:var(--fg-3);transition:transform var(--t-base) var(--ease),color var(--t-base)}
 .acct-row:hover .acct-go{transform:translateX(3px);color:var(--brass-hi)}
-.acct-empty{display:flex;flex-direction:column;align-items:center;gap:18px;padding:30px 0 6px;color:var(--fg-2)}
+.acct-empty{display:flex;flex-direction:column;align-items:center;gap:16px;padding:30px 20px;border:1px dashed rgba(217,181,107,.35);border-radius:var(--r-lg);background:rgba(255,255,255,.02);color:var(--fg-2)}
+.acct-ico.big{width:60px;height:60px}
 .acct-out{display:flex;justify-content:center;margin-top:34px}
 
 .dd-title{display:flex;flex-direction:column;align-items:center;gap:6px;margin-bottom:22px;text-align:center}
@@ -1127,20 +1131,19 @@ html:not(.js-rv) .panel{--pf:1}
   <!-- account page (shown after log in / sign up) -->
   <div class="pg pg-flat" style="display:{{accountDisp}}">
     <div class="acct">
-      <span class="eyebrow c">Your account</span>
-      <h1 class="pg-h" style="margin:14px 0 6px">Hello, <em style="color:#f1d99a">{{userName}}</em></h1>
+      <div class="acct-av" aria-hidden="true">{{userInit}}</div>
+      <span class="eyebrow c" style="margin-top:18px">Your account</span>
+      <h1 class="pg-h" style="margin:12px 0 6px">Hello, <em style="color:#f1d99a">{{userName}}</em></h1>
       <p class="pg-sub">{{userMail}}</p>
-      <div class="acct-band">Overview</div>
+      <div class="acct-label">Overview</div>
       <nav class="acct-list" aria-label="Account">
-        <a class="acct-row" href="#top" onClick="{{noop}}"><span class="acct-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 17V11a6 6 0 1112 0v6l1.5 2h-15zM10 21h4"/></svg></span><span class="acct-t">Your notifications</span><svg class="acc-go" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a>
         <a class="acct-row" href="#top" onClick="{{noop}}"><span class="acct-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8l8-4 8 4v9l-8 4-8-4zM4 8l8 4 8-4M12 12v9"/></svg></span><span class="acct-t">Orders</span><svg class="acc-go" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a>
         <a class="acct-row" href="#top" onClick="{{noop}}"><span class="acct-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 8L4 12l5 4M4 12h10a5 5 0 010 10h-2"/></svg></span><span class="acct-t">Returns</span><svg class="acc-go" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a>
         <a class="acct-row" href="#top" onClick="{{noop}}"><span class="acct-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4-6 8-6s7 2 8 6"/></svg></span><span class="acct-t">Personal details</span><svg class="acc-go" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a>
         <a class="acct-row" href="#top" onClick="{{noop}}"><span class="acct-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="8" width="18" height="13" rx="2"/><path d="M12 8v13M3 13h18M12 8c-2-4-6-3-5 0 .5 1 2 1 5 0zM12 8c2-4 6-3 5 0-.5 1-2 1-5 0z"/></svg></span><span class="acct-t">Gift cards</span><svg class="acc-go" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a>
-        <a class="acct-row" href="#top" onClick="{{noop}}"><span class="acct-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2"/></svg></span><span class="acct-t">Account settings</span><svg class="acc-go" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a>
       </nav>
-      <div class="acct-band">Your orbs</div>
-      <div class="acct-empty"><p>No orbs yet. Pick the one that fits your story.</p><a class="btn btn-primary btn-lg" href="#top" onClick="{{goShop}}">Shop the collection</a></div>
+      <div class="acct-label">Your orbs</div>
+      <div class="acct-empty"><span class="acct-ico big"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="13" r="8"/><path d="M12 5V2M9 2h6M8 12a4 4 0 014-4"/></svg></span><p>No orbs yet. Pick the one that fits your story.</p><a class="btn btn-primary btn-lg" href="#top" onClick="{{goShop}}">Shop the collection</a></div>
       <div class="acct-out"><button type="button" class="btn btn-ghost btn-lg" onClick="{{logout}}">Log out</button></div>
     </div>
   </div>

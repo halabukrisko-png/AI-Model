@@ -197,7 +197,7 @@ class Component extends DCLogic {
       shopDisp: this.state.page === 'shop' ? 'block' : 'none',
       loginDisp: this.state.page === 'login' ? 'block' : 'none',
       accountDisp: this.state.page === 'account' ? 'block' : 'none',
-      userName: this.state.user ? this.state.user.name : '', userMail: this.state.user ? this.state.user.mail : '',
+      userName: this.state.user ? this.state.user.name : '', userInit: this.state.user ? this.state.user.name.charAt(0).toUpperCase() : '', userMail: this.state.user ? this.state.user.mail : '',
       noop: (e) => { try { e.preventDefault(); } catch (x) {} },
       logout: (e) => { this.setState({ user: null, page: 'login', lt: 0, lsent: false }); try { window.scrollTo(0, 0); } catch (x) {} },
       goShop: (e) => { this.setState({ page: 'shop', menu: false }); try { window.scrollTo(0, 0); } catch (x) {} },
