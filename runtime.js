@@ -92,6 +92,7 @@
       var i, a;
       for (i = from.attributes.length - 1; i >= 0; i--) {
         a = from.attributes[i];
+        if (a.name === 'style' && from.hasAttribute('data-keep-style')) continue;
         if (a.name !== 'class' && !to.hasAttribute(a.name)) from.removeAttribute(a.name);
       }
       for (i = 0; i < to.attributes.length; i++) {
