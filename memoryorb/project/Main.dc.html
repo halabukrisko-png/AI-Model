@@ -536,8 +536,6 @@ html.js-rv .lg-ftr:not(.go) .ch,html.js-rv .lg-ftr:not(.go) .bb,html.js-rv .lg-f
 .zoom{position:absolute;left:14px;top:14px;z-index:2;width:36px;height:36px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 6px rgba(0,0,0,.2)}
 html.js-rv .rvt{opacity:0;transform:translateY(26px);filter:blur(5px);transition:opacity 1.3s cubic-bezier(.22,.61,.36,1),transform 1.3s cubic-bezier(.22,.61,.36,1),filter 1.3s cubic-bezier(.22,.61,.36,1)}
 html.js-rv .rvt.in{opacity:1;transform:none;filter:none}
-html.js-rv .lens-stage.rvt{transform:scale(.88);filter:blur(10px);transition:opacity 2s cubic-bezier(.4,0,.2,1),transform 2.2s cubic-bezier(.3,.1,.2,1),filter 1.8s cubic-bezier(.4,0,.2,1)}
-html.js-rv .lens-stage.rvt.in{transform:none;filter:none}
 @keyframes garFall{0%{opacity:0;transform:translate(115%,-46px) rotate(9deg)}55%{opacity:1;transform:translate(-3%,5px) rotate(-1.5deg)}78%{transform:translate(1.2%,-2px) rotate(.6deg)}100%{opacity:1;transform:none}}
 html.js-rv .lg-ftr:not(.go) + .gar{opacity:0}
 .lg-ftr.go + .gar{transform-origin:100% 0;animation:garFall 2.6s cubic-bezier(.25,.8,.3,1) 2.5s both,garSway 5s ease-in-out 5.2s infinite alternate}
@@ -1058,7 +1056,7 @@ html:not(.js-rv) .panel{--pf:1}
       <div class="wrap">
         <div class="sec-head rv"><span class="eyebrow c">MemoryOrb</span><h2 class="h2">Where memories <em>take shape</em></h2>
           <p class="lead">It's a way to hold on to the moments that matter most.</p></div>
-        <div class="lens-stage rvt">
+        <div class="lens-stage">
           <i class="ring r2" aria-hidden="true"></i><i class="ring r1" aria-hidden="true"></i>
           <div class="lens-img" data-px="-0.03" data-keep-style=""><img src="/_blob/a44a6f24bcf91873e9204fc5abe70cc2" alt="A family sharing a birthday moment, shown inside a round MemoryOrb lens" loading="lazy"><i class="lframe" aria-hidden="true"></i></div>
         </div>
