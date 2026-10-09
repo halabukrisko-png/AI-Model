@@ -353,6 +353,19 @@ html:not(.js-rv) .stat .bar{stroke-dasharray:var(--v) 100}
 .details-sec .ac[open] .acc{background:rgba(217,181,107,.14);border-color:rgba(217,181,107,.6);color:var(--brass-hi)}
 .details-sec .ac p{padding:0 4px 24px 36px;color:var(--fg-2)}
 .dd-hero{margin-bottom:34px}
+/* ---- account page ---- */
+.acct{max-width:640px;margin:0 auto;text-align:center}
+.acct-band{margin:34px calc(var(--gutter)*-1) 0;padding:14px var(--gutter);text-align:left;font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;font-size:24px;color:var(--fg);background:linear-gradient(90deg,rgba(217,181,107,.14),rgba(217,181,107,.03));border-block:1px solid rgba(217,181,107,.25)}
+.acct-list{display:flex;flex-direction:column;text-align:left}
+.acct-row{display:flex;align-items:center;gap:16px;min-height:68px;padding:10px 2px;border-bottom:1px solid var(--line);color:var(--fg);text-decoration:none;font-size:17px;font-weight:600;letter-spacing:-.01em;transition:color var(--t-base)}
+.acct-row:hover{color:var(--brass-hi)}
+.acct-ico{flex:none;display:grid;place-items:center;width:42px;height:42px;border-radius:50%;border:1px solid rgba(217,181,107,.4);background:rgba(217,181,107,.07);color:var(--brass)}
+.acct-t{flex:1}
+.acct-go{flex:none;color:var(--fg-3);transition:transform var(--t-base) var(--ease),color var(--t-base)}
+.acct-row:hover .acct-go{transform:translateX(3px);color:var(--brass-hi)}
+.acct-empty{display:flex;flex-direction:column;align-items:center;gap:18px;padding:30px 0 6px;color:var(--fg-2)}
+.acct-out{display:flex;justify-content:center;margin-top:34px}
+
 .dd-title{display:flex;flex-direction:column;align-items:center;gap:6px;margin-bottom:22px;text-align:center}
 .dd-name{margin:0;font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;font-size:clamp(34px,8vw,48px);line-height:1.05;letter-spacing:-.01em;color:var(--fg)}
 .dd-name .tm{font-size:.38em;vertical-align:super;color:var(--fg-3)}
@@ -1108,6 +1121,27 @@ html:not(.js-rv) .panel{--pf:1}
   </div>
 
   <!-- shop page -->
+  <!-- account page (shown after log in / sign up) -->
+  <div class="pg pg-flat" style="display:{{accountDisp}}">
+    <div class="acct">
+      <span class="eyebrow c">Your account</span>
+      <h1 class="pg-h" style="margin:14px 0 6px">Hello, <em style="color:#f1d99a">{{userName}}</em></h1>
+      <p class="pg-sub">{{userMail}}</p>
+      <div class="acct-band">Overview</div>
+      <nav class="acct-list" aria-label="Account">
+        <a class="acct-row" href="#top" onClick="{{noop}}"><span class="acct-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 17V11a6 6 0 1112 0v6l1.5 2h-15zM10 21h4"/></svg></span><span class="acct-t">Your notifications</span><svg class="acc-go" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a>
+        <a class="acct-row" href="#top" onClick="{{noop}}"><span class="acct-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8l8-4 8 4v9l-8 4-8-4zM4 8l8 4 8-4M12 12v9"/></svg></span><span class="acct-t">Orders</span><svg class="acc-go" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a>
+        <a class="acct-row" href="#top" onClick="{{noop}}"><span class="acct-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 8L4 12l5 4M4 12h10a5 5 0 010 10h-2"/></svg></span><span class="acct-t">Returns</span><svg class="acc-go" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a>
+        <a class="acct-row" href="#top" onClick="{{noop}}"><span class="acct-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4-6 8-6s7 2 8 6"/></svg></span><span class="acct-t">Personal details</span><svg class="acc-go" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a>
+        <a class="acct-row" href="#top" onClick="{{noop}}"><span class="acct-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="8" width="18" height="13" rx="2"/><path d="M12 8v13M3 13h18M12 8c-2-4-6-3-5 0 .5 1 2 1 5 0zM12 8c2-4 6-3 5 0-.5 1-2 1-5 0z"/></svg></span><span class="acct-t">Gift cards</span><svg class="acc-go" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a>
+        <a class="acct-row" href="#top" onClick="{{noop}}"><span class="acct-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2"/></svg></span><span class="acct-t">Account settings</span><svg class="acc-go" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a>
+      </nav>
+      <div class="acct-band">Your orbs</div>
+      <div class="acct-empty"><p>No orbs yet. Pick the one that fits your story.</p><a class="btn btn-primary btn-lg" href="#top" onClick="{{goShop}}">Shop the collection</a></div>
+      <div class="acct-out"><button type="button" class="btn btn-ghost btn-lg" onClick="{{logout}}">Log out</button></div>
+    </div>
+  </div>
+
   <div class="pg" style="display:{{shopDisp}}">
     <div style="display:flex;align-items:center;justify-content:center;gap:16px;font-size:15px;font-weight:600;letter-spacing:.3em;color:#d9b45f"><span style="width:38px;height:1px;background:#b8923f"></span>SHOP<span style="width:38px;height:1px;background:#b8923f"></span></div>
     <h1 class="pg-h">The <em style="color:#f1d99a">collection</em></h1>
@@ -1258,7 +1292,7 @@ html:not(.js-rv) .panel{--pf:1}
 class Component extends DCLogic {
   constructor(props) {
     super(props);
-    this.state = { prod: false, page: 'home', sent: false, tab: 0, tsent: false, bundle: 2, thumb: 0, colour: 0, outlet: 0, qty: 1, cf: 0, menu: false, flip: [false, false, false, false], cmp: 1, lt: 0, lsent: false };
+    this.state = { prod: false, page: 'home', sent: false, tab: 0, tsent: false, bundle: 2, thumb: 0, colour: 0, outlet: 0, qty: 1, cf: 0, menu: false, flip: [false, false, false, false], cmp: 1, lt: 0, lsent: false, user: null };
   }
   componentDidMount() {
     const root = document.documentElement;
@@ -1449,17 +1483,28 @@ class Component extends DCLogic {
         } catch (err) {}
       },
       curShop: this.state.page === 'shop' ? 'page' : 'false',
-      curLogin: this.state.page === 'login' ? 'page' : 'false',
+      curLogin: (this.state.page === 'login' || this.state.page === 'account') ? 'page' : 'false',
       shopDisp: this.state.page === 'shop' ? 'block' : 'none',
       loginDisp: this.state.page === 'login' ? 'block' : 'none',
+      accountDisp: this.state.page === 'account' ? 'block' : 'none',
+      userName: this.state.user ? this.state.user.name : '', userMail: this.state.user ? this.state.user.mail : '',
+      noop: (e) => { try { e.preventDefault(); } catch (x) {} },
+      logout: (e) => { this.setState({ user: null, page: 'login', lt: 0, lsent: false }); try { window.scrollTo(0, 0); } catch (x) {} },
       goShop: (e) => { this.setState({ page: 'shop', menu: false }); try { window.scrollTo(0, 0); } catch (x) {} },
-      goLogin: (e) => { this.setState({ page: 'login', menu: false, lsent: false }); try { window.scrollTo(0, 0); } catch (x) {} },
+      goLogin: (e) => { this.setState({ page: this.state.user ? 'account' : 'login', menu: false, lsent: false }); try { window.scrollTo(0, 0); } catch (x) {} },
       lgNameDisp0: this.state.lt === 0 ? 'block' : 'none',
       lgIn: this.state.lt === 0 ? 'true' : 'false', lgUp: this.state.lt === 1 ? 'true' : 'false',
       lgTabIn: () => this.setState({ lt: 0, lsent: false }), lgTabUp: () => this.setState({ lt: 1, lsent: false }),
       lgNameDisp: this.state.lt === 1 ? 'block' : 'none', lgForgotDisp: this.state.lt === 0 ? 'inline-block' : 'none',
       lgBtn: this.state.lt === 0 ? 'Log in' : 'Create account', lgSentDisp: this.state.lsent ? 'flex' : 'none',
-      sendLogin: (e) => { try { e.preventDefault(); } catch (x) {} this.setState({ lsent: true }); },
+      sendLogin: (e) => {
+        try { e.preventDefault(); } catch (x) {}
+        const val = (id) => { const el = document.getElementById(id); return el ? String(el.value || '').trim() : ''; };
+        const mail = val('l-mail') || 'you@example.com';
+        const nm = (this.state.lt === 1 ? val('l-name') : '') || mail.split('@')[0];
+        this.setState({ user: { name: nm.charAt(0).toUpperCase() + nm.slice(1), mail }, page: 'account', lsent: false });
+        try { window.scrollTo(0, 0); } catch (x) {}
+      },
       shopItems,
       trust, bundles, thumbs, cColours, cName: cs[this.state.colour].name, cOutlets, cf, cfDots, cfPrev, cfNext, cfPrevColor, cfNextColor, cQty: this.state.qty, ctaTotal,
       cInc: () => this.setState({ qty: Math.min(9, this.state.qty + 1) }),
