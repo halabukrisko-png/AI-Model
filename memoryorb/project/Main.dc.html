@@ -328,6 +328,15 @@ html:not(.js-rv) .stat .bar{stroke-dasharray:var(--v) 100}
 .ac-list{border-top:1px solid var(--line)}
 
 /* ---- products page extras ---- */
+.details-sec{padding-block:36px 8px!important}
+.details-sec .ac-list{border:1px solid var(--line-2);border-radius:var(--r-lg);background:linear-gradient(180deg,rgba(255,255,255,.035),rgba(255,255,255,.01));box-shadow:inset 0 1px 0 rgba(242,219,163,.14),0 20px 38px -26px rgba(0,0,0,.8);padding:2px 20px}
+.details-sec .ac{border-bottom:1px solid var(--line)}
+.details-sec .ac:last-child{border-bottom:0}
+.details-sec .ac summary{min-height:62px}
+.details-sec .trio{margin-top:16px!important;gap:10px;padding-block:0}
+.details-sec .trio>div{border:1px solid var(--line-2);border-radius:var(--r-md);background:rgba(255,255,255,.025);padding:18px 8px;gap:10px;box-shadow:inset 0 1px 0 rgba(242,219,163,.1)}
+.details-sec .trio>div+div{border-left:1px solid var(--line-2)}
+.details-sec .trio .t-ico{width:44px;height:44px}
 .prodx{background:var(--ink)}
 .trio{display:grid;grid-template-columns:repeat(3,1fr);gap:0;padding-block:8px}
 .trio>div{display:flex;flex-direction:column;align-items:center;gap:14px;padding:6px 6px;text-align:center;font-size:13px;font-weight:600;line-height:1.4;color:var(--fg-2)}
@@ -783,6 +792,7 @@ html:not(.js-rv) .panel{--pf:1}
   <div style="display:{{prodDisp}}">
     <section class="details-sec">
       <div class="wrap" style="max-width:calc(880px + var(--gutter)*2)">
+        <div class="sec-head rv" style="margin-bottom:26px"><span class="eyebrow c">Product details</span></div>
         <div class="ac-list rv" style="margin-top:0;--d:80ms">
           <details class="ac"><summary><span>Description</span><svg class="acc" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary><p>We created the MemoryOrb™ to bring back the feelings you never want to lose, so your moments can shine as bright as the day they were made.</p></details>
           <details class="ac"><summary><span>Damage Protection Guarantee</span><svg class="acc" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary><p>Shop with confidence, risk-free.</p></details>
