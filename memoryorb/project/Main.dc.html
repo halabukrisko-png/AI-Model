@@ -924,7 +924,7 @@ html:not(.js-rv) .panel{--pf:1}
         <h1 class="h1 pdp-h1"><span class="mo-ul"><span class="mo-w">MemoryOrb<sup class="tm">™</sup></span> – $59.99</span></h1>
         <h2 class="lead">Turn your <span class="mo-w">memories</span> into <span class="mo-w">something</span> you can hold.</h2>
         <div class="cta-stack">
-          <a class="btn btn-primary btn-lg btn-block" href="#colours" onClick="{{showProd}}">Buy now</a>
+          <a class="btn btn-primary btn-lg btn-block" href="#colours">Buy now</a>
           <button type="button" class="btn btn-ghost btn-lg btn-block" aria-expanded="{{prodExp}}" onClick="{{toggleProd}}"><span>View description</span><svg class="arr" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></button>
         </div>
       </div>
@@ -937,7 +937,7 @@ html:not(.js-rv) .panel{--pf:1}
         <div class="hero-copy dd-hero">
           <h2 class="h1 pdp-h1"><span class="mo-ul"><span class="mo-w">MemoryOrb<sup class="tm">™</sup></span> – $59.99</span></h2>
           <p class="lead">Turn your <span class="mo-w">memories</span> into <span class="mo-w">something</span> you can hold.</p>
-          <div class="cta-stack"><a class="btn btn-primary btn-lg btn-block" href="#colours"><span>Get your orb</span><svg class="arr" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a></div>
+          <div class="cta-stack"><a class="btn btn-primary btn-lg btn-block" href="#colours" onClick="{{goColours}}"><span>Get your orb</span><svg class="arr" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a></div>
         </div>
         <div class="sec-head rv" style="margin-bottom:26px"><span class="eyebrow c">Product details</span></div>
         <div class="ac-list rv" style="margin-top:0;--d:80ms">
@@ -951,7 +951,7 @@ html:not(.js-rv) .panel{--pf:1}
           <div><span class="t-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v6c0 4.500-3 7.500-7 9-4-1.500-7-4.500-7-9V6z"/></svg></span>30-Day Guarantee</div>
           <div><span class="t-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7z"/><circle cx="7" cy="17.500" r="1.800"/><circle cx="17" cy="17.500" r="1.800"/></svg></span>Free Shipping</div>
         </div>
-        <div class="dd-buy rv"><a class="btn btn-primary btn-lg" href="#colours">Buy now<svg class="arr" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a></div>
+        <div class="dd-buy rv"><a class="btn btn-primary btn-lg" href="#colours" onClick="{{goColours}}">Buy now<svg class="arr" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a></div>
       </div>
     </section>
   </div>
@@ -1597,7 +1597,7 @@ class Component extends DCLogic {
       goTracking: (e) => { this.setState({ page: 'tracking', menu: false, tsent: false }); try { window.scrollTo(0, 0); } catch (x) {} },
       sendTrack: (e) => { try { e.preventDefault(); } catch (x) {} this.setState({ tsent: true }); },
       skyBg: this.state.page === 'home' ? '#100e0b' : '#0a0907',
-      colDisp: (this.state.page === 'home' || this.state.page === 'products') ? 'block' : 'none',
+      colDisp: this.state.page === 'home' ? 'block' : 'none',
       prodDisp: this.state.page === 'products' ? 'block' : 'none',
       prodExp: this.state.page === 'products' ? 'true' : 'false',
       prodRot: this.state.page === 'products' ? '180deg' : '0deg',
@@ -1612,6 +1612,7 @@ class Component extends DCLogic {
       sentDisp: this.state.sent ? 'block' : 'none',
       homeBg: this.state.page === 'home' ? 'rgba(255,255,255,.07)' : 'transparent',
       contactBg: this.state.page === 'contact' ? 'rgba(255,255,255,.07)' : 'transparent',
+      goColours: (e) => { try { e.preventDefault(); } catch (x) {} this.setState({ page: 'home', menu: false }); setTimeout(() => { try { const t = document.getElementById('colours'); if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' }); } catch (x) {} }, 60); },
       goHome: (e) => { this.setState({ page: 'home', menu: false }); try { window.scrollTo(0, 0); } catch (x) {} },
       goContact: (e) => { this.setState({ page: 'contact', menu: false, sent: false }); try { window.scrollTo(0, 0); } catch (x) {} },
       sendContact: (e) => { try { e.preventDefault(); } catch (x) {} this.setState({ sent: true }); },
