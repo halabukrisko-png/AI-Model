@@ -693,6 +693,8 @@ footer h2,footer p,footer nav a{text-shadow:0 2px 7px rgba(0,0,0,.6)}
 .panel-t b{font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-weight:500;font-size:19px;letter-spacing:0;color:var(--brass-hi)}
 .panel-t{display:grid;grid-template-columns:1fr auto 1fr;align-items:baseline}
 .panel-t b{grid-column:2;text-align:center}
+.panel-t>span{color:var(--brass)}
+.panel-t .cdot{display:inline-block;width:12px;height:12px;margin-left:9px;border-radius:50%;vertical-align:-1px;border:1px solid rgba(255,255,255,.55);box-shadow:0 0 0 3px rgba(217,181,107,.18),0 0 10px rgba(255,255,255,.12);transition:background .3s}
 .quote p{font-family:'Cormorant Garamond',Georgia,serif;font-weight:500;font-size:clamp(23px,4vw,30px);line-height:1.3;letter-spacing:-.005em}
 .quote .by-n{font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-weight:600;font-size:19px}
 /* ---- premium review card ---- */
@@ -961,7 +963,7 @@ html:not(.js-rv) .panel{--pf:1}
       </div>
 <div class="pa-grid">
         <div class="pa-col">
-          <div class="panel-t"><span>Colour</span><b>{{cName}}</b></div>
+          <div class="panel-t"><span>Colour</span><b>{{cName}}<i class="cdot" style="background:{{cColor}}"></i></b></div>
           <div class="swatches" role="radiogroup" aria-label="Colour">
             <sc-for list="{{cColours}}" as="c" hint-placeholder-count="5">
               <button class="sw" role="radio" aria-checked="{{c.checked}}" onClick="{{c.pick}}">
@@ -1648,7 +1650,7 @@ class Component extends DCLogic {
         try { window.scrollTo(0, 0); } catch (x) {}
       },
       shopItems,
-      trust, bundles, thumbs, cColours, cName: cs[this.state.colour].name, cOutlets, cf, cfDots, cfPrev, cfNext, cfPrevColor, cfNextColor, cQty: this.state.qty, ctaTotal,
+      trust, bundles, thumbs, cColours, cName: cs[this.state.colour].name, cColor: cs[this.state.colour].color, cOutlets, cf, cfDots, cfPrev, cfNext, cfPrevColor, cfNextColor, cQty: this.state.qty, ctaTotal,
       cInc: () => this.setState({ qty: Math.min(9, this.state.qty + 1) }),
       cDec: () => this.setState({ qty: Math.max(1, this.state.qty - 1) })
     };
