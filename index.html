@@ -336,6 +336,8 @@ html:not(.js-rv) .stat .bar{stroke-dasharray:var(--v) 100}
 .footer .rv,.footer .rvt,.footer .rvf,.footer .rvs{opacity:1!important;transform:none!important;filter:none!important;transition:none!important;animation:none!important}
 .stat-foot{margin-top:22px;text-align:center;font-size:12px;color:var(--fg-3);letter-spacing:.03em}
 .stat-cta{margin-top:36px;display:flex;justify-content:center}
+@media (min-width:640px){.stat-grid{grid-template-columns:repeat(2,1fr)!important}}
+@media (min-width:1000px){.stat-grid{grid-template-columns:repeat(4,1fr)!important}}
 
 /* ---- accordions ---- */
 .ac{border-bottom:1px solid var(--line)}
@@ -1355,6 +1357,11 @@ html:not(.js-rv) .panel{--pf:1}
         <div class="stat rv" style="--d:260ms;--v:95">
           <svg width="84" height="84" viewBox="0 0 68 68" aria-hidden="true"><circle class="trk" cx="34" cy="34" r="29" fill="none" stroke-width="3.5"/><circle class="bar" cx="34" cy="34" r="29" fill="none" stroke-width="3.5" stroke-linecap="round" pathLength="100" transform="rotate(-90 34 34)"/><text x="34" y="39.500" text-anchor="middle" font-family="Manrope,sans-serif" font-weight="700" font-size="15" letter-spacing="-.5" fill="#f5efe4">95%</text></svg>
           <p>Agreed the Orb made special occasions unforgettable.</p>
+        </div>
+        <!-- PLACEHOLDER STAT: replace with a real, verified figure before launch -->
+        <div class="stat rv" style="--d:360ms;--v:90">
+          <svg width="84" height="84" viewBox="0 0 68 68" aria-hidden="true"><circle class="trk" cx="34" cy="34" r="29" fill="none" stroke-width="3.5"/><circle class="bar" cx="34" cy="34" r="29" fill="none" stroke-width="3.5" stroke-linecap="round" pathLength="100" transform="rotate(-90 34 34)"/><text x="34" y="39.500" text-anchor="middle" font-family="Manrope,sans-serif" font-weight="700" font-size="15" letter-spacing="-.5" fill="#f5efe4">90%</text></svg>
+          <p>Would recommend the Orb as a gift to someone they care about.</p>
         </div>
       </div>
       <p class="stat-foot rv">These results are based on verified customer feedback.</p>
