@@ -222,7 +222,7 @@ class Component extends DCLogic {
           this.setState({ cmp: x < w - yw - nw ? 0 : (x < w - nw ? 1 : 2) });
         } catch (err) {}
       },
-      curShop: this.state.page === 'shop' ? 'page' : 'false',
+      curShop: this.state.page === 'products' ? 'page' : 'false',
       curLogin: (this.state.page === 'login' || this.state.page === 'account') ? 'page' : 'false',
       shopDisp: this.state.page === 'shop' ? 'block' : 'none',
       loginDisp: this.state.page === 'login' ? 'block' : 'none',
@@ -244,7 +244,7 @@ class Component extends DCLogic {
       userName: this.state.user ? this.state.user.name : '', userInit: this.state.user ? this.state.user.name.charAt(0).toUpperCase() : '', userMail: this.state.user ? this.state.user.mail : '',
       noop: (e) => { try { e.preventDefault(); } catch (x) {} },
       logout: (e) => { this.setState({ user: null, page: 'login', lt: 0, lsent: false }); try { window.scrollTo(0, 0); } catch (x) {} },
-      goShop: (e) => { this.setState({ page: 'shop', menu: false }); try { window.scrollTo(0, 0); } catch (x) {} },
+      goShop: (e) => { try { e.preventDefault(); } catch (x) {} this.setState({ page: 'products', menu: false }); try { window.scrollTo(0, 0); } catch (x) {} },
       goLogin: (e) => { this.setState({ page: this.state.user ? 'account' : 'login', menu: false, lsent: false }); try { window.scrollTo(0, 0); } catch (x) {} },
       lgNameDisp0: this.state.lt === 0 ? 'block' : 'none',
       lgIn: this.state.lt === 0 ? 'true' : 'false', lgUp: this.state.lt === 1 ? 'true' : 'false',
