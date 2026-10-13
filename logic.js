@@ -87,6 +87,8 @@ class Component extends DCLogic {
         selected,
         checked: selected ? 'true' : 'false',
         popular: !!d.popular,
+        tag: d.id === 1 ? 'Perfect to Start' : d.id === 2 ? 'Most Popular' : 'Best Value',
+        tagShow: d.popular || selected,
         rows,
         borderColor: selected ? '#f3d27a' : '#6f6339',
         bg: selected ? '#16130a' : '#000',

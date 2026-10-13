@@ -1001,7 +1001,7 @@ html:not(.js-rv) .panel{--pf:1}
                   </span>
                   <span class="bundle-p"><b>{{b.price}}</b><s>{{b.was}}</s></span>
                 </button>
-                <sc-if value="{{b.popular}}" hint-placeholder-val="{{ false }}"><span class="badge">Most Popular</span></sc-if>
+                <sc-if value="{{b.tagShow}}" hint-placeholder-val="{{ false }}"><span class="badge">{{b.tag}}</span></sc-if>
                 <sc-if value="{{b.selected}}" hint-placeholder-val="{{ false }}">
                   <div class="bundle-rows">
                     <sc-for list="{{b.rows}}" as="r" hint-placeholder-count="2">
