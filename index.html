@@ -437,6 +437,10 @@ section.details-sec.details-sec{padding-top:6px!important}
 .details-sec .trio>div{border:1px solid var(--line-2);border-radius:var(--r-md);background:rgba(255,255,255,.025);padding:18px 8px;gap:10px;box-shadow:inset 0 1px 0 rgba(242,219,163,.1)}
 .details-sec .trio>div+div{border-left:1px solid var(--line-2)}
 .details-sec .trio .t-ico{width:44px;height:44px}
+.details-sec .trio>div{cursor:pointer;-webkit-tap-highlight-color:transparent;transition:border-color var(--t-base),background var(--t-base),box-shadow var(--t-base),color var(--t-base),transform var(--t-base) var(--ease)}
+.details-sec .trio>div:active{transform:scale(.97)}
+.details-sec .trio>div.on{border-color:rgba(217,181,107,.8)!important;background:linear-gradient(180deg,rgba(217,181,107,.18),rgba(217,181,107,.05));color:var(--fg);box-shadow:inset 0 1px 0 rgba(242,219,163,.3),0 0 22px -4px rgba(217,181,107,.55)}
+.details-sec .trio>div.on .t-ico{background:radial-gradient(circle at 35% 28%,#f3dda6,#d9b56b 75%);color:#1a1306;box-shadow:0 0 14px rgba(217,181,107,.5)}
 .prodx{background:var(--ink)}
 .trio{display:grid;grid-template-columns:repeat(3,1fr);gap:0;padding-block:8px}
 .trio>div{display:flex;flex-direction:column;align-items:center;gap:14px;padding:6px 6px;text-align:center;font-size:13px;font-weight:600;line-height:1.4;color:var(--fg-2)}

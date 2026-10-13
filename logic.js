@@ -7,6 +7,16 @@ class Component extends DCLogic {
   componentDidMount() {
     const root = document.documentElement;
     const reduce = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+    // trust boxes: click to highlight (one at a time, click again to clear)
+    try {
+      document.addEventListener('click', (e) => {
+        const box = e.target.closest && e.target.closest('.trio > div');
+        if (!box) return;
+        const on = box.classList.contains('on');
+        document.querySelectorAll('.trio > div.on').forEach((x) => x.classList.remove('on'));
+        if (!on) box.classList.add('on');
+      });
+    } catch (e) {}
     // gallery indicator (three bars, active one is longer and brighter)
     try {
       const gal = document.getElementById('gallery');
