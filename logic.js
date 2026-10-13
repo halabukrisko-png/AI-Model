@@ -74,9 +74,9 @@ class Component extends DCLogic {
   }
   renderVals() {
     const defs = [
-      { id: 1, name: 'Adopt 1', save: 'Save $25', price: '$59.99', was: '$85.70' },
-      { id: 2, name: 'Adopt 2', save: 'Save $55', price: '$116.38', was: '$171.40', popular: true },
-      { id: 3, name: 'Adopt 3', save: 'Save $85', price: '$170.97', was: '$257.10' }
+      { id: 1, name: '1 orb', save: 'Save $25', price: '$59.99', was: '$85.70' },
+      { id: 2, name: '2 orbs', save: 'Save $55', price: '$116.38', was: '$171.40', popular: true },
+      { id: 3, name: '3 orbs', save: 'Save $85', price: '$170.97', was: '$257.10' }
     ];
     const bundles = defs.map((d) => {
       const selected = this.state.bundle === d.id;
@@ -131,7 +131,7 @@ class Component extends DCLogic {
     const cartLines = this.state.cart;
     const cartItems = cartLines.map((l, i) => ({
       name: cs[l.colour].name, color: cs[l.colour].color,
-      sub: l.n === 1 ? 'Adopt 1' : 'Adopt ' + l.n + ' bundle',
+      sub: l.n === 1 ? '1 orb' : l.n + ' orbs bundle',
       qty: l.qty, price: money(Math.round(l.unit * l.qty)),
       inc: () => this.setState({ cart: cartLines.map((x, j) => (j === i ? { ...x, qty: x.qty + 1 } : x)) }),
       dec: () => this.setState({ cart: cartLines.map((x, j) => (j === i ? { ...x, qty: Math.max(1, x.qty - 1) } : x)) }),
