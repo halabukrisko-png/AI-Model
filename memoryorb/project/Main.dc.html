@@ -609,7 +609,7 @@ section.details-sec.details-sec{padding-top:6px!important}
 html,body{overflow-anchor:none}
 html.js-rv .faq .ac{opacity:0;transform:translateY(34px) scale(.985);filter:blur(4px);transition:opacity .9s cubic-bezier(.22,.8,.2,1),transform .9s cubic-bezier(.22,.8,.2,1),filter .9s cubic-bezier(.22,.8,.2,1),background .3s}
 html.js-rv .faq .ac.in{opacity:1;transform:none;filter:none}
-html.js-rv .faq .ac.in.out{opacity:0;transform:translateY(30px) scale(.98);filter:blur(5px);transition:opacity .75s cubic-bezier(.4,0,.2,1),transform .75s cubic-bezier(.4,0,.2,1),filter .75s cubic-bezier(.4,0,.2,1)}
+html.js-rv .faq .ac.in.out{opacity:0;transform:translateY(30px) scale(.98);filter:blur(5px);transition:opacity .48s cubic-bezier(.4,0,.2,1),transform .48s cubic-bezier(.4,0,.2,1),filter .48s cubic-bezier(.4,0,.2,1)}
 html.js-rv .faq .faq-intro,html.js-rv .faq .sec-head{transition:opacity 1s,transform 1s}
 .faq .ac summary .q-ico{transition:transform .5s cubic-bezier(.34,1.56,.64,1),background .3s,color .3s,box-shadow .3s,border-color .3s}
 .faq .ac[open] .q-ico{transform:scale(1.12) rotate(-8deg)}
@@ -1906,7 +1906,7 @@ class Component extends DCLogic {
       faqLessBtn: this.state.faqN === 3 ? 'inline-flex' : 'none',
       faqMoreLabel: this.state.faqN === 1 ? 'Show 5 more questions' : 'Show more',
       faqMore: () => {
-        if (this._lessBusy) { clearTimeout(this._lessT); this._lessBusy = false; document.querySelectorAll('.faq details.ac.out').forEach((d) => { d.classList.remove('out'); d.style.transitionDelay = ''; }); }
+        if (this._lessBusy) { clearTimeout(this._lessT); clearTimeout(this._lessS); this._lessBusy = false; document.querySelectorAll('.faq details.ac.out').forEach((d) => { d.classList.remove('out'); d.style.transitionDelay = ''; }); }
         const shown = [...document.querySelectorAll('.faq details.ac')].filter((d) => d.offsetParent).length;
         this.setState({ faqN: Math.min(3, this.state.faqN + 1) });
         setTimeout(() => {
@@ -1921,7 +1921,7 @@ class Component extends DCLogic {
         }, 40);
       },
       faqLess: () => {
-        if (this._lessBusy) { clearTimeout(this._lessT); this._lessBusy = false; }
+        if (this._lessBusy) { clearTimeout(this._lessT); clearTimeout(this._lessS); this._lessBusy = false; }
         const rows = [...document.querySelectorAll('.faq details.ac')].filter((d) => d.offsetParent);
         const extra = rows.slice(5);
         const reduceM = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -1934,9 +1934,10 @@ class Component extends DCLogic {
         if (reduceM || !extra.length) { finish(); return; }
         this._lessBusy = true;
         const n = extra.length;
-        extra.forEach((d, k) => { d.style.transitionDelay = ((n - 1 - k) * 85) + 'ms'; d.classList.add('out'); });
-        try { const f = document.querySelector('section.faq'); if (f) window.scrollTo({ top: f.getBoundingClientRect().top + window.scrollY - 70, behavior: 'smooth' }); } catch (x) {}
-        this._lessT = setTimeout(finish, (n - 1) * 85 + 1000);
+        extra.forEach((d, k) => { d.style.transitionDelay = ((n - 1 - k) * 38) + 'ms'; d.classList.add('out'); });
+        const fadeDone = (n - 1) * 38 + 480;
+        this._lessS = setTimeout(() => { try { const f = document.querySelector('section.faq'); if (f) window.scrollTo({ top: f.getBoundingClientRect().top + window.scrollY - 70, behavior: 'smooth' }); } catch (x) {} }, Math.max(0, fadeDone - 180));
+        this._lessT = setTimeout(finish, fadeDone + 1000);
       },
       goColours: (e) => { try { e.preventDefault(); } catch (x) {} this.setState({ page: 'home', menu: false }); setTimeout(() => { try { const t = document.getElementById('colours'); if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' }); } catch (x) {} }, 60); },
       goHome: (e) => { this.setState({ page: 'home', menu: false }); try { window.scrollTo(0, 0); } catch (x) {} },
