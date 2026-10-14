@@ -1118,7 +1118,7 @@ html:not(.js-rv) .panel{--pf:1}
   </div>
 
   <!-- products page: details, faq, review, story -->
-  <div class="prodx" style="display:{{prodDisp}}">
+  <div class="prodx" style="display:{{faqDisp}}">
 
     <section class="faq on-green sec" aria-label="FAQ">
       <svg class="wave top" aria-hidden="true" viewBox="0 0 432 44" preserveAspectRatio="none" style="--sky:var(--ink)"><path class="sky" d="M0 0H432V30C410 32 380 36 330 32C230 24 110 22 0 34Z"/><path class="ln" d="M0 34C110 22 230 24 330 32C380 36 410 32 432 30"/></svg>
@@ -1714,6 +1714,7 @@ class Component extends DCLogic {
       skyBg: this.state.page === 'home' ? '#100e0b' : '#0a0907',
       colDisp: this.state.page === 'home' ? 'block' : 'none',
       prodDisp: this.state.page === 'products' ? 'block' : 'none',
+      faqDisp: (this.state.page === 'products' || this.state.page === 'home') ? 'block' : 'none',
       prodExp: this.state.page === 'products' ? 'true' : 'false',
       prodRot: this.state.page === 'products' ? '180deg' : '0deg',
       prodBtnBg: this.state.page === 'products' ? '#f3d27a' : '#000',

@@ -221,6 +221,7 @@ class Component extends DCLogic {
       skyBg: this.state.page === 'home' ? '#100e0b' : '#0a0907',
       colDisp: this.state.page === 'home' ? 'block' : 'none',
       prodDisp: this.state.page === 'products' ? 'block' : 'none',
+      faqDisp: (this.state.page === 'products' || this.state.page === 'home') ? 'block' : 'none',
       prodExp: this.state.page === 'products' ? 'true' : 'false',
       prodRot: this.state.page === 'products' ? '180deg' : '0deg',
       prodBtnBg: this.state.page === 'products' ? '#f3d27a' : '#000',
