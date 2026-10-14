@@ -1017,7 +1017,7 @@ html:not(.js-rv) .panel{--pf:1}
       <div class="hero-media">
         <div id="gallery" class="gal">
           <figure class="slide" style="margin:0"><img src="{{heroPhoto}}" alt="MemoryOrb in {{cName}}" fetchpriority="high"><span class="zoom"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1d1b2b" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="10.500" cy="10.500" r="6.500"/><path d="M15.500 15.500L21 21M10.500 8v5M8 10.500h5"/></svg></span></figure>
-          <figure class="slide" style="margin:0"><img src="{{lifePhoto}}" alt="{{cName}} MemoryOrb by the Christmas tree" style="object-position:60% 50%"><span class="zoom"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1d1b2b" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="10.500" cy="10.500" r="6.500"/><path d="M15.500 15.500L21 21M10.500 8v5M8 10.500h5"/></svg></span></figure>
+          <figure class="slide" style="margin:0"><img src="/_blob/d46936c8be3ce756d132d41845b70ca2" alt="MemoryOrb on a wooden table by a Christmas tree" style="object-position:60% 50%"><span class="zoom"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1d1b2b" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="10.500" cy="10.500" r="6.500"/><path d="M15.500 15.500L21 21M10.500 8v5M8 10.500h5"/></svg></span></figure>
         </div>
         <div class="gal-dots" data-keep-style="" aria-hidden="true"><i></i><i></i></div>
       </div>
@@ -1077,7 +1077,7 @@ html:not(.js-rv) .panel{--pf:1}
               <button class="sw" role="radio" aria-checked="{{c.checked}}" onClick="{{c.pick}}">
                 <span class="sw-art" style="--c:{{c.color}}">
                   <i class="cap"></i><i class="ball"></i><i class="lens"></i>
-                  <sc-if value="{{c.hasPhoto}}" hint-placeholder-val="{{ false }}"><img src="{{c.photo}}" alt="{{c.name}}" loading="lazy"></sc-if>
+                  <sc-if value="{{c.hasPhoto}}" hint-placeholder-val="{{ false }}"><img src="{{c.tile}}" alt="{{c.name}}" loading="lazy"></sc-if>
                   <sc-if value="{{c.selected}}" hint-placeholder-val="{{ false }}">
                     <span class="sw-tick"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"/></svg></span>
                   </sc-if>
@@ -1270,7 +1270,7 @@ html:not(.js-rv) .panel{--pf:1}
         <div class="shop-card">
           <button type="button" class="shop-img" aria-label="Choose {{it.name}}" onClick="{{it.pick}}">
             <span class="sw-art" style="--c:{{it.color}}"><i class="cap"></i><i class="ball"></i><i class="lens"></i>
-              <sc-if value="{{it.hasPhoto}}" hint-placeholder-val="{{ false }}"><img src="{{it.photo}}" alt="{{it.name}}" loading="lazy"></sc-if>
+              <sc-if value="{{it.hasPhoto}}" hint-placeholder-val="{{ false }}"><img src="{{it.tile}}" alt="{{it.name}}" loading="lazy"></sc-if>
             </span>
             <span class="shop-tag">{{it.tag}}</span>
           </button>
@@ -1637,9 +1637,9 @@ class Component extends DCLogic {
     ];
     const cColours = cs.map((c, i) => {
       const sel = this.state.colour === i;
-      return { ...c, hasPhoto: true, selected: sel, checked: sel ? 'true' : 'false', border: sel ? '#e8353a' : 'transparent', ringW: sel ? 5 : 3, ringC: sel ? '#113a00' : 'transparent', pick: () => { this.setState({ colour: i }); try { const g = document.getElementById('gallery'); if (g) g.scrollTo({ left: 0, behavior: 'smooth' }); } catch (x) {} } };
+      return { ...c, tile: c.name === 'Red' ? c.photo : c.life, hasPhoto: true, selected: sel, checked: sel ? 'true' : 'false', border: sel ? '#e8353a' : 'transparent', ringW: sel ? 5 : 3, ringC: sel ? '#113a00' : 'transparent', pick: () => { this.setState({ colour: i }); try { const g = document.getElementById('gallery'); if (g) g.scrollTo({ left: 0, behavior: 'smooth' }); } catch (x) {} } };
     });
-    const shopItems = cs.map((c, i) => ({ name: c.name, color: c.color, photo: c.photo, hasPhoto: true, tag: i === 0 ? 'Bestseller' : (i === 1 ? 'New' : ''), pick: () => { this.setState({ colour: i, page: 'products', menu: false }); try { window.scrollTo(0, 0); } catch (x) {} } }));
+    const shopItems = cs.map((c, i) => ({ name: c.name, color: c.color, photo: c.photo, tile: c.name === 'Red' ? c.photo : c.life, hasPhoto: true, tag: i === 0 ? 'Bestseller' : (i === 1 ? 'New' : ''), pick: () => { this.setState({ colour: i, page: 'products', menu: false }); try { window.scrollTo(0, 0); } catch (x) {} } }));
     const os = [
       { name: 'Type C', desc: 'Fast & modern charging', isUsb: true, isWifi: false },
       { name: 'WiFi', desc: 'Wireless transfer of photos & videos directly to your MemoryOrb', isUsb: false, isWifi: true }
@@ -1819,7 +1819,7 @@ class Component extends DCLogic {
         try { window.scrollTo(0, 0); } catch (x) {}
       },
       shopItems,
-      trust, bundles, thumbs, cColours, heroPhoto: cs[this.state.colour].photo, lifePhoto: cs[this.state.colour].life, cName: cs[this.state.colour].name, cColor: cs[this.state.colour].color, cOutlets, cf, cfDots, cfPrev, cfNext, cfPrevColor, cfNextColor, cQty: this.state.qty, ctaTotal,
+      trust, bundles, thumbs, cColours, heroPhoto: cs[this.state.colour].photo, cName: cs[this.state.colour].name, cColor: cs[this.state.colour].color, cOutlets, cf, cfDots, cfPrev, cfNext, cfPrevColor, cfNextColor, cQty: this.state.qty, ctaTotal,
       cInc: () => this.setState({ qty: Math.min(9, this.state.qty + 1) }),
       cDec: () => this.setState({ qty: Math.max(1, this.state.qty - 1) })
     };

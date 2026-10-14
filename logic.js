@@ -138,9 +138,9 @@ class Component extends DCLogic {
     ];
     const cColours = cs.map((c, i) => {
       const sel = this.state.colour === i;
-      return { ...c, hasPhoto: true, selected: sel, checked: sel ? 'true' : 'false', border: sel ? '#e8353a' : 'transparent', ringW: sel ? 5 : 3, ringC: sel ? '#113a00' : 'transparent', pick: () => { this.setState({ colour: i }); try { const g = document.getElementById('gallery'); if (g) g.scrollTo({ left: 0, behavior: 'smooth' }); } catch (x) {} } };
+      return { ...c, tile: c.name === 'Red' ? c.photo : c.life, hasPhoto: true, selected: sel, checked: sel ? 'true' : 'false', border: sel ? '#e8353a' : 'transparent', ringW: sel ? 5 : 3, ringC: sel ? '#113a00' : 'transparent', pick: () => { this.setState({ colour: i }); try { const g = document.getElementById('gallery'); if (g) g.scrollTo({ left: 0, behavior: 'smooth' }); } catch (x) {} } };
     });
-    const shopItems = cs.map((c, i) => ({ name: c.name, color: c.color, photo: c.photo, hasPhoto: true, tag: i === 0 ? 'Bestseller' : (i === 1 ? 'New' : ''), pick: () => { this.setState({ colour: i, page: 'products', menu: false }); try { window.scrollTo(0, 0); } catch (x) {} } }));
+    const shopItems = cs.map((c, i) => ({ name: c.name, color: c.color, photo: c.photo, tile: c.name === 'Red' ? c.photo : c.life, hasPhoto: true, tag: i === 0 ? 'Bestseller' : (i === 1 ? 'New' : ''), pick: () => { this.setState({ colour: i, page: 'products', menu: false }); try { window.scrollTo(0, 0); } catch (x) {} } }));
     const os = [
       { name: 'Type C', desc: 'Fast & modern charging', isUsb: true, isWifi: false },
       { name: 'WiFi', desc: 'Wireless transfer of photos & videos directly to your MemoryOrb', isUsb: false, isWifi: true }
@@ -320,7 +320,7 @@ class Component extends DCLogic {
         try { window.scrollTo(0, 0); } catch (x) {}
       },
       shopItems,
-      trust, bundles, thumbs, cColours, heroPhoto: cs[this.state.colour].photo, lifePhoto: cs[this.state.colour].life, cName: cs[this.state.colour].name, cColor: cs[this.state.colour].color, cOutlets, cf, cfDots, cfPrev, cfNext, cfPrevColor, cfNextColor, cQty: this.state.qty, ctaTotal,
+      trust, bundles, thumbs, cColours, heroPhoto: cs[this.state.colour].photo, cName: cs[this.state.colour].name, cColor: cs[this.state.colour].color, cOutlets, cf, cfDots, cfPrev, cfNext, cfPrevColor, cfNextColor, cQty: this.state.qty, ctaTotal,
       cInc: () => this.setState({ qty: Math.min(9, this.state.qty + 1) }),
       cDec: () => this.setState({ qty: Math.max(1, this.state.qty - 1) })
     };
