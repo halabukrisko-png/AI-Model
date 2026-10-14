@@ -340,7 +340,7 @@ class Component extends DCLogic {
       faqLessBtn: this.state.faqN === 3 ? 'inline-flex' : 'none',
       faqMoreLabel: this.state.faqN === 1 ? 'Show 5 more questions' : 'Show more',
       faqMore: () => {
-        if (this._lessBusy) { clearTimeout(this._lessT); clearTimeout(this._lessS); this._lessBusy = false; document.querySelectorAll('.faq details.ac.out').forEach((d) => { d.classList.remove('out'); d.style.transitionDelay = ''; }); }
+        if (this._lessBusy) { this._lessBusy = false; document.querySelectorAll('.faq details.ac.out').forEach((d) => { d.classList.remove('out'); d.style.transitionDelay = ''; }); }
         const shown = [...document.querySelectorAll('.faq details.ac')].filter((d) => d.offsetParent).length;
         this.setState({ faqN: Math.min(3, this.state.faqN + 1) });
         setTimeout(() => {
@@ -355,23 +355,37 @@ class Component extends DCLogic {
         }, 40);
       },
       faqLess: () => {
-        if (this._lessBusy) { clearTimeout(this._lessT); clearTimeout(this._lessS); this._lessBusy = false; }
-        const rows = [...document.querySelectorAll('.faq details.ac')].filter((d) => d.offsetParent);
-        const extra = rows.slice(5);
+        if (this._lessBusy) return;
+        const f = document.querySelector('section.faq');
         const reduceM = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         const finish = () => {
           document.querySelectorAll('.faq details.ac').forEach((d, k) => { if (k >= 5) { d.classList.remove('in', 'out'); d.__w = 0; d.style.transitionDelay = ''; d.open = false; } });
           this._lessBusy = false;
           this.setState({ faqN: 1 });
-          if (reduceM) setTimeout(() => { const f = document.querySelector('section.faq'); if (f) window.scrollTo({ top: f.getBoundingClientRect().top + window.scrollY - 70 }); }, 30);
         };
-        if (reduceM || !extra.length) { finish(); return; }
+        if (!f) { finish(); return; }
+        const target = Math.max(0, f.getBoundingClientRect().top + window.scrollY - 70);
+        if (reduceM) { window.scrollTo(0, target); finish(); return; }
         this._lessBusy = true;
-        const n = extra.length;
-        extra.forEach((d, k) => { d.style.transitionDelay = ((n - 1 - k) * 38) + 'ms'; d.classList.add('out'); });
-        const fadeDone = (n - 1) * 38 + 480;
-        this._lessS = setTimeout(() => { try { const f = document.querySelector('section.faq'); if (f) window.scrollTo({ top: f.getBoundingClientRect().top + window.scrollY - 70, behavior: 'smooth' }); } catch (x) {} }, Math.max(0, fadeDone - 180));
-        this._lessT = setTimeout(finish, fadeDone + 1000);
+        // 1) glide back up to the start of the FAQ (own easing, fixed length)
+        const from = window.scrollY, dist = target - from;
+        const dur = Math.min(1100, Math.max(550, Math.abs(dist) * 0.16));
+        const t0 = performance.now();
+        const ease = (x) => (x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2);
+        let stopped = false;
+        const stop = () => { stopped = true; };
+        window.addEventListener('wheel', stop, { once: true, passive: true });
+        window.addEventListener('touchstart', stop, { once: true, passive: true });
+        const step = (now) => {
+          const k = Math.min(1, (now - t0) / dur);
+          if (!stopped) window.scrollTo(0, from + dist * ease(k));
+          if (k < 1 && !stopped) { requestAnimationFrame(step); return; }
+          // 2) rows below the fold are folded away
+          const extra = [...document.querySelectorAll('.faq details.ac')].filter((d) => d.offsetParent).slice(5);
+          extra.forEach((d, k2) => { d.style.transitionDelay = (k2 * 30) + 'ms'; d.classList.add('out'); });
+          setTimeout(finish, Math.min(extra.length, 6) * 30 + 380);
+        };
+        requestAnimationFrame(step);
       },
       goColours: (e) => { try { e.preventDefault(); } catch (x) {} this.setState({ page: 'home', menu: false }); setTimeout(() => { try { const t = document.getElementById('colours'); if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' }); } catch (x) {} }, 60); },
       goHome: (e) => { this.setState({ page: 'home', menu: false }); try { window.scrollTo(0, 0); } catch (x) {} },
