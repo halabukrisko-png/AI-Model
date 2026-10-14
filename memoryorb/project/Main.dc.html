@@ -1074,7 +1074,7 @@ html:not(.js-rv) .panel{--pf:1}
               <button class="sw" role="radio" aria-checked="{{c.checked}}" onClick="{{c.pick}}">
                 <span class="sw-art" style="--c:{{c.color}}">
                   <i class="cap"></i><i class="ball"></i><i class="lens"></i>
-                  <sc-if value="{{c.hasPhoto}}" hint-placeholder-val="{{ false }}"><img src="/_blob/628c7c017972c2bd329545a766ecac1a" alt="" loading="lazy"></sc-if>
+                  <sc-if value="{{c.hasPhoto}}" hint-placeholder-val="{{ false }}"><img src="{{c.photo}}" alt="{{c.name}}" loading="lazy"></sc-if>
                   <sc-if value="{{c.selected}}" hint-placeholder-val="{{ false }}">
                     <span class="sw-tick"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"/></svg></span>
                   </sc-if>
@@ -1267,7 +1267,7 @@ html:not(.js-rv) .panel{--pf:1}
         <div class="shop-card">
           <button type="button" class="shop-img" aria-label="Choose {{it.name}}" onClick="{{it.pick}}">
             <span class="sw-art" style="--c:{{it.color}}"><i class="cap"></i><i class="ball"></i><i class="lens"></i>
-              <sc-if value="{{it.hasPhoto}}" hint-placeholder-val="{{ false }}"><img src="/_blob/628c7c017972c2bd329545a766ecac1a" alt="" loading="lazy"></sc-if>
+              <sc-if value="{{it.hasPhoto}}" hint-placeholder-val="{{ false }}"><img src="{{it.photo}}" alt="{{it.name}}" loading="lazy"></sc-if>
             </span>
             <span class="shop-tag">{{it.tag}}</span>
           </button>
@@ -1629,14 +1629,14 @@ class Component extends DCLogic {
       pick: () => this.setState({ thumb: i })
     }));
     const cs = [
-      { name: 'Black', color: '#16161a' }, { name: 'White', color: '#f1efea' }, { name: 'Blue', color: '#3b86d9' },
-      { name: 'Green', color: '#3f9a5a' }, { name: 'Red', color: '#d93a3a' }, { name: 'Grey', color: '#8a8a8f' }
+      { name: 'Black', color: '#16161a', photo: 'assets/orb-black.webp' }, { name: 'White', color: '#f1efea', photo: 'assets/orb-white.webp' }, { name: 'Blue', color: '#3b86d9', photo: 'assets/orb-blue.webp' },
+      { name: 'Green', color: '#3f9a5a', photo: 'assets/orb-green.webp' }, { name: 'Red', color: '#d93a3a', photo: 'assets/orb-red.webp' }, { name: 'Grey', color: '#8a8a8f', photo: 'assets/orb-grey.webp' }
     ];
     const cColours = cs.map((c, i) => {
       const sel = this.state.colour === i;
-      return { ...c, hasPhoto: c.name === 'Black', selected: sel, checked: sel ? 'true' : 'false', border: sel ? '#e8353a' : 'transparent', ringW: sel ? 5 : 3, ringC: sel ? '#113a00' : 'transparent', pick: () => this.setState({ colour: i }) };
+      return { ...c, hasPhoto: true, selected: sel, checked: sel ? 'true' : 'false', border: sel ? '#e8353a' : 'transparent', ringW: sel ? 5 : 3, ringC: sel ? '#113a00' : 'transparent', pick: () => this.setState({ colour: i }) };
     });
-    const shopItems = cs.map((c, i) => ({ name: c.name, color: c.color, hasPhoto: c.name === 'Black', tag: i === 0 ? 'Bestseller' : (i === 1 ? 'New' : ''), pick: () => { this.setState({ colour: i, page: 'products', menu: false }); try { window.scrollTo(0, 0); } catch (x) {} } }));
+    const shopItems = cs.map((c, i) => ({ name: c.name, color: c.color, photo: c.photo, hasPhoto: true, tag: i === 0 ? 'Bestseller' : (i === 1 ? 'New' : ''), pick: () => { this.setState({ colour: i, page: 'products', menu: false }); try { window.scrollTo(0, 0); } catch (x) {} } }));
     const os = [
       { name: 'Type C', desc: 'Fast & modern charging', isUsb: true, isWifi: false },
       { name: 'WiFi', desc: 'Wireless transfer of photos & videos directly to your MemoryOrb', isUsb: false, isWifi: true }

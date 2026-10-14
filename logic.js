@@ -133,14 +133,14 @@ class Component extends DCLogic {
       pick: () => this.setState({ thumb: i })
     }));
     const cs = [
-      { name: 'Black', color: '#16161a' }, { name: 'White', color: '#f1efea' }, { name: 'Blue', color: '#3b86d9' },
-      { name: 'Green', color: '#3f9a5a' }, { name: 'Red', color: '#d93a3a' }, { name: 'Grey', color: '#8a8a8f' }
+      { name: 'Black', color: '#16161a', photo: 'assets/orb-black.webp' }, { name: 'White', color: '#f1efea', photo: 'assets/orb-white.webp' }, { name: 'Blue', color: '#3b86d9', photo: 'assets/orb-blue.webp' },
+      { name: 'Green', color: '#3f9a5a', photo: 'assets/orb-green.webp' }, { name: 'Red', color: '#d93a3a', photo: 'assets/orb-red.webp' }, { name: 'Grey', color: '#8a8a8f', photo: 'assets/orb-grey.webp' }
     ];
     const cColours = cs.map((c, i) => {
       const sel = this.state.colour === i;
-      return { ...c, hasPhoto: c.name === 'Black', selected: sel, checked: sel ? 'true' : 'false', border: sel ? '#e8353a' : 'transparent', ringW: sel ? 5 : 3, ringC: sel ? '#113a00' : 'transparent', pick: () => this.setState({ colour: i }) };
+      return { ...c, hasPhoto: true, selected: sel, checked: sel ? 'true' : 'false', border: sel ? '#e8353a' : 'transparent', ringW: sel ? 5 : 3, ringC: sel ? '#113a00' : 'transparent', pick: () => this.setState({ colour: i }) };
     });
-    const shopItems = cs.map((c, i) => ({ name: c.name, color: c.color, hasPhoto: c.name === 'Black', tag: i === 0 ? 'Bestseller' : (i === 1 ? 'New' : ''), pick: () => { this.setState({ colour: i, page: 'products', menu: false }); try { window.scrollTo(0, 0); } catch (x) {} } }));
+    const shopItems = cs.map((c, i) => ({ name: c.name, color: c.color, photo: c.photo, hasPhoto: true, tag: i === 0 ? 'Bestseller' : (i === 1 ? 'New' : ''), pick: () => { this.setState({ colour: i, page: 'products', menu: false }); try { window.scrollTo(0, 0); } catch (x) {} } }));
     const os = [
       { name: 'Type C', desc: 'Fast & modern charging', isUsb: true, isWifi: false },
       { name: 'WiFi', desc: 'Wireless transfer of photos & videos directly to your MemoryOrb', isUsb: false, isWifi: true }

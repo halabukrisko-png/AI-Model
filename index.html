@@ -1077,7 +1077,7 @@ html:not(.js-rv) .panel{--pf:1}
               <button class="sw" role="radio" aria-checked="{{c.checked}}" onClick="{{c.pick}}">
                 <span class="sw-art" style="--c:{{c.color}}">
                   <i class="cap"></i><i class="ball"></i><i class="lens"></i>
-                  <sc-if value="{{c.hasPhoto}}" hint-placeholder-val="{{ false }}"><img src="assets/628c7c017972c2bd329545a766ecac1a.webp" alt="" loading="lazy"></sc-if>
+                  <sc-if value="{{c.hasPhoto}}" hint-placeholder-val="{{ false }}"><img src="{{c.photo}}" alt="{{c.name}}" loading="lazy"></sc-if>
                   <sc-if value="{{c.selected}}" hint-placeholder-val="{{ false }}">
                     <span class="sw-tick"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"/></svg></span>
                   </sc-if>
@@ -1270,7 +1270,7 @@ html:not(.js-rv) .panel{--pf:1}
         <div class="shop-card">
           <button type="button" class="shop-img" aria-label="Choose {{it.name}}" onClick="{{it.pick}}">
             <span class="sw-art" style="--c:{{it.color}}"><i class="cap"></i><i class="ball"></i><i class="lens"></i>
-              <sc-if value="{{it.hasPhoto}}" hint-placeholder-val="{{ false }}"><img src="assets/628c7c017972c2bd329545a766ecac1a.webp" alt="" loading="lazy"></sc-if>
+              <sc-if value="{{it.hasPhoto}}" hint-placeholder-val="{{ false }}"><img src="{{it.photo}}" alt="{{it.name}}" loading="lazy"></sc-if>
             </span>
             <span class="shop-tag">{{it.tag}}</span>
           </button>
