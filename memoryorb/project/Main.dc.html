@@ -78,6 +78,7 @@ button{cursor:pointer}
 .sheet{border-radius:var(--sheet) var(--sheet) 0 0;margin-top:calc(var(--sheet)*-1);position:relative}
 sup.tm{font-size:.28em;vertical-align:top;position:relative;top:.55em;margin-left:.08em;letter-spacing:0;font-weight:600;color:var(--fg-3)}
 
+
 /* ---- buttons ---- */
 .btn{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:12px;min-height:56px;padding:0 32px;border-radius:var(--r-sm);border:1px solid transparent;font-size:14px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;white-space:nowrap;overflow:hidden;isolation:isolate;-webkit-tap-highlight-color:transparent;transition:transform var(--t-fast) var(--ease),box-shadow var(--t-base) var(--ease),background var(--t-base) var(--ease),border-color var(--t-base) var(--ease),color var(--t-base) var(--ease)}
 .btn svg{flex:none;transition:transform var(--t-base) var(--ease)}
@@ -380,6 +381,25 @@ html:not(.js-rv) .stat .bar{stroke-dasharray:var(--v) 100}
 .marq-set i{flex:none;transform:translateY(-.65px);width:4px;height:4px;border-radius:50%;background:var(--brass);box-shadow:0 0 8px rgba(217,181,107,.6)}
 @keyframes marq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 @media (prefers-reduced-motion:reduce){.marq-track{animation:none}}
+/* View description button + reveal */
+.btn-desc{gap:14px;color:var(--brass-hi);border:1px solid rgba(217,181,107,.55);background:linear-gradient(180deg,rgba(217,181,107,.14),rgba(217,181,107,.03));box-shadow:inset 0 1px 0 rgba(242,219,163,.18),0 10px 26px -16px rgba(217,181,107,.5);overflow:hidden;isolation:isolate}
+.btn-desc::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(100deg,transparent 30%,rgba(243,221,166,.28) 50%,transparent 70%);transform:translateX(-120%);transition:transform .9s var(--ease)}
+.btn-desc:hover{transform:translateY(-1px);border-color:var(--brass-hi);color:#fff;box-shadow:inset 0 1px 0 rgba(242,219,163,.25),0 16px 32px -14px rgba(217,181,107,.6)}
+.btn-desc:hover::after{transform:translateX(120%)}
+.btn-desc .bd-ic{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;border:1px solid rgba(217,181,107,.6);background:rgba(217,181,107,.12);transition:transform .5s var(--ease),background var(--t-base),color var(--t-base)}
+.btn-desc .bd-ic svg{transition:none}
+.btn-desc:hover .bd-ic{background:var(--brass-hi);color:#1a1306;transform:translateY(2px)}
+.btn-desc[aria-expanded="true"]{background:linear-gradient(180deg,rgba(217,181,107,.3),rgba(217,181,107,.12));border-color:var(--brass-hi)}
+.btn-desc[aria-expanded="true"] .bd-ic{transform:rotate(180deg);background:var(--brass-hi);color:#1a1306;border-color:transparent}
+@keyframes descIn{0%{opacity:0;transform:translateY(34px);clip-path:inset(0 0 100% 0);filter:blur(8px)}60%{filter:blur(0)}100%{opacity:1;transform:none;clip-path:inset(0 0 0 0);filter:none}}
+@keyframes descKid{0%{opacity:0;transform:translateY(22px)}100%{opacity:1;transform:none}}
+.descwrap.dh{animation:descIn 1s cubic-bezier(.22,.8,.2,1) both}
+.descwrap.dh .details-sec .wrap>*{animation:descKid .8s cubic-bezier(.22,.8,.2,1) both}
+.descwrap.dh .details-sec .wrap>*:nth-child(1){animation-delay:.25s}
+.descwrap.dh .details-sec .wrap>*:nth-child(2){animation-delay:.38s}
+.descwrap.dh .details-sec .wrap>*:nth-child(3){animation-delay:.5s}
+.descwrap.dh .details-sec .wrap>*:nth-child(n+4){animation-delay:.6s}
+@media (prefers-reduced-motion:reduce){.descwrap.dh,.descwrap.dh .details-sec .wrap>*{animation:none}.btn-desc::after{display:none}}
 .descwrap.dh .dd-hero{display:none}
 .desc-close{display:none}
 .desc-close2{display:none}
@@ -1027,7 +1047,7 @@ html:not(.js-rv) .panel{--pf:1}
         <h2 class="lead">Turn your memories into something you can hold.</h2>
         <div class="cta-stack">
           <a class="btn btn-primary btn-lg btn-block" href="#colours">Buy now</a>
-          <button type="button" class="btn btn-ghost btn-lg btn-block" aria-expanded="{{descExp}}" onClick="{{toggleProd}}"><span>{{descLabel}}</span><svg class="arr" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></button>
+          <button type="button" class="btn btn-desc btn-lg btn-block" aria-expanded="{{descExp}}" onClick="{{toggleProd}}"><span class="bd-t">{{descLabel}}</span><i class="bd-ic" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></i></button>
         </div>
       </div>
     </div>
