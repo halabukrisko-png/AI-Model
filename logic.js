@@ -339,7 +339,21 @@ class Component extends DCLogic {
       faqMoreBtn: this.state.faqN < 3 ? 'inline-flex' : 'none',
       faqLessBtn: this.state.faqN === 3 ? 'inline-flex' : 'none',
       faqMoreLabel: this.state.faqN === 1 ? 'Show 5 more questions' : 'Show more',
-      faqMore: () => { if (this._lessBusy) { clearTimeout(this._lessT); this._lessBusy = false; document.querySelectorAll('.faq details.ac.out').forEach((d) => { d.classList.remove('out'); d.style.transitionDelay = ''; }); } this.setState({ faqN: Math.min(3, this.state.faqN + 1) }); },
+      faqMore: () => {
+        if (this._lessBusy) { clearTimeout(this._lessT); this._lessBusy = false; document.querySelectorAll('.faq details.ac.out').forEach((d) => { d.classList.remove('out'); d.style.transitionDelay = ''; }); }
+        const shown = [...document.querySelectorAll('.faq details.ac')].filter((d) => d.offsetParent).length;
+        this.setState({ faqN: Math.min(3, this.state.faqN + 1) });
+        setTimeout(() => {
+          const fresh = [...document.querySelectorAll('.faq details.ac')].slice(shown).filter((d) => d.offsetParent);
+          if (!fresh.length) return;
+          const reduceM = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+          fresh.forEach((d) => { d.classList.remove('in'); d.style.transitionDelay = ''; });
+          void document.body.offsetHeight;
+          fresh.forEach((d, k) => setTimeout(() => d.classList.add('in'), reduceM ? 0 : 140 + k * 120));
+          const y = fresh[0].getBoundingClientRect().top + window.scrollY - 110;
+          window.scrollTo({ top: y, behavior: reduceM ? 'auto' : 'smooth' });
+        }, 40);
+      },
       faqLess: () => {
         if (this._lessBusy) { clearTimeout(this._lessT); this._lessBusy = false; }
         const rows = [...document.querySelectorAll('.faq details.ac')].filter((d) => d.offsetParent);
@@ -349,13 +363,14 @@ class Component extends DCLogic {
           document.querySelectorAll('.faq details.ac').forEach((d, k) => { if (k >= 5) { d.classList.remove('in', 'out'); d.__w = 0; d.style.transitionDelay = ''; d.open = false; } });
           this._lessBusy = false;
           this.setState({ faqN: 1 });
-          setTimeout(() => { const f = document.querySelector('section.faq'); if (f) window.scrollTo({ top: f.getBoundingClientRect().top + window.scrollY - 70, behavior: 'smooth' }); }, 30);
+          if (reduceM) setTimeout(() => { const f = document.querySelector('section.faq'); if (f) window.scrollTo({ top: f.getBoundingClientRect().top + window.scrollY - 70 }); }, 30);
         };
         if (reduceM || !extra.length) { finish(); return; }
         this._lessBusy = true;
         const n = extra.length;
-        extra.forEach((d, k) => { d.style.transitionDelay = ((n - 1 - k) * 55) + 'ms'; d.classList.add('out'); });
-        this._lessT = setTimeout(finish, (n - 1) * 55 + 650);
+        extra.forEach((d, k) => { d.style.transitionDelay = ((n - 1 - k) * 85) + 'ms'; d.classList.add('out'); });
+        try { const f = document.querySelector('section.faq'); if (f) window.scrollTo({ top: f.getBoundingClientRect().top + window.scrollY - 70, behavior: 'smooth' }); } catch (x) {}
+        this._lessT = setTimeout(finish, (n - 1) * 85 + 1000);
       },
       goColours: (e) => { try { e.preventDefault(); } catch (x) {} this.setState({ page: 'home', menu: false }); setTimeout(() => { try { const t = document.getElementById('colours'); if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' }); } catch (x) {} }, 60); },
       goHome: (e) => { this.setState({ page: 'home', menu: false }); try { window.scrollTo(0, 0); } catch (x) {} },
