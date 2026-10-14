@@ -459,7 +459,7 @@ html:not(.js-rv) .stat .bar{stroke-dasharray:var(--v) 100}
 .ship-tl .st b{font-size:13px;font-weight:700;color:var(--fg)}
 .ac-rich>p+.ship-tl{margin-top:18px;margin-bottom:6px}
 .ac-rich .ship-tl+p.ship-note{margin:4px 0 0;font-size:12px;line-height:1.5;text-align:center;color:#fff;font-weight:600;letter-spacing:-.01em}
-@media (max-width:480px){.ship-tl{margin-left:-24px}}
+
 
 /* ---- rich description ---- */
 .ac-rich{padding:0 var(--gutter) 26px calc(var(--gutter) + 36px);color:var(--fg-2);font-size:15.5px;line-height:1.75}
@@ -491,6 +491,11 @@ html:not(.js-rv) .stat .bar{stroke-dasharray:var(--v) 100}
 .ac-rich ul.inc li>span:last-child{transition:color .3s}
 .ac-rich ul.inc li.on>span:last-child{color:var(--fg);font-weight:700}
 .ac-rich ul.inc li.on .li-i{transform:scale(1.28);margin-left:5px;margin-right:5px;background:radial-gradient(circle at 35% 28%,#f3dda6,#d9b56b 75%);border-color:transparent;color:#1a1306;box-shadow:0 0 16px rgba(217,181,107,.5)}
+/* description icons: refined rings */
+.ship-tl .st-i,.ac-rich li .li-i,.ac-rich .spec .li-i,.details-sec .trio .t-ico{background:radial-gradient(circle at 32% 24%,rgba(242,219,163,.26),rgba(217,181,107,.07) 55%,transparent 80%),#15120c;border:1px solid rgba(217,181,107,.6);color:var(--brass-hi);box-shadow:inset 0 1px 0 rgba(242,219,163,.28),inset 0 0 0 3px rgba(10,9,7,.55),0 0 0 4px rgba(217,181,107,.06),0 10px 18px -10px rgba(0,0,0,.85)}
+.ship-tl .st-i svg,.ac-rich li .li-i svg,.details-sec .trio .t-ico svg{display:block;filter:drop-shadow(0 0 5px rgba(242,219,163,.35))}
+.ship-tl .st-i{transition:transform .4s var(--ease),border-color .3s,box-shadow .3s}
+.ship-tl .st:hover .st-i{transform:translateY(-2px);border-color:var(--brass-hi);box-shadow:inset 0 1px 0 rgba(242,219,163,.4),inset 0 0 0 3px rgba(10,9,7,.55),0 0 0 4px rgba(217,181,107,.1),0 12px 20px -10px rgba(217,181,107,.35)}
 .ac-rich li b{color:var(--fg);font-weight:600}
 .ac[open] .ac-rich{animation:riseIn .45s var(--ease-out) both}
 @media (max-width:480px){.ac-rich{padding-left:var(--gutter)}}
