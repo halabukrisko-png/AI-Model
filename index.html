@@ -791,11 +791,11 @@ html.js-rv .rvt{opacity:0;transform:translateY(26px);filter:blur(5px);transition
 html.js-rv .rvt.in{opacity:1;transform:none;filter:none}
 html.js-rv .lens-stage.rvt{transform:scale(.88);filter:blur(10px);transition:opacity 2s cubic-bezier(.4,0,.2,1),transform 2.2s cubic-bezier(.3,.1,.2,1),filter 1.8s cubic-bezier(.4,0,.2,1)}
 html.js-rv .lens-stage.rvt.in{transform:none;filter:none}
-@keyframes garFall{0%{opacity:0;transform:translate(115%,-46px) rotate(9deg)}55%{opacity:1;transform:translate(-3%,5px) rotate(-1.5deg)}78%{transform:translate(1.2%,-2px) rotate(.6deg)}100%{opacity:1;transform:none}}
+@keyframes garFall{0%{opacity:0;transform:translate3d(0,-70px,0) rotate(-4deg)}30%{opacity:1}100%{opacity:1;transform:translate3d(0,-1px,0) rotate(-1.6deg)}}
 .gar{transform-origin:100% 0;animation:garSwing 3.2s ease-in-out infinite alternate}
 html.js-rv .gar:not(.fall){opacity:0;animation:none}
-html.js-rv .gar.fall{opacity:1;animation:garFall 2.4s cubic-bezier(.25,.8,.3,1) both,garSwing 3.2s ease-in-out 2.4s infinite alternate}
-@keyframes garSwing{0%{transform:rotate(-1.6deg) translateY(-1px)}100%{transform:rotate(1.6deg) translateY(3px)}}
+html.js-rv .gar.fall{opacity:1;will-change:transform;animation:garFall 2.2s cubic-bezier(.16,.84,.3,1) both,garSwing 3.6s ease-in-out 2.2s infinite alternate}
+@keyframes garSwing{0%{transform:translate3d(0,-1px,0) rotate(-1.6deg)}100%{transform:translate3d(0,3px,0) rotate(1.6deg)}}
 footer h2,footer p,footer nav a{text-shadow:0 2px 7px rgba(0,0,0,.6)}
 @media (min-width:900px){.hero-grid{align-items:start}.hero-copy{padding-top:0}.foot-grid{grid-template-columns:1fr 1fr}.hero.is-compact .hero-grid{grid-template-columns:minmax(0,760px)}}
 
