@@ -265,7 +265,7 @@ class Component extends DCLogic {
       faqLessBtn: this.state.faqN === 3 ? 'inline-flex' : 'none',
       faqMoreLabel: this.state.faqN === 1 ? 'Show 5 more questions' : 'Show more',
       faqMore: () => this.setState({ faqN: Math.min(3, this.state.faqN + 1) }),
-      faqLess: () => this.setState({ faqN: 1 }),
+      faqLess: () => { this.setState({ faqN: 1 }); setTimeout(() => { const f = document.querySelector('section.faq'); if (f) window.scrollTo({ top: f.getBoundingClientRect().top + window.scrollY - 70, behavior: 'smooth' }); }, 30); },
       goColours: (e) => { try { e.preventDefault(); } catch (x) {} this.setState({ page: 'home', menu: false }); setTimeout(() => { try { const t = document.getElementById('colours'); if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' }); } catch (x) {} }, 60); },
       goHome: (e) => { this.setState({ page: 'home', menu: false }); try { window.scrollTo(0, 0); } catch (x) {} },
       goContact: (e) => { this.setState({ page: 'contact', menu: false, sent: false }); try { window.scrollTo(0, 0); } catch (x) {} },
