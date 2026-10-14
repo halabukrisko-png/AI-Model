@@ -139,6 +139,10 @@ class Component extends DCLogic {
       const sel = this.state.outlet === i;
       return { ...o, selected: sel, checked: sel ? 'true' : 'false', border: sel ? '#e8353a' : '#2a2d27', bg: sel ? '#1b0f10' : '#10130e', pick: () => this.setState({ outlet: i }) };
     });
+    const ord = (n) => n + (n % 10 === 1 && n !== 11 ? 'st' : n % 10 === 2 && n !== 12 ? 'nd' : n % 10 === 3 && n !== 13 ? 'rd' : 'th');
+    const mon = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    const shipDay = (d) => { const t = new Date(); t.setDate(t.getDate() + d); return mon[t.getMonth()] + ' ' + ord(t.getDate()); };
+    const shipRange = (a, b) => { const x = shipDay(a), y = shipDay(b); return x.slice(0, 3) === y.slice(0, 3) ? x + ' - ' + y.slice(4) : x + ' - ' + y; };
     const money = (c) => '$' + Math.floor(c / 100) + '.' + String(c % 100).padStart(2, '0');
     const cartLines = this.state.cart;
     const cartItems = cartLines.map((l, i) => ({
@@ -238,6 +242,7 @@ class Component extends DCLogic {
       shopDisp: this.state.page === 'shop' ? 'block' : 'none',
       loginDisp: this.state.page === 'login' ? 'block' : 'none',
       accountDisp: this.state.page === 'account' ? 'block' : 'none',
+      shipD1: shipDay(0), shipD2: shipRange(1, 2), shipD3: shipRange(10, 12),
       cartDisp: this.state.page === 'cart' ? 'block' : 'none',
       cartItems, cartSub: money(cartTotalCents), cartCount: cartCountN, cartBadgeDisp: cartCountN > 0 ? 'grid' : 'none',
       cartEmptyDisp: cartLines.length ? 'none' : 'flex', cartFullDisp: cartLines.length ? 'block' : 'none',
