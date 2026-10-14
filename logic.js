@@ -112,7 +112,7 @@ class Component extends DCLogic {
         const empty = v === '';
         if (empty) miss++;
         rows.push({
-          n: i, label: ['First', 'Second', 'Third'][i - 1], val: v, opts,
+          n: i, label: String(i), val: v, opts,
           ball: empty ? 'transparent' : 'url(assets/orb-' + CN[+v].toLowerCase() + '-mini.webp) center/contain no-repeat',
           cls: (empty ? 'is-empty' : '') + (empty && this.state.cerr ? ' is-miss' : ''),
           pick: (e) => { const val = e.target.value; if (i === 1) this.setState({ colour: +val }); else { const nx = (this.state.extra || ['', '']).slice(); nx[i - 2] = val; this.setState({ extra: nx, cerr: false }); } }
