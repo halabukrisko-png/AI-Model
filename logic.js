@@ -71,6 +71,20 @@ class Component extends DCLogic {
         upd();
       }
     } catch (e) {}
+    // FAQ frame: gold outline draws itself when the list scrolls into view (like the colour panel)
+    try {
+      const fr = document.querySelector('.faq-frame');
+      if (fr && 'IntersectionObserver' in window) {
+        const run = () => {
+          if (reduce) { fr.style.setProperty('--pf', '1'); return; }
+          const T0 = performance.now(), DUR = 2600, ease = (x) => (x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2);
+          const step = (now) => { const k = Math.min(1, (now - T0) / DUR); fr.style.setProperty('--pf', ease(k).toFixed(3)); if (k < 1) requestAnimationFrame(step); };
+          requestAnimationFrame(step);
+        };
+        const fo = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { fo.disconnect(); setTimeout(run, 150); } }), { threshold: 0.2 });
+        fo.observe(fr);
+      }
+    } catch (e) {}
     // FAQ rows: reveal on scroll, one after another
     try {
       if ('IntersectionObserver' in window && !reduce) {

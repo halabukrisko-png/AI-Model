@@ -98,6 +98,7 @@
       for (i = 0; i < to.attributes.length; i++) {
         a = to.attributes[i];
         if (a.name === 'class') continue;
+        if (a.name === 'style' && from.hasAttribute('data-keep-style') && from.getAttribute('style')) continue;
         if (from.getAttribute(a.name) !== a.value) from.setAttribute(a.name, a.value);
       }
       // class: take template classes, keep classes added by scripts
