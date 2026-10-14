@@ -18,31 +18,45 @@ class Component extends DCLogic {
         if (!on) it.classList.add('on');
       });
     } catch (e) {}
-    // FAQ: smooth open / close
+    // accordions (FAQ + description): smooth open / close, opening one closes the others
     try {
+      const reduceA = () => !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+      const closeAnim = (d) => {
+        if (!d.open || d.__closing) return;
+        const sm = d.querySelector(':scope > summary');
+        if (!d.animate || reduceA()) { d.open = false; return; }
+        if (d.__anim) { try { d.__anim.cancel(); } catch (x) {} }
+        d.__closing = true;
+        const start = d.offsetHeight, end = sm.offsetHeight;
+        d.style.overflow = 'hidden';
+        const an = d.__anim = d.animate({ height: [start + 'px', end + 'px'] }, { duration: 380, easing: 'cubic-bezier(.4,0,.2,1)' });
+        an.onfinish = () => { d.open = false; d.style.overflow = ''; d.__anim = null; d.__closing = false; };
+        an.oncancel = () => { d.style.overflow = ''; d.__closing = false; };
+      };
       document.addEventListener('click', (e) => {
-        const sm = e.target.closest && e.target.closest('.faq details.ac > summary');
+        const sm = e.target.closest && e.target.closest('.faq details.ac > summary, .details-sec details.ac > summary');
         if (!sm) return;
         const d = sm.parentElement;
-        if (!d.animate || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
         e.preventDefault();
-        if (d.__anim) { try { d.__anim.cancel(); } catch (x) {} }
+        if (d.open && !d.__closing) { closeAnim(d); return; }
+        if (d.__closing) { try { d.__anim.cancel(); } catch (x) {} d.__closing = false; }
+        // close the others in the same list
+        const sibs = [...d.parentElement.querySelectorAll(':scope > details.ac[open]')].filter((o) => o !== d);
+        sibs.forEach(closeAnim);
         const start = d.offsetHeight;
-        if (d.open) {
-          d.__closing = true;
-          const end = sm.offsetHeight;
-          d.style.overflow = 'hidden';
-          const an = d.__anim = d.animate({ height: [start + 'px', end + 'px'] }, { duration: 380, easing: 'cubic-bezier(.4,0,.2,1)' });
-          an.onfinish = () => { d.open = false; d.style.overflow = ''; d.__anim = null; d.__closing = false; };
-          an.oncancel = () => { d.style.overflow = ''; };
-        } else {
-          d.style.overflow = 'hidden';
-          d.open = true;
-          const end = d.offsetHeight;
-          const an = d.__anim = d.animate({ height: [start + 'px', end + 'px'] }, { duration: 480, easing: 'cubic-bezier(.22,.8,.2,1)' });
-          an.onfinish = () => { d.style.overflow = ''; d.__anim = null; };
-          an.oncancel = () => { d.style.overflow = ''; };
-        }
+        if (!d.animate || reduceA()) { d.open = true; return; }
+        if (d.__anim) { try { d.__anim.cancel(); } catch (x) {} }
+        d.style.overflow = 'hidden';
+        d.open = true;
+        const end = d.offsetHeight;
+        const an = d.__anim = d.animate({ height: [start + 'px', end + 'px'] }, { duration: 480, easing: 'cubic-bezier(.22,.8,.2,1)' });
+        an.onfinish = () => { d.style.overflow = ''; d.__anim = null; };
+        an.oncancel = () => { d.style.overflow = ''; };
+        // if the one that closed above pushed this one under the header, bring it back into view
+        if (sibs.length) setTimeout(() => {
+          const r = sm.getBoundingClientRect();
+          if (r.top < 70 || r.top > window.innerHeight - 80) window.scrollTo({ top: window.scrollY + r.top - 90, behavior: 'smooth' });
+        }, 420);
       });
     } catch (e) {}
     // trust boxes: click to highlight (one at a time, click again to clear)
