@@ -137,7 +137,9 @@ class Component extends DCLogic {
         }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
         const watch = () => document.querySelectorAll('.faq details.ac:not(.in)').forEach((d) => { if (!d.__w) { d.__w = 1; fio.observe(d); } });
         watch();
-        setInterval(watch, 700);
+        const lst = document.querySelector('.faq .ac-list');
+        if (lst && window.MutationObserver) new MutationObserver(watch).observe(lst, { childList: true, subtree: true, attributes: true, attributeFilter: ['style'] });
+        else setInterval(watch, 700);
       }
     } catch (e) {}
     // scroll-reveal (fade + translate, staggered through --d)

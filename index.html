@@ -83,6 +83,8 @@ button{cursor:pointer}
 sup.tm{font-size:.28em;vertical-align:top;position:relative;top:.55em;margin-left:.08em;letter-spacing:0;font-weight:600;color:var(--fg-3)}
 
 
+/* tablet: everything a bit smaller */
+@media (min-width:640px) and (max-width:1099px){body>div:first-of-type{zoom:.84}}
 /* ---- buttons ---- */
 .btn{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:12px;min-height:56px;padding:0 32px;border-radius:var(--r-sm);border:1px solid transparent;font-size:14px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;white-space:nowrap;overflow:hidden;isolation:isolate;-webkit-tap-highlight-color:transparent;transition:transform var(--t-fast) var(--ease),box-shadow var(--t-base) var(--ease),background var(--t-base) var(--ease),border-color var(--t-base) var(--ease),color var(--t-base) var(--ease)}
 .btn svg{flex:none;transition:transform var(--t-base) var(--ease)}
@@ -150,10 +152,10 @@ html.is-scrolled .hdr-in{height:var(--hdr-s)}
 /* ---- hero ---- */
 .hero{position:relative;padding:32px 0 calc(var(--section)*.2)}
 .hero-bg{position:absolute;inset:-200px 0 0;pointer-events:none;overflow:hidden}
-.bokeh{position:absolute;border-radius:50%;filter:blur(40px);will-change:transform}
-.bokeh.b1{width:260px;height:260px;right:-60px;top:260px;background:rgba(217,181,107,.22);animation:drift 11s ease-in-out infinite alternate}
-.bokeh.b2{width:200px;height:200px;left:-70px;top:640px;background:rgba(40,110,60,.3);animation:drift 14s ease-in-out -4s infinite alternate}
-.bokeh.b3{width:90px;height:90px;right:22%;top:560px;background:rgba(232,90,70,.16);animation:drift 9s ease-in-out -2s infinite alternate}
+.bokeh{position:absolute;border-radius:50%;will-change:transform}
+.bokeh.b1{width:260px;height:260px;right:-60px;top:260px;background:radial-gradient(closest-side,rgba(217,181,107,.22),transparent);animation:drift 11s ease-in-out infinite alternate}
+.bokeh.b2{width:200px;height:200px;left:-70px;top:640px;background:radial-gradient(closest-side,rgba(40,110,60,.3),transparent);animation:drift 14s ease-in-out -4s infinite alternate}
+.bokeh.b3{width:90px;height:90px;right:22%;top:560px;background:radial-gradient(closest-side,rgba(232,90,70,.16),transparent);animation:drift 9s ease-in-out -2s infinite alternate}
 @keyframes drift{from{transform:translate3d(0,-14px,0)}to{transform:translate3d(10px,16px,0)}}
 .hero-grid{display:grid;gap:6px;align-items:center}
 .hero-copy{display:flex;flex-direction:column;align-items:flex-start;gap:0;padding-top:18px}
@@ -412,7 +414,7 @@ html:not(.js-rv) .stat .bar{stroke-dasharray:var(--v) 100}
 .btn-ghost{background:linear-gradient(180deg,rgba(217,181,107,.26),rgba(217,181,107,.04) 90%)}
 .btn-ghost:hover{background:linear-gradient(180deg,rgba(217,181,107,.36),rgba(217,181,107,.08) 90%)}
 .btn-ghost[aria-expanded="true"]{background:linear-gradient(180deg,rgba(217,181,107,.4),rgba(217,181,107,.1) 90%)}
-@keyframes descIn{0%{opacity:0;transform:translateY(34px);clip-path:inset(0 0 100% 0);filter:blur(8px)}60%{filter:blur(0)}100%{opacity:1;transform:none;clip-path:inset(0 0 0 0);filter:none}}
+@keyframes descIn{0%{opacity:0;transform:translate3d(0,34px,0);clip-path:inset(0 0 100% 0)}100%{opacity:1;transform:none;clip-path:inset(0 0 0 0)}}
 @keyframes descKid{0%{opacity:0;transform:translateY(22px)}100%{opacity:1;transform:none}}
 .descwrap.dh.out{animation:none;overflow:hidden;pointer-events:none}
 .descwrap.dh.out .details-sec .wrap>*{animation:none}
@@ -720,7 +722,7 @@ textarea.field{height:140px;padding:16px 18px;resize:none;line-height:1.5}
 .fl{position:absolute;top:-2%;z-index:2;pointer-events:none;border-radius:50%;background:#fff;box-shadow:0 0 5px 1px rgba(255,255,255,.6);opacity:0;animation:fall 9s linear infinite,sway 3s ease-in-out infinite alternate}
 @keyframes fall{0%{top:4%;opacity:0}10%{opacity:.9}90%{opacity:.8}100%{top:97%;opacity:0}}
 @keyframes sway{from{margin-left:0}to{margin-left:var(--dx)}}
-.tw{animation:tw 3s ease-in-out infinite;filter:drop-shadow(0 0 5px currentColor)}
+.tw{animation:tw 3s ease-in-out infinite}
 @keyframes tw{0%{opacity:.18}9%{opacity:1}24%{opacity:.18}100%{opacity:.18}}
 .mound{animation:mound 14s ease-in-out infinite alternate}
 @keyframes mound{from{transform:translateY(46px)}to{transform:translateY(0)}}
@@ -787,10 +789,10 @@ html.js-rv .lg-ftr:not(.go) .ch,html.js-rv .lg-ftr:not(.go) .bb,html.js-rv .lg-f
 .slide.ph{display:flex;align-items:center;justify-content:center;background:var(--ph)}
 .slide.ph span:first-child{font-size:13px;letter-spacing:.14em;color:rgba(255,255,255,.7)}
 .zoom{position:absolute;left:14px;top:14px;z-index:2;width:36px;height:36px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 6px rgba(0,0,0,.2)}
-html.js-rv .rvt{opacity:0;transform:translateY(26px);filter:blur(5px);transition:opacity 1.3s cubic-bezier(.22,.61,.36,1),transform 1.3s cubic-bezier(.22,.61,.36,1),filter 1.3s cubic-bezier(.22,.61,.36,1)}
-html.js-rv .rvt.in{opacity:1;transform:none;filter:none}
-html.js-rv .lens-stage.rvt{transform:scale(.88);filter:blur(10px);transition:opacity 2s cubic-bezier(.4,0,.2,1),transform 2.2s cubic-bezier(.3,.1,.2,1),filter 1.8s cubic-bezier(.4,0,.2,1)}
-html.js-rv .lens-stage.rvt.in{transform:none;filter:none}
+html.js-rv .rvt{opacity:0;transform:translate3d(0,26px,0);transition:opacity 1.3s cubic-bezier(.22,.61,.36,1),transform 1.3s cubic-bezier(.22,.61,.36,1)}
+html.js-rv .rvt.in{opacity:1;transform:none}
+html.js-rv .lens-stage.rvt{transform:scale(.9);transition:opacity 2s cubic-bezier(.4,0,.2,1),transform 2.2s cubic-bezier(.3,.1,.2,1)}
+html.js-rv .lens-stage.rvt.in{transform:none}
 @keyframes garFall{0%{opacity:0;transform:translate3d(0,-70px,0) rotate(-4deg)}30%{opacity:1}100%{opacity:1;transform:translate3d(0,-1px,0) rotate(-1.6deg)}}
 .gar{transform-origin:100% 0;animation:garSwing 3.2s ease-in-out infinite alternate}
 html.js-rv .gar:not(.fall){opacity:0;animation:none}
@@ -1091,9 +1093,9 @@ html:not(.js-rv) .panel{--pf:1}
     <div class="wrap hero-grid">
       <div class="hero-media">
         <div id="gallery" class="gal">
-          <figure class="slide" style="margin:0"><img src="{{heroPhoto}}" alt="MemoryOrb in {{cName}}" fetchpriority="high"><span class="gcap">{{cName}}</span><span class="zoom"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1d1b2b" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="10.500" cy="10.500" r="6.500"/><path d="M15.500 15.500L21 21M10.500 8v5M8 10.500h5"/></svg></span></figure>
-          <figure class="slide" style="margin:0"><img src="{{lifePhoto}}" alt="{{cName}} MemoryOrb by the Christmas tree"><span class="gcap">Memories inside</span><span class="zoom"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1d1b2b" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="10.500" cy="10.500" r="6.500"/><path d="M15.500 15.500L21 21M10.500 8v5M8 10.500h5"/></svg></span></figure>
-          <figure class="slide" style="margin:0"><img src="{{treePhoto}}" alt="{{cName}} MemoryOrb on the Christmas tree"><span class="gcap">On the tree</span><span class="zoom"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1d1b2b" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="10.500" cy="10.500" r="6.500"/><path d="M15.500 15.500L21 21M10.500 8v5M8 10.500h5"/></svg></span></figure>
+          <figure class="slide" style="margin:0"><img decoding="async" src="{{heroPhoto}}" alt="MemoryOrb in {{cName}}" fetchpriority="high"><span class="gcap">{{cName}}</span><span class="zoom"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1d1b2b" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="10.500" cy="10.500" r="6.500"/><path d="M15.500 15.500L21 21M10.500 8v5M8 10.500h5"/></svg></span></figure>
+          <figure class="slide" style="margin:0"><img decoding="async" src="{{lifePhoto}}" alt="{{cName}} MemoryOrb by the Christmas tree"><span class="gcap">Memories inside</span><span class="zoom"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1d1b2b" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="10.500" cy="10.500" r="6.500"/><path d="M15.500 15.500L21 21M10.500 8v5M8 10.500h5"/></svg></span></figure>
+          <figure class="slide" style="margin:0"><img decoding="async" src="{{treePhoto}}" alt="{{cName}} MemoryOrb on the Christmas tree"><span class="gcap">On the tree</span><span class="zoom"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1d1b2b" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="10.500" cy="10.500" r="6.500"/><path d="M15.500 15.500L21 21M10.500 8v5M8 10.500h5"/></svg></span></figure>
         </div>
         <div class="gal-dots" data-keep-style="" aria-hidden="true"><i></i><i></i><i></i></div>
       </div>
@@ -1153,7 +1155,7 @@ html:not(.js-rv) .panel{--pf:1}
               <button class="sw" role="radio" aria-checked="{{c.checked}}" onClick="{{c.pick}}">
                 <span class="sw-art" style="--c:{{c.color}}">
                   <i class="cap"></i><i class="ball"></i><i class="lens"></i>
-                  <sc-if value="{{c.hasPhoto}}" hint-placeholder-val="{{ false }}"><img src="{{c.tile}}" alt="{{c.name}}" loading="lazy"></sc-if>
+                  <sc-if value="{{c.hasPhoto}}" hint-placeholder-val="{{ false }}"><img decoding="async" src="{{c.tile}}" alt="{{c.name}}" loading="lazy"></sc-if>
                   <sc-if value="{{c.selected}}" hint-placeholder-val="{{ false }}">
                     <span class="sw-tick"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"/></svg></span>
                   </sc-if>
@@ -1228,7 +1230,7 @@ html:not(.js-rv) .panel{--pf:1}
           <p class="lead">Keep the moments you love within reach.</p></div>
         <div class="lens-stage rvt">
           <i class="ring r2" aria-hidden="true"></i><i class="ring r1" aria-hidden="true"></i>
-          <div class="lens-img" data-px="-0.03" data-keep-style=""><img src="assets/a44a6f24bcf91873e9204fc5abe70cc2.png" alt="A family sharing a birthday moment, shown inside a round MemoryOrb lens" loading="lazy"><i class="lframe" aria-hidden="true"></i></div>
+          <div class="lens-img" data-px="-0.03" data-keep-style=""><img decoding="async" src="assets/a44a6f24bcf91873e9204fc5abe70cc2.png" alt="A family sharing a birthday moment, shown inside a round MemoryOrb lens" loading="lazy"><i class="lframe" aria-hidden="true"></i></div>
         </div>
       </div>
     </section>
@@ -1347,7 +1349,7 @@ html:not(.js-rv) .panel{--pf:1}
         <div class="shop-card">
           <button type="button" class="shop-img" aria-label="Choose {{it.name}}" onClick="{{it.pick}}">
             <span class="sw-art" style="--c:{{it.color}}"><i class="cap"></i><i class="ball"></i><i class="lens"></i>
-              <sc-if value="{{it.hasPhoto}}" hint-placeholder-val="{{ false }}"><img src="{{it.tile}}" alt="{{it.name}}" loading="lazy"></sc-if>
+              <sc-if value="{{it.hasPhoto}}" hint-placeholder-val="{{ false }}"><img decoding="async" src="{{it.tile}}" alt="{{it.name}}" loading="lazy"></sc-if>
             </span>
             <span class="shop-tag">{{it.tag}}</span>
           </button>
