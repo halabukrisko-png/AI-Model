@@ -245,7 +245,7 @@ html.is-scrolled .hdr-in{height:var(--hdr-s)}
 .bundle-rows{display:flex;flex-direction:column;gap:10px;padding:2px 18px 18px;animation:riseIn .45s var(--ease-out) both}
 .bundle-row{display:flex;align-items:center;gap:14px;padding-top:12px;border-top:1px solid var(--line)}
 .bundle-row .no{width:24px;font-size:13px;font-weight:700;color:var(--fg-3);letter-spacing:.04em}
-.bundle-row .no{width:18px;text-align:center}
+.bundle-row .no{width:50px;text-align:left;font-size:12px;letter-spacing:.06em}
 .bundle-row.is-empty .mini-orb{border:1px dashed rgba(217,181,107,.55);box-shadow:none}
 .bundle-row.is-miss .select select{border-color:#ff8d8d;box-shadow:0 0 0 3px rgba(255,141,141,.14)}
 .bundle-row.is-miss .mini-orb{border-color:#ff8d8d}
@@ -1163,7 +1163,7 @@ html:not(.js-rv) .panel{--pf:1}
                   <div class="bundle-rows">
                     <sc-for list="{{b.rows}}" as="r" hint-placeholder-count="2">
                       <div class="bundle-row {{r.cls}}">
-                        <span class="no">{{r.n}}</span>
+                        <span class="no">{{r.label}}</span>
                         <span class="mini-orb" style="background:{{r.ball}}"></span>
                         <label class="select">
                           <span class="sr">Colour for orb {{r.n}}</span>
