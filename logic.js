@@ -234,6 +234,19 @@ class Component extends DCLogic {
       sentDisp: this.state.sent ? 'block' : 'none',
       homeBg: this.state.page === 'home' ? 'rgba(255,255,255,.07)' : 'transparent',
       contactBg: this.state.page === 'contact' ? 'rgba(255,255,255,.07)' : 'transparent',
+      openSpecs: (e) => {
+        try { e.preventDefault(); } catch (x) {}
+        this.setState({ page: 'products', menu: false });
+        setTimeout(() => {
+          try {
+            const sec = document.querySelector('.details-sec');
+            const rows = sec ? sec.querySelectorAll('details.ac') : [];
+            let target = null;
+            rows.forEach((d) => { const t = d.querySelector('summary span'); if (t && /Product Details/.test(t.textContent)) target = d; });
+            if (target) { target.open = true; target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+          } catch (x) {}
+        }, 80);
+      },
       goColours: (e) => { try { e.preventDefault(); } catch (x) {} this.setState({ page: 'home', menu: false }); setTimeout(() => { try { const t = document.getElementById('colours'); if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' }); } catch (x) {} }, 60); },
       goHome: (e) => { this.setState({ page: 'home', menu: false }); try { window.scrollTo(0, 0); } catch (x) {} },
       goContact: (e) => { this.setState({ page: 'contact', menu: false, sent: false }); try { window.scrollTo(0, 0); } catch (x) {} },
