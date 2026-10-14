@@ -133,8 +133,8 @@ class Component extends DCLogic {
       pick: () => this.setState({ thumb: i })
     }));
     const cs = [
-      { name: 'Black', color: '#16161a', photo: 'assets/orb-black.webp' }, { name: 'White', color: '#f1efea', photo: 'assets/orb-white.webp' }, { name: 'Blue', color: '#3b86d9', photo: 'assets/orb-blue.webp' },
-      { name: 'Green', color: '#3f9a5a', photo: 'assets/orb-green.webp' }, { name: 'Red', color: '#d93a3a', photo: 'assets/orb-red.webp' }, { name: 'Grey', color: '#8a8a8f', photo: 'assets/orb-grey.webp' }
+      { name: 'Black', color: '#16161a', photo: 'assets/orb-black.webp', life: 'assets/orb-black-life.webp' }, { name: 'White', color: '#f1efea', photo: 'assets/orb-white.webp', life: 'assets/orb-white-life.webp' }, { name: 'Blue', color: '#3b86d9', photo: 'assets/orb-blue.webp', life: 'assets/orb-blue-life.webp' },
+      { name: 'Green', color: '#3f9a5a', photo: 'assets/orb-green.webp', life: 'assets/orb-green-life.webp' }, { name: 'Red', color: '#d93a3a', photo: 'assets/orb-red.webp', life: 'assets/d46936c8be3ce756d132d41845b70ca2.webp' }, { name: 'Grey', color: '#8a8a8f', photo: 'assets/orb-grey.webp', life: 'assets/orb-grey-life.webp' }
     ];
     const cColours = cs.map((c, i) => {
       const sel = this.state.colour === i;
@@ -320,7 +320,7 @@ class Component extends DCLogic {
         try { window.scrollTo(0, 0); } catch (x) {}
       },
       shopItems,
-      trust, bundles, thumbs, cColours, heroPhoto: cs[this.state.colour].photo, cName: cs[this.state.colour].name, cColor: cs[this.state.colour].color, cOutlets, cf, cfDots, cfPrev, cfNext, cfPrevColor, cfNextColor, cQty: this.state.qty, ctaTotal,
+      trust, bundles, thumbs, cColours, heroPhoto: cs[this.state.colour].photo, lifePhoto: cs[this.state.colour].life, cName: cs[this.state.colour].name, cColor: cs[this.state.colour].color, cOutlets, cf, cfDots, cfPrev, cfNext, cfPrevColor, cfNextColor, cQty: this.state.qty, ctaTotal,
       cInc: () => this.setState({ qty: Math.min(9, this.state.qty + 1) }),
       cDec: () => this.setState({ qty: Math.max(1, this.state.qty - 1) })
     };
