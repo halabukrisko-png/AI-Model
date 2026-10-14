@@ -71,6 +71,20 @@ class Component extends DCLogic {
         upd();
       }
     } catch (e) {}
+    // FAQ rows: reveal on scroll, one after another
+    try {
+      if ('IntersectionObserver' in window && !reduce) {
+        root.classList.add('js-rv');
+        let q = 0, tmr = null;
+        const fio = new IntersectionObserver((es) => {
+          es.filter((e) => e.isIntersecting).forEach((e) => { const t = e.target; fio.unobserve(t); setTimeout(() => t.classList.add('in'), (q++ % 5) * 110); });
+          clearTimeout(tmr); tmr = setTimeout(() => { q = 0; }, 400);
+        }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+        const watch = () => document.querySelectorAll('.faq details.ac:not(.in)').forEach((d) => { if (!d.__w) { d.__w = 1; fio.observe(d); } });
+        watch();
+        setInterval(watch, 700);
+      }
+    } catch (e) {}
     // scroll-reveal (fade + translate, staggered through --d)
     try {
       const els = document.querySelectorAll('.rvt, .hg, .lg-ftr, .mo-ul, .panel, .stat');
