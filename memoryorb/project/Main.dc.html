@@ -385,6 +385,15 @@ html:not(.js-rv) .stat .bar{stroke-dasharray:var(--v) 100}
 .btn-ghost.btn-grad{background:linear-gradient(180deg,rgba(217,181,107,.26),rgba(217,181,107,.04) 90%)}
 .btn-ghost.btn-grad:hover{background:linear-gradient(180deg,rgba(217,181,107,.36),rgba(217,181,107,.08) 90%)}
 .btn-ghost.btn-grad[aria-expanded="true"]{background:linear-gradient(180deg,rgba(217,181,107,.4),rgba(217,181,107,.1) 90%)}
+/* hero CTA pair: refined, consistent */
+.cta-stack{gap:12px}
+.cta-stack .btn{min-height:58px;padding:0 28px;font-size:13px;font-weight:700;letter-spacing:.16em;border-radius:12px}
+.cta-stack .btn-primary{background:linear-gradient(180deg,#f1d99b 0%,#d8b36a 55%,#c29a4d 100%);border:1px solid rgba(255,236,190,.55);color:#1a1307;box-shadow:inset 0 1px 0 rgba(255,255,255,.55),inset 0 -1px 0 rgba(0,0,0,.14),0 10px 24px -14px rgba(217,181,107,.55),0 1px 2px rgba(0,0,0,.4)}
+.cta-stack .btn-primary:hover{transform:translateY(-1px);box-shadow:inset 0 1px 0 rgba(255,255,255,.65),inset 0 -1px 0 rgba(0,0,0,.14),0 14px 28px -14px rgba(217,181,107,.65),0 2px 4px rgba(0,0,0,.4)}
+.cta-stack .btn-primary:active{transform:translateY(0) scale(.99);box-shadow:inset 0 2px 4px rgba(120,80,20,.25),0 4px 10px -6px rgba(217,181,107,.5)}
+.cta-stack .btn-ghost.btn-grad{border:1px solid rgba(217,181,107,.5);color:var(--brass-hi);box-shadow:inset 0 1px 0 rgba(242,219,163,.14),0 1px 2px rgba(0,0,0,.35)}
+.cta-stack .btn-ghost.btn-grad:hover{border-color:var(--brass-hi);color:#fff}
+.cta-stack .btn-ghost.btn-grad svg{width:16px;height:16px;stroke-width:1.8}
 @keyframes descIn{0%{opacity:0;transform:translateY(34px);clip-path:inset(0 0 100% 0);filter:blur(8px)}60%{filter:blur(0)}100%{opacity:1;transform:none;clip-path:inset(0 0 0 0);filter:none}}
 @keyframes descKid{0%{opacity:0;transform:translateY(22px)}100%{opacity:1;transform:none}}
 .descwrap.dh{animation:descIn 1s cubic-bezier(.22,.8,.2,1) both}
