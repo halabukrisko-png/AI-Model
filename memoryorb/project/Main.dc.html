@@ -382,15 +382,21 @@ html:not(.js-rv) .stat .bar{stroke-dasharray:var(--v) 100}
 @keyframes marq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 @media (prefers-reduced-motion:reduce){.marq-track{animation:none}}
 /* View description button + reveal */
-.btn-desc{gap:14px;color:var(--brass-hi);border:1px solid rgba(217,181,107,.55);background:linear-gradient(180deg,rgba(217,181,107,.14),rgba(217,181,107,.03));box-shadow:inset 0 1px 0 rgba(242,219,163,.18),0 10px 26px -16px rgba(217,181,107,.5);overflow:hidden;isolation:isolate}
-.btn-desc::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(100deg,transparent 30%,rgba(243,221,166,.28) 50%,transparent 70%);transform:translateX(-120%);transition:transform .9s var(--ease)}
-.btn-desc:hover{transform:translateY(-1px);border-color:var(--brass-hi);color:#fff;box-shadow:inset 0 1px 0 rgba(242,219,163,.25),0 16px 32px -14px rgba(217,181,107,.6)}
-.btn-desc:hover::after{transform:translateX(120%)}
-.btn-desc .bd-ic{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;border:1px solid rgba(217,181,107,.6);background:rgba(217,181,107,.12);transition:transform .5s var(--ease),background var(--t-base),color var(--t-base)}
-.btn-desc .bd-ic svg{transition:none}
-.btn-desc:hover .bd-ic{background:var(--brass-hi);color:#1a1306;transform:translateY(2px)}
-.btn-desc[aria-expanded="true"]{background:linear-gradient(180deg,rgba(217,181,107,.3),rgba(217,181,107,.12));border-color:var(--brass-hi)}
-.btn-desc[aria-expanded="true"] .bd-ic{transform:rotate(180deg);background:var(--brass-hi);color:#1a1306;border-color:transparent}
+.btn-desc{gap:14px;min-height:54px;padding:0 6px;border:0;border-radius:0;background:transparent;box-shadow:none;color:var(--brass-hi);text-transform:none;letter-spacing:0;font-weight:500;overflow:visible}
+.btn-desc::before,.btn-desc::after{content:"";flex:1 1 0;height:1px;position:static;inset:auto;z-index:auto;transform:none;transition:flex-grow .6s var(--ease),opacity .4s;background:linear-gradient(90deg,transparent,rgba(217,181,107,.7))}
+.btn-desc::after{background:linear-gradient(270deg,transparent,rgba(217,181,107,.7))}
+.btn-desc .bd-t{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:22px;line-height:1;letter-spacing:.01em;transition:color var(--t-base)}
+.btn-desc .bd-ic{position:relative;display:inline-block;width:20px;height:20px;flex:none;transition:transform .6s var(--ease)}
+.btn-desc .bd-ic svg{display:none}
+.btn-desc .bd-ic::before,.btn-desc .bd-ic::after{content:"";position:absolute;left:50%;top:50%;width:14px;height:1.5px;margin:-.75px 0 0 -7px;border-radius:2px;background:var(--brass-hi);transition:transform .6s var(--ease),background var(--t-base)}
+.btn-desc .bd-ic::after{transform:rotate(90deg)}
+.btn-desc:hover{transform:none;box-shadow:none;background:transparent;color:#fff}
+.btn-desc:hover::before,.btn-desc:hover::after{flex-grow:.35;opacity:1}
+.btn-desc:hover .bd-ic{transform:rotate(90deg)}
+.btn-desc:hover .bd-ic::before,.btn-desc:hover .bd-ic::after{background:#fff}
+.btn-desc[aria-expanded="true"] .bd-ic{transform:rotate(180deg)}
+.btn-desc[aria-expanded="true"] .bd-ic::after{transform:rotate(0)}
+.btn-desc[aria-expanded="true"]:hover .bd-ic{transform:rotate(180deg)}
 @keyframes descIn{0%{opacity:0;transform:translateY(34px);clip-path:inset(0 0 100% 0);filter:blur(8px)}60%{filter:blur(0)}100%{opacity:1;transform:none;clip-path:inset(0 0 0 0);filter:none}}
 @keyframes descKid{0%{opacity:0;transform:translateY(22px)}100%{opacity:1;transform:none}}
 .descwrap.dh{animation:descIn 1s cubic-bezier(.22,.8,.2,1) both}
@@ -399,7 +405,7 @@ html:not(.js-rv) .stat .bar{stroke-dasharray:var(--v) 100}
 .descwrap.dh .details-sec .wrap>*:nth-child(2){animation-delay:.38s}
 .descwrap.dh .details-sec .wrap>*:nth-child(3){animation-delay:.5s}
 .descwrap.dh .details-sec .wrap>*:nth-child(n+4){animation-delay:.6s}
-@media (prefers-reduced-motion:reduce){.descwrap.dh,.descwrap.dh .details-sec .wrap>*{animation:none}.btn-desc::after{display:none}}
+@media (prefers-reduced-motion:reduce){.descwrap.dh,.descwrap.dh .details-sec .wrap>*{animation:none}}
 .descwrap.dh .dd-hero{display:none}
 .desc-close{display:none}
 .desc-close2{display:none}
