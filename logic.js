@@ -2,7 +2,7 @@
 class Component extends DCLogic {
   constructor(props) {
     super(props);
-    this.state = { prod: false, page: 'home', sent: false, tab: 0, tsent: false, bundle: 2, thumb: 0, colour: 0, outlet: 0, qty: 1, cf: 0, menu: false, flip: [false, false, false, false], cmp: 1, lt: 0, lsent: false, user: null, cart: [], cnote: false, faqN: 1, descOpen: false };
+    this.state = { prod: false, page: 'home', sent: false, tab: 0, tsent: false, bundle: 2, thumb: 0, colour: 0, outlet: 0, qty: 1, cf: 0, menu: false, flip: [false, false, false, false], cmp: 1, lt: 0, lsent: false, user: null, cart: [], cnote: false, faqN: 1, descOpen: false, extra: ['', ''], cerr: false };
   }
   componentDidMount() {
     const root = document.documentElement;
@@ -102,7 +102,22 @@ class Component extends DCLogic {
     const bundles = defs.map((d) => {
       const selected = this.state.bundle === d.id;
       const rows = [];
-      for (let i = 1; i <= d.id; i++) rows.push({ n: i });
+      const CN = ['Black', 'White', 'Blue', 'Green', 'Red', 'Grey'];
+      const DOTS = [['#7a7a85', '#25252b'], ['#ffffff', '#d8d5ce'], ['#6c9dff', '#1f50c4'], ['#62d28c', '#237c47'], ['#ff6e6e', '#b11f24'], ['#cbcbd0', '#6c6c74']];
+      const opts = CN.map((name, v) => ({ v: String(v), name }));
+      const extra = this.state.extra || ['', ''];
+      let miss = 0;
+      for (let i = 1; i <= d.id; i++) {
+        const v = i === 1 ? String(this.state.colour) : String(extra[i - 2]);
+        const empty = v === '';
+        if (empty) miss++;
+        rows.push({
+          n: i, val: v, opts,
+          ball: empty ? 'transparent' : 'radial-gradient(circle at 34% 28%,' + DOTS[+v][0] + ',' + DOTS[+v][1] + ' 72%)',
+          cls: (empty ? 'is-empty' : '') + (empty && this.state.cerr ? ' is-miss' : ''),
+          pick: (e) => { const val = e.target.value; if (i === 1) this.setState({ colour: +val }); else { const nx = (this.state.extra || ['', '']).slice(); nx[i - 2] = val; this.setState({ extra: nx, cerr: false }); } }
+        });
+      }
       return {
         ...d,
         selected,
@@ -111,11 +126,12 @@ class Component extends DCLogic {
         tag: d.id === 1 ? 'Perfect to Start' : d.id === 2 ? 'Most Popular' : 'Best Value',
         tagShow: selected,
         rows,
+        errDisp: selected && this.state.cerr ? 'block' : 'none',
         borderColor: selected ? '#f3d27a' : '#6f6339',
         bg: selected ? '#16130a' : '#000',
         ringColor: selected ? '#f3d27a' : '#8a7a4a',
         cls: selected ? 'is-on' : '',
-        pick: () => this.setState({ bundle: d.id })
+        pick: () => this.setState({ bundle: d.id, cerr: false })
       };
     });
     const bgs = [
@@ -159,7 +175,7 @@ class Component extends DCLogic {
     const money = (c) => '$' + Math.floor(c / 100) + '.' + String(c % 100).padStart(2, '0');
     const cartLines = this.state.cart;
     const cartItems = cartLines.map((l, i) => ({
-      name: cs[l.colour].name, color: cs[l.colour].color,
+      name: (l.colours || [l.colour]).map((c) => cs[c].name).join(' + '), color: cs[l.colour].color,
       sub: (l.n === 1 ? 'Single' : l.n === 2 ? 'Pair' : 'Collection') + ' · ' + l.n + (l.n === 1 ? ' orb' : ' orbs'),
       qty: l.qty, price: money(Math.round(l.unit * l.qty)),
       inc: () => this.setState({ cart: cartLines.map((x, j) => (j === i ? { ...x, qty: x.qty + 1 } : x)) }),
@@ -314,9 +330,18 @@ class Component extends DCLogic {
       addToCart: (e) => {
         try { e.preventDefault(); } catch (x) {}
         const totals = [5999, 11638, 17097]; const n = this.state.bundle;
+        const extra = this.state.extra || ['', ''];
+        const colours = [this.state.colour];
+        for (let k = 0; k < n - 1; k++) colours.push(extra[k] === '' ? '' : +extra[k]);
+        if (colours.some((c) => c === '')) {
+          this.setState({ cerr: true });
+          setTimeout(() => { try { const m = document.querySelector('.bundle-row.is-miss'); if (m) m.scrollIntoView({ behavior: 'smooth', block: 'center' }); } catch (x) {} }, 50);
+          return;
+        }
         const unit = totals[n - 1] / n;
-        const ex = cartLines.findIndex((l) => l.colour === this.state.colour && l.n === n);
-        const next = ex >= 0 ? cartLines.map((l, j) => (j === ex ? { ...l, qty: l.qty + 1 } : l)) : cartLines.concat([{ colour: this.state.colour, n, qty: 1, unit: unit * n }]);
+        const key = colours.join(',');
+        const ex = cartLines.findIndex((l) => (l.colours || [l.colour]).join(',') === key && l.n === n);
+        const next = ex >= 0 ? cartLines.map((l, j) => (j === ex ? { ...l, qty: l.qty + 1 } : l)) : cartLines.concat([{ colour: this.state.colour, colours, n, qty: 1, unit: unit * n }]);
         this.setState({ cart: next, page: 'cart', cnote: false }); try { window.scrollTo(0, 0); } catch (x) {}
       },
       userName: this.state.user ? this.state.user.name : '', userInit: this.state.user ? this.state.user.name.charAt(0).toUpperCase() : '', userMail: this.state.user ? this.state.user.mail : '',

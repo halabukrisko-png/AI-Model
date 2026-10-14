@@ -245,6 +245,11 @@ html.is-scrolled .hdr-in{height:var(--hdr-s)}
 .bundle-rows{display:flex;flex-direction:column;gap:10px;padding:2px 18px 18px;animation:riseIn .45s var(--ease-out) both}
 .bundle-row{display:flex;align-items:center;gap:14px;padding-top:12px;border-top:1px solid var(--line)}
 .bundle-row .no{width:24px;font-size:13px;font-weight:700;color:var(--fg-3);letter-spacing:.04em}
+.bundle-row .no{width:18px;text-align:center}
+.bundle-row.is-empty .mini-orb{border:1px dashed rgba(217,181,107,.55);box-shadow:none}
+.bundle-row.is-miss .select select{border-color:#ff8d8d;box-shadow:0 0 0 3px rgba(255,141,141,.14)}
+.bundle-row.is-miss .mini-orb{border-color:#ff8d8d}
+.pick-err{margin:2px 0 0;font-size:12.5px;font-weight:600;color:#ff9a9a;text-align:center}
 .mini-orb{flex:none;width:46px;height:46px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#d8d4c8 0,#4d4a42 28%,#14130f 70%);border:1px solid var(--line-2);box-shadow:inset 0 0 12px rgba(255,255,255,.08),0 8px 14px -8px #000}
 .select{position:relative;display:block}
 .select select{appearance:none;-webkit-appearance:none;height:46px;min-width:128px;padding:0 38px 0 14px;border-radius:var(--r-xs);border:1px solid var(--line-2);background:rgba(255,255,255,.04);color:var(--fg);font-size:14px;font-weight:600;transition:border-color var(--t-base),background var(--t-base)}
@@ -1140,7 +1145,7 @@ html:not(.js-rv) .panel{--pf:1}
         <div class="sec-head pa-head pa-head2">
           <span class="eyebrow c">Choose your quantity</span>
           <h2 class="h2">How many <em>MemoryOrbs?</em></h2>
-          <p class="lead">Pick how many <b style="color:var(--fg);font-weight:600">MemoryOrbs</b> you want</p>
+          <p class="lead">Pick how many MemoryOrbs you want</p>
         </div>
         <div class="pa-col">
           <div id="bundles" class="bundles" role="radiogroup" aria-label="Choose a bundle">
@@ -1157,19 +1162,20 @@ html:not(.js-rv) .panel{--pf:1}
                 <sc-if value="{{b.selected}}" hint-placeholder-val="{{ false }}">
                   <div class="bundle-rows">
                     <sc-for list="{{b.rows}}" as="r" hint-placeholder-count="2">
-                      <div class="bundle-row">
-                        <span class="no">#{{r.n}}</span>
-                        <span class="mini-orb"></span>
+                      <div class="bundle-row {{r.cls}}">
+                        <span class="no">{{r.n}}</span>
+                        <span class="mini-orb" style="background:{{r.ball}}"></span>
                         <label class="select">
                           <span class="sr">Colour for orb {{r.n}}</span>
-                          <select>
-                            <option>Black</option>
-                            <option>Clear</option>
+                          <select data-val="{{r.val}}" onChange="{{r.pick}}">
+                            <option value="" disabled>Choose colour</option>
+                            <sc-for list="{{r.opts}}" as="o" hint-placeholder-count="6"><option value="{{o.v}}">{{o.name}}</option></sc-for>
                           </select>
                           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
                         </label>
                       </div>
                     </sc-for>
+                    <p class="pick-err" style="display:{{b.errDisp}}">Please choose a colour for every orb to continue.</p>
                   </div>
                 </sc-if>
               </div>
