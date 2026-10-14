@@ -103,6 +103,74 @@ class Component extends DCLogic {
         kids.forEach((el, k) => el.animate([{ opacity: 0, transform: 'translate3d(0,44px,0)' }, { opacity: 1, transform: 'translate3d(0,0,0)' }], { duration: 1900, delay: 150 + k * 220, easing: 'cubic-bezier(.25,.6,.25,1)', fill: 'backwards' }));
       };
     } catch (e) {}
+    // chat assistant (answers from the FAQ on this page, no external service)
+    try {
+      const mk = (t, c, h) => { const e = document.createElement(t); if (c) e.className = c; if (h != null) e.innerHTML = h; return e; };
+      const ic = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 01-11.6 7.1L4 20l1-4.6A8 8 0 1121 12z"/><path d="M8.5 11h.01M12 11h.01M15.5 11h.01"/></svg>';
+      const fab = mk('button', 'cb-fab', ic); fab.setAttribute('aria-label', 'Open chat');
+      const win = mk('div', 'cb-win'); win.setAttribute('role', 'dialog'); win.setAttribute('aria-label', 'MemoryOrb assistant');
+      win.innerHTML = '<div class="cb-hd"><span class="cb-av">' + ic + '</span><span><b>MemoryOrb Assistant</b><small>Ask about orbs, shipping and returns</small></span><button type="button" class="cb-x" aria-label="Close chat"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div><div class="cb-body"></div><div class="cb-chips"></div><form class="cb-form"><input class="cb-in" type="text" placeholder="Type your question..." aria-label="Your question" autocomplete="off"><button class="cb-send" type="submit" aria-label="Send"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></form>';
+      document.body.appendChild(fab); document.body.appendChild(win);
+      const body = win.querySelector('.cb-body'), chips = win.querySelector('.cb-chips'), inp = win.querySelector('.cb-in');
+      const esc = (t) => t.replace(/&/g, '&amp;').replace(/</g, '&lt;');
+      const add = (txt, who, html) => { const m = mk('div', 'cb-m ' + who, html ? txt : esc(txt)); body.appendChild(m); body.scrollTop = body.scrollHeight; return m; };
+      const go = (page) => { this.setState({ page, menu: false, sent: false, tsent: false }); try { window.scrollTo({ top: 0, behavior: 'instant' }); } catch (x) {} win.classList.remove('open'); fab.classList.remove('hide'); };
+      const stop = new Set('a an the is are do does can i my me you your of to for in on and or it be how what when where which with at as if this that there we our about have has get'.split(' '));
+      const tok = (t) => t.toLowerCase().replace(/[^a-z0-9\s]/g, ' ').split(/\s+/).filter((w) => w && !stop.has(w)).map((w) => w.replace(/(ing|es|s)$/, '').replace(/(.)\1$/, '$1'));
+      let kb = null;
+      const build = () => {
+        if (kb) return kb;
+        kb = [];
+        document.querySelectorAll('.faq details.ac').forEach((d) => {
+          const q = d.querySelector('summary span'), a = d.querySelector('p');
+          if (q && a) kb.push({ q: q.textContent.trim(), a: a.textContent.replace(/Check Product Details/g, '').replace(/\s+/g, ' ').trim(), t: tok(q.textContent + ' ' + a.textContent), qt: tok(q.textContent) });
+        });
+        return kb;
+      };
+      const intents = [
+        { re: /\b(hi|hello|hey|ahoj|good (morning|evening))\b/i, a: 'Hello! I can help with questions about your MemoryOrb, shipping and returns. What would you like to know?' },
+        { re: /\b(price|cost|how much|\$|pay|discount|sale|cheap)\b/i, a: 'A single MemoryOrb is $59.99. Pair is $116.38 (save $55) and the Collection of three is $170.97 (save $85). Shipping is free.' },
+        { re: /\b(colou?r|black|white|blue|green|red|grey|gray)\b/i, a: 'MemoryOrb comes in six colours: Black, White, Blue, Green, Red and Grey. You can pick a different colour for every orb in a bundle.' },
+        { re: /\b(how long|when|how fast|days|time)\b.*\b(ship|deliver|arriv|get here|come)\w*|\b(ship|deliver)\w*\b.*\b(take|long|time|days)\b/i, a: 'We ship worldwide with free shipping. Your estimated delivery dates are shown at checkout and in your order confirmation.' },
+        { re: /\b(europe|usa|america|canada|australia|asia|country|countries|international|abroad|overseas)\b/i, a: 'Yes, we ship worldwide, and shipping is free. Delivery times and any local fees are shown at checkout.' },
+        { re: /\b(track|where is my|order status|parcel|package)\b/i, a: 'You can follow your order on the <a data-go="tracking">Tracking page</a>.', html: true },
+        { re: /\b(human|agent|person|support|contact|email|phone|call|help desk|complain)\b/i, a: 'Our support team is happy to help. Send us a message on the <a data-go="contact">Contact page</a> and we usually reply within one hour.', html: true },
+        { re: /\b(thanks|thank you|thx|dakujem|ďakujem)\b/i, a: 'You are welcome! Anything else I can help with?' }
+      ];
+      const answer = (q) => {
+        for (const it of intents) if (it.re.test(q)) return it;
+        const qt = tok(q); if (!qt.length) return null;
+        const syn = { sound: 'audio', speaker: 'audio', music: 'audio', volume: 'audio', picture: 'photo', image: 'photo', pic: 'photo', video: 'video', charge: 'battery', power: 'battery', deliver: 'ship', delivery: 'ship', post: 'ship', refund: 'return', broken: 'damaged', defective: 'damaged', present: 'gift', store: 'storage', memory: 'storage', space: 'storage', gb: 'storage', format: 'format', file: 'format', setup: 'set', usb: 'upload', wifi: 'upload', transfer: 'upload', copy: 'upload', change: 'replace', delete: 'replace', mobile: 'phone' };
+        const qs = qt.map((w) => syn[w] || w);
+        let best = null, bs = 0;
+        build().forEach((e) => { let sc = 0, hit = 0; qs.forEach((w) => { if (e.qt.includes(w)) { sc += 3; hit++; } else if (e.t.includes(w)) sc += 1; }); if (hit && sc > bs) { bs = sc; best = e; } });
+        return best && bs >= 3 ? { a: best.a } : null;
+      };
+      const reply = (q) => {
+        const dots = mk('div', 'cb-dots', '<i></i><i></i><i></i>'); body.appendChild(dots); body.scrollTop = body.scrollHeight;
+        const r = answer(q);
+        setTimeout(() => {
+          dots.remove();
+          if (r) add(r.a, 'bot', !!r.html);
+          else add('I am not sure about that one. You can reach our team on the <a data-go="contact">Contact page</a>, or pick a topic below.', 'bot', true);
+        }, 650 + Math.min(700, (r ? r.a.length : 40) * 4));
+      };
+      const ask = (q) => { q = q.trim(); if (!q) return; add(q, 'me'); reply(q); };
+      const topics = ['How much storage does it have?', 'Do you offer worldwide shipping?', 'What if my MemoryOrb arrives damaged?', 'How long does the battery last?'];
+      topics.forEach((t) => { const c = mk('button', 'cb-chip', esc(t)); c.type = 'button'; c.addEventListener('click', () => ask(t)); chips.appendChild(c); });
+      body.addEventListener('click', (e) => { const a = e.target.closest && e.target.closest('a[data-go]'); if (a) { e.preventDefault(); go(a.getAttribute('data-go')); } });
+      win.querySelector('form').addEventListener('submit', (e) => { e.preventDefault(); const v = inp.value; inp.value = ''; ask(v); });
+      let greeted = false;
+      const open = () => {
+        win.classList.add('open'); fab.classList.add('hide');
+        if (!greeted) { greeted = true; setTimeout(() => add('Hi! I am the MemoryOrb assistant. Ask me anything about the orb, shipping or returns.', 'bot'), 250); }
+        setTimeout(() => { try { if (window.innerWidth > 700) inp.focus(); } catch (x) {} }, 400);
+      };
+      const close = () => { win.classList.remove('open'); fab.classList.remove('hide'); };
+      fab.addEventListener('click', open);
+      win.querySelector('.cb-x').addEventListener('click', close);
+      document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && win.classList.contains('open')) close(); });
+    } catch (e) {}
     // footer garland: the lights drop in from above when it scrolls into view
     try {
       const gar = document.querySelector('svg.gar');
