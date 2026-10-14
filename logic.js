@@ -373,9 +373,16 @@ class Component extends DCLogic {
         this._lessBusy = true;
         const rows = all().filter((d) => d.offsetParent).slice(5);
         const n = rows.length;
-        // 1) compositor-only fade, bottom rows first
-        rows.forEach((d, k) => { d.style.transitionDelay = ((n - 1 - k) * 32) + 'ms'; d.classList.add('out'); });
-        const fadeMs = (n - 1) * 32 + 360;
+        // 1) rows leave one by one (bottom first); only rows on screen are staggered, the rest go at once
+        const vh = window.innerHeight;
+        let order = 0;
+        for (let k = n - 1; k >= 0; k--) {
+          const r = rows[k].getBoundingClientRect();
+          const seen = r.bottom > 0 && r.top < vh;
+          rows[k].style.transitionDelay = (seen ? order++ * 130 : 0) + 'ms';
+          rows[k].classList.add('out');
+        }
+        const fadeMs = Math.max(0, order - 1) * 130 + 520;
         setTimeout(() => {
           if (this._lessGen !== gen) return;
           // 2) one native smooth scroll to the top of the FAQ, 3) fold the list when it has arrived

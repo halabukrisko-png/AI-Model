@@ -609,7 +609,7 @@ section.details-sec.details-sec{padding-top:6px!important}
 html,body{overflow-anchor:none}
 html.js-rv .faq .ac{opacity:0;transform:translate3d(0,28px,0);transition:opacity .8s cubic-bezier(.22,.8,.2,1),transform .8s cubic-bezier(.22,.8,.2,1),background .3s;will-change:opacity,transform}
 html.js-rv .faq .ac.in{opacity:1;transform:none}
-html.js-rv .faq .ac.in.out{opacity:0;transform:translate3d(0,22px,0);transition:opacity .35s ease,transform .35s ease}
+html.js-rv .faq .ac.in.out{opacity:0;transform:translate3d(-26px,0,0);transition:opacity .5s cubic-bezier(.4,0,.2,1),transform .5s cubic-bezier(.4,0,.2,1)}
 html.js-rv .faq .faq-intro,html.js-rv .faq .sec-head{transition:opacity 1s,transform 1s}
 .faq .ac summary .q-ico{transition:transform .5s cubic-bezier(.34,1.56,.64,1),background .3s,color .3s,box-shadow .3s,border-color .3s}
 .faq .ac[open] .q-ico{transform:scale(1.12) rotate(-8deg)}
@@ -1939,9 +1939,16 @@ class Component extends DCLogic {
         this._lessBusy = true;
         const rows = all().filter((d) => d.offsetParent).slice(5);
         const n = rows.length;
-        // 1) compositor-only fade, bottom rows first
-        rows.forEach((d, k) => { d.style.transitionDelay = ((n - 1 - k) * 32) + 'ms'; d.classList.add('out'); });
-        const fadeMs = (n - 1) * 32 + 360;
+        // 1) rows leave one by one (bottom first); only rows on screen are staggered, the rest go at once
+        const vh = window.innerHeight;
+        let order = 0;
+        for (let k = n - 1; k >= 0; k--) {
+          const r = rows[k].getBoundingClientRect();
+          const seen = r.bottom > 0 && r.top < vh;
+          rows[k].style.transitionDelay = (seen ? order++ * 130 : 0) + 'ms';
+          rows[k].classList.add('out');
+        }
+        const fadeMs = Math.max(0, order - 1) * 130 + 520;
         setTimeout(() => {
           if (this._lessGen !== gen) return;
           // 2) one native smooth scroll to the top of the FAQ, 3) fold the list when it has arrived
