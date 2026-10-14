@@ -373,9 +373,14 @@ html:not(.js-rv) .stat .bar{stroke-dasharray:var(--v) 100}
 .ac-rich .spec{display:flex;align-items:center;gap:14px;padding:13px 0;border-bottom:1px solid var(--line)}
 .ac-rich .spec .li-i{flex:none;display:grid;place-items:center;margin:0;width:38px;height:38px;border-radius:50%;border:1px solid rgba(217,181,107,.45);background:rgba(217,181,107,.08);color:var(--brass)}
 .ac-rich .spec .sp-t{display:flex;flex-direction:column;gap:3px;min-width:0;flex:1}
+.ac-rich dl.specs{display:grid;grid-template-columns:1fr;gap:10px;border-top:0;margin:4px 0 10px}
+.ac-rich .spec{padding:14px 16px;border:1px solid var(--line-2);border-radius:var(--r-md);background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(0,0,0,.16));box-shadow:inset 0 1px 0 rgba(242,219,163,.1);transition:border-color var(--t-base),background var(--t-base)}
+.ac-rich .spec:hover{border-color:rgba(217,181,107,.5)}
+.ac-rich .spec dd{font-size:15.5px;font-weight:500}
+@media (min-width:900px){.ac-rich dl.specs{grid-template-columns:1fr 1fr}.ac-rich .spec .sp-t{flex-direction:column;gap:3px;align-items:flex-start}.ac-rich .spec dt{flex:none}}
 .ac-rich .spec dt{font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--brass)}
 .ac-rich .spec dd{margin:0;color:var(--fg);font-size:15px;line-height:1.55}
-@media (min-width:700px){.ac-rich .spec .sp-t{flex-direction:row;gap:24px;align-items:baseline}.ac-rich .spec dt{flex:0 0 190px}}
+
 
 /* ---- shipping timeline ---- */
 .ship-tl{position:relative;display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:10px 0 24px;text-align:center}
