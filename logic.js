@@ -364,7 +364,8 @@ class Component extends DCLogic {
           this.setState({ faqN: 1 });
         };
         if (!f) { finish(); return; }
-        const target = Math.max(0, f.getBoundingClientRect().top + window.scrollY - 70);
+        const list = f.querySelector('.ac-list');
+        const target = Math.max(0, (list || f).getBoundingClientRect().top + window.scrollY - (list ? 196 : 70));
         if (reduceM) { window.scrollTo(0, target); finish(); return; }
         this._lessBusy = true;
         // 1) glide back up to the start of the FAQ (own easing, fixed length)
