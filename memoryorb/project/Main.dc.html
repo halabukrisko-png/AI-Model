@@ -954,9 +954,8 @@ html:not(.js-rv) .panel{--pf:1}
         </div>
         <div class="drawer-links">
           <a class="drawer-link" style="--i:0" href="#top" aria-current="{{curHome}}" onClick="{{goHome}}">Home<span class="n">01</span></a>
-          <a class="drawer-link" style="--i:1" href="#top" aria-current="{{curShop}}" onClick="{{goShop}}">Shop<span class="n">02</span></a>
-          <a class="drawer-link" style="--i:2" href="#top" aria-current="{{curContact}}" onClick="{{goContact}}">Contact<span class="n">03</span></a>
-          <a class="drawer-link" style="--i:3" href="#top" aria-current="{{curTrack}}" onClick="{{goTracking}}">Tracking<span class="n">04</span></a>
+          <a class="drawer-link" style="--i:1" href="#top" aria-current="{{curContact}}" onClick="{{goContact}}">Contact<span class="n">02</span></a>
+          <a class="drawer-link" style="--i:2" href="#top" aria-current="{{curTrack}}" onClick="{{goTracking}}">Tracking<span class="n">03</span></a>
         </div>
       </nav>
     </div>
@@ -978,12 +977,10 @@ html:not(.js-rv) .panel{--pf:1}
       </span></div></a>
       <nav class="hdr-nav" aria-label="Primary">
         <a class="nav-link" href="#top" aria-current="{{curHome}}" onClick="{{goHome}}">Home</a>
-        <a class="nav-link" href="#top" aria-current="{{curShop}}" onClick="{{goShop}}">Shop</a>
         <a class="nav-link" href="#top" aria-current="{{curContact}}" onClick="{{goContact}}">Contact</a>
         <a class="nav-link" href="#top" aria-current="{{curTrack}}" onClick="{{goTracking}}">Tracking</a>
       </nav>
       <div class="hdr-act">
-        <a class="icon-btn hdr-login" href="#top" aria-label="Log in" onClick="{{goLogin}}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.500 3.500-7 8-7s8 2.500 8 7z"/></svg></a>
         <button class="icon-btn cart-btn" aria-label="Cart" onClick="{{goCart}}">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.500 3.500h2.800l2.400 11.500h11l2-8.200H6"/><circle cx="9.500" cy="19.800" r="1.300"/><circle cx="17" cy="19.800" r="1.300"/></svg>
           <span class="cart-badge" style="display:{{cartBadgeDisp}}">{{cartCount}}</span>
@@ -1128,27 +1125,6 @@ html:not(.js-rv) .panel{--pf:1}
 
   <!-- home page: trust, visual, comparison -->
   <div style="display:{{infoDisp}}">
-    <section class="on-green sec" aria-label="Shop with confidence">
-      <svg class="wave top" aria-hidden="true" viewBox="0 0 432 44" preserveAspectRatio="none" style="--sky:var(--ink)"><path class="sky" d="M0 0H432V30C410 32 380 36 330 32C230 24 110 22 0 34Z"/><path class="ln" d="M0 34C110 22 230 24 330 32C380 36 410 32 432 30"/></svg>
-      <svg class="wave bot" aria-hidden="true" viewBox="0 0 432 44" preserveAspectRatio="none" style="--sky:var(--ink-2)"><path class="sky" d="M0 0H432V30C410 32 380 36 330 32C230 24 110 22 0 34Z"/><path class="ln" d="M0 34C110 22 230 24 330 32C380 36 410 32 432 30"/></svg>
-      <div class="wrap">
-        <div class="sec-head rv"><span class="eyebrow c">Guarantee</span><h2 class="h2 serif">Shop with <em>confidence</em></h2></div>
-        <div class="trust-grid">
-          <sc-for list="{{trust}}" as="t" hint-placeholder-count="4">
-            <button type="button" class="fc tc {{t.cls}}" aria-pressed="{{t.pressed}}" aria-label="{{t.title}}" onClick="{{t.toggle}}">
-              <span class="fc-in">
-                <span class="fc-face fc-front">
-                  <span class="tc-top"><span class="t-ico"><sc-if value="{{t.i0}}" hint-placeholder-val="{{ false }}"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2.500l8 3v6c0 5-3.500 8.700-8 10.500-4.500-1.800-8-5.500-8-10.500v-6z"/><path d="M8.300 12.200l2.700 2.700 4.800-5.300"/></svg></sc-if><sc-if value="{{t.i1}}" hint-placeholder-val="{{ false }}"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1.500 5.500h12v10.500h-12zM13.500 9h4.500l3.500 3.500v3.500h-8"/><circle cx="6" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg></sc-if><sc-if value="{{t.i2}}" hint-placeholder-val="{{ false }}"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5.500l3.500 2"/></svg></sc-if><sc-if value="{{t.i3}}" hint-placeholder-val="{{ false }}"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.500"/><path d="M2 20c0-4 3-6 7-6s7 2 7 6zM16 4.500a3.500 3.500 0 010 7M18 14c2.500.7 4 2.500 4 6h-3"/></svg></sc-if></span><span class="tc-t"><span class="tc-title">{{t.title}}</span><span class="tc-sub">{{t.text}}</span></span></span>                </span>
-                <span class="fc-face fc-back" aria-hidden="{{t.backHidden}}">
-                  <span class="fc-eyebrow">{{t.kicker}}</span>
-                  <span class="fc-body">{{t.back}}</span>                </span>
-              </span>
-            </button>
-          </sc-for>
-        </div>
-        <p class="tc-note">Tap to see more info</p>
-      </div>
-    </section>
     <section class="lens-sec" aria-label="Moments that stay with you">
       <div class="wrap">
         <div class="sec-head rv"><span class="eyebrow c">MemoryOrb</span><h2 class="h2">Moments that <em>stay with you</em></h2>
