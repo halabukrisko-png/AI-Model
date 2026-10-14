@@ -338,7 +338,7 @@ class Component extends DCLogic {
         try { window.scrollTo(0, 0); } catch (x) {}
       },
       shopItems,
-      trust, bundles, thumbs, cColours, heroPhoto: cs[this.state.colour].photo, lifePhoto: cs[this.state.colour].life, treePhoto: cs[this.state.colour].tree, cName: cs[this.state.colour].name, cColor: cs[this.state.colour].color, cOutlets, cf, cfDots, cfPrev, cfNext, cfPrevColor, cfNextColor, cQty: this.state.qty, ctaTotal,
+      trust, bundles, thumbs, cColours, cDot: (() => { const d = { Black: ['#7a7a85', '#25252b'], White: ['#ffffff', '#d8d5ce'], Blue: ['#6c9dff', '#1f50c4'], Green: ['#62d28c', '#237c47'], Red: ['#ff6e6e', '#b11f24'], Grey: ['#cbcbd0', '#6c6c74'] }[cs[this.state.colour].name]; return 'radial-gradient(circle at 34% 28%,' + d[0] + ',' + d[1] + ' 72%)'; })(), heroPhoto: cs[this.state.colour].photo, lifePhoto: cs[this.state.colour].life, treePhoto: cs[this.state.colour].tree, cName: cs[this.state.colour].name, cColor: cs[this.state.colour].color, cOutlets, cf, cfDots, cfPrev, cfNext, cfPrevColor, cfNextColor, cQty: this.state.qty, ctaTotal,
       cInc: () => this.setState({ qty: Math.min(9, this.state.qty + 1) }),
       cDec: () => this.setState({ qty: Math.max(1, this.state.qty - 1) })
     };
