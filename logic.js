@@ -230,6 +230,22 @@ class Component extends DCLogic {
       toggleProd: () => {
         if (this.state.page === 'home') {
           const open = !this.state.descOpen;
+          if (!open) {
+            if (this.state.descClosing) return;
+            const el = document.querySelector('.descwrap');
+            const done = () => this.setState({ descOpen: false, descClosing: false });
+            if (!el || !el.animate || window.matchMedia('(prefers-reduced-motion: reduce)').matches) { done(); return; }
+            this.setState({ descClosing: true, menu: false });
+            try { const c = document.querySelector('.cta-stack'); if (c) c.scrollIntoView({ behavior: 'smooth', block: 'center' }); } catch (x) {}
+            const h = el.getBoundingClientRect().height;
+            const an = el.animate([
+              { height: h + 'px', opacity: 1, transform: 'translateY(0)', filter: 'blur(0px)' },
+              { opacity: .6, offset: .5, filter: 'blur(2px)' },
+              { height: '0px', opacity: 0, transform: 'translateY(-18px)', filter: 'blur(8px)' }
+            ], { duration: 750, easing: 'cubic-bezier(.55,.05,.25,1)', fill: 'forwards' });
+            an.onfinish = done; an.oncancel = done;
+            return;
+          }
           this.setState({ descOpen: open, menu: false });
           if (open) setTimeout(() => { try { const t = document.querySelector('.descwrap .details-sec'); if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' }); } catch (x) {} }, 80);
           return;
@@ -238,8 +254,8 @@ class Component extends DCLogic {
       },
       descDisp: (this.state.page === 'products' || (this.state.page === 'home' && this.state.descOpen)) ? 'block' : 'none',
       descExp: (this.state.page === 'products' || (this.state.page === 'home' && this.state.descOpen)) ? 'true' : 'false',
-      descCls: this.state.page === 'home' ? 'dh' : '',
-      descLabel: (this.state.page === 'home' && this.state.descOpen) ? 'Hide description' : 'View description',
+      descCls: this.state.page === 'home' ? (this.state.descClosing ? 'dh out' : 'dh') : '',
+      descLabel: (this.state.page === 'home' && this.state.descOpen && !this.state.descClosing) ? 'Hide description' : 'View description',
       showProd: (e) => { try { e.preventDefault(); } catch (x) {} this.setState({ page: 'products', menu: false }); try { window.scrollTo(0, 0); } catch (x) {} },
       galDisp: (this.state.page === 'home' || this.state.page === 'products') ? 'block' : 'none',
       infoDisp: this.state.page === 'home' ? 'block' : 'none',
