@@ -340,7 +340,7 @@ class Component extends DCLogic {
       faqLessBtn: this.state.faqN === 3 ? 'inline-flex' : 'none',
       faqMoreLabel: this.state.faqN === 1 ? 'Show 5 more questions' : 'Show more',
       faqMore: () => {
-        if (this._lessBusy) { this._lessGen = (this._lessGen || 0) + 1; this._lessBusy = false; document.querySelectorAll('.faq details.ac.out').forEach((d) => { d.classList.remove('out'); d.style.transitionDelay = ''; d.style.transform = ''; }); }
+        if (this._lessBusy) { this._lessGen = (this._lessGen || 0) + 1; this._lessBusy = false; try { if (this._lessAnim) { this._lessAnim.cancel(); this._lessAnim = null; } const l1 = document.querySelector('.faq .ac-list'); if (l1) l1.style.overflow = ''; } catch (x) {} document.querySelectorAll('.faq details.ac.out').forEach((d) => { d.classList.remove('out'); d.style.transitionDelay = ''; d.style.transform = ''; }); }
         const shown = [...document.querySelectorAll('.faq details.ac')].filter((d) => d.offsetParent).length;
         this.setState({ faqN: Math.min(3, this.state.faqN + 1) });
         setTimeout(() => {
@@ -362,6 +362,7 @@ class Component extends DCLogic {
         const all = () => [...document.querySelectorAll('.faq details.ac')];
         const finish = () => {
           this._lessBusy = false;
+          try { if (this._lessAnim) { this._lessAnim.cancel(); this._lessAnim = null; } const l0 = document.querySelector('.faq .ac-list'); if (l0) l0.style.overflow = ''; } catch (x) {}
           all().forEach((d, k) => { if (k >= 5) { d.classList.remove('in', 'out'); d.__w = 0; d.open = false; } d.style.transitionDelay = ''; d.style.transform = ''; });
           this.setState({ faqN: 1 });
         };
@@ -385,6 +386,40 @@ class Component extends DCLogic {
           rows[k].classList.add('out');
         }
         const fadeMs = Math.max(0, order - 1) * 120 + 620;
+        // the frame follows: its bottom edge climbs as each row folds away
+        try {
+          if (list && list.animate) {
+            const H0 = list.offsetHeight;
+            const delays = rows.map((d) => parseFloat(d.style.transitionDelay) || 0);
+            const hs = rows.map((d) => d.offsetHeight);
+            const T = Math.max(...delays) + 600;
+            const ez = (x) => { x = Math.min(1, Math.max(0, x)); return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2; };
+            const fr = [];
+            for (let i = 0; i <= 48; i++) {
+              const t = (i / 48) * T;
+              let h = H0;
+              rows.forEach((d, k) => { h -= hs[k] * ez((t - delays[k]) / 600); });
+              fr.push({ height: Math.max(0, h) + 'px', offset: i / 48 });
+            }
+            list.style.overflow = 'hidden';
+            this._lessAnim = list.animate(fr, { duration: T, easing: 'linear', fill: 'forwards' });
+            // keep the Show less button where the thumb is while the frame climbs
+            const mb = [...document.querySelectorAll('.faq .faq-more button')].find((x) => x.offsetParent);
+            if (mb) {
+              const anchor = mb.getBoundingClientRect().top, g = this._lessGen, tt0 = performance.now();
+              let off = false;
+              const hold = (now) => {
+                if (off || this._lessGen !== g || !this._lessBusy) return;
+                const dy = mb.getBoundingClientRect().top - anchor;
+                if (Math.abs(dy) > 0.5) window.scrollTo({ top: Math.max(target, window.scrollY + dy), behavior: 'instant' });
+                if (now - tt0 < T + 40) requestAnimationFrame(hold);
+              };
+              window.addEventListener('wheel', () => { off = true; }, { once: true, passive: true });
+              window.addEventListener('touchstart', () => { off = true; }, { once: true, passive: true });
+              requestAnimationFrame(hold);
+            }
+          }
+        } catch (x) {}
         setTimeout(() => {
           if (this._lessGen !== gen) return;
           // 2) one native smooth scroll to the top of the FAQ, 3) fold the list when it has arrived
