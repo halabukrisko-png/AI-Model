@@ -243,7 +243,8 @@ class Component extends DCLogic {
               { opacity: .6, offset: .5, filter: 'blur(2px)' },
               { height: '0px', opacity: 0, transform: 'translateY(-18px)', filter: 'blur(8px)' }
             ], { duration: 750, easing: 'cubic-bezier(.55,.05,.25,1)', fill: 'forwards' });
-            an.onfinish = done; an.oncancel = done;
+            let fin = false; const end = () => { if (fin) return; fin = true; try { an.cancel(); } catch (x) {} done(); };
+            an.onfinish = end;
             return;
           }
           this.setState({ descOpen: open, menu: false });
