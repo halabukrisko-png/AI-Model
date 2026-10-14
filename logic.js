@@ -7,14 +7,15 @@ class Component extends DCLogic {
   componentDidMount() {
     const root = document.documentElement;
     const reduce = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
-    // included list: click to highlight an item and enlarge its icon
+    // description items: click to highlight (one per group, click again to clear)
     try {
       document.addEventListener('click', (e) => {
-        const li = e.target.closest && e.target.closest('ul.inc > li');
-        if (!li) return;
-        const on = li.classList.contains('on');
-        document.querySelectorAll('ul.inc > li.on').forEach((x) => x.classList.remove('on'));
-        if (!on) li.classList.add('on');
+        const it = e.target.closest && e.target.closest('.ac-rich li, .ship-tl .st, .ac-rich .spec');
+        if (!it) return;
+        const group = it.parentElement;
+        const on = it.classList.contains('on');
+        group.querySelectorAll(':scope > .on').forEach((x) => x.classList.remove('on'));
+        if (!on) it.classList.add('on');
       });
     } catch (e) {}
     // trust boxes: click to highlight (one at a time, click again to clear)
