@@ -371,6 +371,10 @@ html:not(.js-rv) .stat .bar{stroke-dasharray:var(--v) 100}
 .faq-link{display:inline-flex;align-items:center;gap:7px;margin-top:14px;padding:8px 14px;border:1px solid rgba(217,181,107,.55);border-radius:999px;background:rgba(217,181,107,.1);color:var(--brass-hi);font-size:12.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;cursor:pointer;transition:background var(--t-base),color var(--t-base),border-color var(--t-base)}
 .faq-link:hover{background:rgba(217,181,107,.2);color:#fff;border-color:var(--brass-hi)}
 .faq .ac p{display:block}
+.faq .ac-list.f1 .ac:nth-child(n+6),.faq .ac-list.f2 .ac:nth-child(n+11){display:none}
+.faq .ac-list.f1,.faq .ac-list.f2{}
+.faq-more{display:flex;justify-content:center;margin-top:26px}
+.faq-more .btn{min-width:230px}
 .details-sec details.ac{scroll-margin-top:calc(var(--hdr) + 12px)}
 /* ---- spec sheet ---- */
 .ac-rich dl.specs{margin:2px 0 6px;padding:0;border-top:1px solid var(--line)}
@@ -1110,7 +1114,7 @@ html:not(.js-rv) .panel{--pf:1}
       <svg class="wave bot" aria-hidden="true" viewBox="0 0 432 44" preserveAspectRatio="none" style="--sky:var(--ink)"><path class="sky" d="M0 0H432V30C410 32 380 36 330 32C230 24 110 22 0 34Z"/><path class="ln" d="M0 34C110 22 230 24 330 32C380 36 410 32 432 30"/></svg>
       <div class="wrap">
         <div class="sec-head rv"><span class="eyebrow c">Support</span><h2 class="h2 serif">FAQs</h2><p class="lead">Everything you need to know about your MemoryOrb.</p></div>
-        <div class="ac-list rv" style="--d:100ms">
+        <div class="ac-list rv {{faqCls}}" style="--d:100ms">
           <details class="ac"><summary><svg class="q-ico" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v4h1"/></svg><span>What is MemoryOrb?</span><svg class="acc" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary><p><b style="color:#fff;font-weight:600">MemoryOrb</b> is a <b style="color:#fff;font-weight:600">personalized glass globe</b> that brings your favorite photos and videos to life. Turn your most meaningful moments into a beautiful keepsake you can display at home or give to someone special.</p></details>
           <details class="ac"><summary><svg class="q-ico" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6v6c0 1.700 3.600 3 8 3s8-1.300 8-3V6M4 12v6c0 1.700 3.600 3 8 3s8-1.300 8-3v-6"/></svg><span>How much storage does MemoryOrb have?</span><svg class="acc" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary><p><b style="color:#fff;font-weight:600">MemoryOrb</b> comes with <b style="color:#fff;font-weight:600">4GB of built-in storage</b>, giving you space to keep your favorite photos and videos together in one special place.<a class="faq-link" href="#top" onClick="{{openSpecs}}">Check Product Details<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></p></details>
           <details class="ac"><summary><svg class="q-ico" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 16V4M7 9l5-5 5 5M5 20h14"/></svg><span>How do I upload photos and videos to MemoryOrb?</span><svg class="acc" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary><p>Choose <b style="color:#fff;font-weight:600">Wi-Fi or USB Type-C</b>, then follow the instructions in the <b style="color:#fff;font-weight:600">included user manual</b> to transfer your favorite photos and videos to <b style="color:#fff;font-weight:600">MemoryOrb</b>.</p></details>
@@ -1127,6 +1131,7 @@ html:not(.js-rv) .panel{--pf:1}
           <details class="ac"><summary><svg class="q-ico" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 8L4 12l5 4M4 12h10a5 5 0 010 10h-2"/></svg><span>Can I return MemoryOrb if I'm not satisfied?</span><svg class="acc" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary><p>We want you to love your <b style="color:#fff;font-weight:600">MemoryOrb</b>! If you're not completely satisfied, contact our support team to discuss your options under our <b style="color:#fff;font-weight:600">Returns &amp; Refunds Policy</b>. We'll guide you through the next steps.</p></details>
           <details class="ac"><summary><svg class="q-ico" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12a8 8 0 0116 0v4a2 2 0 01-2 2h-2v-6h4M4 12v4a2 2 0 002 2h2v-6H4"/></svg><span>How quickly does customer support respond?</span><svg class="acc" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary><p>We're always happy to help! Our support team <b style="color:#fff;font-weight:600">typically responds within one hour</b>. Whether you have a question about your order, setup, or transferring your memories, we're here to make your experience as smooth as possible.</p></details>
         </div>
+        <div class="faq-more" style="display:{{faqMoreDisp}}"><button type="button" class="btn btn-ghost" onClick="{{faqMore}}"><span>Show 5 more questions</span><svg class="arr" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button></div>
       </div>
     </section>
 
@@ -1479,7 +1484,7 @@ html:not(.js-rv) .panel{--pf:1}
 class Component extends DCLogic {
   constructor(props) {
     super(props);
-    this.state = { prod: false, page: 'home', sent: false, tab: 0, tsent: false, bundle: 2, thumb: 0, colour: 0, outlet: 0, qty: 1, cf: 0, menu: false, flip: [false, false, false, false], cmp: 1, lt: 0, lsent: false, user: null, cart: [], cnote: false };
+    this.state = { prod: false, page: 'home', sent: false, tab: 0, tsent: false, bundle: 2, thumb: 0, colour: 0, outlet: 0, qty: 1, cf: 0, menu: false, flip: [false, false, false, false], cmp: 1, lt: 0, lsent: false, user: null, cart: [], cnote: false, faqN: 1 };
   }
   componentDidMount() {
     const root = document.documentElement;
@@ -1724,6 +1729,9 @@ class Component extends DCLogic {
           } catch (x) {}
         }, 80);
       },
+      faqCls: this.state.faqN === 1 ? 'f1' : this.state.faqN === 2 ? 'f2' : 'f3',
+      faqMoreDisp: this.state.faqN < 3 ? 'flex' : 'none',
+      faqMore: () => this.setState({ faqN: Math.min(3, this.state.faqN + 1) }),
       goColours: (e) => { try { e.preventDefault(); } catch (x) {} this.setState({ page: 'home', menu: false }); setTimeout(() => { try { const t = document.getElementById('colours'); if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' }); } catch (x) {} }, 60); },
       goHome: (e) => { this.setState({ page: 'home', menu: false }); try { window.scrollTo(0, 0); } catch (x) {} },
       goContact: (e) => { this.setState({ page: 'contact', menu: false, sent: false }); try { window.scrollTo(0, 0); } catch (x) {} },
