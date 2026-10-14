@@ -368,6 +368,14 @@ html:not(.js-rv) .stat .bar{stroke-dasharray:var(--v) 100}
 .details-sec .ac[open] .acc{background:rgba(217,181,107,.14);border-color:rgba(217,181,107,.6);color:var(--brass-hi)}
 .details-sec .ac p{padding:0 4px 24px 36px;color:var(--fg-2)}
 .dd-hero{margin-bottom:34px}
+/* ---- scrolling highlights banner ---- */
+.marq{overflow:hidden;border-block:1px solid rgba(217,181,107,.3);background:linear-gradient(180deg,rgba(217,181,107,.07),rgba(0,0,0,.2));padding:15px 0;-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.marq-track{display:flex;width:max-content;animation:marq 32s linear infinite}
+.marq-set{display:flex;align-items:center;flex:none}
+.marq-set span{white-space:nowrap;padding:0 22px;font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-weight:600;font-size:21px;color:var(--brass-hi);letter-spacing:.01em}
+.marq-set i{flex:none;width:6px;height:6px;border-radius:50%;background:var(--brass);box-shadow:0 0 8px rgba(217,181,107,.6)}
+@keyframes marq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion:reduce){.marq-track{animation:none}}
 .descwrap.dh .dd-hero{display:none}
 .desc-close{display:none}
 .desc-close2{display:none}
@@ -1131,6 +1139,7 @@ html:not(.js-rv) .panel{--pf:1}
 
   <!-- home page: trust, visual, comparison -->
   <div style="display:{{infoDisp}}">
+    <div class="marq" aria-label="Highlights"><div class="marq-track"><div class="marq-set"><span>Free Shipping Today</span><i></i><span>30-Day Guarantee</span><i></i><span>Worldwide Delivery</span><i></i><span>4GB Built-In Storage</span><i></i><span>Damage Protection</span><i></i><span>Made for Every Moment</span><i></i></div><div class="marq-set" aria-hidden="true"><span>Free Shipping Today</span><i></i><span>30-Day Guarantee</span><i></i><span>Worldwide Delivery</span><i></i><span>4GB Built-In Storage</span><i></i><span>Damage Protection</span><i></i><span>Made for Every Moment</span><i></i></div></div></div>
     <section class="lens-sec" aria-label="Moments that stay with you">
       <div class="wrap">
         <div class="sec-head rv"><span class="eyebrow c">MemoryOrb</span><h2 class="h2">Moments that <em>stay with you</em></h2>
