@@ -18,6 +18,33 @@ class Component extends DCLogic {
         if (!on) it.classList.add('on');
       });
     } catch (e) {}
+    // FAQ: smooth open / close
+    try {
+      document.addEventListener('click', (e) => {
+        const sm = e.target.closest && e.target.closest('.faq details.ac > summary');
+        if (!sm) return;
+        const d = sm.parentElement;
+        if (!d.animate || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        e.preventDefault();
+        if (d.__anim) { try { d.__anim.cancel(); } catch (x) {} }
+        const start = d.offsetHeight;
+        if (d.open) {
+          d.__closing = true;
+          const end = sm.offsetHeight;
+          d.style.overflow = 'hidden';
+          const an = d.__anim = d.animate({ height: [start + 'px', end + 'px'] }, { duration: 380, easing: 'cubic-bezier(.4,0,.2,1)' });
+          an.onfinish = () => { d.open = false; d.style.overflow = ''; d.__anim = null; d.__closing = false; };
+          an.oncancel = () => { d.style.overflow = ''; };
+        } else {
+          d.style.overflow = 'hidden';
+          d.open = true;
+          const end = d.offsetHeight;
+          const an = d.__anim = d.animate({ height: [start + 'px', end + 'px'] }, { duration: 480, easing: 'cubic-bezier(.22,.8,.2,1)' });
+          an.onfinish = () => { d.style.overflow = ''; d.__anim = null; };
+          an.oncancel = () => { d.style.overflow = ''; };
+        }
+      });
+    } catch (e) {}
     // trust boxes: click to highlight (one at a time, click again to clear)
     try {
       document.addEventListener('click', (e) => {

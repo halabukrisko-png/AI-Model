@@ -605,6 +605,16 @@ section.details-sec.details-sec{padding-top:6px!important}
 .faq .ac-list{border:1px solid rgba(217,181,107,.3);border-radius:var(--r-lg);overflow:hidden;background:linear-gradient(180deg,rgba(217,181,107,.05),rgba(255,255,255,.01) 40%,rgba(0,0,0,.2));box-shadow:0 24px 50px -28px rgba(0,0,0,.9)}
 .faq .ac{transition:background var(--t-base)}
 .faq .ac:last-child{border-bottom:0}
+/* FAQ motion */
+@keyframes faqIn{0%{opacity:0;transform:translateY(16px)}100%{opacity:1;transform:none}}
+.faq .ac{animation:faqIn .6s cubic-bezier(.22,.8,.2,1) both}
+.faq .ac:nth-child(5n+2){animation-delay:.06s}.faq .ac:nth-child(5n+3){animation-delay:.12s}.faq .ac:nth-child(5n+4){animation-delay:.18s}.faq .ac:nth-child(5n+5){animation-delay:.24s}
+.faq .ac summary .q-ico{transition:transform .5s cubic-bezier(.34,1.56,.64,1),background .3s,color .3s,box-shadow .3s,border-color .3s}
+.faq .ac[open] .q-ico{transform:scale(1.12) rotate(-8deg)}
+.faq .ac .acc{transition:transform .5s cubic-bezier(.22,.8,.2,1),background .3s,border-color .3s,color .3s}
+.faq .ac::after{content:"";display:block;height:1px;margin-top:-1px;background:linear-gradient(90deg,var(--brass-hi),transparent);transform:scaleX(0);transform-origin:left;transition:transform .7s cubic-bezier(.22,.8,.2,1)}
+.faq .ac[open]::after{transform:scaleX(1)}
+@media (prefers-reduced-motion:reduce){.faq .ac{animation:none}.faq .ac::after{transition:none}}
 .faq .ac[open]{background:linear-gradient(90deg,rgba(217,181,107,.09),transparent 70%)}
 .faq .ac summary{gap:14px;min-height:72px;padding:14px var(--gutter);font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;font-size:20px;line-height:1.25;letter-spacing:-.005em}
 .faq .ac .q-ico{display:block;box-sizing:content-box;width:24px;height:24px;padding:8px;border:1px solid rgba(217,181,107,.4);border-radius:50%;background:rgba(217,181,107,.07)}
@@ -1570,6 +1580,33 @@ class Component extends DCLogic {
         const on = it.classList.contains('on');
         group.querySelectorAll(':scope > .on').forEach((x) => x.classList.remove('on'));
         if (!on) it.classList.add('on');
+      });
+    } catch (e) {}
+    // FAQ: smooth open / close
+    try {
+      document.addEventListener('click', (e) => {
+        const sm = e.target.closest && e.target.closest('.faq details.ac > summary');
+        if (!sm) return;
+        const d = sm.parentElement;
+        if (!d.animate || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        e.preventDefault();
+        if (d.__anim) { try { d.__anim.cancel(); } catch (x) {} }
+        const start = d.offsetHeight;
+        if (d.open) {
+          d.__closing = true;
+          const end = sm.offsetHeight;
+          d.style.overflow = 'hidden';
+          const an = d.__anim = d.animate({ height: [start + 'px', end + 'px'] }, { duration: 380, easing: 'cubic-bezier(.4,0,.2,1)' });
+          an.onfinish = () => { d.open = false; d.style.overflow = ''; d.__anim = null; d.__closing = false; };
+          an.oncancel = () => { d.style.overflow = ''; };
+        } else {
+          d.style.overflow = 'hidden';
+          d.open = true;
+          const end = d.offsetHeight;
+          const an = d.__anim = d.animate({ height: [start + 'px', end + 'px'] }, { duration: 480, easing: 'cubic-bezier(.22,.8,.2,1)' });
+          an.onfinish = () => { d.style.overflow = ''; d.__anim = null; };
+          an.oncancel = () => { d.style.overflow = ''; };
+        }
       });
     } catch (e) {}
     // trust boxes: click to highlight (one at a time, click again to clear)
