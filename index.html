@@ -375,8 +375,8 @@ html:not(.js-rv) .stat .bar{stroke-dasharray:var(--v) 100}
 .marq{overflow:hidden;border-block:1px solid rgba(217,181,107,.3);background:linear-gradient(180deg,rgba(217,181,107,.07),rgba(0,0,0,.2));padding:9px 0;-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
 .marq-track{display:flex;width:max-content;animation:marq 32s linear infinite}
 .marq-set{display:flex;align-items:center;flex:none}
-.marq-set span{white-space:nowrap;padding:0 16px;font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-weight:600;font-size:16px;color:var(--brass-hi);letter-spacing:.01em}
-.marq-set i{flex:none;width:4px;height:4px;border-radius:50%;background:var(--brass);box-shadow:0 0 8px rgba(217,181,107,.6)}
+.marq-set span{font-variant-numeric:lining-nums;font-feature-settings:'lnum' 1;white-space:nowrap;padding:0 16px;font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-weight:600;font-size:16px;color:var(--brass-hi);letter-spacing:.01em}
+.marq-set i{flex:none;transform:translateY(-.65px);width:4px;height:4px;border-radius:50%;background:var(--brass);box-shadow:0 0 8px rgba(217,181,107,.6)}
 @keyframes marq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 @media (prefers-reduced-motion:reduce){.marq-track{animation:none}}
 .descwrap.dh .dd-hero{display:none}
