@@ -373,7 +373,7 @@ html:not(.js-rv) .stat .bar{stroke-dasharray:var(--v) 100}
 .faq .ac p{display:block}
 .faq .ac-list.f1 .ac:nth-child(n+6),.faq .ac-list.f2 .ac:nth-child(n+11){display:none}
 .faq .ac-list.f1,.faq .ac-list.f2{}
-.faq-more{display:flex;justify-content:center;margin-top:26px}
+.faq-more{display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:6px 22px;margin-top:26px}
 .faq-more .btn,.faq-more .btn:hover{min-width:0;min-height:0;height:auto;padding:6px 8px;border:0!important;background:transparent!important;box-shadow:none!important;color:var(--brass-hi);font-size:12.5px;letter-spacing:.14em;gap:8px}
 .faq-more .btn svg{width:14px;height:14px}
 .faq-more .btn,.faq-more .btn:hover{font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-weight:600;font-size:21px;letter-spacing:.01em;text-transform:none;gap:12px;padding:6px 4px;transition:color var(--t-base)}
@@ -1141,7 +1141,7 @@ html:not(.js-rv) .panel{--pf:1}
           <details class="ac"><summary><svg class="q-ico" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 8L4 12l5 4M4 12h10a5 5 0 010 10h-2"/></svg><span>Can I return MemoryOrb if I'm not satisfied?</span><svg class="acc" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary><p>We want you to love your <b style="color:#fff;font-weight:600">MemoryOrb</b>! If you're not completely satisfied, contact our support team to discuss your options under our <b style="color:#fff;font-weight:600">Returns &amp; Refunds Policy</b>. We'll guide you through the next steps.</p></details>
           <details class="ac"><summary><svg class="q-ico" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12a8 8 0 0116 0v4a2 2 0 01-2 2h-2v-6h4M4 12v4a2 2 0 002 2h2v-6H4"/></svg><span>How quickly does customer support respond?</span><svg class="acc" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary><p>We're always happy to help! Our support team <b style="color:#fff;font-weight:600">typically responds within one hour</b>. Whether you have a question about your order, setup, or transferring your memories, we're here to make your experience as smooth as possible.</p></details>
         </div>
-        <div class="faq-more" style="display:{{faqMoreDisp}}"><button type="button" class="btn btn-ghost" onClick="{{faqMore}}"><span>Show 5 more questions</span><svg class="arr" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button></div>
+        <div class="faq-more"><button type="button" class="btn btn-ghost" style="display:{{faqMoreBtn}}" onClick="{{faqMore}}"><span>{{faqMoreLabel}}</span><svg class="arr" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button><button type="button" class="btn btn-ghost" style="display:{{faqLessBtn}}" onClick="{{faqLess}}"><span>Show less</span><svg class="arr" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 15l6-6 6 6"/></svg></button></div>
       </div>
     </section>
 
@@ -1740,8 +1740,11 @@ class Component extends DCLogic {
         }, 80);
       },
       faqCls: this.state.faqN === 1 ? 'f1' : this.state.faqN === 2 ? 'f2' : 'f3',
-      faqMoreDisp: this.state.faqN < 3 ? 'flex' : 'none',
+      faqMoreBtn: this.state.faqN < 3 ? 'inline-flex' : 'none',
+      faqLessBtn: this.state.faqN > 1 ? 'inline-flex' : 'none',
+      faqMoreLabel: this.state.faqN === 1 ? 'Show 5 more questions' : 'Show more',
       faqMore: () => this.setState({ faqN: Math.min(3, this.state.faqN + 1) }),
+      faqLess: () => this.setState({ faqN: Math.max(1, this.state.faqN - 1) }),
       goColours: (e) => { try { e.preventDefault(); } catch (x) {} this.setState({ page: 'home', menu: false }); setTimeout(() => { try { const t = document.getElementById('colours'); if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' }); } catch (x) {} }, 60); },
       goHome: (e) => { this.setState({ page: 'home', menu: false }); try { window.scrollTo(0, 0); } catch (x) {} },
       goContact: (e) => { this.setState({ page: 'contact', menu: false, sent: false }); try { window.scrollTo(0, 0); } catch (x) {} },
