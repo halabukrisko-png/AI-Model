@@ -1916,7 +1916,8 @@ class Component extends DCLogic {
           fresh.forEach((d) => { d.classList.remove('in'); d.style.transitionDelay = ''; });
           void document.body.offsetHeight;
           fresh.forEach((d, k) => setTimeout(() => d.classList.add('in'), reduceM ? 0 : 140 + k * 120));
-          const y = fresh[0].getBoundingClientRect().top + window.scrollY - 110;
+          const mb = [...document.querySelectorAll('.faq .faq-more button')].find((x) => x.offsetParent);
+          const y = mb ? mb.getBoundingClientRect().bottom + window.scrollY - (window.innerHeight - 36) : fresh[0].getBoundingClientRect().top + window.scrollY - 110;
           window.scrollTo({ top: y, behavior: reduceM ? 'auto' : 'smooth' });
         }, 40);
       },
