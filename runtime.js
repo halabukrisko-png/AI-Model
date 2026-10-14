@@ -87,7 +87,7 @@
       return out.join('');
     }
 
-    var KEEP = ['in', 'go', 'on'];
+    var KEEP = ['in', 'go', 'on', 'fall'];
     function syncAttrs(from, to) {
       var i, a;
       for (i = from.attributes.length - 1; i >= 0; i--) {

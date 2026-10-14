@@ -85,6 +85,15 @@ class Component extends DCLogic {
         upd();
       }
     } catch (e) {}
+    // footer garland: the lights drop in from above when it scrolls into view
+    try {
+      const gar = document.querySelector('svg.gar');
+      if (gar && 'IntersectionObserver' in window) {
+        root.classList.add('js-rv');
+        const go = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { go.disconnect(); setTimeout(() => gar.classList.add('fall'), 120); } }), { threshold: 0.3 });
+        go.observe(gar);
+      } else if (gar) gar.classList.add('fall');
+    } catch (e) {}
     // FAQ frame: gold outline draws itself when the list scrolls into view (like the colour panel)
     try {
       const fr = document.querySelector('.faq-frame');
