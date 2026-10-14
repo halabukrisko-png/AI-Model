@@ -339,9 +339,9 @@ class Component extends DCLogic {
       faqMoreBtn: this.state.faqN < 3 ? 'inline-flex' : 'none',
       faqLessBtn: this.state.faqN === 3 ? 'inline-flex' : 'none',
       faqMoreLabel: this.state.faqN === 1 ? 'Show 5 more questions' : 'Show more',
-      faqMore: () => this.setState({ faqN: Math.min(3, this.state.faqN + 1) }),
+      faqMore: () => { if (this._lessBusy) { clearTimeout(this._lessT); this._lessBusy = false; document.querySelectorAll('.faq details.ac.out').forEach((d) => { d.classList.remove('out'); d.style.transitionDelay = ''; }); } this.setState({ faqN: Math.min(3, this.state.faqN + 1) }); },
       faqLess: () => {
-        if (this._lessBusy) return;
+        if (this._lessBusy) { clearTimeout(this._lessT); this._lessBusy = false; }
         const rows = [...document.querySelectorAll('.faq details.ac')].filter((d) => d.offsetParent);
         const extra = rows.slice(5);
         const reduceM = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -355,7 +355,7 @@ class Component extends DCLogic {
         this._lessBusy = true;
         const n = extra.length;
         extra.forEach((d, k) => { d.style.transitionDelay = ((n - 1 - k) * 55) + 'ms'; d.classList.add('out'); });
-        setTimeout(finish, (n - 1) * 55 + 650);
+        this._lessT = setTimeout(finish, (n - 1) * 55 + 650);
       },
       goColours: (e) => { try { e.preventDefault(); } catch (x) {} this.setState({ page: 'home', menu: false }); setTimeout(() => { try { const t = document.getElementById('colours'); if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' }); } catch (x) {} }, 60); },
       goHome: (e) => { this.setState({ page: 'home', menu: false }); try { window.scrollTo(0, 0); } catch (x) {} },
