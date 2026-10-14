@@ -340,7 +340,7 @@ class Component extends DCLogic {
       faqLessBtn: this.state.faqN === 3 ? 'inline-flex' : 'none',
       faqMoreLabel: this.state.faqN === 1 ? 'Show 5 more questions' : 'Show more',
       faqMore: () => {
-        if (this._lessBusy) { this._lessBusy = false; document.querySelectorAll('.faq details.ac.out').forEach((d) => { d.classList.remove('out'); d.style.transitionDelay = ''; }); }
+        if (this._lessBusy) { this._lessGen = (this._lessGen || 0) + 1; this._lessBusy = false; document.querySelectorAll('.faq details.ac').forEach((d) => { d.style.height = ''; d.style.opacity = ''; d.style.overflow = ''; d.style.transition = ''; d.style.transform = ''; d.style.filter = ''; }); }
         const shown = [...document.querySelectorAll('.faq details.ac')].filter((d) => d.offsetParent).length;
         this.setState({ faqN: Math.min(3, this.state.faqN + 1) });
         setTimeout(() => {
@@ -359,35 +359,57 @@ class Component extends DCLogic {
         if (this._lessBusy) return;
         const f = document.querySelector('section.faq');
         const reduceM = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        const finish = () => {
-          document.querySelectorAll('.faq details.ac').forEach((d, k) => { if (k >= 5) { d.classList.remove('in', 'out'); d.__w = 0; d.style.transitionDelay = ''; d.open = false; } });
-          this._lessBusy = false;
-          this.setState({ faqN: 1 });
-        };
+        const all = () => [...document.querySelectorAll('.faq details.ac')];
+        const reset = () => all().forEach((d, k) => { if (k >= 5) { d.classList.remove('in', 'out'); d.__w = 0; d.open = false; } d.style.height = ''; d.style.opacity = ''; d.style.overflow = ''; d.style.transition = ''; d.style.transform = ''; d.style.filter = ''; });
+        const finish = () => { this._lessBusy = false; reset(); this.setState({ faqN: 1 }); };
         if (!f) { finish(); return; }
         const list = f.querySelector('.ac-list');
         const target = Math.max(0, (list || f).getBoundingClientRect().top + window.scrollY - (list ? 196 : 70));
         if (reduceM) { window.scrollTo(0, target); finish(); return; }
+        const gen = this._lessGen = (this._lessGen || 0) + 1;
         this._lessBusy = true;
-        // 1) glide back up to the start of the FAQ (own easing, fixed length)
-        const from = window.scrollY, dist = target - from;
-        const dur = Math.min(1100, Math.max(550, Math.abs(dist) * 0.16));
-        const t0 = performance.now();
+        const rows = all().filter((d) => d.offsetParent).slice(5);
+        const hs = rows.map((d) => d.offsetHeight);
+        const mb = [...document.querySelectorAll('.faq .faq-more button')].find((x) => x.offsetParent);
+        rows.forEach((d) => { d.style.transition = 'none'; d.style.overflow = 'hidden'; d.style.height = d.offsetHeight + 'px'; });
         const ease = (x) => (x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2);
+        const n = rows.length, STAG = 48, DUR = 420, t0 = performance.now();
+        const anchor = mb ? mb.getBoundingClientRect().top : 0;
         let stopped = false;
         const stop = () => { stopped = true; };
         window.addEventListener('wheel', stop, { once: true, passive: true });
         window.addEventListener('touchstart', stop, { once: true, passive: true });
-        const step = (now) => {
-          const k = Math.min(1, (now - t0) / dur);
-          if (!stopped) window.scrollTo(0, from + dist * ease(k));
-          if (k < 1 && !stopped) { requestAnimationFrame(step); return; }
-          // 2) rows below the fold are folded away
-          const extra = [...document.querySelectorAll('.faq details.ac')].filter((d) => d.offsetParent).slice(5);
-          extra.forEach((d, k2) => { d.style.transitionDelay = (k2 * 30) + 'ms'; d.classList.add('out'); });
-          setTimeout(finish, Math.min(extra.length, 6) * 30 + 380);
+        // 1) rows fold away from the bottom up while the button stays where it is
+        const fold = (now) => {
+          if (this._lessGen !== gen) return;
+          const t = now - t0;
+          let done = true;
+          rows.forEach((d, k) => {
+            const lt = (t - (n - 1 - k) * STAG) / DUR;
+            const p = Math.min(1, Math.max(0, lt));
+            if (p < 1) done = false;
+            const e = ease(p);
+            d.style.height = Math.max(0, hs[k] * (1 - e)) + 'px';
+            d.style.opacity = String(1 - e);
+            d.style.transform = 'translateY(' + (e * 14) + 'px)';
+            d.style.filter = 'blur(' + (e * 4) + 'px)';
+          });
+          if (mb && !stopped) { const dy = mb.getBoundingClientRect().top - anchor; if (Math.abs(dy) > 0.5) window.scrollTo({ top: Math.max(target, window.scrollY + dy), behavior: 'instant' }); }
+          if (!done) { requestAnimationFrame(fold); return; }
+          // 2) glide to the top of the FAQ
+          const from = window.scrollY, dist = target - from;
+          const dur = Math.min(1000, Math.max(500, Math.abs(dist) * 0.2));
+          const g0 = performance.now();
+          const glide = (now2) => {
+            if (this._lessGen !== gen) return;
+            const k = Math.min(1, (now2 - g0) / dur);
+            if (!stopped) window.scrollTo({ top: from + dist * ease(k), behavior: 'instant' });
+            if (k < 1 && !stopped) { requestAnimationFrame(glide); return; }
+            finish();
+          };
+          requestAnimationFrame(glide);
         };
-        requestAnimationFrame(step);
+        requestAnimationFrame(fold);
       },
       goColours: (e) => { try { e.preventDefault(); } catch (x) {} this.setState({ page: 'home', menu: false }); setTimeout(() => { try { const t = document.getElementById('colours'); if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' }); } catch (x) {} }, 60); },
       goHome: (e) => { this.setState({ page: 'home', menu: false }); try { window.scrollTo(0, 0); } catch (x) {} },
