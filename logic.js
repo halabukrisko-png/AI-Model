@@ -340,7 +340,23 @@ class Component extends DCLogic {
       faqLessBtn: this.state.faqN === 3 ? 'inline-flex' : 'none',
       faqMoreLabel: this.state.faqN === 1 ? 'Show 5 more questions' : 'Show more',
       faqMore: () => this.setState({ faqN: Math.min(3, this.state.faqN + 1) }),
-      faqLess: () => { this.setState({ faqN: 1 }); setTimeout(() => { const f = document.querySelector('section.faq'); if (f) window.scrollTo({ top: f.getBoundingClientRect().top + window.scrollY - 70, behavior: 'smooth' }); }, 30); },
+      faqLess: () => {
+        if (this._lessBusy) return;
+        const rows = [...document.querySelectorAll('.faq details.ac')].filter((d) => d.offsetParent);
+        const extra = rows.slice(5);
+        const reduceM = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const finish = () => {
+          document.querySelectorAll('.faq details.ac').forEach((d, k) => { if (k >= 5) { d.classList.remove('in', 'out'); d.__w = 0; d.style.transitionDelay = ''; d.open = false; } });
+          this._lessBusy = false;
+          this.setState({ faqN: 1 });
+          setTimeout(() => { const f = document.querySelector('section.faq'); if (f) window.scrollTo({ top: f.getBoundingClientRect().top + window.scrollY - 70, behavior: 'smooth' }); }, 30);
+        };
+        if (reduceM || !extra.length) { finish(); return; }
+        this._lessBusy = true;
+        const n = extra.length;
+        extra.forEach((d, k) => { d.style.transitionDelay = ((n - 1 - k) * 55) + 'ms'; d.classList.add('out'); });
+        setTimeout(finish, (n - 1) * 55 + 650);
+      },
       goColours: (e) => { try { e.preventDefault(); } catch (x) {} this.setState({ page: 'home', menu: false }); setTimeout(() => { try { const t = document.getElementById('colours'); if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' }); } catch (x) {} }, 60); },
       goHome: (e) => { this.setState({ page: 'home', menu: false }); try { window.scrollTo(0, 0); } catch (x) {} },
       goContact: (e) => { this.setState({ page: 'contact', menu: false, sent: false }); try { window.scrollTo(0, 0); } catch (x) {} },
