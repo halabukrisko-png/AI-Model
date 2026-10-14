@@ -37,7 +37,7 @@ class Component extends DCLogic {
           if (!sl.length) return;
           const step = sl[1] ? sl[1].offsetLeft - sl[0].offsetLeft : gal.clientWidth;
           const idx = Math.max(0, Math.min(sl.length - 1, Math.round(gal.scrollLeft / (step || 1))));
-          for (let i = 0; i < 2; i++) dots.style.setProperty('--o' + i, i === idx ? '1' : '.4');
+          for (let i = 0; i < 3; i++) dots.style.setProperty('--o' + i, i === idx ? '1' : '.4');
         };
         gal.addEventListener('scroll', upd, { passive: true });
         upd();
@@ -133,8 +133,8 @@ class Component extends DCLogic {
       pick: () => this.setState({ thumb: i })
     }));
     const cs = [
-      { name: 'Black', color: '#16161a', photo: 'assets/orb-black.webp', life: 'assets/orb-black-life.webp' }, { name: 'White', color: '#f1efea', photo: 'assets/orb-white.webp', life: 'assets/orb-white-life.webp' }, { name: 'Blue', color: '#3b86d9', photo: 'assets/orb-blue.webp', life: 'assets/orb-blue-life.webp' },
-      { name: 'Green', color: '#3f9a5a', photo: 'assets/orb-green.webp', life: 'assets/orb-green-life.webp' }, { name: 'Red', color: '#d93a3a', photo: 'assets/orb-red.webp', life: 'assets/orb-red-life.webp' }, { name: 'Grey', color: '#8a8a8f', photo: 'assets/orb-grey.webp', life: 'assets/orb-grey-life.webp' }
+      { name: 'Black', color: '#16161a', photo: 'assets/orb-black.webp', life: 'assets/orb-black-life.webp', tree: 'assets/orb-black-tree.webp' }, { name: 'White', color: '#f1efea', photo: 'assets/orb-white.webp', life: 'assets/orb-white-life.webp', tree: 'assets/orb-white-tree.webp' }, { name: 'Blue', color: '#3b86d9', photo: 'assets/orb-blue.webp', life: 'assets/orb-blue-life.webp', tree: 'assets/orb-blue-tree.webp' },
+      { name: 'Green', color: '#3f9a5a', photo: 'assets/orb-green.webp', life: 'assets/orb-green-life.webp', tree: 'assets/orb-green-tree.webp' }, { name: 'Red', color: '#d93a3a', photo: 'assets/orb-red.webp', life: 'assets/orb-red-life.webp', tree: 'assets/orb-red-tree.webp' }, { name: 'Grey', color: '#8a8a8f', photo: 'assets/orb-grey.webp', life: 'assets/orb-grey-life.webp', tree: 'assets/orb-grey-tree.webp' }
     ];
     const cColours = cs.map((c, i) => {
       const sel = this.state.colour === i;
@@ -320,7 +320,7 @@ class Component extends DCLogic {
         try { window.scrollTo(0, 0); } catch (x) {}
       },
       shopItems,
-      trust, bundles, thumbs, cColours, heroPhoto: cs[this.state.colour].photo, lifePhoto: cs[this.state.colour].life, cName: cs[this.state.colour].name, cColor: cs[this.state.colour].color, cOutlets, cf, cfDots, cfPrev, cfNext, cfPrevColor, cfNextColor, cQty: this.state.qty, ctaTotal,
+      trust, bundles, thumbs, cColours, heroPhoto: cs[this.state.colour].photo, lifePhoto: cs[this.state.colour].life, treePhoto: cs[this.state.colour].tree, cName: cs[this.state.colour].name, cColor: cs[this.state.colour].color, cOutlets, cf, cfDots, cfPrev, cfNext, cfPrevColor, cfNextColor, cQty: this.state.qty, ctaTotal,
       cInc: () => this.setState({ qty: Math.min(9, this.state.qty + 1) }),
       cDec: () => this.setState({ qty: Math.max(1, this.state.qty - 1) })
     };
