@@ -368,6 +368,8 @@ html:not(.js-rv) .stat .bar{stroke-dasharray:var(--v) 100}
 .details-sec .ac[open] .acc{background:rgba(217,181,107,.14);border-color:rgba(217,181,107,.6);color:var(--brass-hi)}
 .details-sec .ac p{padding:0 4px 24px 36px;color:var(--fg-2)}
 .dd-hero{margin-bottom:34px}
+.descwrap.dh .dd-hero{display:none}
+.descwrap.dh .details-sec{padding-top:36px!important}
 .faq-link{display:inline-flex;align-items:center;gap:7px;margin-top:14px;padding:8px 14px;border:1px solid rgba(217,181,107,.55);border-radius:999px;background:rgba(217,181,107,.1);color:var(--brass-hi);font-size:12.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;cursor:pointer;transition:background var(--t-base),color var(--t-base),border-color var(--t-base)}
 .faq-link:hover{background:rgba(217,181,107,.2);color:#fff;border-color:var(--brass-hi)}
 .faq .ac p{display:block}
@@ -1004,13 +1006,13 @@ html:not(.js-rv) .panel{--pf:1}
         <h2 class="lead">Turn your memories into something you can hold.</h2>
         <div class="cta-stack">
           <a class="btn btn-primary btn-lg btn-block" href="#colours">Buy now</a>
-          <button type="button" class="btn btn-ghost btn-lg btn-block" aria-expanded="{{prodExp}}" onClick="{{toggleProd}}"><span>View description</span><svg class="arr" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></button>
+          <button type="button" class="btn btn-ghost btn-lg btn-block" aria-expanded="{{descExp}}" onClick="{{toggleProd}}"><span>{{descLabel}}</span><svg class="arr" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></button>
         </div>
       </div>
     </div>
   </section>
 
-  <div style="display:{{prodDisp}}">
+  <div class="descwrap {{descCls}}" style="display:{{descDisp}}">
     <section class="details-sec">
       <div class="wrap" style="max-width:calc(880px + var(--gutter)*2)">
         <div class="hero-copy dd-hero">
@@ -1167,7 +1169,7 @@ html:not(.js-rv) .panel{--pf:1}
           <div class="cmp-row" role="row"><div class="cmp-c" role="cell">Simple Controls</div><div class="cmp-c cmp-y" role="cell"><span class="chk"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.500l4.500 4.500L19 7.500"/></svg></span></div><div class="cmp-c cmp-n" role="cell"><svg class="crs" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></div></div>
           <div class="cmp-row" role="row"><div class="cmp-c" role="cell">Shatter-Resistant</div><div class="cmp-c cmp-y" role="cell"><span class="chk"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.500l4.500 4.500L19 7.500"/></svg></span></div><div class="cmp-c cmp-n" role="cell"><svg class="crs" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></div></div>
         </div>
-        <div class="why-cta"><a class="btn btn-primary btn-lg" href="#shop">Get Your Orb<svg class="arr" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a><button type="button" class="btn btn-ghost btn-lg" onClick="{{toggleProd}}"><span>View description</span><svg class="arr" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></button></div>
+        <div class="why-cta"><a class="btn btn-primary btn-lg" href="#shop">Get Your Orb<svg class="arr" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a><button type="button" class="btn btn-ghost btn-lg" onClick="{{toggleProd}}"><span>{{descLabel}}</span><svg class="arr" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></button></div>
       </div>
     </section>
 
@@ -1498,7 +1500,7 @@ html:not(.js-rv) .panel{--pf:1}
 class Component extends DCLogic {
   constructor(props) {
     super(props);
-    this.state = { prod: false, page: 'home', sent: false, tab: 0, tsent: false, bundle: 2, thumb: 0, colour: 0, outlet: 0, qty: 1, cf: 0, menu: false, flip: [false, false, false, false], cmp: 1, lt: 0, lsent: false, user: null, cart: [], cnote: false, faqN: 1 };
+    this.state = { prod: false, page: 'home', sent: false, tab: 0, tsent: false, bundle: 2, thumb: 0, colour: 0, outlet: 0, qty: 1, cf: 0, menu: false, flip: [false, false, false, false], cmp: 1, lt: 0, lsent: false, user: null, cart: [], cnote: false, faqN: 1, descOpen: false };
   }
   componentDidMount() {
     const root = document.documentElement;
@@ -1722,7 +1724,19 @@ class Component extends DCLogic {
       prodRot: this.state.page === 'products' ? '180deg' : '0deg',
       prodBtnBg: this.state.page === 'products' ? '#f3d27a' : '#000',
       prodBtnColor: this.state.page === 'products' ? '#1b1405' : '#f3d27a',
-      toggleProd: () => { this.setState({ page: 'products', menu: false }); try { window.scrollTo(0, 0); } catch (x) {} },
+      toggleProd: () => {
+        if (this.state.page === 'home') {
+          const open = !this.state.descOpen;
+          this.setState({ descOpen: open, menu: false });
+          if (open) setTimeout(() => { try { const t = document.querySelector('.descwrap .details-sec'); if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' }); } catch (x) {} }, 80);
+          return;
+        }
+        this.setState({ page: 'products', menu: false }); try { window.scrollTo(0, 0); } catch (x) {}
+      },
+      descDisp: (this.state.page === 'products' || (this.state.page === 'home' && this.state.descOpen)) ? 'block' : 'none',
+      descExp: (this.state.page === 'products' || (this.state.page === 'home' && this.state.descOpen)) ? 'true' : 'false',
+      descCls: this.state.page === 'home' ? 'dh' : '',
+      descLabel: (this.state.page === 'home' && this.state.descOpen) ? 'Hide description' : 'View description',
       showProd: (e) => { try { e.preventDefault(); } catch (x) {} this.setState({ page: 'products', menu: false }); try { window.scrollTo(0, 0); } catch (x) {} },
       galDisp: (this.state.page === 'home' || this.state.page === 'products') ? 'block' : 'none',
       infoDisp: this.state.page === 'home' ? 'block' : 'none',

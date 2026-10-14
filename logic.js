@@ -2,7 +2,7 @@
 class Component extends DCLogic {
   constructor(props) {
     super(props);
-    this.state = { prod: false, page: 'home', sent: false, tab: 0, tsent: false, bundle: 2, thumb: 0, colour: 0, outlet: 0, qty: 1, cf: 0, menu: false, flip: [false, false, false, false], cmp: 1, lt: 0, lsent: false, user: null, cart: [], cnote: false, faqN: 1 };
+    this.state = { prod: false, page: 'home', sent: false, tab: 0, tsent: false, bundle: 2, thumb: 0, colour: 0, outlet: 0, qty: 1, cf: 0, menu: false, flip: [false, false, false, false], cmp: 1, lt: 0, lsent: false, user: null, cart: [], cnote: false, faqN: 1, descOpen: false };
   }
   componentDidMount() {
     const root = document.documentElement;
@@ -226,7 +226,19 @@ class Component extends DCLogic {
       prodRot: this.state.page === 'products' ? '180deg' : '0deg',
       prodBtnBg: this.state.page === 'products' ? '#f3d27a' : '#000',
       prodBtnColor: this.state.page === 'products' ? '#1b1405' : '#f3d27a',
-      toggleProd: () => { this.setState({ page: 'products', menu: false }); try { window.scrollTo(0, 0); } catch (x) {} },
+      toggleProd: () => {
+        if (this.state.page === 'home') {
+          const open = !this.state.descOpen;
+          this.setState({ descOpen: open, menu: false });
+          if (open) setTimeout(() => { try { const t = document.querySelector('.descwrap .details-sec'); if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' }); } catch (x) {} }, 80);
+          return;
+        }
+        this.setState({ page: 'products', menu: false }); try { window.scrollTo(0, 0); } catch (x) {}
+      },
+      descDisp: (this.state.page === 'products' || (this.state.page === 'home' && this.state.descOpen)) ? 'block' : 'none',
+      descExp: (this.state.page === 'products' || (this.state.page === 'home' && this.state.descOpen)) ? 'true' : 'false',
+      descCls: this.state.page === 'home' ? 'dh' : '',
+      descLabel: (this.state.page === 'home' && this.state.descOpen) ? 'Hide description' : 'View description',
       showProd: (e) => { try { e.preventDefault(); } catch (x) {} this.setState({ page: 'products', menu: false }); try { window.scrollTo(0, 0); } catch (x) {} },
       galDisp: (this.state.page === 'home' || this.state.page === 'products') ? 'block' : 'none',
       infoDisp: this.state.page === 'home' ? 'block' : 'none',
