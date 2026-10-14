@@ -382,7 +382,8 @@ html:not(.js-rv) .stat .bar{stroke-dasharray:var(--v) 100}
 .faq-more .btn,.faq-more .btn:hover{font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-weight:600;font-size:21px;letter-spacing:.01em;text-transform:none;gap:12px;padding:6px 4px;transition:color var(--t-base)}
 .faq-more .btn::before,.faq-more .btn::after{content:"";width:34px;height:1px;background:linear-gradient(90deg,transparent,var(--brass-hi))}
 .faq-more .btn::after{background:linear-gradient(270deg,transparent,var(--brass-hi))}
-.faq-more .btn:hover{color:#fff}
+.faq-more .btn:hover,.faq-more .btn:focus,.faq-more .btn:active{color:var(--brass-hi)}
+@media (hover:hover){.faq-more .btn:hover{color:#fff}}
 .faq-more .btn span{font-variant-numeric:lining-nums;font-feature-settings:'lnum' 1,'pnum' 1}
 .faq-more .btn svg{width:13px;height:13px;margin-left:-4px;transition:transform var(--t-base) var(--ease)}
 .faq-more .btn:hover svg{transform:translateY(2px)}
