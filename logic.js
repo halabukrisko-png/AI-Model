@@ -100,7 +100,7 @@ class Component extends DCLogic {
         if (!app || !app.animate) return;
         try { window.scrollTo({ top: 0, behavior: 'instant' }); } catch (x) {}
         const kids = [...app.children].filter((el) => el.offsetParent && !/^(HEADER|STYLE)$/.test(el.tagName) && !el.classList.contains('ann') && !el.classList.contains('gz'));
-        kids.forEach((el, k) => el.animate([{ opacity: 0, transform: 'translate3d(0,34px,0)' }, { opacity: 1, transform: 'translate3d(0,0,0)' }], { duration: 1100, delay: k * 120, easing: 'cubic-bezier(.22,.8,.2,1)', fill: 'backwards' }));
+        kids.forEach((el, k) => el.animate([{ opacity: 0, transform: 'translate3d(0,44px,0)' }, { opacity: 1, transform: 'translate3d(0,0,0)' }], { duration: 1900, delay: 150 + k * 220, easing: 'cubic-bezier(.25,.6,.25,1)', fill: 'backwards' }));
       };
     } catch (e) {}
     // footer garland: the lights drop in from above when it scrolls into view
