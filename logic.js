@@ -69,6 +69,37 @@ class Component extends DCLogic {
         if (!on) box.classList.add('on');
       });
     } catch (e) {}
+    // photo viewer: tap a gallery photo to enlarge it; close with the X, a tap outside, or Esc
+    try {
+      let box = null, back = null;
+      const close = () => {
+        if (!box) return;
+        const b = box; box = null;
+        b.classList.remove('on');
+        document.documentElement.style.overflow = '';
+        document.removeEventListener('keydown', onKey, true);
+        setTimeout(() => { try { b.remove(); } catch (x) {} }, reduce ? 0 : 300);
+        try { if (back) back.focus({ preventScroll: true }); } catch (x) {}
+      };
+      const onKey = (e) => { if (e.key === 'Escape') { e.preventDefault(); close(); } };
+      document.addEventListener('click', (e) => {
+        const sl = e.target.closest && e.target.closest('#gallery .slide');
+        if (!sl || box) return;
+        const img = sl.querySelector('img'); if (!img) return;
+        back = document.activeElement;
+        const cap = sl.querySelector('.gcap');
+        box = document.createElement('div');
+        box.className = 'lbx'; box.setAttribute('role', 'dialog'); box.setAttribute('aria-modal', 'true'); box.setAttribute('aria-label', 'Photo viewer');
+        box.innerHTML = '<button type="button" class="lbx-x" aria-label="Close photo"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button><figure><img alt=""><figcaption></figcaption></figure>';
+        const big = box.querySelector('img'); big.src = img.currentSrc || img.src; big.alt = img.alt || '';
+        box.querySelector('figcaption').textContent = cap ? cap.textContent : '';
+        box.addEventListener('click', (ev) => { if (!ev.target.closest('img')) close(); });
+        document.body.appendChild(box);
+        document.documentElement.style.overflow = 'hidden';
+        document.addEventListener('keydown', onKey, true);
+        requestAnimationFrame(() => { if (box) { box.classList.add('on'); const x = box.querySelector('.lbx-x'); if (x) x.focus({ preventScroll: true }); } });
+      });
+    } catch (e) {}
     // reviews (tablet): endless carousel - there is always a neighbour card on both sides
     try {
       const qt = document.querySelector('.q-track');

@@ -1162,6 +1162,19 @@ html:not(.js-rv) .panel{--pf:1}
 .faq .faq-frame,.faq .faq-more{max-width:600px;margin-inline:auto}
 .faq .faq-more{margin-top:20px}
 }
+/* photo viewer: tap a gallery photo to see it large, with a close button */
+.lbx{position:fixed;inset:0;z-index:300;display:flex;align-items:center;justify-content:center;padding:max(56px,env(safe-area-inset-top)) 18px max(28px,env(safe-area-inset-bottom));background:rgba(6,5,4,.9);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);opacity:0;transition:opacity .28s ease}
+.lbx.on{opacity:1}
+.lbx figure{margin:0;display:flex;flex-direction:column;align-items:center;gap:14px;max-width:100%;max-height:100%;transform:scale(.94);transition:transform .35s var(--ease)}
+.lbx.on figure{transform:none}
+.lbx img{display:block;max-width:min(94vw,980px);max-height:calc(100vh - 150px);max-height:calc(100dvh - 150px);width:auto;height:auto;object-fit:contain;border-radius:22px;border:1px solid rgba(217,181,107,.4);box-shadow:0 40px 80px -30px rgba(0,0,0,.95),0 0 40px -10px rgba(217,181,107,.3);background:#0f0d09}
+.lbx figcaption{font-size:13px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;color:var(--brass-hi)}
+.lbx-x{position:absolute;top:max(14px,env(safe-area-inset-top));right:16px;display:flex;align-items:center;justify-content:center;width:50px;height:50px;padding:0;border-radius:50%;background:linear-gradient(180deg,rgba(38,31,20,.96),rgba(16,13,9,.96));border:1px solid rgba(217,181,107,.6);color:var(--brass-hi);box-shadow:0 10px 22px -8px rgba(0,0,0,.85),inset 0 1px 0 rgba(242,219,163,.22);cursor:pointer;transition:border-color .25s,transform .2s}
+.lbx-x:hover{border-color:var(--brass-hi)}
+.lbx-x:active{transform:scale(.94)}
+.lbx-x:focus-visible{outline:2px solid var(--brass-hi);outline-offset:3px}
+@media (prefers-reduced-motion:reduce){.lbx,.lbx figure{transition:none}}
+#gallery .slide img{cursor:zoom-in}
 /* gallery photo: highlighted frame on the current / tapped photo */
 @media (max-width:1099px){
 #gallery.gal{padding-block:14px;margin-block:-14px}
@@ -1796,6 +1809,37 @@ class Component extends DCLogic {
         const on = box.classList.contains('on');
         document.querySelectorAll('.trio > div.on').forEach((x) => x.classList.remove('on'));
         if (!on) box.classList.add('on');
+      });
+    } catch (e) {}
+    // photo viewer: tap a gallery photo to enlarge it; close with the X, a tap outside, or Esc
+    try {
+      let box = null, back = null;
+      const close = () => {
+        if (!box) return;
+        const b = box; box = null;
+        b.classList.remove('on');
+        document.documentElement.style.overflow = '';
+        document.removeEventListener('keydown', onKey, true);
+        setTimeout(() => { try { b.remove(); } catch (x) {} }, reduce ? 0 : 300);
+        try { if (back) back.focus({ preventScroll: true }); } catch (x) {}
+      };
+      const onKey = (e) => { if (e.key === 'Escape') { e.preventDefault(); close(); } };
+      document.addEventListener('click', (e) => {
+        const sl = e.target.closest && e.target.closest('#gallery .slide');
+        if (!sl || box) return;
+        const img = sl.querySelector('img'); if (!img) return;
+        back = document.activeElement;
+        const cap = sl.querySelector('.gcap');
+        box = document.createElement('div');
+        box.className = 'lbx'; box.setAttribute('role', 'dialog'); box.setAttribute('aria-modal', 'true'); box.setAttribute('aria-label', 'Photo viewer');
+        box.innerHTML = '<button type="button" class="lbx-x" aria-label="Close photo"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button><figure><img alt=""><figcaption></figcaption></figure>';
+        const big = box.querySelector('img'); big.src = img.currentSrc || img.src; big.alt = img.alt || '';
+        box.querySelector('figcaption').textContent = cap ? cap.textContent : '';
+        box.addEventListener('click', (ev) => { if (!ev.target.closest('img')) close(); });
+        document.body.appendChild(box);
+        document.documentElement.style.overflow = 'hidden';
+        document.addEventListener('keydown', onKey, true);
+        requestAnimationFrame(() => { if (box) { box.classList.add('on'); const x = box.querySelector('.lbx-x'); if (x) x.focus({ preventScroll: true }); } });
       });
     } catch (e) {}
     // reviews (tablet): endless carousel - there is always a neighbour card on both sides
