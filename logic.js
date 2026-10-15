@@ -80,8 +80,19 @@ class Component extends DCLogic {
           const step = sl[1] ? sl[1].offsetLeft - sl[0].offsetLeft : gal.clientWidth;
           const idx = Math.max(0, Math.min(sl.length - 1, Math.round(gal.scrollLeft / (step || 1))));
           for (let i = 0; i < 3; i++) dots.style.setProperty('--o' + i, i === idx ? '1' : '.4');
+          const pv = document.querySelector('.gal-prev'), nx = document.querySelector('.gal-next');
+          if (pv) pv.disabled = idx <= 0;
+          if (nx) nx.disabled = idx >= sl.length - 1;
         };
         gal.addEventListener('scroll', upd, { passive: true });
+        window.addEventListener('resize', upd);
+        document.addEventListener('click', (e) => {
+          const b = e.target.closest && e.target.closest('.gal-arr');
+          if (!b) return;
+          const sl = gal.querySelectorAll('.slide');
+          const step = sl[1] ? sl[1].offsetLeft - sl[0].offsetLeft : gal.clientWidth;
+          gal.scrollBy({ left: b.classList.contains('gal-next') ? step : -step, behavior: reduce ? 'auto' : 'smooth' });
+        });
         upd();
       }
     } catch (e) {}
