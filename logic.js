@@ -372,11 +372,16 @@ class Component extends DCLogic {
       const els = document.querySelectorAll('.rvt, .hg, .lg-ftr, .mo-ul, .panel, .stat');
       if (els.length && 'IntersectionObserver' in window) {
         root.classList.add('js-rv');
+        let statQ = 0, statT = null;
         const io = new IntersectionObserver((es) => es.forEach((e) => {
           if (!e.isIntersecting) return;
           const t = e.target;
-          t.classList.add('in');
-          if (t.classList.contains('stat')) document.querySelectorAll('.stat').forEach((x) => x.classList.add('in'));
+          if (t.classList.contains('stat')) {
+            // stat cards appear one after another as they scroll into view
+            const k = statQ++;
+            setTimeout(() => t.classList.add('in'), reduce ? 0 : k * 480);
+            clearTimeout(statT); statT = setTimeout(() => { statQ = 0; }, 400);
+          } else t.classList.add('in');
           if (t.classList.contains('panel')) {
             // frame draws itself automatically (time based, independent of scroll)
             if (reduce) { this._pf = '1'; t.style.setProperty('--pf', '1'); }

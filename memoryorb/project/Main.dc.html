@@ -1163,6 +1163,11 @@ html:not(.js-rv) .panel{--pf:1}
 .faq .faq-frame,.faq .faq-more{max-width:600px;margin-inline:auto}
 .faq .faq-more{margin-top:20px}
 }
+/* stat cards: fade and rise in one after another while scrolling */
+html.js-rv .stat{opacity:0;transform:translate3d(0,30px,0) scale(.97);transition:opacity .9s cubic-bezier(.22,.61,.36,1),transform .9s cubic-bezier(.22,.61,.36,1),border-color var(--t-base),background var(--t-base)}
+html.js-rv .stat.in{opacity:1;transform:none}
+html.js-rv .stat.in:hover{transform:translateY(-3px)}
+@media (prefers-reduced-motion:reduce){html.js-rv .stat{opacity:1;transform:none;transition:none}}
 /* empty cart state, all widths */
 .cart-empty{position:relative;gap:10px;margin-top:24px;padding:34px 24px 32px;border:1px solid rgba(217,181,107,.3);border-radius:24px;background:radial-gradient(80% 70% at 50% 0%,rgba(217,181,107,.13),transparent 70%),linear-gradient(180deg,rgba(255,255,255,.04),rgba(0,0,0,.2));box-shadow:0 24px 44px -26px rgba(0,0,0,.9),inset 0 1px 0 rgba(242,219,163,.1)}
 .cart-empty::before{content:"";position:absolute;left:50%;top:0;width:90px;height:2px;transform:translate(-50%,-1px);background:linear-gradient(90deg,transparent,var(--brass-hi),transparent)}
@@ -2136,11 +2141,16 @@ class Component extends DCLogic {
       const els = document.querySelectorAll('.rvt, .hg, .lg-ftr, .mo-ul, .panel, .stat');
       if (els.length && 'IntersectionObserver' in window) {
         root.classList.add('js-rv');
+        let statQ = 0, statT = null;
         const io = new IntersectionObserver((es) => es.forEach((e) => {
           if (!e.isIntersecting) return;
           const t = e.target;
-          t.classList.add('in');
-          if (t.classList.contains('stat')) document.querySelectorAll('.stat').forEach((x) => x.classList.add('in'));
+          if (t.classList.contains('stat')) {
+            // stat cards appear one after another as they scroll into view
+            const k = statQ++;
+            setTimeout(() => t.classList.add('in'), reduce ? 0 : k * 480);
+            clearTimeout(statT); statT = setTimeout(() => { statQ = 0; }, 400);
+          } else t.classList.add('in');
           if (t.classList.contains('panel')) {
             // frame draws itself automatically (time based, independent of scroll)
             if (reduce) { this._pf = '1'; t.style.setProperty('--pf', '1'); }
