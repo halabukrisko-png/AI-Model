@@ -1162,7 +1162,7 @@ html:not(.js-rv) .panel{--pf:1}
     <div class="wrap hero-grid">
       <div class="hero-media">
         <div id="gallery" class="gal">
-          <figure class="slide" style="margin:0"><img decoding="async" src="{{heroPhoto}}" alt="MemoryOrb in {{cName}}" fetchpriority="high"><span class="gcap">{{cName}}</span><span class="zoom"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1d1b2b" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="10.500" cy="10.500" r="6.500"/><path d="M15.500 15.500L21 21M10.500 8v5M8 10.500h5"/></svg></span></figure>
+          <figure class="slide is-on" style="margin:0"><img decoding="async" src="{{heroPhoto}}" alt="MemoryOrb in {{cName}}" fetchpriority="high"><span class="gcap">{{cName}}</span><span class="zoom"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1d1b2b" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="10.500" cy="10.500" r="6.500"/><path d="M15.500 15.500L21 21M10.500 8v5M8 10.500h5"/></svg></span></figure>
           <figure class="slide" style="margin:0"><img decoding="async" src="{{lifePhoto}}" alt="{{cName}} MemoryOrb by the Christmas tree"><span class="gcap">Memories inside</span><span class="zoom"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1d1b2b" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="10.500" cy="10.500" r="6.500"/><path d="M15.500 15.500L21 21M10.500 8v5M8 10.500h5"/></svg></span></figure>
           <figure class="slide" style="margin:0"><img decoding="async" src="{{treePhoto}}" alt="{{cName}} MemoryOrb on the Christmas tree"><span class="gcap">On the tree</span><span class="zoom"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1d1b2b" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="10.500" cy="10.500" r="6.500"/><path d="M15.500 15.500L21 21M10.500 8v5M8 10.500h5"/></svg></span></figure>
         </div>
@@ -1734,6 +1734,10 @@ class Component extends DCLogic {
           sl.forEach((x, i) => x.classList.toggle('is-on', i === idx));
                   };
         gal.addEventListener('scroll', upd, { passive: true });
+        // re-apply the highlighted frame whenever the page re-renders the slides
+        try { new MutationObserver(upd).observe(gal, { subtree: true, childList: true, attributes: true, attributeFilter: ['class'] }); } catch (e) {}
+        window.addEventListener('load', upd);
+        setTimeout(upd, 300);
         window.addEventListener('resize', upd);
         document.addEventListener('click', (e) => {
           const b = e.target.closest && e.target.closest('.gal-arr');

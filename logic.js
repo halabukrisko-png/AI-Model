@@ -83,6 +83,10 @@ class Component extends DCLogic {
           sl.forEach((x, i) => x.classList.toggle('is-on', i === idx));
                   };
         gal.addEventListener('scroll', upd, { passive: true });
+        // re-apply the highlighted frame whenever the page re-renders the slides
+        try { new MutationObserver(upd).observe(gal, { subtree: true, childList: true, attributes: true, attributeFilter: ['class'] }); } catch (e) {}
+        window.addEventListener('load', upd);
+        setTimeout(upd, 300);
         window.addEventListener('resize', upd);
         document.addEventListener('click', (e) => {
           const b = e.target.closest && e.target.closest('.gal-arr');
