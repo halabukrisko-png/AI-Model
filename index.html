@@ -1092,11 +1092,9 @@ html:not(.js-rv) .panel{--pf:1}
 .sw:hover .sw-art{transform:translateY(-6px);border-color:var(--brass-hi);box-shadow:0 0 0 1px var(--brass-hi),0 18px 34px -14px rgba(0,0,0,.9),0 0 26px -4px rgba(217,181,107,.55);filter:brightness(1.08)}
 .sw:hover .sw-name{color:var(--brass-hi)}
 }
-/* tablet: subtle vertical stripes on the dark background, from the banner down to the FAQ */
+/* tablet: same fine diagonal texture as the "Choose your EverOrb" card, only behind "Moments that stay with you" */
 @media (min-width:640px) and (max-width:1099px){
-.page::before{content:"";position:absolute;left:0;right:0;top:0;height:var(--stripe-h,0px);z-index:0;pointer-events:none;background:repeating-linear-gradient(90deg,rgba(242,219,163,.045) 0 44px,transparent 44px 88px)}
-.lens-sec{background:radial-gradient(70% 55% at 50% 58%,rgba(217,181,107,.1),transparent 70%)}
-.why{background:transparent}
+.lens-sec{background:repeating-linear-gradient(115deg,rgba(217,181,107,.055) 0 1px,transparent 1px 16px),radial-gradient(70% 55% at 50% 58%,rgba(217,181,107,.1),transparent 70%),var(--ink-2)}
 }
 /* gallery photo: highlighted frame on the current / tapped photo */
 @media (max-width:1099px){

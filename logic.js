@@ -69,22 +69,6 @@ class Component extends DCLogic {
         if (!on) box.classList.add('on');
       });
     } catch (e) {}
-    // tablet stripes: the dark background gets stripes from the top banner down to the start of the FAQ
-    try {
-      const page = document.querySelector('.page');
-      const setStripes = () => {
-        if (!page) return;
-        let end = document.querySelector('.faq');
-        if (!end || !end.offsetParent) end = document.querySelector('.stats');
-        const top = page.getBoundingClientRect().top;
-        const h = end && end.offsetParent ? Math.max(0, end.getBoundingClientRect().top - top) : page.scrollHeight;
-        document.documentElement.style.setProperty('--stripe-h', Math.round(h) + 'px');
-      };
-      setStripes();
-      window.addEventListener('load', setStripes);
-      window.addEventListener('resize', setStripes);
-      if (window.ResizeObserver && page) new ResizeObserver(setStripes).observe(page);
-    } catch (e) {}
     // gallery indicator (three bars, active one is longer and brighter)
     try {
       const gal = document.getElementById('gallery');
