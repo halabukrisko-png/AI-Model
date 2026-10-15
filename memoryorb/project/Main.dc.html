@@ -1100,6 +1100,19 @@ html:not(.js-rv) .panel{--pf:1}
 .why .compare{max-width:560px;margin-inline:auto;background:var(--ink-2)}
 .why .sec-head::before{content:"";position:absolute;left:50%;bottom:-18px;width:300vw;height:3000px;transform:translateX(-50%);z-index:-1;pointer-events:none;background:repeating-linear-gradient(115deg,rgba(217,181,107,.055) 0 1px,transparent 1px 16px);-webkit-mask-image:linear-gradient(180deg,#000 calc(100% - 44px),transparent);mask-image:linear-gradient(180deg,#000 calc(100% - 44px),transparent)}
 .lens-sec::after,.why::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(90deg,var(--ink-2) 0,rgba(16,14,11,.55) 12%,transparent 34%,transparent 66%,rgba(16,14,11,.55) 88%,var(--ink-2) 100%)}
+/* tablet: smaller review cards with arrows beside them */
+.q-arr{display:none}
+@media (min-width:640px) and (max-width:1099px){
+.q-wrap{position:relative}
+.q-track{max-width:540px;margin-inline:auto;gap:36px;padding:14px 30px 30px!important;scroll-padding-inline:30px;scroll-behavior:smooth}
+.q-track .quote{flex:0 0 480px!important;padding:40px 22px 26px}
+.q-arr{position:absolute;top:calc(50% - 8px);transform:translateY(-50%);z-index:4;display:flex;align-items:center;justify-content:center;width:50px;height:50px;padding:0;border-radius:50%;background:linear-gradient(180deg,rgba(38,31,20,.96),rgba(16,13,9,.96));border:1px solid rgba(217,181,107,.6);color:var(--brass-hi);box-shadow:0 10px 22px -8px rgba(0,0,0,.85),inset 0 1px 0 rgba(242,219,163,.22);cursor:pointer;transition:border-color .25s,background .25s,transform .2s}
+.q-arr:hover{border-color:var(--brass-hi);background:linear-gradient(180deg,rgba(58,47,28,.98),rgba(24,19,12,.98))}
+.q-arr:active{transform:translateY(-50%) scale(.94)}
+.q-arr:focus-visible{outline:2px solid var(--brass-hi);outline-offset:3px}
+.q-prev{left:calc(50% - 270px - 62px)}
+.q-next{right:calc(50% - 270px - 62px)}
+}
 .faq .wave.top{--sky:var(--ink-2)!important}
 .faq .faq-frame,.faq .faq-more{max-width:600px;margin-inline:auto}
 .faq .faq-more{margin-top:20px}
@@ -1545,7 +1558,9 @@ html:not(.js-rv) .panel{--pf:1}
       </div>
     </section>
     <section class="quote-sec">
-      <div class="wrap">
+      <div class="wrap q-wrap">
+        <button type="button" class="q-arr q-prev" aria-label="Previous review"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button>
+        <button type="button" class="q-arr q-next" aria-label="Next review"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>
         <div class="q-track" tabindex="0" aria-label="Customer reviews">
         <figure class="quote rv rv-s">
           <p>I replay my daughter's first birthday through the Orb every night. It's like stepping back into that moment…priceless.</p>
@@ -1736,6 +1751,23 @@ class Component extends DCLogic {
         const on = box.classList.contains('on');
         document.querySelectorAll('.trio > div.on').forEach((x) => x.classList.remove('on'));
         if (!on) box.classList.add('on');
+      });
+    } catch (e) {}
+    // reviews: arrows scroll one card, wrapping from the last back to the first
+    try {
+      document.addEventListener('click', (e) => {
+        const b = e.target.closest && e.target.closest('.q-arr');
+        if (!b) return;
+        const tr = document.querySelector('.q-track');
+        const cards = tr ? tr.querySelectorAll('.quote') : [];
+        if (!cards.length) return;
+        const step = cards[1] ? cards[1].offsetLeft - cards[0].offsetLeft : tr.clientWidth;
+        const next = b.classList.contains('q-next');
+        const idx = Math.round(tr.scrollLeft / (step || 1));
+        const behavior = reduce ? 'auto' : 'smooth';
+        if (next && idx >= cards.length - 1) tr.scrollTo({ left: 0, behavior });
+        else if (!next && idx <= 0) tr.scrollTo({ left: step * (cards.length - 1), behavior });
+        else tr.scrollBy({ left: next ? step : -step, behavior });
       });
     } catch (e) {}
     // gallery indicator (three bars, active one is longer and brighter)

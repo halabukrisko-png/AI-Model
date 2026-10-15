@@ -69,6 +69,23 @@ class Component extends DCLogic {
         if (!on) box.classList.add('on');
       });
     } catch (e) {}
+    // reviews: arrows scroll one card, wrapping from the last back to the first
+    try {
+      document.addEventListener('click', (e) => {
+        const b = e.target.closest && e.target.closest('.q-arr');
+        if (!b) return;
+        const tr = document.querySelector('.q-track');
+        const cards = tr ? tr.querySelectorAll('.quote') : [];
+        if (!cards.length) return;
+        const step = cards[1] ? cards[1].offsetLeft - cards[0].offsetLeft : tr.clientWidth;
+        const next = b.classList.contains('q-next');
+        const idx = Math.round(tr.scrollLeft / (step || 1));
+        const behavior = reduce ? 'auto' : 'smooth';
+        if (next && idx >= cards.length - 1) tr.scrollTo({ left: 0, behavior });
+        else if (!next && idx <= 0) tr.scrollTo({ left: step * (cards.length - 1), behavior });
+        else tr.scrollBy({ left: next ? step : -step, behavior });
+      });
+    } catch (e) {}
     // gallery indicator (three bars, active one is longer and brighter)
     try {
       const gal = document.getElementById('gallery');
