@@ -297,7 +297,7 @@ html.is-scrolled .hdr-in{height:var(--hdr-s)}
 .buy-note span{display:inline-flex;align-items:center;gap:7px}
 .buy-note svg{color:var(--brass)}
 .tab-only{display:none!important}
-@media (min-width:640px) and (max-width:1099px){.tab-only{display:inline-flex!important}.not-tab{display:none}}
+@media (min-width:640px){.tab-only{display:inline-flex!important}.not-tab{display:none}}
 .buy-note span+span{position:relative;padding-left:20px}.buy-note span+span::before{content:"";position:absolute;left:0;top:50%;height:16px;width:1px;transform:translateY(-50%);background:linear-gradient(180deg,transparent,rgba(217,181,107,.6),transparent)}
 
 /* ---- trust (paper) ---- */
@@ -1061,7 +1061,7 @@ html:not(.js-rv) .panel{--pf:1}
 }
 /* tablet: photo carousel with arrow buttons beside the photos */
 .gal-arr{display:none}
-@media (min-width:640px) and (max-width:1099px){
+@media (min-width:640px){
 .hero-media{padding-inline:64px;max-width:640px;margin-inline:auto;box-sizing:border-box}
 #gallery.gal{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;margin-inline:-14px;padding-inline:14px;scroll-padding-inline:14px;gap:16px}
 #gallery.gal .slide{flex:none;width:100%;aspect-ratio:1/1}
@@ -1080,9 +1080,9 @@ html:not(.js-rv) .panel{--pf:1}
 .gal-dots i{border-radius:999px;height:4px}
 .gal-prev{left:6px}.gal-next{right:6px}
 }
-@media (min-width:900px) and (max-width:1099px){.hero .hero-grid,.hero.is-compact .hero-grid{grid-template-columns:minmax(0,640px);justify-content:center;gap:28px}.hero-media{padding-inline:64px;max-width:640px;width:100%}.hero-copy{max-width:640px;width:100%;margin-inline:auto}}
+@media (min-width:900px){.hero .hero-grid,.hero.is-compact .hero-grid{grid-template-columns:minmax(0,640px);justify-content:center;gap:28px}.hero-media{padding-inline:64px;max-width:640px;width:100%}.hero-copy{max-width:640px;width:100%;margin-inline:auto}}
 /* tablet: colour tiles taller, a bit bigger, highlighted on hover */
-@media (min-width:640px) and (max-width:1099px){
+@media (min-width:640px){
 .swatches{max-width:600px;margin-inline:auto;gap:22px 18px}
 .pt-col{max-width:600px;margin-inline:auto}
 .sw{width:calc((100% - 36px)/3);gap:12px}
@@ -1094,7 +1094,7 @@ html:not(.js-rv) .panel{--pf:1}
 }
 /* tablet: the fine diagonal texture of the "Choose your EverOrb" card behind the dark sections:
    from "Moments that stay with you" (going around the outer ring of the photo) all the way down to the FAQ wave (the comparison table keeps a solid background) */
-@media (min-width:640px) and (max-width:1099px){
+@media (min-width:640px){
 .lens-sec,.why{isolation:isolate;overflow:clip}
 .lens-stage{container-type:size}
 .lens-stage::before{content:"";position:absolute;left:50%;top:50%;width:300vw;height:3000px;transform:translate(-50%,-50%);z-index:-1;pointer-events:none;background:repeating-linear-gradient(115deg,rgba(217,181,107,.055) 0 1px,transparent 1px 16px);-webkit-mask-image:radial-gradient(circle at 50% 50%,transparent 0,transparent calc(54cqw),#000 calc(54cqw + 18px));mask-image:radial-gradient(circle at 50% 50%,transparent 0,transparent calc(54cqw),#000 calc(54cqw + 18px))}
@@ -1106,7 +1106,7 @@ html:not(.js-rv) .panel{--pf:1}
 /* tablet: smaller review cards with arrows beside them */
 .q-arr{display:none}
 .q-clone{display:none!important}
-@media (min-width:640px) and (max-width:1099px){
+@media (min-width:640px){
 .q-wrap{position:relative}
 .q-clone{display:flex!important}
 .q-track{max-width:none;width:100%;margin-inline:0;gap:20px;padding:14px 0 30px!important;scroll-padding-inline:0;scroll-behavior:smooth;-webkit-mask-image:linear-gradient(90deg,transparent 0,rgba(0,0,0,.06) calc((50% - 240px)*.15),rgba(0,0,0,.2) calc((50% - 240px)*.38),rgba(0,0,0,.42) calc((50% - 240px)*.62),rgba(0,0,0,.7) calc((50% - 240px)*.82),#000 calc(50% - 240px),#000 calc(50% + 240px),rgba(0,0,0,.7) calc(50% + 240px + (50% - 240px)*.18),rgba(0,0,0,.42) calc(50% + 240px + (50% - 240px)*.38),rgba(0,0,0,.2) calc(50% + 240px + (50% - 240px)*.62),rgba(0,0,0,.06) calc(50% + 240px + (50% - 240px)*.85),transparent 100%);mask-image:linear-gradient(90deg,transparent 0,rgba(0,0,0,.06) calc((50% - 240px)*.15),rgba(0,0,0,.2) calc((50% - 240px)*.38),rgba(0,0,0,.42) calc((50% - 240px)*.62),rgba(0,0,0,.7) calc((50% - 240px)*.82),#000 calc(50% - 240px),#000 calc(50% + 240px),rgba(0,0,0,.7) calc(50% + 240px + (50% - 240px)*.18),rgba(0,0,0,.42) calc(50% + 240px + (50% - 240px)*.38),rgba(0,0,0,.2) calc(50% + 240px + (50% - 240px)*.62),rgba(0,0,0,.06) calc(50% + 240px + (50% - 240px)*.85),transparent 100%)}
@@ -1211,7 +1211,7 @@ html.js-rv .stat.in:hover{transform:translateY(-3px)}
 #gallery .slide img{cursor:zoom-in}
 /* tablet: the top photos are an endless carousel like the reviews (centered photo, faded neighbours both sides) */
 .g-clone{display:none!important}
-@media (min-width:640px) and (max-width:1099px){
+@media (min-width:640px){
 .g-clone{display:block!important}
 .hero-media{padding-inline:0!important;max-width:none!important;margin-inline:calc(var(--gutter)*-1)!important;width:auto!important}
 #gallery.gal{margin-inline:0!important;padding-inline:0!important;scroll-padding-inline:0!important;gap:20px;border-radius:0;-webkit-mask-image:linear-gradient(90deg,transparent 0,rgba(0,0,0,.06) calc((50% - 230px)*.15),rgba(0,0,0,.2) calc((50% - 230px)*.38),rgba(0,0,0,.42) calc((50% - 230px)*.62),rgba(0,0,0,.7) calc((50% - 230px)*.82),#000 calc(50% - 230px),#000 calc(50% + 230px),rgba(0,0,0,.7) calc(50% + 230px + (50% - 230px)*.18),rgba(0,0,0,.42) calc(50% + 230px + (50% - 230px)*.38),rgba(0,0,0,.2) calc(50% + 230px + (50% - 230px)*.62),rgba(0,0,0,.06) calc(50% + 230px + (50% - 230px)*.85),transparent 100%);mask-image:linear-gradient(90deg,transparent 0,rgba(0,0,0,.06) calc((50% - 230px)*.15),rgba(0,0,0,.2) calc((50% - 230px)*.38),rgba(0,0,0,.42) calc((50% - 230px)*.62),rgba(0,0,0,.7) calc((50% - 230px)*.82),#000 calc(50% - 230px),#000 calc(50% + 230px),rgba(0,0,0,.7) calc(50% + 230px + (50% - 230px)*.18),rgba(0,0,0,.42) calc(50% + 230px + (50% - 230px)*.38),rgba(0,0,0,.2) calc(50% + 230px + (50% - 230px)*.62),rgba(0,0,0,.06) calc(50% + 230px + (50% - 230px)*.85),transparent 100%)}
@@ -1220,10 +1220,10 @@ html.js-rv .stat.in:hover{transform:translateY(-3px)}
 .gal-prev{left:14px!important}.gal-next{right:14px!important}
 .gal-arr svg,.q-arr svg{width:28px;height:28px}
 }
-@media (min-width:640px) and (max-width:1099px){.hero .hero-grid,.hero.is-compact .hero-grid{grid-template-columns:minmax(0,1fr)!important}.hero-media{min-width:0}}
+@media (min-width:640px){.hero .hero-grid,.hero.is-compact .hero-grid{grid-template-columns:minmax(0,1fr)!important}.hero-media{min-width:0}}
 .nj,.nj *,.nj *::before,.nj *::after{transition:none!important;animation:none!important}
 /* gallery photo: highlighted frame on the current / tapped photo */
-@media (max-width:1099px){
+@media all{
 #gallery.gal{padding-block:14px;margin-block:-14px}
 #gallery.gal .slide .gcap{left:16px;bottom:18px;gap:7px;padding:7px 13px 7px 11px;font-size:11px;border:1px solid rgba(217,181,107,.14);background:rgba(14,12,8,.42)}
 @media (min-width:640px){#gallery.gal .slide .gcap{left:22px;bottom:24px;gap:8px;padding:9px 16px 9px 14px;font-size:12.5px}}
@@ -1903,7 +1903,7 @@ class Component extends DCLogic {
     // reviews (tablet): endless carousel - there is always a neighbour card on both sides
     try {
       const qt = document.querySelector('.q-track');
-      const tab = () => !!(window.matchMedia && window.matchMedia('(min-width:640px) and (max-width:1099px)').matches);
+      const tab = () => !!(window.matchMedia && window.matchMedia('(min-width:640px)').matches);
       const real = () => [...qt.querySelectorAll('.quote:not(.q-clone)')];
       const all = () => [...qt.querySelectorAll('.quote')];
       const centerOf = (c) => c.offsetLeft + c.offsetWidth / 2 - qt.clientWidth / 2;
@@ -1970,7 +1970,7 @@ class Component extends DCLogic {
       const gal = document.getElementById('gallery');
       const dots = document.querySelector('.gal-dots');
       if (gal && dots) {
-        const tab = () => !!(window.matchMedia && window.matchMedia('(min-width:640px) and (max-width:1099px)').matches);
+        const tab = () => !!(window.matchMedia && window.matchMedia('(min-width:640px)').matches);
         const real = () => [...gal.querySelectorAll('.slide:not(.g-clone)')];
         const vis = () => [...gal.querySelectorAll('.slide')].filter((x) => x.offsetWidth > 0);
         const centerOf = (c) => c.offsetLeft + c.offsetWidth / 2 - gal.clientWidth / 2;

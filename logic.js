@@ -103,7 +103,7 @@ class Component extends DCLogic {
     // reviews (tablet): endless carousel - there is always a neighbour card on both sides
     try {
       const qt = document.querySelector('.q-track');
-      const tab = () => !!(window.matchMedia && window.matchMedia('(min-width:640px) and (max-width:1099px)').matches);
+      const tab = () => !!(window.matchMedia && window.matchMedia('(min-width:640px)').matches);
       const real = () => [...qt.querySelectorAll('.quote:not(.q-clone)')];
       const all = () => [...qt.querySelectorAll('.quote')];
       const centerOf = (c) => c.offsetLeft + c.offsetWidth / 2 - qt.clientWidth / 2;
@@ -170,7 +170,7 @@ class Component extends DCLogic {
       const gal = document.getElementById('gallery');
       const dots = document.querySelector('.gal-dots');
       if (gal && dots) {
-        const tab = () => !!(window.matchMedia && window.matchMedia('(min-width:640px) and (max-width:1099px)').matches);
+        const tab = () => !!(window.matchMedia && window.matchMedia('(min-width:640px)').matches);
         const real = () => [...gal.querySelectorAll('.slide:not(.g-clone)')];
         const vis = () => [...gal.querySelectorAll('.slide')].filter((x) => x.offsetWidth > 0);
         const centerOf = (c) => c.offsetLeft + c.offsetWidth / 2 - gal.clientWidth / 2;
