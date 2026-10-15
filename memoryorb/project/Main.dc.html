@@ -1090,13 +1090,13 @@ html:not(.js-rv) .panel{--pf:1}
 .sw:hover .sw-name{color:var(--brass-hi)}
 }
 /* tablet: the fine diagonal texture of the "Choose your EverOrb" card behind the dark sections:
-   from "Moments that stay with you" (going around the outer ring of the photo) down to the "Get Your Orb" button */
+   from "Moments that stay with you" (going around the outer ring of the photo) down to just above the comparison table */
 @media (min-width:640px) and (max-width:1099px){
 .lens-sec,.why{isolation:isolate;overflow:clip}
 .lens-stage{container-type:size}
 .lens-stage::before{content:"";position:absolute;left:50%;top:50%;width:300vw;height:3000px;transform:translate(-50%,-50%);z-index:-1;pointer-events:none;background:repeating-linear-gradient(115deg,rgba(217,181,107,.055) 0 1px,transparent 1px 16px);-webkit-mask-image:radial-gradient(circle at 50% 50%,transparent 0,transparent calc(54cqw),#000 calc(54cqw + 18px));mask-image:radial-gradient(circle at 50% 50%,transparent 0,transparent calc(54cqw),#000 calc(54cqw + 18px))}
-.why-cta{position:relative}
-.why-cta::before{content:"";position:absolute;left:50%;bottom:62px;width:300vw;height:3000px;transform:translateX(-50%);z-index:-1;pointer-events:none;background:repeating-linear-gradient(115deg,rgba(217,181,107,.055) 0 1px,transparent 1px 16px);-webkit-mask-image:linear-gradient(180deg,#000 calc(100% - 40px),transparent);mask-image:linear-gradient(180deg,#000 calc(100% - 40px),transparent)}
+.why .sec-head{position:relative}
+.why .sec-head::before{content:"";position:absolute;left:50%;bottom:-18px;width:300vw;height:3000px;transform:translateX(-50%);z-index:-1;pointer-events:none;background:repeating-linear-gradient(115deg,rgba(217,181,107,.055) 0 1px,transparent 1px 16px);-webkit-mask-image:linear-gradient(180deg,#000 calc(100% - 44px),transparent);mask-image:linear-gradient(180deg,#000 calc(100% - 44px),transparent)}
 .faq .wave.top{--sky:var(--ink-2)!important}
 }
 /* gallery photo: highlighted frame on the current / tapped photo */
