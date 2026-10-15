@@ -754,7 +754,11 @@ class Component extends DCLogic {
       userName: this.state.user ? this.state.user.name : '', userInit: this.state.user ? this.state.user.name.charAt(0).toUpperCase() : '', userMail: this.state.user ? this.state.user.mail : '',
       noop: (e) => { try { e.preventDefault(); } catch (x) {} },
       logout: (e) => { this.setState({ user: null, page: 'login', lt: 0, lsent: false }); try { window.scrollTo(0, 0); } catch (x) {} },
-      goShop: (e) => { try { e.preventDefault(); } catch (x) {} this.setState({ page: 'products', menu: false }); try { window.scrollTo(0, 0); } catch (x) {} },
+      goShop: (e) => { try { e.preventDefault(); } catch (x) {} this.setState({ page: 'home', menu: false });
+        // jump to the "Choose your MemoryOrb" (colours) section once the page has switched
+        const toColours = () => { try { const el = document.getElementById('colours'); if (el && el.offsetParent !== null) { const hd = document.querySelector('header.hdr'); const off = (hd ? hd.offsetHeight : 0) + 14; window.scrollTo(0, Math.max(0, el.getBoundingClientRect().top + (window.scrollY || 0) - off)); return true; } } catch (x) {} return false; };
+        let n = 0; const tryScroll = () => { if (toColours() || ++n > 12) return; setTimeout(tryScroll, 80); };
+        try { window.scrollTo(0, 0); } catch (x) {} setTimeout(tryScroll, 60); },
       goLogin: (e) => { this.setState({ page: this.state.user ? 'account' : 'login', menu: false, lsent: false }); try { window.scrollTo(0, 0); } catch (x) {} },
       lgNameDisp0: this.state.lt === 0 ? 'block' : 'none',
       lgIn: this.state.lt === 0 ? 'true' : 'false', lgUp: this.state.lt === 1 ? 'true' : 'false',
