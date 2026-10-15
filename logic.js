@@ -71,6 +71,23 @@ class Component extends DCLogic {
     } catch (e) {}
     // reviews: arrows scroll one card, wrapping from the last back to the first
     try {
+      // the card in the middle gets the highlighted, stretched top line
+      const qt = document.querySelector('.q-track');
+      if (qt) {
+        const mark = () => {
+          const cs = qt.querySelectorAll('.quote');
+          if (!cs.length) return;
+          const mid = qt.scrollLeft + qt.clientWidth / 2;
+          let best = 0, bd = 1e9;
+          cs.forEach((c, i) => { const d = Math.abs(c.offsetLeft + c.offsetWidth / 2 - mid); if (d < bd) { bd = d; best = i; } });
+          cs.forEach((c, i) => c.classList.toggle('is-on', i === best));
+        };
+        qt.addEventListener('scroll', mark, { passive: true });
+        window.addEventListener('resize', mark);
+        window.addEventListener('load', mark);
+        setTimeout(mark, 300);
+        mark();
+      }
       document.addEventListener('click', (e) => {
         const b = e.target.closest && e.target.closest('.q-arr');
         if (!b) return;

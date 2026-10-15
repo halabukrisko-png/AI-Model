@@ -1114,6 +1114,10 @@ html:not(.js-rv) .panel{--pf:1}
 .q-arr:hover{border-color:var(--brass-hi);background:linear-gradient(180deg,rgba(58,47,28,.98),rgba(24,19,12,.98))}
 .q-arr:active{transform:translateY(-50%) scale(.94)}
 .q-arr:focus-visible{outline:2px solid var(--brass-hi);outline-offset:3px}
+.q-track .quote::after{width:64px;opacity:.4;transition:width .8s var(--ease),opacity .6s,box-shadow .6s}
+.q-track .quote::before{transition:opacity .6s}
+.q-track .quote.is-on::after{width:78%;opacity:1;box-shadow:0 0 16px 1px rgba(242,219,163,.55)}
+.q-track .quote.is-on::before{opacity:.95}
 .q-prev{left:14px}
 .q-next{right:14px}
 }
