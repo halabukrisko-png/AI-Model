@@ -112,10 +112,12 @@ class Component extends DCLogic {
         cs.forEach((c, i) => { const d = Math.abs(centerOf(c) - qt.scrollLeft); if (d < bd) { bd = d; best = i; } });
         return best;
       };
-      const jump = (left) => {
+      const jump = (left, target) => {
+        qt.classList.add('nj');
+        if (target) all().forEach((x) => x.classList.toggle('is-on', x === target));
         qt.style.scrollBehavior = 'auto'; qt.style.scrollSnapType = 'none';
         qt.scrollLeft = left;
-        requestAnimationFrame(() => { qt.style.scrollBehavior = ''; qt.style.scrollSnapType = ''; });
+        requestAnimationFrame(() => requestAnimationFrame(() => { qt.style.scrollBehavior = ''; qt.style.scrollSnapType = ''; qt.classList.remove('nj'); }));
       };
       const mark = () => {
         const cs = all(); const b = nearest();
@@ -135,8 +137,8 @@ class Component extends DCLogic {
       const onSettle = () => {
         if (!tab()) return;
         const cs = all(); const n = cs.length - 2; const b = nearest();
-        if (b === 0) jump(centerOf(cs[n]));
-        else if (b === n + 1) jump(centerOf(cs[1]));
+        if (b === 0) jump(centerOf(cs[n]), cs[n]);
+        else if (b === n + 1) jump(centerOf(cs[1]), cs[1]);
         mark();
       };
       if (qt) {
@@ -173,10 +175,12 @@ class Component extends DCLogic {
           cs.forEach((c, i) => { const d = Math.abs(centerOf(c) - gal.scrollLeft); if (d < bd) { bd = d; best = i; } });
           return best;
         };
-        const jump = (left) => {
+        const jump = (left, target) => {
+          gal.classList.add('nj');
+          if (target) vis().forEach((x) => x.classList.toggle('is-on', x === target));
           gal.style.scrollBehavior = 'auto'; gal.style.scrollSnapType = 'none';
           gal.scrollLeft = left;
-          requestAnimationFrame(() => { gal.style.scrollBehavior = ''; gal.style.scrollSnapType = ''; });
+          requestAnimationFrame(() => requestAnimationFrame(() => { gal.style.scrollBehavior = ''; gal.style.scrollSnapType = ''; gal.classList.remove('nj'); }));
         };
         const sync = () => {
           const r = real(); const cl = gal.querySelectorAll('.g-clone');
@@ -216,7 +220,7 @@ class Component extends DCLogic {
         const onSettle = () => {
           if (!tab()) return;
           const cs = vis(); const n = cs.length - 2; if (n < 2) return; const b = nearest();
-          if (b === 0) jump(centerOf(cs[n])); else if (b === n + 1) jump(centerOf(cs[1]));
+          if (b === 0) jump(centerOf(cs[n]), cs[n]); else if (b === n + 1) jump(centerOf(cs[1]), cs[1]);
           upd();
         };
         ensure();
