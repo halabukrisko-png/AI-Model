@@ -1116,6 +1116,13 @@ html:not(.js-rv) .panel{--pf:1}
 }
 .faq .wave.top{--sky:var(--ink-2)!important}
 .gar{display:none!important}
+/* tablet: compact, centered stat cards */
+.stats .stat-grid{grid-template-columns:repeat(2,1fr)!important;max-width:600px;margin:36px auto 0;gap:14px}
+.stats .stat{flex-direction:column;align-items:center;text-align:center;gap:12px;padding:22px 20px 20px;border-radius:20px}
+.stats .stat svg{width:70px;height:70px}
+.stats .stat text{font-size:22px}
+.stats .stat p{font-size:14px;line-height:1.5;max-width:24ch;margin-inline:auto}
+.stats .stat-foot{margin-top:18px}
 .faq .faq-frame,.faq .faq-more{max-width:600px;margin-inline:auto}
 .faq .faq-more{margin-top:20px}
 }
