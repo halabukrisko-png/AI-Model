@@ -1089,6 +1089,12 @@ html:not(.js-rv) .panel{--pf:1}
 .sw:hover .sw-art{transform:translateY(-6px);border-color:var(--brass-hi);box-shadow:0 0 0 1px var(--brass-hi),0 18px 34px -14px rgba(0,0,0,.9),0 0 26px -4px rgba(217,181,107,.55);filter:brightness(1.08)}
 .sw:hover .sw-name{color:var(--brass-hi)}
 }
+/* tablet: subtle vertical stripes on the dark background, from the banner down to the FAQ */
+@media (min-width:640px) and (max-width:1099px){
+.page::before{content:"";position:absolute;left:0;right:0;top:0;height:var(--stripe-h,0px);z-index:0;pointer-events:none;background:repeating-linear-gradient(90deg,rgba(242,219,163,.045) 0 44px,transparent 44px 88px)}
+.lens-sec{background:radial-gradient(70% 55% at 50% 58%,rgba(217,181,107,.1),transparent 70%)}
+.why{background:transparent}
+}
 /* gallery photo: highlighted frame on the current / tapped photo */
 @media (max-width:1099px){
 #gallery.gal{padding-block:14px;margin-block:-14px}
@@ -1722,6 +1728,22 @@ class Component extends DCLogic {
         document.querySelectorAll('.trio > div.on').forEach((x) => x.classList.remove('on'));
         if (!on) box.classList.add('on');
       });
+    } catch (e) {}
+    // tablet stripes: the dark background gets stripes from the top banner down to the start of the FAQ
+    try {
+      const page = document.querySelector('.page');
+      const setStripes = () => {
+        if (!page) return;
+        let end = document.querySelector('.faq');
+        if (!end || !end.offsetParent) end = document.querySelector('.stats');
+        const top = page.getBoundingClientRect().top;
+        const h = end && end.offsetParent ? Math.max(0, end.getBoundingClientRect().top - top) : page.scrollHeight;
+        document.documentElement.style.setProperty('--stripe-h', Math.round(h) + 'px');
+      };
+      setStripes();
+      window.addEventListener('load', setStripes);
+      window.addEventListener('resize', setStripes);
+      if (window.ResizeObserver && page) new ResizeObserver(setStripes).observe(page);
     } catch (e) {}
     // gallery indicator (three bars, active one is longer and brighter)
     try {
