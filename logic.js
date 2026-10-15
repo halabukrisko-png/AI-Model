@@ -69,38 +69,63 @@ class Component extends DCLogic {
         if (!on) box.classList.add('on');
       });
     } catch (e) {}
-    // reviews: arrows scroll one card, wrapping from the last back to the first
+    // reviews (tablet): endless carousel - there is always a neighbour card on both sides
     try {
-      // the card in the middle gets the highlighted, stretched top line
       const qt = document.querySelector('.q-track');
+      const tab = () => !!(window.matchMedia && window.matchMedia('(min-width:640px) and (max-width:1099px)').matches);
+      const real = () => [...qt.querySelectorAll('.quote:not(.q-clone)')];
+      const all = () => [...qt.querySelectorAll('.quote')];
+      const centerOf = (c) => c.offsetLeft + c.offsetWidth / 2 - qt.clientWidth / 2;
+      const nearest = () => {
+        const cs = all(); let best = 0, bd = 1e9;
+        cs.forEach((c, i) => { const d = Math.abs(centerOf(c) - qt.scrollLeft); if (d < bd) { bd = d; best = i; } });
+        return best;
+      };
+      const jump = (left) => {
+        qt.style.scrollBehavior = 'auto'; qt.style.scrollSnapType = 'none';
+        qt.scrollLeft = left;
+        requestAnimationFrame(() => { qt.style.scrollBehavior = ''; qt.style.scrollSnapType = ''; });
+      };
+      const mark = () => {
+        const cs = all(); const b = nearest();
+        cs.forEach((c, i) => c.classList.toggle('is-on', i === b));
+      };
+      const ensure = () => {
+        const r = real();
+        if (r.length < 2) return;
+        if (!qt.querySelector('.q-clone')) {
+          const mk = (src) => { const c = src.cloneNode(true); c.classList.remove('rv', 'rv-s'); c.classList.add('q-clone', 'in'); c.setAttribute('aria-hidden', 'true'); c.removeAttribute('id'); return c; };
+          qt.insertBefore(mk(r[r.length - 1]), r[0]);
+          qt.insertBefore(mk(r[0]), r[r.length - 1].nextSibling);
+          if (tab()) jump(centerOf(real()[0]));
+        }
+      };
+      let settle;
+      const onSettle = () => {
+        if (!tab()) return;
+        const cs = all(); const n = cs.length - 2; const b = nearest();
+        if (b === 0) jump(centerOf(cs[n]));
+        else if (b === n + 1) jump(centerOf(cs[1]));
+        mark();
+      };
       if (qt) {
-        const mark = () => {
-          const cs = qt.querySelectorAll('.quote');
-          if (!cs.length) return;
-          const mid = qt.scrollLeft + qt.clientWidth / 2;
-          let best = 0, bd = 1e9;
-          cs.forEach((c, i) => { const d = Math.abs(c.offsetLeft + c.offsetWidth / 2 - mid); if (d < bd) { bd = d; best = i; } });
-          cs.forEach((c, i) => c.classList.toggle('is-on', i === best));
-        };
-        qt.addEventListener('scroll', mark, { passive: true });
-        window.addEventListener('resize', mark);
-        window.addEventListener('load', mark);
-        setTimeout(mark, 300);
+        ensure();
+        new MutationObserver(() => { if (!qt.querySelector('.q-clone')) ensure(); }).observe(qt, { childList: true });
+        qt.addEventListener('scroll', () => { mark(); clearTimeout(settle); settle = setTimeout(onSettle, 140); }, { passive: true });
+        window.addEventListener('resize', () => { ensure(); if (tab()) jump(centerOf(all()[nearest()])); mark(); });
+        window.addEventListener('load', () => { ensure(); if (tab()) jump(centerOf(real()[0])); mark(); });
+        setTimeout(() => { ensure(); mark(); }, 300);
         mark();
       }
       document.addEventListener('click', (e) => {
         const b = e.target.closest && e.target.closest('.q-arr');
-        if (!b) return;
-        const tr = document.querySelector('.q-track');
-        const cards = tr ? tr.querySelectorAll('.quote') : [];
-        if (!cards.length) return;
-        const step = cards[1] ? cards[1].offsetLeft - cards[0].offsetLeft : tr.clientWidth;
-        const next = b.classList.contains('q-next');
-        const idx = Math.round(tr.scrollLeft / (step || 1));
-        const behavior = reduce ? 'auto' : 'smooth';
-        if (next && idx >= cards.length - 1) tr.scrollTo({ left: 0, behavior });
-        else if (!next && idx <= 0) tr.scrollTo({ left: step * (cards.length - 1), behavior });
-        else tr.scrollBy({ left: next ? step : -step, behavior });
+        if (!b || !qt) return;
+        ensure();
+        const cs = all(); if (cs.length < 3) return;
+        const idx = nearest(); const next = b.classList.contains('q-next');
+        const t = Math.max(0, Math.min(cs.length - 1, idx + (next ? 1 : -1)));
+        qt.scrollTo({ left: centerOf(cs[t]), behavior: reduce ? 'auto' : 'smooth' });
+        if (reduce) onSettle();
       });
     } catch (e) {}
     // gallery indicator (three bars, active one is longer and brighter)
