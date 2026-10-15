@@ -455,15 +455,18 @@ class Component extends DCLogic {
       openSpecs: (e) => {
         try { e.preventDefault(); } catch (x) {}
         this.setState({ page: 'products', menu: false });
+        // description page fades in (page transition), then Product Details opens smoothly and scrolls into place
         setTimeout(() => {
           try {
             const sec = document.querySelector('.details-sec');
-            const rows = sec ? sec.querySelectorAll('details.ac') : [];
-            let target = null;
-            rows.forEach((d) => { const t = d.querySelector('summary span'); if (t && /Product Details/.test(t.textContent)) target = d; });
-            if (target) { target.open = true; target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+            const rows = sec ? [...sec.querySelectorAll('details.ac')] : [];
+            const target = rows.find((d) => { const t = d.querySelector('summary span'); return t && /Product Details/.test(t.textContent); });
+            if (!target) return;
+            const sm = target.querySelector(':scope > summary');
+            if (!target.open) sm.click();
+            setTimeout(() => { const r = sm.getBoundingClientRect(); window.scrollTo({ top: window.scrollY + r.top - 90, behavior: 'smooth' }); }, 120);
           } catch (x) {}
-        }, 80);
+        }, 650);
       },
       faqCls: this.state.faqN === 1 ? 'f1' : this.state.faqN === 2 ? 'f2' : 'f3',
       faqMoreBtn: this.state.faqN < 3 ? 'inline-flex' : 'none',
