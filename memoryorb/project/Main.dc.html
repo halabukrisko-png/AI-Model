@@ -91,9 +91,55 @@ html.js-rv .rv4{transition-delay:.75s}
 
 
 select{font-family:inherit}
+
+/* ---- desktop layout ---- */
+@media (min-width:900px){
+.pg{max-width:none!important}
+.pg>a#top{font-size:15px!important}
+.pg>div:nth-of-type(1){padding-left:max(32px,calc((100% - 1200px)/2))!important;padding-right:max(32px,calc((100% - 1200px)/2))!important}
+.d-home{display:grid!important;grid-template-columns:minmax(32px,1fr) minmax(0,620px) minmax(0,520px) minmax(32px,1fr);background:#0b0d09}
+.d-home>*{grid-column:1/-1}
+.d-home>.d-gal{grid-column:1/3;grid-row:1;display:flex!important;justify-content:flex-end;align-items:center;background:#0b0d09;padding:32px 0 40px}
+.d-home>.d-info{grid-column:3/5;grid-row:1;display:flex!important;align-items:center;background:#0b0d09;padding:32px 32px 40px 56px;box-sizing:border-box}
+.d-home>.d-gal,.d-home>.d-info{width:auto}
+.d-shop{padding:0!important;scroll-padding-left:0!important;width:100%;max-width:620px}
+.d-shop>div{width:100%!important}
+.d-info>div{padding:0!important;width:100%}
+.d-info h1{font-size:40px!important}
+.d-info h2{font-size:18px!important}
+.d-info .cta,.d-info button{max-width:420px}
+.d-info>div>div{justify-content:flex-start!important}
+.d-col{padding:56px 32px 72px!important}
+.d-col>*{max-width:860px;margin-left:auto;margin-right:auto}
+.d-col h2{font-size:48px!important}
+.d-swatches{max-width:860px;flex-wrap:nowrap!important;gap:24px!important;align-items:flex-start}
+.d-swatches>button{width:140px!important;flex:none}
+.d-buy{max-width:620px;margin:0 auto}
+.d-bundles{max-width:620px;margin-left:auto;margin-right:auto}
+.d-prod{padding-bottom:24px}
+.d-prod>div[style*="grid-template-columns:repeat(3,1fr)"]{max-width:900px;margin:56px auto 0!important;gap:32px!important}
+.d-prod>div[style*="border-top:1px solid"],.d-prod>div[style*="gap:16px;align-items:flex-start"]{max-width:860px;margin-left:auto!important;margin-right:auto!important}
+.d-prod>div[style*="padding:44px 20px 40px"]{padding:56px max(32px,calc((100% - 860px)/2)) 56px!important}
+.d-prod>div[style*="padding:40px 16px 0"],.d-prod>div[style*="padding:26px 16px 0"]{max-width:860px;margin:0 auto;box-sizing:border-box;padding-left:0!important;padding-right:0!important}
+.d-prod>div[style*="padding:40px 16px 0"] img{aspect-ratio:16/8!important}
+.d-sec{padding-left:max(32px,calc((100% - 860px)/2))!important;padding-right:max(32px,calc((100% - 860px)/2))!important}
+.d-sec h2{font-size:38px!important}
+.d-sec p{font-size:18px!important}
+.d-sec[aria-label="Shop with confidence"] div[style*="grid-template-columns:repeat(3"] span[style*="font-size:13px"]{font-size:15px!important}
+.d-form{padding-left:max(32px,calc((100% - 620px)/2))!important;padding-right:max(32px,calc((100% - 620px)/2))!important}
+.pg footer div[style="padding:0 16px"]{max-width:1200px;margin:0 auto;padding:0 32px!important;text-align:center}
+.pg footer nav[aria-label="Quick links"]{flex-direction:row!important;flex-wrap:wrap;justify-content:center;gap:0 36px}
+.rvs{clip-path:inset(119px 0 0 0)!important}
+.d-sec img[alt^="A family"]{max-width:560px;margin:0 auto}
+.d-sec>div[style*="padding:14px 0 0"]{max-width:620px;margin:0 auto}
+.d-sec h2[style*="margin:0 0 22px"]{text-align:center}
+.pg footer .rvt[style*="padding:26px 80px 0"]{padding-left:32px!important;padding-right:32px!important}
+.cta:hover,button:hover{filter:brightness(1.08)}
+a{transition:opacity .2s}
+}
 </style>
 </helmet>
-<div style="width:100%;max-width:428px;margin:0 auto;min-height:980px;box-sizing:border-box;background:#fff;color:#1d1b2b;font-family:'Manrope',sans-serif;position:relative;overflow:hidden">
+<div class="pg" style="width:100%;max-width:428px;margin:0 auto;min-height:980px;box-sizing:border-box;background:#fff;color:#1d1b2b;font-family:'Manrope',sans-serif;position:relative;overflow:hidden">
   <sc-if value="{{menuOpen}}" hint-placeholder-val="{{ false }}">
     <div style="position:fixed;left:0;top:0;right:0;bottom:0;z-index:100">
       <div onClick="{{closeMenu}}" style="position:absolute;inset:0;background:rgba(0,0,0,.55)"></div>
@@ -131,15 +177,15 @@ select{font-family:inherit}
     </button>
   </div>
 
-  <div style="display:{{homeDisp}}">
-  <div style="display:{{galDisp}}">
+  <div class="d-home" style="display:{{homeDisp}}">
+  <div class="d-gal" style="display:{{galDisp}}">
   <!-- product gallery -->
-  <div id="shop" class="noscroll" style="margin-top:0;display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-left:27px;padding:24px 27px 0;background:#0b0d09">
+  <div id="shop" class="noscroll d-shop" style="margin-top:0;display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-left:27px;padding:24px 27px 0;background:#0b0d09">
     <div style="position:relative;flex:none;width:calc(100% - 54px);aspect-ratio:1/1;border-radius:16px;overflow:hidden;scroll-snap-align:start"><img src="/_blob/d46936c8be3ce756d132d41845b70ca2" alt="MemoryOrb on a wooden table by a Christmas tree" style="display:block;width:100%;height:100%;object-fit:cover;object-position:60% 50%"><span style="position:absolute;left:14px;top:14px;width:36px;height:36px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 6px rgba(0,0,0,.2)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1d1b2b" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="10.500" cy="10.500" r="6.500"/><path d="M15.500 15.500L21 21M10.500 8v5M8 10.500h5"/></svg></span></div><div style="position:relative;flex:none;width:calc(100% - 54px);aspect-ratio:1/1;border-radius:16px;overflow:hidden;scroll-snap-align:start"><div style="width:100%;height:100%;background:#a8171f;display:flex;align-items:center;justify-content:center;font-size:13px;letter-spacing:.14em;color:rgba(255,255,255,.7)">[PRODUCT PHOTO]</div><span style="position:absolute;left:14px;top:14px;width:36px;height:36px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 6px rgba(0,0,0,.2)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1d1b2b" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="10.500" cy="10.500" r="6.500"/><path d="M15.500 15.500L21 21M10.500 8v5M8 10.500h5"/></svg></span></div><div style="position:relative;flex:none;width:calc(100% - 54px);aspect-ratio:1/1;border-radius:16px;overflow:hidden;scroll-snap-align:start"><div style="width:100%;height:100%;background:#14502a;display:flex;align-items:center;justify-content:center;font-size:13px;letter-spacing:.14em;color:rgba(255,255,255,.7)">[PRODUCT PHOTO]</div><span style="position:absolute;left:14px;top:14px;width:36px;height:36px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 6px rgba(0,0,0,.2)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1d1b2b" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="10.500" cy="10.500" r="6.500"/><path d="M15.500 15.500L21 21M10.500 8v5M8 10.500h5"/></svg></span></div>
   </div>
 
   </div>
-  <div style="display:{{infoDisp}}">
+  <div class="d-info" style="display:{{infoDisp}}">
   <!-- product info -->
   <div style="padding:22px 20px 36px;margin-top:0;background:#0b0d09;color:#fff;font-family:'Poppins','Manrope',sans-serif">
     <h1 style="margin:0;font-size:26px;font-weight:700;letter-spacing:.02em;line-height:1.2">MemoryOrb<sup style="font-size:11px;vertical-align:top;position:relative;top:4px">™</sup> – $59.99</h1>
@@ -159,7 +205,7 @@ select{font-family:inherit}
   </div>
 
   <!-- colour & outlet -->
-  <div id="colours" style="display:{{colDisp}};margin:0;padding:24px 28px 44px;background:#0b0d09;color:#fff">
+  <div id="colours" class="d-col" style="display:{{colDisp}};margin:0;padding:24px 28px 44px;background:#0b0d09;color:#fff">
   <div style="text-align:center">
       <div style="font-size:12px;letter-spacing:4px;font-weight:600;color:#f3d27a">CHOOSE YOUR EVERORB</div>
       <h2 style="margin:12px 0 0;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:36px;line-height:1.05">Same magic, different colours.</h2>
@@ -167,7 +213,7 @@ select{font-family:inherit}
     </div>
 
     <!-- colours -->
-    <div role="radiogroup" aria-label="Colour" style="margin-top:22px;display:flex;flex-wrap:wrap;justify-content:center;gap:10px 10px">
+    <div role="radiogroup" aria-label="Colour" class="d-swatches" style="margin-top:22px;display:flex;flex-wrap:wrap;justify-content:center;gap:10px 10px">
       <sc-for list="{{cColours}}" as="c" hint-placeholder-count="5">
         <button role="radio" aria-checked="{{c.checked}}" onClick="{{c.pick}}" style="all:unset;box-sizing:border-box;cursor:pointer;width:calc((100% - 20px) / 3);display:flex;flex-direction:column;align-items:center;gap:8px">
           <span style="position:relative;display:block;width:100%;aspect-ratio:1/1;border-radius:8px;overflow:hidden;box-sizing:border-box;border:2px solid {{c.border}};background:radial-gradient(circle at 30% 30%,#d9b48a 0,#7a5636 55%,#3a2a1c 100%)">
@@ -193,7 +239,7 @@ select{font-family:inherit}
     </div>
     <div style="margin-top:12px">
 
-  <div id="bundles" role="radiogroup" aria-label="Choose a bundle" style="padding:14px 0 0;display:flex;flex-direction:column;gap:10px">
+  <div id="bundles" class="d-bundles" role="radiogroup" aria-label="Choose a bundle" style="padding:14px 0 0;display:flex;flex-direction:column;gap:10px">
     <sc-for list="{{bundles}}" as="b" hint-placeholder-count="3">
       <div style="position:relative;border-radius:14px;border:2px solid {{b.borderColor}};background:{{b.bg}};padding:0 14px;box-sizing:border-box">
         <button role="radio" aria-checked="{{b.checked}}" onClick="{{b.pick}}" style="all:unset;box-sizing:border-box;display:flex;align-items:center;justify-content:space-between;width:100%;min-height:68px;cursor:pointer">
@@ -234,14 +280,14 @@ select{font-family:inherit}
     </sc-for>
   </div>
 
-  <div style="padding:14px 0 0">
+  <div class="d-buy" style="padding:14px 0 0">
     <button style="width:100%;height:58px;border:1px solid #f3d27a;border-radius:10px;background:#000;color:#fff;font-size:22px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;box-shadow:0 8px 20px rgba(0,0,0,.6),0 0 18px rgba(243,210,122,.18)">Get my MemoryOrb</button>
   </div>
 
         </div>
     </div>
   <!-- products page extra: story, trust, accordions, review, faq -->
-  <div style="display:{{prodDisp}};background:#0b0d09;overflow:hidden;color:#fff;font-family:'Poppins','Manrope',sans-serif">
+  <div class="d-prod" style="display:{{prodDisp}};background:#0b0d09;overflow:hidden;color:#fff;font-family:'Poppins','Manrope',sans-serif">
     <div style="margin:40px 16px 0;display:grid;grid-template-columns:repeat(3,1fr);gap:8px">
       <div style="display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#f3d27a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 018 0v3"/><circle cx="12" cy="15.500" r="1"/></svg><span style="font-size:15px;font-weight:700;letter-spacing:.06em;line-height:1.4">Secure Checkout</span></div>
       <div style="display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#f3d27a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v6c0 4.500-3 7.500-7 9-4-1.500-7-4.500-7-9V6z"/></svg><span style="font-size:15px;font-weight:700;letter-spacing:.06em;line-height:1.4">30-Day Guarantee</span></div>
@@ -279,7 +325,7 @@ select{font-family:inherit}
 
     <svg aria-hidden="true" viewBox="0 0 432 44" preserveAspectRatio="none" style="display:block;width:100%;height:56px;background:#0b0d09"><path d="M0 24C100 4 220 4 300 20C360 32 400 20 432 16V44H0Z" fill="#a3b39d" fill-opacity=".55"/><path d="M0 30C90 16 210 16 300 28C370 36 410 28 432 26V44H0Z" fill="#5f7a58" fill-opacity=".85"/><path d="M0 34C110 22 230 24 330 32C380 36 410 32 432 30V44H0Z" fill="#113a00"/><path d="M0 34C110 22 230 24 330 32C380 36 410 32 432 30" fill="none" stroke="#f1f6ee" stroke-width="3" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg>
 <!-- shop with confidence -->
-  <section aria-label="Shop with confidence" style="position:relative;overflow:hidden;margin-top:-1px;background:#113a00;padding:32px 16px 28px;font-family:'Poppins','Manrope',sans-serif;color:#fff;text-align:center">
+  <section class="d-sec" aria-label="Shop with confidence" style="position:relative;overflow:hidden;margin-top:-1px;background:#113a00;padding:32px 16px 28px;font-family:'Poppins','Manrope',sans-serif;color:#fff;text-align:center">
     <h2 style="margin:0;font-size:28px;font-weight:700;letter-spacing:.01em;line-height:1.25">Shop With Confidence</h2>
     <div style="width:40px;height:3px;border-radius:2px;background:#4fbf5a;margin:14px auto 0"></div>
     <div style="margin-top:28px;border:1px solid rgba(255,255,255,.28);border-radius:16px;padding:20px 18px;display:flex;align-items:center;gap:16px;text-align:left;background:#113a00;box-shadow:none">
@@ -308,7 +354,7 @@ select{font-family:inherit}
   <svg aria-hidden="true" viewBox="0 0 432 44" preserveAspectRatio="none" style="display:block;width:100%;height:56px;margin-top:-1px;transform:scaleY(-1);background:#0b0d09"><path d="M0 24C100 4 220 4 300 20C360 32 400 20 432 16V44H0Z" fill="#a3b39d" fill-opacity=".55"/><path d="M0 30C90 16 210 16 300 28C370 36 410 28 432 26V44H0Z" fill="#5f7a58" fill-opacity=".85"/><path d="M0 34C110 22 230 24 330 32C380 36 410 32 432 30V44H0Z" fill="#113a00"/><path d="M0 34C110 22 230 24 330 32C380 36 410 32 432 30" fill="none" stroke="#f1f6ee" stroke-width="3" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg>
 
   <!-- where memories take shape -->
-  <section style="padding:40px 16px 0;background:#0b0d09;font-family:'Poppins','Manrope',sans-serif;color:#fff">
+  <section class="d-sec" style="padding:40px 16px 0;background:#0b0d09;font-family:'Poppins','Manrope',sans-serif;color:#fff">
     <div style="position:relative"><img src="/_blob/a44a6f24bcf91873e9204fc5abe70cc2" alt="A family sharing a birthday moment, shown inside a round MemoryOrb lens" style="display:block;width:100%;aspect-ratio:1/1;object-fit:cover;mix-blend-mode:lighten;-webkit-mask-image:radial-gradient(circle closest-side,#000 82%,transparent 100%);mask-image:radial-gradient(circle closest-side,#000 82%,transparent 100%)"></div>
   </section>
 
@@ -317,7 +363,7 @@ select{font-family:inherit}
   <svg aria-hidden="true" viewBox="0 0 432 44" preserveAspectRatio="none" style="display:block;width:100%;height:56px;margin-top:-1px;background:#0b0d09"><path d="M0 24C100 4 220 4 300 20C360 32 400 20 432 16V44H0Z" fill="#a3b39d" fill-opacity=".55"/><path d="M0 30C90 16 210 16 300 28C370 36 410 28 432 26V44H0Z" fill="#5f7a58" fill-opacity=".85"/><path d="M0 34C110 22 230 24 330 32C380 36 410 32 432 30V44H0Z" fill="#113a00"/><path d="M0 34C110 22 230 24 330 32C380 36 410 32 432 30" fill="none" stroke="#f1f6ee" stroke-width="3" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg>
 
   <!-- why choose -->
-  <section style="padding:40px 16px 40px;background:#113a00;font-family:'Poppins','Manrope',sans-serif;color:#fff;text-align:center">
+  <section class="d-sec" style="padding:40px 16px 40px;background:#113a00;font-family:'Poppins','Manrope',sans-serif;color:#fff;text-align:center">
     <h2 style="margin:0;font-size:28px;font-weight:700;letter-spacing:.02em;line-height:1.25">Why Choose the MemoryOrb?</h2>
     <p style="margin:16px 4px 0;font-size:16px;line-height:1.75;letter-spacing:.04em;color:rgba(255,255,255,.88)">We designed the <b>MemoryOrb™</b> to stand apart. It's more than a gadget, it's a way to keep your most <b>core</b> moments close, in a form that feels timeless.</p>
     <div style="margin-top:36px;border:1px solid rgba(255,255,255,.22);border-radius:14px;overflow:hidden;background:rgba(0,0,0,.18);text-align:left">
@@ -351,7 +397,7 @@ select{font-family:inherit}
   </div>
 
   <!-- contact page -->
-  <div style="display:{{contactDisp}};background:linear-gradient(180deg,transparent 80%,#0b0d09 100%),radial-gradient(ellipse 70% 30% at 12% 24%,rgba(17,90,10,.55),transparent 70%),radial-gradient(ellipse 60% 26% at 92% 10%,rgba(243,210,122,.20),transparent 70%),radial-gradient(ellipse 80% 28% at 8% 92%,rgba(17,90,10,.5),transparent 72%),radial-gradient(ellipse 70% 24% at 95% 70%,rgba(243,210,122,.14),transparent 70%),#0b0d09;color:#fff;font-family:'Poppins','Manrope',sans-serif;padding:56px 20px 120px;min-height:max(560px,calc(100vh - 140px));box-sizing:border-box">
+  <div class="d-form" style="display:{{contactDisp}};background:linear-gradient(180deg,transparent 80%,#0b0d09 100%),radial-gradient(ellipse 70% 30% at 12% 24%,rgba(17,90,10,.55),transparent 70%),radial-gradient(ellipse 60% 26% at 92% 10%,rgba(243,210,122,.20),transparent 70%),radial-gradient(ellipse 80% 28% at 8% 92%,rgba(17,90,10,.5),transparent 72%),radial-gradient(ellipse 70% 24% at 95% 70%,rgba(243,210,122,.14),transparent 70%),#0b0d09;color:#fff;font-family:'Poppins','Manrope',sans-serif;padding:56px 20px 120px;min-height:max(560px,calc(100vh - 140px));box-sizing:border-box">
     <div style="display:flex;align-items:center;justify-content:center;gap:16px;font-size:15px;font-weight:600;letter-spacing:.3em;color:#d9b45f"><span style="width:38px;height:1px;background:#b8923f"></span>MEMORYORB<span style="width:38px;height:1px;background:#b8923f"></span></div>
     <h1 style="margin:20px 0 34px;text-align:center;font-family:'Cormorant Garamond',serif;font-weight:500;font-size:46px;line-height:1.1;color:#fff">Get in <em style="color:#f1d99a">touch</em></h1>
     <form onSubmit="{{sendContact}}" style="border:1px solid rgba(243,210,122,.28);border-radius:30px;background:#0d0f0a;padding:28px 24px 30px">
@@ -365,7 +411,7 @@ select{font-family:inherit}
   </div>
 
   <!-- tracking page -->
-  <div style="display:{{trackDisp}};background:linear-gradient(180deg,transparent 80%,#0b0d09 100%),radial-gradient(ellipse 70% 30% at 12% 24%,rgba(17,90,10,.55),transparent 70%),radial-gradient(ellipse 60% 26% at 92% 10%,rgba(243,210,122,.20),transparent 70%),radial-gradient(ellipse 80% 28% at 8% 92%,rgba(17,90,10,.5),transparent 72%),radial-gradient(ellipse 70% 24% at 95% 70%,rgba(243,210,122,.14),transparent 70%),#0b0d09;color:#fff;font-family:'Poppins','Manrope',sans-serif;padding:56px 20px 120px;min-height:max(560px,calc(100vh - 140px));box-sizing:border-box">
+  <div class="d-form" style="display:{{trackDisp}};background:linear-gradient(180deg,transparent 80%,#0b0d09 100%),radial-gradient(ellipse 70% 30% at 12% 24%,rgba(17,90,10,.55),transparent 70%),radial-gradient(ellipse 60% 26% at 92% 10%,rgba(243,210,122,.20),transparent 70%),radial-gradient(ellipse 80% 28% at 8% 92%,rgba(17,90,10,.5),transparent 72%),radial-gradient(ellipse 70% 24% at 95% 70%,rgba(243,210,122,.14),transparent 70%),#0b0d09;color:#fff;font-family:'Poppins','Manrope',sans-serif;padding:56px 20px 120px;min-height:max(560px,calc(100vh - 140px));box-sizing:border-box">
     <div style="display:flex;align-items:center;justify-content:center;gap:16px;font-size:15px;font-weight:600;letter-spacing:.3em;color:#d9b45f"><span style="width:38px;height:1px;background:#b8923f"></span>MEMORYORB<span style="width:38px;height:1px;background:#b8923f"></span></div>
     <h1 style="margin:20px 0 34px;text-align:center;font-family:'Cormorant Garamond',serif;font-weight:500;font-size:46px;line-height:1.1;color:#fff">Track your <em style="color:#f1d99a">order</em></h1>
     <div style="border:1px solid rgba(243,210,122,.28);border-radius:30px;background:#0d0f0a;padding:28px 24px 30px">
@@ -459,7 +505,7 @@ select{font-family:inherit}
     </svg>
   </div>
   <!-- the future is an orb -->
-  <section style="position:relative;z-index:3;padding:44px 20px 44px;font-family:'Poppins','Manrope',sans-serif;color:#fff">
+  <section class="d-sec" style="position:relative;z-index:3;padding:44px 20px 44px;font-family:'Poppins','Manrope',sans-serif;color:#fff">
     <h2 style="margin:0 0 22px;font-size:26px;font-weight:700;letter-spacing:.01em;line-height:1.25">The Future Is An Orb!</h2>
     <div style="display:flex;align-items:center;gap:18px;padding:18px 0;border-top:1px solid rgba(255,255,255,.14)">
       <svg width="68" height="68" viewBox="0 0 68 68" aria-hidden="true" style="flex:none;display:block"><circle cx="34" cy="34" r="29" fill="none" stroke="rgba(255,255,255,.16)" stroke-width="5"/><circle cx="34" cy="34" r="29" fill="none" stroke="#7fdc8a" stroke-width="5" stroke-linecap="round" pathLength="100" stroke-dasharray="90.5 9.5" transform="rotate(-90 34 34)"/><text x="34" y="39.500" text-anchor="middle" font-family="Poppins,Manrope,sans-serif" font-weight="700" font-size="16" fill="#fff">92%</text></svg>
