@@ -1125,6 +1125,13 @@ html:not(.js-rv) .panel{--pf:1}
 }
 .faq .wave.top{--sky:var(--ink-2)!important}
 .gar{display:none!important}
+/* tablet: smaller, better fitting contact form */
+.ct-form{max-width:460px;margin-inline:auto!important;padding:22px 22px 24px!important;border-radius:24px!important}
+.ct-form label{font-size:11px!important;letter-spacing:.2em!important;margin-bottom:8px!important}
+.ct-form label:not(:first-child){margin-top:16px!important}
+.ct-form .dcin{height:48px!important;font-size:15px!important;padding:0 16px!important;border-radius:12px!important}
+.ct-form textarea.dcin{height:112px!important;padding:13px 16px!important}
+.ct-form button[type=submit]{height:50px!important;margin-top:22px!important;font-size:15px!important;border-radius:12px!important}
 /* tablet: every main heading in the same serif style as "Why choose the MemoryOrb?" */
 .h2,.h2.serif{font-family:'Cormorant Garamond',Georgia,serif;font-weight:500;letter-spacing:-.015em;line-height:1.02;font-size:clamp(38px,7.6vw,64px)}
 .h2 em,.h2.serif em{font-size:1em;font-weight:500;color:var(--brass-hi)}
@@ -1519,7 +1526,7 @@ html:not(.js-rv) .panel{--pf:1}
     <div style="display:flex;justify-content:center"><span class="eyebrow c">MemoryOrb</span></div>
     <h1 style="margin:20px 0 14px;text-align:center;font-family:'Cormorant Garamond',serif;font-weight:500;font-size:46px;line-height:1.1;color:#fff">Get in <em style="color:#f1d99a">touch</em></h1>
     <p class="pg-sub" style="margin:0 auto 34px;font-family:'Manrope',system-ui,sans-serif">Have a question about MemoryOrb or need a hand? Send us a message and we will gladly help.</p>
-    <form onSubmit="{{sendContact}}" style="border:1px solid rgba(243,210,122,.28);border-radius:30px;background:#0d0f0a;padding:28px 24px 30px">
+    <form class="ct-form" onSubmit="{{sendContact}}" style="border:1px solid rgba(243,210,122,.28);border-radius:30px;background:#0d0f0a;padding:28px 24px 30px">
       <label style="display:block;margin:0 0 10px;font-size:13px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.55)">Name</label><input class="dcin" type="text" placeholder="Name" aria-label="Name" style="width:100%;height:58px;box-sizing:border-box;padding:0 20px;border:1px solid rgba(255,255,255,.14);border-radius:14px;background:#14160f;color:#fff;font:inherit;font-size:17px;outline:none">
       <label style="display:block;margin:0 0 10px;font-size:13px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-top:22px">Email</label><input class="dcin" type="email" placeholder="Email" aria-label="Email" style="width:100%;height:58px;box-sizing:border-box;padding:0 20px;border:1px solid rgba(255,255,255,.14);border-radius:14px;background:#14160f;color:#fff;font:inherit;font-size:17px;outline:none">
       <label style="display:block;margin:0 0 10px;font-size:13px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-top:22px">Phone number</label><input class="dcin" type="tel" placeholder="Phone number" aria-label="Phone number" style="width:100%;height:58px;box-sizing:border-box;padding:0 20px;border:1px solid rgba(255,255,255,.14);border-radius:14px;background:#14160f;color:#fff;font:inherit;font-size:17px;outline:none">
