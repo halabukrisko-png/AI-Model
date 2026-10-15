@@ -159,36 +159,81 @@ class Component extends DCLogic {
         if (reduce) onSettle();
       });
     } catch (e) {}
-    // gallery indicator (three bars, active one is longer and brighter)
+    // gallery: indicator bars + highlighted frame; on tablet an endless carousel with neighbour photos on both sides
     try {
       const gal = document.getElementById('gallery');
       const dots = document.querySelector('.gal-dots');
       if (gal && dots) {
+        const tab = () => !!(window.matchMedia && window.matchMedia('(min-width:640px) and (max-width:1099px)').matches);
+        const real = () => [...gal.querySelectorAll('.slide:not(.g-clone)')];
+        const vis = () => [...gal.querySelectorAll('.slide')].filter((x) => x.offsetWidth > 0);
+        const centerOf = (c) => c.offsetLeft + c.offsetWidth / 2 - gal.clientWidth / 2;
+        const nearest = () => {
+          const cs = vis(); let best = 0, bd = 1e9;
+          cs.forEach((c, i) => { const d = Math.abs(centerOf(c) - gal.scrollLeft); if (d < bd) { bd = d; best = i; } });
+          return best;
+        };
+        const jump = (left) => {
+          gal.style.scrollBehavior = 'auto'; gal.style.scrollSnapType = 'none';
+          gal.scrollLeft = left;
+          requestAnimationFrame(() => { gal.style.scrollBehavior = ''; gal.style.scrollSnapType = ''; });
+        };
+        const sync = () => {
+          const r = real(); const cl = gal.querySelectorAll('.g-clone');
+          if (r.length < 2 || cl.length < 2) return;
+          [[cl[0], r[r.length - 1]], [cl[1], r[0]]].forEach(([c, src]) => {
+            const a = c.querySelector('img'), b = src.querySelector('img');
+            if (a && b && a.getAttribute('src') !== b.getAttribute('src')) { a.setAttribute('src', b.getAttribute('src')); a.alt = b.alt; }
+            const ca = c.querySelector('.gcap'), cb = src.querySelector('.gcap');
+            if (ca && cb && ca.textContent !== cb.textContent) ca.textContent = cb.textContent;
+          });
+        };
+        const ensure = () => {
+          const r = real();
+          if (r.length < 2) return;
+          if (!gal.querySelector('.g-clone')) {
+            const mk = (src) => { const c = src.cloneNode(true); c.classList.remove('is-on'); c.classList.add('g-clone'); c.setAttribute('aria-hidden', 'true'); return c; };
+            gal.insertBefore(mk(r[r.length - 1]), r[0]);
+            gal.insertBefore(mk(r[0]), r[r.length - 1].nextSibling);
+            if (tab()) jump(centerOf(real()[0]));
+          }
+          sync();
+        };
         const upd = () => {
-          const sl = gal.querySelectorAll('.slide');
-          if (!sl.length) return;
-          const step = sl[1] ? sl[1].offsetLeft - sl[0].offsetLeft : gal.clientWidth;
-          const idx = Math.max(0, Math.min(sl.length - 1, Math.round(gal.scrollLeft / (step || 1))));
+          const cs = vis(); if (!cs.length) return;
+          const n = real().length; let idx;
+          if (tab() && gal.querySelector('.g-clone')) {
+            const b = nearest(); idx = b === 0 ? n - 1 : (b === n + 1 ? 0 : b - 1);
+            cs.forEach((x, i) => x.classList.toggle('is-on', i === b));
+          } else {
+            const step = cs[1] ? cs[1].offsetLeft - cs[0].offsetLeft : gal.clientWidth;
+            idx = Math.max(0, Math.min(cs.length - 1, Math.round(gal.scrollLeft / (step || 1))));
+            cs.forEach((x, i) => x.classList.toggle('is-on', i === idx));
+          }
           for (let i = 0; i < 3; i++) dots.style.setProperty('--o' + i, i === idx ? '1' : '.4');
-          sl.forEach((x, i) => x.classList.toggle('is-on', i === idx));
-                  };
-        gal.addEventListener('scroll', upd, { passive: true });
-        // re-apply the highlighted frame whenever the page re-renders the slides
-        try { new MutationObserver(upd).observe(gal, { subtree: true, childList: true, attributes: true, attributeFilter: ['class'] }); } catch (e) {}
-        window.addEventListener('load', upd);
-        setTimeout(upd, 300);
-        window.addEventListener('resize', upd);
+        };
+        let settle;
+        const onSettle = () => {
+          if (!tab()) return;
+          const cs = vis(); const n = cs.length - 2; if (n < 2) return; const b = nearest();
+          if (b === 0) jump(centerOf(cs[n])); else if (b === n + 1) jump(centerOf(cs[1]));
+          upd();
+        };
+        ensure();
+        gal.addEventListener('scroll', () => { upd(); clearTimeout(settle); settle = setTimeout(onSettle, 140); }, { passive: true });
+        // re-apply clones, photos and highlighted frame whenever the page re-renders the slides
+        try { new MutationObserver(() => { ensure(); upd(); }).observe(gal, { subtree: true, childList: true, attributes: true, attributeFilter: ['class', 'src'] }); } catch (e) {}
+        window.addEventListener('load', () => { ensure(); if (tab()) jump(centerOf(real()[0])); upd(); });
+        setTimeout(() => { ensure(); upd(); }, 300);
+        window.addEventListener('resize', () => { ensure(); if (tab() && gal.querySelector('.g-clone')) jump(centerOf(vis()[nearest()])); upd(); });
         document.addEventListener('click', (e) => {
           const b = e.target.closest && e.target.closest('.gal-arr');
-          if (!b) return;
-          const sl = gal.querySelectorAll('.slide');
-          const step = sl[1] ? sl[1].offsetLeft - sl[0].offsetLeft : gal.clientWidth;
-          const next = b.classList.contains('gal-next');
-          const idx = Math.round(gal.scrollLeft / (step || 1));
-          const behavior = reduce ? 'auto' : 'smooth';
-          if (next && idx >= sl.length - 1) gal.scrollTo({ left: 0, behavior });
-          else if (!next && idx <= 0) gal.scrollTo({ left: step * (sl.length - 1), behavior });
-          else gal.scrollBy({ left: next ? step : -step, behavior });
+          if (!b || !tab()) return;
+          ensure();
+          const cs = vis(); if (cs.length < 3) return;
+          const t = Math.max(0, Math.min(cs.length - 1, nearest() + (b.classList.contains('gal-next') ? 1 : -1)));
+          gal.scrollTo({ left: centerOf(cs[t]), behavior: reduce ? 'auto' : 'smooth' });
+          if (reduce) onSettle();
         });
         upd();
       }

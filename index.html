@@ -1185,6 +1185,17 @@ html:not(.js-rv) .panel{--pf:1}
 .lbx-x:focus-visible{outline:2px solid var(--brass-hi);outline-offset:3px}
 @media (prefers-reduced-motion:reduce){.lbx,.lbx figure{transition:none}}
 #gallery .slide img{cursor:zoom-in}
+/* tablet: the top photos are an endless carousel like the reviews (centered photo, faded neighbours both sides) */
+.g-clone{display:none!important}
+@media (min-width:640px) and (max-width:1099px){
+.g-clone{display:block!important}
+.hero-media{padding-inline:0!important;max-width:none!important;margin-inline:calc(var(--gutter)*-1)!important;width:auto!important}
+#gallery.gal{margin-inline:0!important;padding-inline:0!important;scroll-padding-inline:0!important;gap:20px;border-radius:0;-webkit-mask-image:linear-gradient(90deg,transparent 0,rgba(0,0,0,.06) calc((50% - 230px)*.15),rgba(0,0,0,.2) calc((50% - 230px)*.38),rgba(0,0,0,.42) calc((50% - 230px)*.62),rgba(0,0,0,.7) calc((50% - 230px)*.82),#000 calc(50% - 230px),#000 calc(50% + 230px),rgba(0,0,0,.7) calc(50% + 230px + (50% - 230px)*.18),rgba(0,0,0,.42) calc(50% + 230px + (50% - 230px)*.38),rgba(0,0,0,.2) calc(50% + 230px + (50% - 230px)*.62),rgba(0,0,0,.06) calc(50% + 230px + (50% - 230px)*.85),transparent 100%);mask-image:linear-gradient(90deg,transparent 0,rgba(0,0,0,.06) calc((50% - 230px)*.15),rgba(0,0,0,.2) calc((50% - 230px)*.38),rgba(0,0,0,.42) calc((50% - 230px)*.62),rgba(0,0,0,.7) calc((50% - 230px)*.82),#000 calc(50% - 230px),#000 calc(50% + 230px),rgba(0,0,0,.7) calc(50% + 230px + (50% - 230px)*.18),rgba(0,0,0,.42) calc(50% + 230px + (50% - 230px)*.38),rgba(0,0,0,.2) calc(50% + 230px + (50% - 230px)*.62),rgba(0,0,0,.06) calc(50% + 230px + (50% - 230px)*.85),transparent 100%)}
+#gallery.gal .slide{flex:0 0 440px!important;width:440px!important;scroll-snap-align:center!important}
+#gallery.gal::before,#gallery.gal::after{content:"";flex:0 0 calc(50% - 240px)}
+.gal-prev{left:14px!important}.gal-next{right:14px!important}
+}
+@media (min-width:640px) and (max-width:1099px){.hero .hero-grid,.hero.is-compact .hero-grid{grid-template-columns:minmax(0,1fr)!important}.hero-media{min-width:0}}
 /* gallery photo: highlighted frame on the current / tapped photo */
 @media (max-width:1099px){
 #gallery.gal{padding-block:14px;margin-block:-14px}
