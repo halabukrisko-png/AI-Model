@@ -553,6 +553,7 @@ section.details-sec.details-sec{padding-top:6px!important}
 .hero-copy .lead{max-width:none!important;white-space:nowrap;font-size:min(16px,3.7vw)!important}
 /* ---- cart ---- */
 .cart-btn{position:relative}
+.cart-btn[aria-current="page"]{color:var(--brass-hi);background:rgba(217,181,107,.14);box-shadow:inset 0 0 0 1px rgba(217,181,107,.55),0 0 16px -4px rgba(217,181,107,.5)}
 .cart-badge{position:absolute;top:5px;right:3px;min-width:18px;height:18px;padding:0 5px;border-radius:9px;display:grid;place-items:center;font-size:11px;font-weight:800;line-height:1;color:#1a1306;background:linear-gradient(180deg,var(--brass-hi),var(--brass));box-shadow:0 2px 8px rgba(0,0,0,.5)}
 .cart{max-width:640px;margin:0 auto}
 .cart-empty{display:flex;flex-direction:column;align-items:center;gap:16px;margin-top:26px;padding:34px 20px;text-align:center;border:1px dashed rgba(217,181,107,.35);border-radius:var(--r-lg);background:rgba(255,255,255,.02);color:var(--fg-2)}
@@ -1132,6 +1133,19 @@ html:not(.js-rv) .panel{--pf:1}
 .tr-card [role=tab]{height:44px!important;font-size:12px!important;letter-spacing:.12em!important;border-radius:11px!important}
 .tr-card form{margin-top:22px!important}
 .tr-card>p{font-size:14px!important}
+.cart{max-width:480px}
+.cart .cart-list{border-radius:22px;margin-top:22px}
+.cart .cart-item{gap:13px;padding:13px 15px}
+.cart .cart-sw{width:60px;height:60px;border-radius:15px}
+.cart .cart-name{font-size:15px}
+.cart .cart-sub{font-size:12px}
+.cart .cart-qty{margin-top:8px}
+.cart .cart-qty button{width:30px;height:30px;font-size:16px}
+.cart .cart-price{font-size:15.5px}
+.cart .cart-rm{padding:6px 10px;font-size:12px}
+.cart .cart-sum{font-size:15px}
+.cart .btn-block{min-height:50px!important;font-size:13px!important}
+.cart-empty{padding:28px 18px}
 .ct-form button[type=submit]{height:50px!important;margin-top:22px!important;font-size:15px!important;border-radius:12px!important}
 /* tablet: every main heading in the same serif style as "Why choose the MemoryOrb?" */
 .h2,.h2.serif{font-family:'Cormorant Garamond',Georgia,serif;font-weight:500;letter-spacing:-.015em;line-height:1.02;font-size:clamp(38px,7.6vw,64px)}
@@ -1209,7 +1223,7 @@ html:not(.js-rv) .panel{--pf:1}
         <a class="nav-link" href="#top" aria-current="{{curTrack}}" onClick="{{goTracking}}">Tracking</a>
       </nav>
       <div class="hdr-act">
-        <button class="icon-btn cart-btn" aria-label="Cart" onClick="{{goCart}}">
+        <button class="icon-btn cart-btn" aria-label="Cart" aria-current="{{curCart}}" onClick="{{goCart}}">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.500 3.500h2.800l2.400 11.500h11l2-8.200H6"/><circle cx="9.500" cy="19.800" r="1.300"/><circle cx="17" cy="19.800" r="1.300"/></svg>
           <span class="cart-badge" style="display:{{cartBadgeDisp}}">{{cartCount}}</span>
         </button>
@@ -2177,6 +2191,7 @@ class Component extends DCLogic {
       curHome: this.state.page === 'home' ? 'page' : 'false',
       curContact: this.state.page === 'contact' ? 'page' : 'false',
       curTrack: this.state.page === 'tracking' ? 'page' : 'false',
+      curCart: this.state.page === 'cart' ? 'page' : 'false',
       selOrder: this.state.tab === 0 ? 'true' : 'false',
       selTrack: this.state.tab === 1 ? 'true' : 'false',
       trackDisp: this.state.page === 'tracking' ? 'block' : 'none',
