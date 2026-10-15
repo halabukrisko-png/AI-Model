@@ -114,17 +114,36 @@ class Component extends DCLogic {
       };
       const jump = (left, target) => {
         qt.classList.add('nj');
-        if (target) all().forEach((x) => x.classList.toggle('is-on', x === target));
+        if (target) { all().forEach((x) => x.classList.toggle('is-on', x === target)); syncFrames(); }
         qt.style.scrollBehavior = 'auto'; qt.style.scrollSnapType = 'none';
         qt.scrollLeft = left;
         requestAnimationFrame(() => requestAnimationFrame(() => { qt.style.scrollBehavior = ''; qt.style.scrollSnapType = ''; qt.classList.remove('nj'); }));
       };
+      const qkey = (c) => { const n = c && c.querySelector('.by-n'); return n ? n.textContent : ''; };
+      let curKey = null, frAnim = 0;
+      const setPf = (c, v) => c.style.setProperty('--pf', String(v));
+      const syncFrames = () => {
+        const cs = all(); const on = cs.find((c) => c.classList.contains('is-on'));
+        if (!on) return;
+        const k = qkey(on);
+        if (k === curKey) { cs.forEach((c) => { if (c !== on) setPf(c, 0); }); if (!frAnim) setPf(on, 1); return; }
+        cs.forEach((c) => { if (c !== on) setPf(c, 0); });
+        const wrapJump = qt.classList.contains('nj');
+        curKey = k; cancelAnimationFrame(frAnim); frAnim = 0;
+        if (reduce || wrapJump) { setPf(on, 1); return; }
+        setPf(on, 0);
+        const T0 = performance.now(), DUR = 1500, ease = (x) => (x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2);
+        const step = (now) => { const kk = Math.min(1, (now - T0) / DUR); setPf(on, ease(kk).toFixed(3)); if (kk < 1) frAnim = requestAnimationFrame(step); else frAnim = 0; };
+        frAnim = requestAnimationFrame(step);
+      };
       const mark = () => {
         const cs = all(); const b = nearest();
         cs.forEach((c, i) => c.classList.toggle('is-on', i === b));
+        syncFrames();
       };
       const ensure = () => {
         const r = real();
+        r.forEach((c) => { if (!c.querySelector('.pframe')) c.insertAdjacentHTML('beforeend', '<span class="pframe" aria-hidden="true"><i></i></span><span class="pdot" aria-hidden="true"></span>'); });
         if (r.length < 3) return;
         if (!qt.querySelector('.q-clone')) {
           const n = r.length;
