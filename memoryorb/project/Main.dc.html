@@ -1060,7 +1060,7 @@ html:not(.js-rv) .panel{--pf:1}
 .gal-arr{display:none}
 @media (min-width:640px) and (max-width:1099px){
 .hero-media{padding-inline:64px;max-width:640px;margin-inline:auto;box-sizing:border-box}
-#gallery.gal{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;margin-inline:0;padding-inline:0;scroll-padding-inline:0;gap:12px}
+#gallery.gal{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;margin-inline:-14px;padding-inline:14px;scroll-padding-inline:14px;gap:16px}
 #gallery.gal .slide{flex:none;width:100%;aspect-ratio:1/1}
 .gal-dots{display:flex!important}
 #gallery.gal{border-radius:30px}
@@ -1087,6 +1087,13 @@ html:not(.js-rv) .panel{--pf:1}
 .sw-name{font-size:15px}
 .sw:hover .sw-art{transform:translateY(-6px);border-color:var(--brass-hi);box-shadow:0 0 0 1px var(--brass-hi),0 18px 34px -14px rgba(0,0,0,.9),0 0 26px -4px rgba(217,181,107,.55);filter:brightness(1.08)}
 .sw:hover .sw-name{color:var(--brass-hi)}
+}
+/* gallery photo: highlighted frame on the current / tapped photo */
+@media (max-width:1099px){
+#gallery.gal{padding-block:14px;margin-block:-14px}
+#gallery.gal .slide{transition:box-shadow .35s var(--ease),border-color .35s,transform .25s var(--ease)}
+#gallery.gal .slide.is-on{border-color:var(--brass-hi);box-shadow:0 0 0 2px var(--brass-hi),0 0 0 7px rgba(217,181,107,.16),0 30px 54px -26px rgba(0,0,0,.95),0 0 36px -6px rgba(217,181,107,.6)}
+#gallery.gal .slide:active{transform:scale(.985);border-color:var(--brass-hi);box-shadow:0 0 0 3px var(--brass-hi),0 0 0 9px rgba(217,181,107,.24),0 0 42px -4px rgba(217,181,107,.8)}
 }
 /* colour tiles: selected / tapped highlight, all widths */
 .sw:active .sw-art{transform:translateY(-2px) scale(.97);border-color:var(--brass-hi);box-shadow:0 0 0 2px var(--brass-hi),0 0 30px -2px rgba(217,181,107,.75)}
@@ -1724,6 +1731,7 @@ class Component extends DCLogic {
           const step = sl[1] ? sl[1].offsetLeft - sl[0].offsetLeft : gal.clientWidth;
           const idx = Math.max(0, Math.min(sl.length - 1, Math.round(gal.scrollLeft / (step || 1))));
           for (let i = 0; i < 3; i++) dots.style.setProperty('--o' + i, i === idx ? '1' : '.4');
+          sl.forEach((x, i) => x.classList.toggle('is-on', i === idx));
                   };
         gal.addEventListener('scroll', upd, { passive: true });
         window.addEventListener('resize', upd);
