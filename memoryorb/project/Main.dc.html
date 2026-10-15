@@ -296,6 +296,7 @@ html.is-scrolled .hdr-in{height:var(--hdr-s)}
 .buy-note{margin-top:16px;display:flex;justify-content:center;gap:18px;flex-wrap:wrap;font-size:12px;font-weight:600;color:var(--fg-3);letter-spacing:.02em}
 .buy-note span{display:inline-flex;align-items:center;gap:7px}
 .buy-note svg{color:var(--brass)}
+@media (max-width:480px){.buy-note{flex-wrap:nowrap;gap:0 10px;font-size:10.5px;letter-spacing:0;white-space:nowrap}.buy-note span{gap:5px}.buy-note span+span{padding-left:10px}.buy-note svg{width:12px;height:12px}}
 .buy-note span+span{position:relative;padding-left:20px}.buy-note span+span::before{content:"";position:absolute;left:0;top:50%;height:16px;width:1px;transform:translateY(-50%);background:linear-gradient(180deg,transparent,rgba(217,181,107,.6),transparent)}
 
 /* ---- trust (paper) ---- */
@@ -1416,6 +1417,7 @@ html.js-rv .stat.in:hover{transform:translateY(-3px)}
           <div class="buy-note">
             <span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 018 0v3"/></svg>Secure Checkout</span>
             <span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7z"/><circle cx="7" cy="17.500" r="1.800"/><circle cx="17" cy="17.500" r="1.800"/></svg>Free Shipping</span>
+            <span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v6c0 4.500-3 7.500-7 9-4-1.500-7-4.500-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg>30-Day Guarantee</span>
           </div>
         </div>
 </div>
@@ -1520,7 +1522,7 @@ html.js-rv .stat.in:hover{transform:translateY(-3px)}
           </sc-for>
 
         </div>
-        <button type="button" class="cart-add" style="display:{{cartAddDisp}}" onClick="{{cartAdd}}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>Add another colour</button>
+        <button type="button" class="cart-add" style="display:{{cartAddDisp}}" onClick="{{cartAdd}}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>Add another</button>
         <div class="cart-sum">
           <div><span>Subtotal</span><b>{{cartSub}}</b></div>
           <div><span>Shipping</span><b class="free-pill"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7"/><circle cx="7" cy="18" r="1.4"/><circle cx="17" cy="18" r="1.4"/></svg>Free</b></div>
