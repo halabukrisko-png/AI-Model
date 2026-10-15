@@ -125,20 +125,24 @@ class Component extends DCLogic {
       };
       const ensure = () => {
         const r = real();
-        if (r.length < 2) return;
+        if (r.length < 3) return;
         if (!qt.querySelector('.q-clone')) {
+          const n = r.length;
           const mk = (src) => { const c = src.cloneNode(true); c.classList.remove('rv', 'rv-s'); c.classList.add('q-clone', 'in'); c.setAttribute('aria-hidden', 'true'); c.removeAttribute('id'); return c; };
-          qt.insertBefore(mk(r[r.length - 1]), r[0]);
-          qt.insertBefore(mk(r[0]), r[r.length - 1].nextSibling);
+          qt.insertBefore(mk(r[n - 2]), r[0]);
+          qt.insertBefore(mk(r[n - 1]), r[0]);
+          const after = r[n - 1].nextSibling;
+          qt.insertBefore(mk(r[0]), after);
+          qt.insertBefore(mk(r[1]), after);
           if (tab()) jump(centerOf(real()[0]));
         }
       };
       let settle;
       const onSettle = () => {
         if (!tab()) return;
-        const cs = all(); const n = cs.length - 2; const b = nearest();
-        if (b === 0) jump(centerOf(cs[n]), cs[n]);
-        else if (b === n + 1) jump(centerOf(cs[1]), cs[1]);
+        const cs = all(); const n = cs.length - 4; if (n < 3) return; const b = nearest();
+        if (b <= 1) jump(centerOf(cs[b + n]), cs[b + n]);
+        else if (b >= n + 2) jump(centerOf(cs[b - n]), cs[b - n]);
         mark();
       };
       if (qt) {
@@ -154,7 +158,7 @@ class Component extends DCLogic {
         const b = e.target.closest && e.target.closest('.q-arr');
         if (!b || !qt) return;
         ensure();
-        const cs = all(); if (cs.length < 3) return;
+        const cs = all(); if (cs.length < 5) return;
         const idx = nearest(); const next = b.classList.contains('q-next');
         const t = Math.max(0, Math.min(cs.length - 1, idx + (next ? 1 : -1)));
         qt.scrollTo({ left: centerOf(cs[t]), behavior: reduce ? 'auto' : 'smooth' });
@@ -184,8 +188,9 @@ class Component extends DCLogic {
         };
         const sync = () => {
           const r = real(); const cl = gal.querySelectorAll('.g-clone');
-          if (r.length < 2 || cl.length < 2) return;
-          [[cl[0], r[r.length - 1]], [cl[1], r[0]]].forEach(([c, src]) => {
+          if (r.length < 3 || cl.length < 4) return;
+          const n = r.length;
+          [[cl[0], r[n - 2]], [cl[1], r[n - 1]], [cl[2], r[0]], [cl[3], r[1]]].forEach(([c, src]) => {
             const a = c.querySelector('img'), b = src.querySelector('img');
             if (a && b && a.getAttribute('src') !== b.getAttribute('src')) { a.setAttribute('src', b.getAttribute('src')); a.alt = b.alt; }
             const ca = c.querySelector('.gcap'), cb = src.querySelector('.gcap');
@@ -194,11 +199,15 @@ class Component extends DCLogic {
         };
         const ensure = () => {
           const r = real();
-          if (r.length < 2) return;
+          if (r.length < 3) return;
           if (!gal.querySelector('.g-clone')) {
+            const n = r.length;
             const mk = (src) => { const c = src.cloneNode(true); c.classList.remove('is-on'); c.classList.add('g-clone'); c.setAttribute('aria-hidden', 'true'); return c; };
-            gal.insertBefore(mk(r[r.length - 1]), r[0]);
-            gal.insertBefore(mk(r[0]), r[r.length - 1].nextSibling);
+            gal.insertBefore(mk(r[n - 2]), r[0]);
+            gal.insertBefore(mk(r[n - 1]), r[0]);
+            const after = r[n - 1].nextSibling;
+            gal.insertBefore(mk(r[0]), after);
+            gal.insertBefore(mk(r[1]), after);
             if (tab()) jump(centerOf(real()[0]));
           }
           sync();
@@ -207,7 +216,7 @@ class Component extends DCLogic {
           const cs = vis(); if (!cs.length) return;
           const n = real().length; let idx;
           if (tab() && gal.querySelector('.g-clone')) {
-            const b = nearest(); idx = b === 0 ? n - 1 : (b === n + 1 ? 0 : b - 1);
+            const b = nearest(); idx = (((b - 2) % n) + n) % n;
             cs.forEach((x, i) => x.classList.toggle('is-on', i === b));
           } else {
             const step = cs[1] ? cs[1].offsetLeft - cs[0].offsetLeft : gal.clientWidth;
@@ -219,8 +228,8 @@ class Component extends DCLogic {
         let settle;
         const onSettle = () => {
           if (!tab()) return;
-          const cs = vis(); const n = cs.length - 2; if (n < 2) return; const b = nearest();
-          if (b === 0) jump(centerOf(cs[n]), cs[n]); else if (b === n + 1) jump(centerOf(cs[1]), cs[1]);
+          const cs = vis(); const n = cs.length - 4; if (n < 3) return; const b = nearest();
+          if (b <= 1) jump(centerOf(cs[b + n]), cs[b + n]); else if (b >= n + 2) jump(centerOf(cs[b - n]), cs[b - n]);
           upd();
         };
         ensure();
@@ -234,7 +243,7 @@ class Component extends DCLogic {
           const b = e.target.closest && e.target.closest('.gal-arr');
           if (!b || !tab()) return;
           ensure();
-          const cs = vis(); if (cs.length < 3) return;
+          const cs = vis(); if (cs.length < 5) return;
           const t = Math.max(0, Math.min(cs.length - 1, nearest() + (b.classList.contains('gal-next') ? 1 : -1)));
           gal.scrollTo({ left: centerOf(cs[t]), behavior: reduce ? 'auto' : 'smooth' });
           if (reduce) onSettle();
