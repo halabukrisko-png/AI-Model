@@ -80,10 +80,7 @@ class Component extends DCLogic {
           const step = sl[1] ? sl[1].offsetLeft - sl[0].offsetLeft : gal.clientWidth;
           const idx = Math.max(0, Math.min(sl.length - 1, Math.round(gal.scrollLeft / (step || 1))));
           for (let i = 0; i < 3; i++) dots.style.setProperty('--o' + i, i === idx ? '1' : '.4');
-          const pv = document.querySelector('.gal-prev'), nx = document.querySelector('.gal-next');
-          if (pv) pv.disabled = idx <= 0;
-          if (nx) nx.disabled = idx >= sl.length - 1;
-        };
+                  };
         gal.addEventListener('scroll', upd, { passive: true });
         window.addEventListener('resize', upd);
         document.addEventListener('click', (e) => {
@@ -91,7 +88,12 @@ class Component extends DCLogic {
           if (!b) return;
           const sl = gal.querySelectorAll('.slide');
           const step = sl[1] ? sl[1].offsetLeft - sl[0].offsetLeft : gal.clientWidth;
-          gal.scrollBy({ left: b.classList.contains('gal-next') ? step : -step, behavior: reduce ? 'auto' : 'smooth' });
+          const next = b.classList.contains('gal-next');
+          const idx = Math.round(gal.scrollLeft / (step || 1));
+          const behavior = reduce ? 'auto' : 'smooth';
+          if (next && idx >= sl.length - 1) gal.scrollTo({ left: 0, behavior });
+          else if (!next && idx <= 0) gal.scrollTo({ left: step * (sl.length - 1), behavior });
+          else gal.scrollBy({ left: next ? step : -step, behavior });
         });
         upd();
       }
