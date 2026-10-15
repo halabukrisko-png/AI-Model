@@ -446,17 +446,11 @@ html:not(.js-rv) .stat .bar{stroke-dasharray:var(--v) 100}
 .btn-ghost{background:linear-gradient(180deg,rgba(217,181,107,.26),rgba(217,181,107,.04) 90%)}
 .btn-ghost:hover{background:linear-gradient(180deg,rgba(217,181,107,.36),rgba(217,181,107,.08) 90%)}
 .btn-ghost[aria-expanded="true"]{background:linear-gradient(180deg,rgba(217,181,107,.4),rgba(217,181,107,.1) 90%)}
-@keyframes descIn{0%{opacity:0;transform:translate3d(0,34px,0);clip-path:inset(0 0 100% 0)}100%{opacity:1;transform:none;clip-path:inset(0 0 0 0)}}
+@keyframes descIn{0%{opacity:0;transform:translate3d(0,40px,0)}100%{opacity:1;transform:translate3d(0,0,0)}}
 @keyframes descKid{0%{opacity:0;transform:translateY(22px)}100%{opacity:1;transform:none}}
 .descwrap.dh.out{animation:none;overflow:hidden;pointer-events:none}
-.descwrap.dh.out .details-sec .wrap>*{animation:none}
-.descwrap.dh{animation:descIn 1s cubic-bezier(.22,.8,.2,1) both}
-.descwrap.dh .details-sec .wrap>*{animation:descKid .8s cubic-bezier(.22,.8,.2,1) both}
-.descwrap.dh .details-sec .wrap>*:nth-child(1){animation-delay:.25s}
-.descwrap.dh .details-sec .wrap>*:nth-child(2){animation-delay:.38s}
-.descwrap.dh .details-sec .wrap>*:nth-child(3){animation-delay:.5s}
-.descwrap.dh .details-sec .wrap>*:nth-child(n+4){animation-delay:.6s}
-@media (prefers-reduced-motion:reduce){.descwrap.dh,.descwrap.dh .details-sec .wrap>*{animation:none}}
+.descwrap.dh{animation:descIn .9s cubic-bezier(.22,.8,.2,1) both;will-change:opacity,transform}
+@media (prefers-reduced-motion:reduce){.descwrap.dh{animation:none}}
 .descwrap.dh .dd-hero{display:none}
 .desc-close{display:none}
 .desc-close2{display:none}
@@ -648,6 +642,7 @@ html:not(.js-rv) .faq-frame{--pf:1}
 .faq .ac{transition:background var(--t-base)}
 .faq .ac:last-child{border-bottom:0}
 /* FAQ motion */
+.faq .ac,.details-sec .ac{contain:layout style}
 html,body{overflow-anchor:none}
 html.js-rv .faq .ac{opacity:0;transform:translate3d(0,28px,0);transition:opacity .8s cubic-bezier(.22,.8,.2,1),transform .8s cubic-bezier(.22,.8,.2,1),background .3s;will-change:opacity,transform}
 html.js-rv .faq .ac.in{opacity:1;transform:none}

@@ -412,25 +412,30 @@ class Component extends DCLogic {
       toggleProd: () => {
         if (this.state.page === 'home') {
           const open = !this.state.descOpen;
+          // cheap path: flip the DOM directly (the next full render agrees with it) instead of re-rendering the whole page
+          const quick = (isOpen, closing) => {
+            this.state.descOpen = isOpen; this.state.descClosing = !!closing; this.state.menu = false;
+            const w = document.querySelector('.descwrap');
+            if (w) { w.style.display = isOpen ? 'block' : 'none'; w.className = 'descwrap ' + (closing ? 'dh out' : 'dh'); }
+            document.querySelectorAll('.cta-stack .btn-ghost, .cta-stack .btn-ghost').forEach((b) => { const sp = b.querySelector('span'); if (sp && /description/i.test(sp.textContent)) { sp.textContent = (isOpen && !closing) ? 'Hide description' : 'View description'; b.setAttribute('aria-expanded', isOpen ? 'true' : 'false'); } });
+          };
           if (!open) {
             if (this.state.descClosing) return;
             const el = document.querySelector('.descwrap');
-            const done = () => this.setState({ descOpen: false, descClosing: false });
+            const done = () => quick(false, false);
             if (!el || !el.animate || window.matchMedia('(prefers-reduced-motion: reduce)').matches) { done(); return; }
-            this.setState({ descClosing: true, menu: false });
-            try { const c = document.querySelector('.cta-stack'); if (c) c.scrollIntoView({ behavior: 'smooth', block: 'center' }); } catch (x) {}
-            const h = el.getBoundingClientRect().height;
+            quick(true, true);
+            requestAnimationFrame(() => { try { const c = document.querySelector('.cta-stack'); if (c) c.scrollIntoView({ behavior: 'smooth', block: 'center' }); } catch (x) {} });
             const an = el.animate([
-              { height: h + 'px', opacity: 1, transform: 'translateY(0)', filter: 'blur(0px)' },
-              { opacity: .6, offset: .5, filter: 'blur(2px)' },
-              { height: '0px', opacity: 0, transform: 'translateY(-18px)', filter: 'blur(8px)' }
-            ], { duration: 750, easing: 'cubic-bezier(.55,.05,.25,1)', fill: 'forwards' });
+              { opacity: 1, transform: 'translate3d(0,0,0)' },
+              { opacity: 0, transform: 'translate3d(0,-26px,0)' }
+            ], { duration: 520, easing: 'cubic-bezier(.45,.05,.4,1)', fill: 'forwards' });
             let fin = false; const end = () => { if (fin) return; fin = true; try { an.cancel(); } catch (x) {} done(); };
             an.onfinish = end;
             return;
           }
-          this.setState({ descOpen: open, menu: false });
-          if (open) setTimeout(() => { try { const t = document.querySelector('.descwrap .details-sec'); if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' }); } catch (x) {} }, 80);
+          quick(true, false);
+          if (open) requestAnimationFrame(() => requestAnimationFrame(() => { try { const t = document.querySelector('.descwrap .details-sec'); if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' }); } catch (x) {} }));
           return;
         }
         this.setState({ page: 'products', menu: false }); try { window.scrollTo(0, 0); } catch (x) {}
