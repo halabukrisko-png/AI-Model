@@ -2058,8 +2058,10 @@ class Component extends DCLogic {
       contactBg: this.state.page === 'contact' ? 'rgba(255,255,255,.07)' : 'transparent',
       openSpecs: (e) => {
         try { e.preventDefault(); } catch (x) {}
-        this.setState({ page: 'products', menu: false });
-        // description page fades in (page transition), then Product Details opens smoothly and scrolls into place
+        const inline = this.state.page === 'home';
+        if (inline) { if (!this.state.descOpen) { const vb = [...document.querySelectorAll('.cta-stack .btn-ghost')].find((x) => /View description/i.test(x.textContent)); if (vb) vb.click(); } }
+        else this.setState({ page: 'products', menu: false });
+        // the description reveals itself (same animation as View description), then Product Details opens and scrolls into place
         setTimeout(() => {
           try {
             const sec = document.querySelector('.details-sec');
@@ -2070,7 +2072,7 @@ class Component extends DCLogic {
             if (!target.open) sm.click();
             setTimeout(() => { const r = sm.getBoundingClientRect(); window.scrollTo({ top: window.scrollY + r.top - 90, behavior: 'smooth' }); }, 120);
           } catch (x) {}
-        }, 650);
+        }, inline ? 1000 : 650);
       },
       faqCls: this.state.faqN === 1 ? 'f1' : this.state.faqN === 2 ? 'f2' : 'f3',
       faqMoreBtn: this.state.faqN < 3 ? 'inline-flex' : 'none',
