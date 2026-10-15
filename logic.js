@@ -543,6 +543,7 @@ class Component extends DCLogic {
       curContact: this.state.page === 'contact' ? 'page' : 'false',
       curTrack: this.state.page === 'tracking' ? 'page' : 'false',
       curCart: this.state.page === 'cart' ? 'page' : 'false',
+      statsCls: (this.state.page === 'home' || this.state.page === 'products') ? '' : 'st-sm',
       selOrder: this.state.tab === 0 ? 'true' : 'false',
       selTrack: this.state.tab === 1 ? 'true' : 'false',
       trackDisp: this.state.page === 'tracking' ? 'block' : 'none',
