@@ -1131,6 +1131,10 @@ html:not(.js-rv) .panel{--pf:1}
 .ct-form label:not(:first-child){margin-top:16px!important}
 .ct-form .dcin{height:48px!important;font-size:15px!important;padding:0 16px!important;border-radius:12px!important}
 .ct-form textarea.dcin{height:112px!important;padding:13px 16px!important}
+.tr-card [role=tablist]{padding:5px!important;border-radius:15px!important}
+.tr-card [role=tab]{height:44px!important;font-size:12px!important;letter-spacing:.12em!important;border-radius:11px!important}
+.tr-card form{margin-top:22px!important}
+.tr-card>p{font-size:14px!important}
 .ct-form button[type=submit]{height:50px!important;margin-top:22px!important;font-size:15px!important;border-radius:12px!important}
 /* tablet: every main heading in the same serif style as "Why choose the MemoryOrb?" */
 .h2,.h2.serif{font-family:'Cormorant Garamond',Georgia,serif;font-weight:500;letter-spacing:-.015em;line-height:1.02;font-size:clamp(38px,7.6vw,64px)}
@@ -1541,7 +1545,7 @@ html:not(.js-rv) .panel{--pf:1}
     <div style="display:flex;justify-content:center"><span class="eyebrow c">MemoryOrb</span></div>
     <h1 style="margin:20px 0 14px;text-align:center;font-family:'Cormorant Garamond',serif;font-weight:500;font-size:46px;line-height:1.1;color:#fff">Track your <em style="color:#f1d99a">order</em></h1>
     <p class="pg-sub" style="margin:0 auto 34px;font-family:'Manrope',system-ui,sans-serif">Enter your order or tracking number to see where your MemoryOrb is right now.</p>
-    <div style="border:1px solid rgba(243,210,122,.28);border-radius:30px;background:#0d0f0a;padding:28px 24px 30px">
+    <div class="ct-form tr-card" style="border:1px solid rgba(243,210,122,.28);border-radius:30px;background:#0d0f0a;padding:28px 24px 30px">
       <div role="tablist" style="display:flex;gap:6px;padding:6px;border:1px solid rgba(255,255,255,.12);border-radius:18px;background:#14160f">
         <button role="tab" onClick="{{tabOrder}}" style="flex:1;height:54px;border:1px solid {{tabOrderLine}};border-radius:13px;background:{{tabOrderBg}};font:inherit;font-size:14px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:{{tabOrderColor}};cursor:pointer">Order number</button>
         <button role="tab" onClick="{{tabTrack}}" style="flex:1;height:54px;border:1px solid {{tabTrackLine}};border-radius:13px;background:{{tabTrackBg}};font:inherit;font-size:14px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:{{tabTrackColor}};cursor:pointer">Tracking number</button>
