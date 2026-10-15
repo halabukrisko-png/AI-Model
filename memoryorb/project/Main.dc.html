@@ -1116,12 +1116,12 @@ html:not(.js-rv) .panel{--pf:1}
 .q-arr:hover{border-color:var(--brass-hi);background:linear-gradient(180deg,rgba(58,47,28,.98),rgba(24,19,12,.98))}
 .q-arr:active{transform:translateY(-50%) scale(.94)}
 .q-arr:focus-visible{outline:2px solid var(--brass-hi);outline-offset:3px}
-.q-track .quote::after{width:64px;opacity:.4;transition:width .8s var(--ease),opacity .6s,box-shadow .6s}
 .q-track .quote::before{transition:opacity .6s}
-.q-track .quote.is-on::after{width:78%;opacity:1;box-shadow:0 0 16px 1px rgba(242,219,163,.55)}
 .q-track .quote.is-on::before{opacity:.95}
 .q-track .quote{transition:border-color .6s,box-shadow .6s}
-.q-track .quote.is-on{border-color:rgba(242,219,163,.85);box-shadow:0 0 0 1px rgba(242,219,163,.28),0 14px 26px -14px rgba(0,0,0,.7),0 0 26px -8px rgba(217,181,107,.45)}
+.q-track .quote.is-on{border-color:#d9b56b;box-shadow:0 0 0 .5px #d9b56b,0 14px 26px -14px rgba(0,0,0,.7),0 0 14px -2px rgba(217,181,107,.35)}
+.q-track .quote::after{width:7px;height:7px;top:0;left:50%;transform:translate(-50%,-50%) rotate(45deg);background:linear-gradient(135deg,#f7e7bd,#c79a4a);box-shadow:0 0 10px 1px rgba(242,219,163,.55);opacity:0;transition:opacity .6s}
+.q-track .quote.is-on::after{width:7px;opacity:1;box-shadow:0 0 10px 1px rgba(242,219,163,.55)}
 .q-prev{left:14px}
 .q-next{right:14px}
 }
