@@ -510,16 +510,30 @@ class Component extends DCLogic {
     const bizRange = (a, b) => { const x = bizDay(a), y = bizDay(b); return x.slice(0, 3) === y.slice(0, 3) ? x + ' - ' + y.slice(4) : x + ' - ' + y; };
     const shipRange = (a, b) => { const x = shipDay(a), y = shipDay(b); return x.slice(0, 3) === y.slice(0, 3) ? x + ' - ' + y.slice(4) : x + ' - ' + y; };
     const money = (c) => '$' + Math.floor(c / 100) + '.' + String(c % 100).padStart(2, '0');
-    const cartLines = this.state.cart;
+    // cart: one line per colour (qty each); pair / collection prices apply by the total number of orbs
+    const cartLines = (this.state.cart || []).filter((l) => l && l.qty > 0).slice().sort((a, b) => a.colour - b.colour);
+    const cartN = cartLines.reduce((a, l) => a + l.qty, 0);
+    const cartUnit = cartN >= 3 ? 5699 : (cartN === 2 ? 5819 : 5999);
+    const setCart = (next) => this.setState({ cart: next, cnote: false });
+    const moveColour = (from, to) => {
+      if (from === to) return;
+      const merged = {};
+      cartLines.forEach((l) => { const c = l.colour === from ? to : l.colour; merged[c] = (merged[c] || 0) + l.qty; });
+      setCart(Object.keys(merged).map((c) => ({ colour: +c, qty: merged[c] })));
+    };
     const cartItems = cartLines.map((l, i) => ({
-      name: (l.colours || [l.colour]).map((c) => cs[c].name).join(' + '), color: cs[l.colour].color,
-      sub: (l.n === 1 ? 'Single' : l.n === 2 ? 'Pair' : 'Collection') + ' · ' + l.n + (l.n === 1 ? ' orb' : ' orbs'),
-      qty: l.qty, price: money(Math.round(l.unit * l.qty)),
-      inc: () => this.setState({ cart: cartLines.map((x, j) => (j === i ? { ...x, qty: x.qty + 1 } : x)) }),
-      dec: () => this.setState({ cart: cartLines.map((x, j) => (j === i ? { ...x, qty: Math.max(1, x.qty - 1) } : x)) }),
-      remove: () => this.setState({ cart: cartLines.filter((x, j) => j !== i) })
+      name: cs[l.colour].name, color: cs[l.colour].color, photo: cs[l.colour].photo,
+      sub: money(cartUnit) + ' each',
+      qty: l.qty, price: money(cartUnit * l.qty),
+      inc: () => setCart(cartLines.map((x, j) => (j === i ? { ...x, qty: x.qty + 1 } : x))),
+      dec: () => setCart(cartLines.map((x, j) => (j === i ? { ...x, qty: Math.max(1, x.qty - 1) } : x))),
+      remove: () => setCart(cartLines.filter((x, j) => j !== i)),
+      swatches: cs.map((c, k) => ({ name: c.name, color: c.color, checked: k === l.colour ? 'true' : 'false', cur: k === l.colour ? 'on' : '', pick: () => moveColour(l.colour, k) }))
     }));
-    const cartTotalCents = cartLines.reduce((a, l) => a + Math.round(l.unit * l.qty), 0);
+    const freeColour = cs.findIndex((c, k) => !cartLines.some((l) => l.colour === k));
+    const cartAddDisp = freeColour >= 0 ? 'flex' : 'none';
+    const cartAdd = () => { if (freeColour >= 0) setCart(cartLines.concat([{ colour: freeColour, qty: 1 }])); };
+    const cartTotalCents = cartUnit * cartN;
     const cartCountN = cartLines.reduce((a, l) => a + l.qty, 0);
     const cents = 5999 * this.state.qty;
     const ctaTotal = '$' + Math.floor(cents / 100) + '.' + String(cents % 100).padStart(2, '0');
@@ -729,7 +743,7 @@ class Component extends DCLogic {
       accountDisp: this.state.page === 'account' ? 'block' : 'none',
       shipD1: shipDay(0), shipD2: bizRange(1, 3), shipD3: shipRange(10, 12),
       cartDisp: this.state.page === 'cart' ? 'block' : 'none',
-      cartItems, cartSub: money(cartTotalCents), cartCount: cartCountN, cartBadgeDisp: cartCountN > 0 ? 'grid' : 'none',
+      cartItems, cartAdd, cartAddDisp, cartSub: money(cartTotalCents), cartCount: cartCountN, cartBadgeDisp: cartCountN > 0 ? 'grid' : 'none',
       cartEmptyDisp: cartLines.length ? 'none' : 'flex', cartFullDisp: cartLines.length ? 'block' : 'none',
       cartNoteDisp: this.state.cnote ? 'flex' : 'none',
       cartCheckout: () => this.setState({ cnote: true }),
@@ -745,10 +759,10 @@ class Component extends DCLogic {
           setTimeout(() => { try { const m = document.querySelector('.bundle-row.is-miss'); if (m) m.scrollIntoView({ behavior: 'smooth', block: 'center' }); } catch (x) {} }, 50);
           return;
         }
-        const unit = totals[n - 1] / n;
-        const key = colours.join(',');
-        const ex = cartLines.findIndex((l) => (l.colours || [l.colour]).join(',') === key && l.n === n);
-        const next = ex >= 0 ? cartLines.map((l, j) => (j === ex ? { ...l, qty: l.qty + 1 } : l)) : cartLines.concat([{ colour: this.state.colour, colours, n, qty: 1, unit: unit * n }]);
+        const merged = {};
+        (this.state.cart || []).forEach((l) => { merged[l.colour] = (merged[l.colour] || 0) + l.qty; });
+        colours.forEach((c) => { merged[c] = (merged[c] || 0) + 1; });
+        const next = Object.keys(merged).map((c) => ({ colour: +c, qty: merged[c] }));
         this.setState({ cart: next, page: 'cart', cnote: false }); try { window.scrollTo(0, 0); } catch (x) {}
       },
       userName: this.state.user ? this.state.user.name : '', userInit: this.state.user ? this.state.user.name.charAt(0).toUpperCase() : '', userMail: this.state.user ? this.state.user.mail : '',

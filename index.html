@@ -1140,12 +1140,10 @@ html:not(.js-rv) .panel{--pf:1}
 .tr-card [role=tab]{height:44px!important;font-size:12px!important;letter-spacing:.12em!important;border-radius:11px!important}
 .tr-card form{margin-top:22px!important}
 .tr-card>p{font-size:14px!important}
-.cart .pg-perks{flex-wrap:nowrap;gap:0 14px;font-size:11.5px;white-space:nowrap}
-.cart .pg-perks span+span{padding-left:14px}
 .cart{max-width:520px}
 .cart .cart-list{border-radius:22px;margin-top:22px}
 .cart .cart-item{gap:13px;padding:13px 15px}
-.cart .cart-sw{width:60px;height:60px;border-radius:15px}
+.cart .cart-sw{width:72px;height:72px;border-radius:16px}
 .cart .cart-name{font-size:15px}
 .cart .cart-sub{font-size:12px}
 .cart .cart-qty{margin-top:8px}
@@ -1175,6 +1173,21 @@ html.js-rv .stat{opacity:0;transform:translate3d(0,30px,0) scale(.97);transition
 html.js-rv .stat.in{opacity:1;transform:none}
 html.js-rv .stat.in:hover{transform:translateY(-3px)}
 @media (prefers-reduced-motion:reduce){html.js-rv .stat{opacity:1;transform:none;transition:none}}
+/* cart rows: product photos, colour change dots, add another colour */
+.cart-sw{background:#0f0d09}
+.cart-sw img{display:block;width:100%;height:100%;object-fit:cover}
+.cart-cols{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}
+.cart-dot{width:20px;height:20px;padding:0;border-radius:50%;border:1px solid rgba(255,255,255,.28);background:var(--c);cursor:pointer;transition:transform .2s,box-shadow .2s,border-color .2s}
+.cart-dot:hover{transform:scale(1.12)}
+.cart-dot.on{border-color:var(--brass-hi);box-shadow:0 0 0 2px #0a0907,0 0 0 3.5px var(--brass-hi)}
+.cart-dot:focus-visible{outline:2px solid var(--brass-hi);outline-offset:3px}
+.cart-add{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;box-sizing:border-box;margin-top:12px;min-height:46px;border:1px dashed rgba(217,181,107,.5);border-radius:14px;background:rgba(217,181,107,.05);color:var(--brass-hi);font:inherit;font-size:14px;font-weight:600;letter-spacing:.04em;cursor:pointer;transition:background .25s,border-color .25s}
+.cart-add:hover{background:rgba(217,181,107,.12);border-color:var(--brass-hi)}
+.cart-add{margin-bottom:6px}
+/* 4 reassurance items in the product frame */
+.trio{grid-template-columns:repeat(2,1fr);row-gap:18px}
+.trio>div:nth-child(odd){border-left:0}
+@media (min-width:640px){.trio{grid-template-columns:repeat(4,1fr);row-gap:0}.trio>div:nth-child(odd){border-left:1px solid var(--line)}.trio>div:first-child{border-left:0}}
 /* empty cart state, all widths */
 .cart-empty{position:relative;gap:10px;margin-top:24px;padding:34px 24px 32px;border:1px solid rgba(217,181,107,.3);border-radius:24px;background:radial-gradient(80% 70% at 50% 0%,rgba(217,181,107,.13),transparent 70%),linear-gradient(180deg,rgba(255,255,255,.04),rgba(0,0,0,.2));box-shadow:0 24px 44px -26px rgba(0,0,0,.9),inset 0 1px 0 rgba(242,219,163,.1)}
 .cart-empty::before{content:"";position:absolute;left:50%;top:0;width:90px;height:2px;transform:translate(-50%,-1px);background:linear-gradient(90deg,transparent,var(--brass-hi),transparent)}
@@ -1325,6 +1338,7 @@ html.js-rv .stat.in:hover{transform:translateY(-3px)}
           <div><span class="t-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 018 0v3"/><circle cx="12" cy="15.500" r="1"/></svg></span>Secure Checkout</div>
           <div><span class="t-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v6c0 4.500-3 7.500-7 9-4-1.500-7-4.500-7-9V6z"/></svg></span>30-Day Guarantee</div>
           <div><span class="t-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7z"/><circle cx="7" cy="17.500" r="1.800"/><circle cx="17" cy="17.500" r="1.800"/></svg></span>Free Shipping</div>
+          <div><span class="t-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v6c0 4.500-3 7.500-7 9-4-1.500-7-4.500-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg></span>Damage Protection</div>
         </div>
         <div class="faq-more desc-close2"><button type="button" class="btn btn-ghost" onClick="{{toggleProd}}"><span>Close description</span><svg class="arr" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 15l6-6 6 6"/></svg></button></div>
       </div>
@@ -1491,10 +1505,15 @@ html.js-rv .stat.in:hover{transform:translateY(-3px)}
         <div class="cart-list">
           <sc-for list="{{cartItems}}" as="ci">
             <div class="cart-item">
-              <span class="cart-sw sw-art" style="--c:{{ci.color}}"><i class="cap"></i><i class="ball"></i><i class="lens"></i></span>
+              <span class="cart-sw"><img decoding="async" src="{{ci.photo}}" alt="MemoryOrb {{ci.name}}"></span>
               <div class="cart-info">
                 <div class="cart-name">MemoryOrb<sup class="tm">™</sup> <em>{{ci.name}}</em></div>
                 <div class="cart-sub">{{ci.sub}}</div>
+                <div class="cart-cols" role="radiogroup" aria-label="Change colour">
+                  <sc-for list="{{ci.swatches}}" as="sw" hint-placeholder-count="6">
+                    <button type="button" role="radio" class="cart-dot {{sw.cur}}" aria-checked="{{sw.checked}}" aria-label="{{sw.name}}" title="{{sw.name}}" style="--c:{{sw.color}}" onClick="{{sw.pick}}"></button>
+                  </sc-for>
+                </div>
                 <div class="cart-qty" role="group" aria-label="Quantity">
                   <button type="button" aria-label="Decrease" onClick="{{ci.dec}}">−</button><b>{{ci.qty}}</b><button type="button" aria-label="Increase" onClick="{{ci.inc}}">+</button>
                 </div>
@@ -1502,7 +1521,9 @@ html.js-rv .stat.in:hover{transform:translateY(-3px)}
               <div class="cart-side"><div class="cart-price">{{ci.price}}</div><button type="button" class="cart-rm" aria-label="Delete item" onClick="{{ci.remove}}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg><span>Delete</span></button></div>
             </div>
           </sc-for>
+
         </div>
+        <button type="button" class="cart-add" style="display:{{cartAddDisp}}" onClick="{{cartAdd}}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>Add another colour</button>
         <div class="cart-sum">
           <div><span>Subtotal</span><b>{{cartSub}}</b></div>
           <div><span>Shipping</span><b class="free-pill"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7"/><circle cx="7" cy="18" r="1.4"/><circle cx="17" cy="18" r="1.4"/></svg>Free</b></div>
@@ -1511,7 +1532,7 @@ html.js-rv .stat.in:hover{transform:translateY(-3px)}
         <button type="button" class="btn btn-primary btn-lg btn-block" onClick="{{cartCheckout}}">Checkout</button>
         <p class="notice" style="display:{{cartNoteDisp}}">This is a preview. Checkout is not connected yet.</p>
         <a class="pg-link" href="#top" style="display:block;text-align:center;margin-top:26px;border:0" onClick="{{goShop}}">Continue shopping</a>
-        <div class="pg-perks"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 018 0v3"/></svg>Secure checkout</span><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7"/><circle cx="7" cy="18" r="1.6"/><circle cx="17" cy="18" r="1.6"/></svg>Free shipping</span><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v5c0 5-3 8-7 10-4-2-7-5-7-10V6z"/><path d="M9 12l2 2 4-4"/></svg>30-day guarantee</span><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v5c0 4.500-3 8-7 10-4-2-7-5.500-7-10V6z"/><path d="M9 12l2 2 4-4"/></svg>Damage protection</span></div>
+        <div class="pg-perks"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 018 0v3"/></svg>Secure checkout</span><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7"/><circle cx="7" cy="18" r="1.6"/><circle cx="17" cy="18" r="1.6"/></svg>Free shipping</span><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v5c0 5-3 8-7 10-4-2-7-5-7-10V6z"/><path d="M9 12l2 2 4-4"/></svg>30-day guarantee</span></div>
       </div>
     </div>
   </div>
@@ -1580,6 +1601,7 @@ html.js-rv .stat.in:hover{transform:translateY(-3px)}
           <div><span class="t-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 018 0v3"/><circle cx="12" cy="15.500" r="1"/></svg></span>Secure Checkout</div>
           <div><span class="t-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v6c0 4.500-3 7.500-7 9-4-1.500-7-4.500-7-9V6z"/></svg></span>30-Day Guarantee</div>
           <div><span class="t-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7z"/><circle cx="7" cy="17.500" r="1.800"/><circle cx="17" cy="17.500" r="1.800"/></svg></span>Free Shipping</div>
+          <div><span class="t-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v6c0 4.500-3 7.500-7 9-4-1.500-7-4.500-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg></span>Damage Protection</div>
         </div>
       </div>
     </section>
