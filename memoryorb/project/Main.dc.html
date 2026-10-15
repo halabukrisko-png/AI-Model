@@ -1145,7 +1145,6 @@ html:not(.js-rv) .panel{--pf:1}
 .cart .cart-rm{padding:6px 10px;font-size:12px}
 .cart .cart-sum{font-size:15px}
 .cart .btn-block{min-height:50px!important;font-size:13px!important}
-.cart-empty{padding:28px 18px}
 .ct-form button[type=submit]{height:50px!important;margin-top:22px!important;font-size:15px!important;border-radius:12px!important}
 /* tablet: every main heading in the same serif style as "Why choose the MemoryOrb?" */
 .h2,.h2.serif{font-family:'Cormorant Garamond',Georgia,serif;font-weight:500;letter-spacing:-.015em;line-height:1.02;font-size:clamp(38px,7.6vw,64px)}
@@ -1162,6 +1161,14 @@ html:not(.js-rv) .panel{--pf:1}
 .faq .faq-frame,.faq .faq-more{max-width:600px;margin-inline:auto}
 .faq .faq-more{margin-top:20px}
 }
+/* empty cart state, all widths */
+.cart-empty{position:relative;gap:10px;margin-top:24px;padding:34px 24px 32px;border:1px solid rgba(217,181,107,.3);border-radius:24px;background:radial-gradient(80% 70% at 50% 0%,rgba(217,181,107,.13),transparent 70%),linear-gradient(180deg,rgba(255,255,255,.04),rgba(0,0,0,.2));box-shadow:0 24px 44px -26px rgba(0,0,0,.9),inset 0 1px 0 rgba(242,219,163,.1)}
+.cart-empty::before{content:"";position:absolute;left:50%;top:0;width:90px;height:2px;transform:translate(-50%,-1px);background:linear-gradient(90deg,transparent,var(--brass-hi),transparent)}
+.cart-empty .acct-ico.big{width:72px;height:72px;margin-bottom:6px;border-color:rgba(217,181,107,.55);background:radial-gradient(circle at 50% 35%,rgba(217,181,107,.22),rgba(217,181,107,.05));box-shadow:0 0 0 7px rgba(217,181,107,.06),0 0 30px -6px rgba(217,181,107,.5)}
+.cart-empty .acct-ico.big svg{width:30px;height:30px}
+.cart-empty .ce-t{font-family:'Cormorant Garamond',Georgia,serif;font-weight:500;font-size:32px;line-height:1.1;letter-spacing:-.01em;color:var(--fg)}
+.cart-empty .ce-t em{font-style:italic;color:var(--brass-hi)}
+.cart-empty p{font-size:15px;color:var(--fg-2);max-width:30ch;margin:0 auto 10px}
 /* photo viewer: tap a gallery photo to see it large, with a close button */
 .lbx{position:fixed;inset:0;z-index:300;display:flex;align-items:center;justify-content:center;padding:max(56px,env(safe-area-inset-top)) 18px max(28px,env(safe-area-inset-bottom));background:rgba(6,5,4,.9);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);opacity:0;transition:opacity .28s ease}
 .lbx.on{opacity:1}
@@ -1448,7 +1455,8 @@ html:not(.js-rv) .panel{--pf:1}
       <p class="pg-sub">Review your MemoryOrbs, adjust the quantity and check out when you are ready.</p>
       <div class="cart-empty" style="display:{{cartEmptyDisp}}">
         <span class="acct-ico big"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.500 3.500h2.800l2.400 11.500h11l2-8.200H6"/><circle cx="9.500" cy="19.800" r="1.300"/><circle cx="17" cy="19.800" r="1.300"/></svg></span>
-        <p>Your cart is empty. Pick the MemoryOrb that fits your story.</p>
+        <h2 class="ce-t">Your cart is <em>empty</em></h2>
+        <p>Pick the MemoryOrb that fits your story.</p>
         <a class="btn btn-primary btn-lg" href="#top" onClick="{{goShop}}">Shop the collection</a>
       </div>
       <div style="display:{{cartFullDisp}}">
