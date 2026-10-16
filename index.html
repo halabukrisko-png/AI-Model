@@ -184,7 +184,7 @@ html.is-scrolled .hdr-in{height:var(--hdr-s)}
 /* ---- hero ---- */
 .hero{position:relative;padding:32px 0 calc(var(--section)*.2)}
 .hero-bg{position:absolute;inset:-200px 0 0;pointer-events:none;overflow:hidden}
-.bokeh{position:absolute;border-radius:50%;will-change:transform}
+.bokeh{position:absolute;border-radius:50%}
 .bokeh.b1{width:260px;height:260px;right:-60px;top:260px;background:radial-gradient(closest-side,rgba(217,181,107,.22),transparent);animation:drift 11s ease-in-out infinite alternate}
 .bokeh.b2{width:200px;height:200px;left:-70px;top:640px;background:radial-gradient(closest-side,rgba(40,110,60,.3),transparent);animation:drift 14s ease-in-out -4s infinite alternate}
 .bokeh.b3{width:90px;height:90px;right:22%;top:560px;background:radial-gradient(closest-side,rgba(232,90,70,.16),transparent);animation:drift 9s ease-in-out -2s infinite alternate}
@@ -449,7 +449,7 @@ html:not(.js-rv) .stat .bar{stroke-dasharray:var(--v) 100}
 @keyframes descIn{0%{opacity:0;transform:translate3d(0,40px,0)}100%{opacity:1;transform:translate3d(0,0,0)}}
 @keyframes descKid{0%{opacity:0;transform:translateY(22px)}100%{opacity:1;transform:none}}
 .descwrap.dh.out{animation:none;overflow:hidden;pointer-events:none}
-.descwrap.dh{animation:descIn .9s cubic-bezier(.22,.8,.2,1) both;will-change:opacity,transform}
+.descwrap.dh{animation:descIn .9s cubic-bezier(.22,.8,.2,1) both}
 @media (prefers-reduced-motion:reduce){.descwrap.dh{animation:none}}
 .descwrap.dh .dd-hero{display:none}
 .desc-close{display:none}
@@ -644,7 +644,7 @@ html:not(.js-rv) .faq-frame{--pf:1}
 /* FAQ motion */
 .faq .ac,.details-sec .ac{contain:layout style}
 html,body{overflow-anchor:none}
-html.js-rv .faq .ac{opacity:0;transform:translate3d(0,28px,0);transition:opacity .8s cubic-bezier(.22,.8,.2,1),transform .8s cubic-bezier(.22,.8,.2,1),background .3s;will-change:opacity,transform}
+html.js-rv .faq .ac{opacity:0;transform:translate3d(0,28px,0);transition:opacity .8s cubic-bezier(.22,.8,.2,1),transform .8s cubic-bezier(.22,.8,.2,1),background .3s}
 html.js-rv .faq .ac.in{opacity:1;transform:none}
 html.js-rv .faq .ac.in.out{opacity:0;transform:translate3d(-26px,0,0);transition:opacity .55s cubic-bezier(.5,0,.3,1),transform .6s cubic-bezier(.5,0,.2,1)}
 html.js-rv .faq .faq-intro,html.js-rv .faq .sec-head{transition:opacity 1s,transform 1s}
@@ -823,7 +823,7 @@ html.js-rv .lens-stage.rvt.in{transform:none}
 @keyframes garFall{0%{opacity:0;transform:translate3d(0,-70px,0) rotate(-4deg)}30%{opacity:1}100%{opacity:1;transform:translate3d(0,-1px,0) rotate(-1.6deg)}}
 .gar{transform-origin:100% 0;animation:garSwing 3.2s ease-in-out infinite alternate}
 html.js-rv .gar:not(.fall){opacity:0;animation:none}
-html.js-rv .gar.fall{opacity:1;will-change:transform;animation:garFall 2.2s cubic-bezier(.16,.84,.3,1) both,garSwing 3.6s ease-in-out 2.2s infinite alternate}
+html.js-rv .gar.fall{opacity:1;animation:garFall 2.2s cubic-bezier(.16,.84,.3,1) both,garSwing 3.6s ease-in-out 2.2s infinite alternate}
 @keyframes garSwing{0%{transform:translate3d(0,-1px,0) rotate(-1.6deg)}100%{transform:translate3d(0,3px,0) rotate(1.6deg)}}
 footer h2,footer p,footer nav a{text-shadow:0 2px 7px rgba(0,0,0,.6)}
 @media (min-width:900px){.hero-grid{align-items:start}.hero-copy{padding-top:0}.foot-grid{grid-template-columns:1fr 1fr}.hero.is-compact .hero-grid{grid-template-columns:minmax(0,760px)}}
@@ -941,7 +941,7 @@ footer h2,footer p,footer nav a{text-shadow:0 2px 7px rgba(0,0,0,.6)}
 
 /* ---- scroll-triggered champagne underline under "MemoryOrb™" (plays once) ---- */
 .mo-ul{position:relative}
-.mo-ul::after{content:"";position:absolute;left:0;right:0;bottom:-.1em;height:1px;pointer-events:none;background:linear-gradient(90deg,rgba(242,219,163,0) 0%,rgba(242,219,163,.45) 14%,#f2dba3 50%,rgba(242,219,163,.45) 86%,rgba(242,219,163,0) 100%);filter:drop-shadow(0 0 5px rgba(242,219,163,.32)) drop-shadow(0 3px 7px rgba(242,219,163,.14));transform-origin:left center;will-change:transform}
+.mo-ul::after{content:"";position:absolute;left:0;right:0;bottom:-.1em;height:1px;pointer-events:none;background:linear-gradient(90deg,rgba(242,219,163,0) 0%,rgba(242,219,163,.45) 14%,#f2dba3 50%,rgba(242,219,163,.45) 86%,rgba(242,219,163,0) 100%);filter:drop-shadow(0 0 5px rgba(242,219,163,.32)) drop-shadow(0 3px 7px rgba(242,219,163,.14));transform-origin:left center}
 html.js-rv .mo-ul::after{transform:scaleX(0);transition:transform 1.8s cubic-bezier(.45,.05,.15,1) .7s}
 html.js-rv .mo-ul.in::after{transform:scaleX(1)}
 @media (prefers-reduced-motion:reduce){html.js-rv .mo-ul::after{transform:scaleX(1);transition:none}}
