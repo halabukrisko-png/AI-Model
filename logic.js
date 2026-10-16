@@ -234,7 +234,7 @@ class Component extends DCLogic {
         const upd = () => {
           const cs = vis(); if (!cs.length) return;
           const n = real().length; let idx;
-          if (tab() && gal.querySelector('.g-clone')) {
+          if (tab() && gal.querySelector('.g-clone') && cs.length > n) {
             const b = nearest(); idx = (((b - 2) % n) + n) % n;
             cs.forEach((x, i) => x.classList.toggle('is-on', i === b));
           } else {
