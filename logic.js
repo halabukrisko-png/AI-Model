@@ -353,13 +353,42 @@ class Component extends DCLogic {
       };
       const topics = ['Which set should I choose?', 'How much storage does it have?', 'Do you offer worldwide shipping?', 'What if my MemoryOrb arrives damaged?', 'How long does the battery last?', 'Is it a good gift?', 'What colours are there?', 'Can I return it?'];
       const asked = new Set();
-      const setChips = (list, n) => {
-        chips.classList.toggle('wide', n > 3);
-        chips.innerHTML = '';
-        const pool = (list && list.length ? list : topics).filter((t) => !asked.has(t));
-        (pool.length ? pool : topics).slice(0, n || 3).forEach((t) => { const c = mk('button', 'cb-chip', esc(t)); c.type = 'button'; c.addEventListener('click', () => ask(t)); chips.appendChild(c); });
+      const MAIN = ['Which set should I choose?', 'How much storage does it have?', 'Do you offer worldwide shipping?', 'What if my MemoryOrb arrives damaged?'];
+      const EXTRA = ['How long does the battery last?', 'Is it a good gift?', 'What colours are there?', 'Can I return it?', 'How do I upload photos?'];
+      const REL = {
+        'Which set should I choose?': ['What colours are there?', 'Is it a good gift?'],
+        'How much storage does it have?': ['How do I upload photos?', 'How long does the battery last?'],
+        'Do you offer worldwide shipping?': ['What if my MemoryOrb arrives damaged?', 'Can I return it?'],
+        'What if my MemoryOrb arrives damaged?': ['Can I return it?', 'Do you offer worldwide shipping?'],
+        'How long does the battery last?': ['How much storage does it have?', 'How do I upload photos?'],
+        'Is it a good gift?': ['Which set should I choose?', 'What colours are there?'],
+        'What colours are there?': ['Which set should I choose?', 'Is it a good gift?'],
+        'Can I return it?': ['What if my MemoryOrb arrives damaged?', 'Do you offer worldwide shipping?'],
+        'How do I upload photos?': ['How much storage does it have?', 'How long does the battery last?']
+      };
+      const allQs = () => { const f = build().map((e) => e.q); return [...new Set([...MAIN, ...EXTRA, ...f])]; };
+      const related = (q, r) => {
+        const out = []; const push = (t) => { if (t && t !== q && !out.includes(t) && !asked.has(t)) out.push(t); };
+        (REL[q] || []).forEach(push);
+        (r && r.next || []).forEach(push);
+        if (out.length < 2) {
+          const qt = tok(q + ' ' + (r ? r.a : '')); const sc = allQs().filter((t) => t !== q && !out.includes(t) && !asked.has(t)).map((t) => [t, tok(t).filter((w) => qt.includes(w)).length]).sort((a, b) => b[1] - a[1]);
+          sc.forEach(([t]) => push(t));
+        }
+        return out.slice(0, 2);
+      };
+      const nav = (label, fn, cls) => { const c = mk('button', 'cb-chip nav ' + (cls || ''), label); c.type = 'button'; c.addEventListener('click', fn); return c; };
+      const qchip = (t) => { const c = mk('button', 'cb-chip', esc(t)); c.type = 'button'; c.addEventListener('click', () => ask(t)); return c; };
+      // views: main -> additional -> more (all FAQ), plus 'rel' (two related questions after an answer)
+      const showChips = (view, relList) => {
+        chips.innerHTML = ''; chips.classList.add('wide'); chips.classList.toggle('scroll', view === 'all');
+        if (view === 'main') { MAIN.forEach((t) => chips.appendChild(qchip(t))); chips.appendChild(nav('Additional questions ›', () => showChips('extra'), 'go')); }
+        else if (view === 'extra') { EXTRA.forEach((t) => chips.appendChild(qchip(t))); chips.appendChild(nav('More ›', () => showChips('all'), 'go')); chips.appendChild(nav('‹ Back', () => showChips('main'))); }
+        else if (view === 'all') { allQs().forEach((t) => chips.appendChild(qchip(t))); chips.appendChild(nav('‹ Back', () => showChips('extra'))); }
+        else { (relList || []).forEach((t) => chips.appendChild(qchip(t))); chips.appendChild(nav('‹ Back to main menu', () => showChips('main'))); }
         setTimeout(scrollEnd, 30);
       };
+      const setChips = () => showChips('main');
       // typed reply: the text appears word by word
       const type = (m, html, done) => {
         const plain = html; const words = plain.split(/(\s+)/); let i = 0;
@@ -376,7 +405,7 @@ class Component extends DCLogic {
           dots.remove();
           const m = add('', 'bot', true);
           const txt = r ? (r.html ? r.a : esc(r.a)) : 'I am not sure about that one. You can reach our team on the ' + C + ', or pick a topic below.';
-          type(m, txt, () => { busy = false; if (r && r.q) asked.add(r.q); setChips(r && r.next); save(); });
+          type(m, txt, () => { busy = false; if (r && r.q) asked.add(r.q); showChips('rel', related(q, r)); save(); });
         }, 500 + Math.min(500, (r ? r.a.length : 40) * 3));
       };
       const ask = (q) => { q = q.trim(); if (!q || busy) return; asked.add(q); add(q, 'me'); chips.innerHTML = ''; reply(q); };
@@ -387,11 +416,11 @@ class Component extends DCLogic {
       try { const old = JSON.parse(sessionStorage.getItem('mo-chat') || '[]'); if (old.length) { greeted = true; old.forEach(([me, h]) => { const m = mk('div', 'cb-m ' + (me ? 'me' : 'bot'), h); body.appendChild(m); }); } } catch (x) {}
       const open = () => {
         win.classList.add('open'); fab.classList.add('hide'); tip.classList.remove('show'); tipDone = true;
-        if (!greeted) { greeted = true; setTimeout(() => { add('Hi! I am the MemoryOrb assistant. What would you like to do?', 'bot');
+        if (!greeted) { greeted = true; setTimeout(() => { add('Hi! I am the MemoryOrb assistant. What would you like to do? 🙂', 'bot');
           const IC = { buy: '<path d="M3 4h2l2.4 11h10.2L20 7H6.2"/><circle cx="9" cy="19" r="1.4"/><circle cx="17" cy="19" r="1.4"/>', track: '<path d="M3 7h11v9H3zM14 10h4l3 3v3h-7z"/><circle cx="7" cy="17.5" r="1.8"/><circle cx="17" cy="17.5" r="1.8"/>', contact: '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/>', desc: '<circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/>' };
-          const card = (go, t, sub) => '<a class="cb-card" data-go="' + go + '"><span class="cb-ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">' + IC[go === 'tracking' ? 'track' : go] + '</svg></span><b>' + t + '</b><small>' + sub + '</small></a>';
-          const g = mk('div', 'cb-cards', card('buy', 'Buy a MemoryOrb', 'Choose colours and a set') + card('tracking', 'Track my order', 'See where it is') + card('contact', 'Contact us', 'We reply within an hour') + card('desc', 'Product details', 'Everything inside'));
-          body.appendChild(g); scrollEnd(); setChips(topics, 2); }, 250); }
+          const card = (go, t, sub) => '<a class="cb-card" data-go="' + go + '"><span class="cb-ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">' + IC[go === 'tracking' ? 'track' : go] + '</svg></span><span class="cb-ct"><b>' + t + '</b><small>' + sub + '</small></span></a>';
+          const g = mk('div', 'cb-cards', card('buy', 'Buy a MemoryOrb', 'Choose colours and a set.') + card('tracking', 'Track my order', 'See where it is.') + card('contact', 'Contact us', 'We reply within an hour.') + card('desc', 'Product details', 'Specs, care and more.'));
+          body.appendChild(g); scrollEnd(); setChips(); }, 250); }
         else setChips();
         setTimeout(() => { scrollEnd(); try { if (window.innerWidth > 700) inp.focus(); } catch (x) {} }, 400);
       };
