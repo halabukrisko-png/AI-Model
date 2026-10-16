@@ -495,6 +495,9 @@ class Component extends DCLogic {
         const sx = a.width ? ls.offsetWidth / a.width : 1, sy = a.height ? ls.offsetHeight / a.height : 1;
         ls.style.setProperty('--cx', ((b.left - a.left + b.width / 2) * sx) + 'px');
         ls.style.setProperty('--cy', ((b.top - a.top + b.height / 2) * sy) + 'px');
+        // keep the stripe layers of the photo section and the "Why choose" section one continuous pattern (tile height 37.86px)
+        const why = document.querySelector('.why');
+        if (why) { const H = 37.86, lh = a.height * (ls.offsetWidth / (a.width || 1)); why.style.setProperty('--sy', ((H - (lh % H)) % H).toFixed(2) + 'px'); }
         ls.style.setProperty('--cr', (Math.min(b.width * sx, b.height * sy) * 0.5) + 'px');
       };
       if (ls) { place(); setTimeout(place, 400); window.addEventListener('load', place); window.addEventListener('resize', place); setInterval(place, 1500); }
