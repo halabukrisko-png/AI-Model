@@ -297,9 +297,11 @@ html.is-scrolled .hdr-in{height:var(--hdr-s)}
 .bundle-row.is-empty .mini-orb{width:50px;height:50px;margin:2px 0;border:1px dashed rgba(217,181,107,.55);border-radius:50%;filter:none}
 .bundle-row.is-miss .select select{border-color:#ff8d8d;box-shadow:0 0 0 3px rgba(255,141,141,.14)}
 .bundle-row.is-miss .mini-orb{border-color:#ff8d8d}
-.bundle-row.is-empty .mini-orb{position:relative;background:none!important;display:grid;place-items:center}
-.bundle-row.is-empty .mini-orb::after{content:"?";font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-weight:600;font-size:30px;line-height:1;color:var(--brass-hi);text-shadow:0 0 12px rgba(242,219,163,.45)}
-.bundle-row.is-miss .mini-orb::after{color:#ff9a9a}
+.bundle-row.is-empty .mini-orb{position:relative;display:grid;place-items:center;border:1px solid rgba(217,181,107,.55)!important;background:radial-gradient(circle at 34% 26%,rgba(242,219,163,.26),rgba(217,181,107,.07) 58%,transparent 80%),#15120c!important;box-shadow:inset 0 1px 0 rgba(242,219,163,.3),0 0 0 4px rgba(217,181,107,.06),0 0 18px -4px rgba(217,181,107,.35)!important;animation:qPulse 2.8s ease-in-out infinite}
+@keyframes qPulse{0%,100%{box-shadow:inset 0 1px 0 rgba(242,219,163,.3),0 0 0 4px rgba(217,181,107,.06),0 0 14px -6px rgba(217,181,107,.25)}50%{box-shadow:inset 0 1px 0 rgba(242,219,163,.3),0 0 0 6px rgba(217,181,107,.1),0 0 24px -2px rgba(217,181,107,.5)}}
+@media (prefers-reduced-motion:reduce){.bundle-row.is-empty .mini-orb{animation:none}}
+.bundle-row.is-empty .mini-orb::after{content:"?";font-family:'Cormorant Garamond',Georgia,serif;font-weight:700;font-size:34px;line-height:1;margin-top:-2px;background:linear-gradient(180deg,#fff3cf,#e3bd62 60%,#b98b3d);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;filter:drop-shadow(0 0 8px rgba(242,219,163,.45))}
+.bundle-row.is-miss .mini-orb::after{background:linear-gradient(180deg,#ffd0d0,#ff8d8d);-webkit-background-clip:text;background-clip:text}
 /* custom colour menu */
 .cm-pop{position:fixed;z-index:200;display:flex;flex-direction:column;gap:2px;padding:8px;border-radius:16px;border:1px solid rgba(217,181,107,.45);background:linear-gradient(180deg,#1d1810,#110e09);box-shadow:0 24px 50px -16px rgba(0,0,0,.95),inset 0 1px 0 rgba(242,219,163,.18);opacity:0;transform:translate3d(0,-8px,0) scale(.98);transform-origin:50% 0;transition:opacity .22s ease,transform .3s cubic-bezier(.22,.8,.2,1);max-height:min(60vh,380px);overflow:auto}
 .cm-pop.up{transform-origin:50% 100%;transform:translate3d(0,8px,0) scale(.98)}
