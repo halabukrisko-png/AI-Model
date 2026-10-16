@@ -2,7 +2,7 @@
 class Component extends DCLogic {
   constructor(props) {
     super(props);
-    this.state = { prod: false, page: 'home', sent: false, tab: 0, tsent: false, bundle: 2, thumb: 0, colour: 0, outlet: 0, qty: 1, cf: 0, menu: false, flip: [false, false, false, false], cmp: 1, lt: 0, lsent: false, user: null, cart: [], cnote: false, faqN: 1, descOpen: false, extra: ['', ''], cerr: false };
+    this.state = { prod: false, page: 'home', sent: false, tab: 0, tsent: false, bundle: 0, thumb: 0, colour: 0, outlet: 0, qty: 1, cf: 0, menu: false, flip: [false, false, false, false], cmp: 1, lt: 0, lsent: false, user: null, cart: [], cnote: false, faqN: 1, descOpen: false, extra: ['', ''], cerr: false };
   }
   componentDidMount() {
     const root = document.documentElement;
@@ -99,6 +99,21 @@ class Component extends DCLogic {
         document.addEventListener('keydown', onKey, true);
         requestAnimationFrame(() => { if (box) { box.classList.add('on'); const x = box.querySelector('.lbx-x'); if (x) x.focus({ preventScroll: true }); } });
       });
+    } catch (e) {}
+    // reviews: turn to the next one by itself after a while (pauses on hover / touch / when out of view / when the tab is hidden)
+    try {
+      let hold = false, lastAct = 0, vis = false;
+      const qs = document.querySelector('.quote-sec');
+      if (qs && !reduce) {
+        const bump = () => { lastAct = Date.now(); };
+        ['pointerdown', 'touchstart', 'wheel', 'keydown', 'focusin'].forEach((ev) => qs.addEventListener(ev, bump, { passive: true }));
+        qs.addEventListener('mouseenter', () => { hold = true; }); qs.addEventListener('mouseleave', () => { hold = false; bump(); });
+        if ('IntersectionObserver' in window) new IntersectionObserver((es) => es.forEach((e) => { vis = e.isIntersecting; }), { threshold: 0.4 }).observe(qs); else vis = true;
+        setInterval(() => {
+          if (hold || !vis || document.hidden || Date.now() - lastAct < 7000) return;
+          const nx = qs.querySelector('.q-next'); if (nx && nx.offsetParent !== null) nx.click();
+        }, 5500);
+      }
     } catch (e) {}
     // reviews (tablet): endless carousel - there is always a neighbour card on both sides
     try {
@@ -615,7 +630,7 @@ class Component extends DCLogic {
         bg: selected ? '#16130a' : '#000',
         ringColor: selected ? '#f3d27a' : '#8a7a4a',
         cls: selected ? 'is-on' : '',
-        pick: () => this.setState({ bundle: d.id, cerr: false })
+        pick: () => this.setState({ bundle: d.id, cerr: false, berr: false })
       };
     });
     const bgs = [
@@ -718,6 +733,7 @@ class Component extends DCLogic {
       curContact: this.state.page === 'contact' ? 'page' : 'false',
       curTrack: this.state.page === 'tracking' ? 'page' : 'false',
       curCart: this.state.page === 'cart' ? 'page' : 'false',
+      berrDisp: this.state.berr && !this.state.bundle ? 'block' : 'none',
       statsCls: (this.state.page === 'home' || this.state.page === 'products') ? '' : 'st-sm',
       selOrder: this.state.tab === 0 ? 'true' : 'false',
       selTrack: this.state.tab === 1 ? 'true' : 'false',
@@ -898,6 +914,7 @@ class Component extends DCLogic {
       addToCart: (e) => {
         try { e.preventDefault(); } catch (x) {}
         const totals = [5999, 11638, 17097]; const n = this.state.bundle;
+        if (!n) { this.setState({ berr: true }); setTimeout(() => { try { const m = document.getElementById('bundles'); if (m) m.scrollIntoView({ behavior: 'smooth', block: 'center' }); } catch (x) {} }, 50); return; }
         const extra = this.state.extra || ['', ''];
         const colours = [this.state.colour];
         for (let k = 0; k < n - 1; k++) colours.push(extra[k] === '' ? '' : +extra[k]);

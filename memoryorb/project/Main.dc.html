@@ -1240,7 +1240,7 @@ html:not(.js-rv) .panel{--pf:1}
 .faq .wave.top{--sky:var(--ink-2)!important}
 .gar{display:none!important}
 @media (min-width:640px){.lens-stage{margin-top:2px}.lens-sec{padding-bottom:40px}.why{padding-top:0}}
-@media (min-width:640px){.faq.on-green{padding-block:calc(30px + clamp(16px,3vw,36px)) calc(26px + clamp(16px,3vw,36px))}.faq .faq-frame{margin-top:28px}}
+@media (min-width:640px){.faq.on-green{padding-block:calc(52px + clamp(16px,3vw,36px)) calc(26px + clamp(16px,3vw,36px))}.faq .faq-frame{margin-top:28px}}
 .footer .pays{display:grid;grid-template-columns:repeat(4,max-content);gap:10px;justify-content:start}
 @media (min-width:1100px){.footer .foot-grid{grid-template-columns:1fr max-content;column-gap:110px}.footer .pays{display:grid;grid-template-columns:repeat(4,max-content);gap:10px;justify-content:start}}
 /* tablet: no logo or orb in the footer */
@@ -1308,6 +1308,7 @@ html.js-rv .stat.in:hover{transform:translateY(-3px)}
 .q-head{max-width:720px;margin:0 auto;padding:0 var(--gutter)}
 .quote-sec .q-head+.q-wrap{margin-top:44px}.quote-sec .q-head{margin-top:-28px}
 .quote-sec{padding-block:calc(var(--section)*.55) calc(var(--section)*.45)}
+.bundle-hint{margin:12px 0 0;padding:10px 14px;border:1px solid rgba(232,90,90,.5);border-radius:12px;background:rgba(232,90,90,.08);color:#ffb0b0;font-size:13.5px;text-align:center}
 /* empty cart state, all widths */
 .cart-empty{position:relative;gap:10px;margin-top:24px;padding:34px 24px 32px;border:1px solid rgba(217,181,107,.3);border-radius:24px;background:radial-gradient(80% 70% at 50% 0%,rgba(217,181,107,.13),transparent 70%),linear-gradient(180deg,rgba(255,255,255,.04),rgba(0,0,0,.2));box-shadow:0 24px 44px -26px rgba(0,0,0,.9),inset 0 1px 0 rgba(242,219,163,.1)}
 .cart-empty::before{content:"";position:absolute;left:20px;right:20px;top:0;height:2px;transform:translateY(-1px);background:linear-gradient(90deg,transparent,var(--brass-hi) 18%,var(--brass-hi) 82%,transparent)}
@@ -1537,6 +1538,7 @@ html.js-rv .stat.in:hover{transform:translateY(-3px)}
               </div>
             </sc-for>
           </div>
+          <p class="bundle-hint" style="display:{{berrDisp}}">Please choose how many MemoryOrbs you want first.</p>
           <div class="buy-cta"><button class="btn btn-primary btn-lg btn-block" type="button" onClick="{{addToCart}}">Get my MemoryOrb</button></div>
           <div class="buy-note">
             <span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 018 0v3"/></svg>Secure Checkout</span>
@@ -1926,7 +1928,7 @@ html.js-rv .stat.in:hover{transform:translateY(-3px)}
 class Component extends DCLogic {
   constructor(props) {
     super(props);
-    this.state = { prod: false, page: 'home', sent: false, tab: 0, tsent: false, bundle: 2, thumb: 0, colour: 0, outlet: 0, qty: 1, cf: 0, menu: false, flip: [false, false, false, false], cmp: 1, lt: 0, lsent: false, user: null, cart: [], cnote: false, faqN: 1, descOpen: false, extra: ['', ''], cerr: false };
+    this.state = { prod: false, page: 'home', sent: false, tab: 0, tsent: false, bundle: 0, thumb: 0, colour: 0, outlet: 0, qty: 1, cf: 0, menu: false, flip: [false, false, false, false], cmp: 1, lt: 0, lsent: false, user: null, cart: [], cnote: false, faqN: 1, descOpen: false, extra: ['', ''], cerr: false };
   }
   componentDidMount() {
     const root = document.documentElement;
@@ -2023,6 +2025,21 @@ class Component extends DCLogic {
         document.addEventListener('keydown', onKey, true);
         requestAnimationFrame(() => { if (box) { box.classList.add('on'); const x = box.querySelector('.lbx-x'); if (x) x.focus({ preventScroll: true }); } });
       });
+    } catch (e) {}
+    // reviews: turn to the next one by itself after a while (pauses on hover / touch / when out of view / when the tab is hidden)
+    try {
+      let hold = false, lastAct = 0, vis = false;
+      const qs = document.querySelector('.quote-sec');
+      if (qs && !reduce) {
+        const bump = () => { lastAct = Date.now(); };
+        ['pointerdown', 'touchstart', 'wheel', 'keydown', 'focusin'].forEach((ev) => qs.addEventListener(ev, bump, { passive: true }));
+        qs.addEventListener('mouseenter', () => { hold = true; }); qs.addEventListener('mouseleave', () => { hold = false; bump(); });
+        if ('IntersectionObserver' in window) new IntersectionObserver((es) => es.forEach((e) => { vis = e.isIntersecting; }), { threshold: 0.4 }).observe(qs); else vis = true;
+        setInterval(() => {
+          if (hold || !vis || document.hidden || Date.now() - lastAct < 7000) return;
+          const nx = qs.querySelector('.q-next'); if (nx && nx.offsetParent !== null) nx.click();
+        }, 5500);
+      }
     } catch (e) {}
     // reviews (tablet): endless carousel - there is always a neighbour card on both sides
     try {
@@ -2539,7 +2556,7 @@ class Component extends DCLogic {
         bg: selected ? '#16130a' : '#000',
         ringColor: selected ? '#f3d27a' : '#8a7a4a',
         cls: selected ? 'is-on' : '',
-        pick: () => this.setState({ bundle: d.id, cerr: false })
+        pick: () => this.setState({ bundle: d.id, cerr: false, berr: false })
       };
     });
     const bgs = [
@@ -2642,6 +2659,7 @@ class Component extends DCLogic {
       curContact: this.state.page === 'contact' ? 'page' : 'false',
       curTrack: this.state.page === 'tracking' ? 'page' : 'false',
       curCart: this.state.page === 'cart' ? 'page' : 'false',
+      berrDisp: this.state.berr && !this.state.bundle ? 'block' : 'none',
       statsCls: (this.state.page === 'home' || this.state.page === 'products') ? '' : 'st-sm',
       selOrder: this.state.tab === 0 ? 'true' : 'false',
       selTrack: this.state.tab === 1 ? 'true' : 'false',
@@ -2822,6 +2840,7 @@ class Component extends DCLogic {
       addToCart: (e) => {
         try { e.preventDefault(); } catch (x) {}
         const totals = [5999, 11638, 17097]; const n = this.state.bundle;
+        if (!n) { this.setState({ berr: true }); setTimeout(() => { try { const m = document.getElementById('bundles'); if (m) m.scrollIntoView({ behavior: 'smooth', block: 'center' }); } catch (x) {} }, 50); return; }
         const extra = this.state.extra || ['', ''];
         const colours = [this.state.colour];
         for (let k = 0; k < n - 1; k++) colours.push(extra[k] === '' ? '' : +extra[k]);
