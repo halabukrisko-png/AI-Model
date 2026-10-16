@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Build the static site (index.html + logic.js) from memoryorb/project/Main.dc.html."""
-import re, glob, os
+import re, glob, os, time
+ver = int(time.time())
 src = open('memoryorb/project/Main.dc.html', encoding='utf-8').read()
 body = src[src.index('<x-dc>') + 6:src.index('</x-dc>')]
 code = re.search(r'<script type="text/x-dc"[^>]*>(.*?)</script>', src, re.S).group(1)
@@ -20,8 +21,8 @@ open('index.html', 'w', encoding='utf-8').write(f'''<!doctype html>
 <body>
 <div id="app"></div>
 <template id="tpl">{body}</template>
-<script src="runtime.js"></script>
-<script src="logic.js"></script>
+<script src="runtime.js?v={ver}"></script>
+<script src="logic.js?v={ver}"></script>
 </body>
 </html>
 ''')
