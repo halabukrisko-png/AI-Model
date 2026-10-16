@@ -356,6 +356,42 @@ class Component extends DCLogic {
       win.querySelector('.cb-x').addEventListener('click', close);
       document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && win.classList.contains('open')) close(); });
     } catch (e) {}
+    // custom colour menu instead of the browser's native select popup
+    try {
+      const NAMES = ['Black', 'White', 'Blue', 'Green', 'Red', 'Grey'];
+      let pop = null, src = null;
+      const closePop = () => { if (!pop) return; const p = pop; pop = null; src = null; p.classList.remove('open'); setTimeout(() => p.remove(), 260); };
+      const openPop = (sel) => {
+        closePop();
+        src = sel;
+        const cur = sel.value;
+        const el = document.createElement('div'); el.className = 'cm-pop'; el.setAttribute('role', 'listbox');
+        el.innerHTML = '<div class="cm-ttl">Choose colour</div>' + NAMES.map((n, i) => '<button type="button" class="cm-opt' + (String(i) === cur ? ' on' : '') + '" role="option" data-v="' + i + '"><span class="cm-th" style="background-image:url(assets/orb-' + n.toLowerCase() + '-mini.webp)"></span><span>' + n + '</span><svg class="cm-ck" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></button>').join('');
+        document.body.appendChild(el);
+        const r = sel.getBoundingClientRect(), h = el.offsetHeight, vh = window.innerHeight;
+        const below = vh - r.bottom, up = below < h + 16 && r.top > below;
+        el.style.left = r.left + 'px'; el.style.width = r.width + 'px';
+        el.style.top = (up ? Math.max(8, r.top - h - 6) : r.bottom + 6) + 'px';
+        if (up) el.classList.add('up');
+        pop = el;
+        requestAnimationFrame(() => el.classList.add('open'));
+        el.addEventListener('click', (e) => {
+          const b = e.target.closest('.cm-opt'); if (!b) return;
+          sel.value = b.getAttribute('data-v');
+          sel.dispatchEvent(new Event('change', { bubbles: true }));
+          closePop();
+        });
+      };
+      document.addEventListener('mousedown', (e) => { const sel = e.target.closest && e.target.closest('.bundle-row select'); if (sel) { e.preventDefault(); } }, true);
+      document.addEventListener('click', (e) => {
+        const sel = e.target.closest && e.target.closest('.bundle-row select, .bundle-row .select');
+        if (sel) { const s2 = sel.tagName === 'SELECT' ? sel : sel.querySelector('select'); if (s2) { e.preventDefault(); if (pop && src === s2) closePop(); else openPop(s2); return; } }
+        if (pop && !e.target.closest('.cm-pop')) closePop();
+      }, true);
+      document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closePop(); const sel = e.target && e.target.matches && e.target.matches('.bundle-row select'); if (sel && (e.key === 'Enter' || e.key === ' ' || e.key === 'ArrowDown')) { e.preventDefault(); openPop(e.target); } });
+      window.addEventListener('scroll', closePop, { passive: true });
+      window.addEventListener('resize', closePop);
+    } catch (e) {}
     // footer garland: the lights drop in from above when it scrolls into view
     try {
       const gar = document.querySelector('svg.gar');
