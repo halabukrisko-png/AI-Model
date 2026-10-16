@@ -392,6 +392,19 @@ class Component extends DCLogic {
       window.addEventListener('scroll', closePop, { passive: true });
       window.addEventListener('resize', closePop);
     } catch (e) {}
+    // stripes keep clear of the round photo: tell the CSS where the circle is
+    try {
+      const ls = document.querySelector('.lens-sec');
+      const place = () => {
+        const st = ls && ls.querySelector('.lens-stage'); if (!st) return;
+        const a = ls.getBoundingClientRect(), b = st.getBoundingClientRect();
+        if (!b.width) return;
+        ls.style.setProperty('--cx', (b.left - a.left + b.width / 2) + 'px');
+        ls.style.setProperty('--cy', (b.top - a.top + b.height / 2) + 'px');
+        ls.style.setProperty('--cr', (Math.min(b.width, b.height) * 0.54) + 'px');
+      };
+      if (ls) { place(); setTimeout(place, 400); window.addEventListener('load', place); window.addEventListener('resize', place); setInterval(place, 1500); }
+    } catch (e) {}
     // footer garland: the lights drop in from above when it scrolls into view
     try {
       const gar = document.querySelector('svg.gar');
