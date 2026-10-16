@@ -1240,11 +1240,11 @@ html.js-rv .stat.in:hover{transform:translateY(-3px)}
 .lbx.on figure{transform:none}
 .lbx img{display:block;max-width:min(94vw,980px);max-height:calc(100vh - 150px);max-height:calc(100dvh - 150px);width:auto;height:auto;object-fit:contain;border-radius:22px;border:1px solid rgba(217,181,107,.4);box-shadow:0 40px 80px -30px rgba(0,0,0,.95),0 0 40px -10px rgba(217,181,107,.3);background:#0f0d09}
 .lbx figcaption{font-size:13px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;color:var(--brass-hi)}
-.lbx-x{position:absolute;top:max(14px,env(safe-area-inset-top));right:16px;display:flex;align-items:center;justify-content:center;width:38px;height:38px;padding:0;border-radius:50%;background:linear-gradient(180deg,rgba(38,31,20,.96),rgba(16,13,9,.96));border:1px solid rgba(217,181,107,.6);color:var(--brass-hi);box-shadow:0 10px 22px -8px rgba(0,0,0,.85),inset 0 1px 0 rgba(242,219,163,.22);cursor:pointer;transition:border-color .25s,transform .2s}
+.lbx-x{position:absolute;top:max(14px,env(safe-area-inset-top));right:16px;display:flex;align-items:center;justify-content:center;width:38px;height:38px;padding:0;border-radius:50%;background:rgba(14,12,8,.35);border:1px solid rgba(217,181,107,.28);color:rgba(242,219,163,.7);box-shadow:none;cursor:pointer;transition:border-color .25s,transform .2s}
 .lbx-x svg{width:16px;height:16px}
-.lbx-x:hover{border-color:var(--brass-hi)}
+.lbx-x:hover{border-color:rgba(217,181,107,.6);color:var(--brass-hi)}
 .lbx-x:active{transform:scale(.94)}
-.lbx-x:focus-visible{outline:2px solid var(--brass-hi);outline-offset:3px}
+.lbx-x:focus,.lbx-x:focus-visible{outline:none}
 @media (prefers-reduced-motion:reduce){.lbx,.lbx figure{transition:none}}
 #gallery .slide img{cursor:zoom-in}
 /* tablet: the top photos are an endless carousel like the reviews (centered photo, faded neighbours both sides) */
