@@ -295,7 +295,7 @@ class Component extends DCLogic {
       const fab = mk('button', 'cb-fab', ic + '<i class="cb-ping"></i>'); fab.setAttribute('aria-label', 'Open chat');
       const tip = mk('div', 'cb-tip', 'Need help choosing? <b>Ask me</b>'); tip.setAttribute('aria-hidden', 'true');
       const win = mk('div', 'cb-win'); win.setAttribute('role', 'dialog'); win.setAttribute('aria-label', 'MemoryOrb assistant');
-      win.innerHTML = '<div class="cb-hd"><span class="cb-av">' + ic + '<i class="cb-on"></i></span><span><b>MemoryOrb Assistant</b><small>Online · replies instantly</small></span><button type="button" class="cb-x" aria-label="Close chat"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div><div class="cb-body"></div><div class="cb-chips"></div><form class="cb-form"><input class="cb-in" type="text" placeholder="Ask about MemoryOrb..." aria-label="Your question" autocomplete="off"><button class="cb-send" type="submit" aria-label="Send"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></form>';
+      win.innerHTML = '<div class="cb-hd"><span class="cb-av">' + ic + '<i class="cb-on"></i></span><span><b>MemoryOrb – Assistant</b><small>Online · replies instantly</small></span><button type="button" class="cb-x" aria-label="Close chat"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div><div class="cb-body"></div><div class="cb-chips"></div><form class="cb-form"><input class="cb-in" type="text" placeholder="Ask about MemoryOrb..." aria-label="Your question" autocomplete="off"><button class="cb-send" type="submit" aria-label="Send"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></form>';
       document.body.appendChild(fab); document.body.appendChild(tip); document.body.appendChild(win);
       const body = win.querySelector('.cb-body'), chips = win.querySelector('.cb-chips'), inp = win.querySelector('.cb-in');
       const esc = (t) => t.replace(/&/g, '&amp;').replace(/</g, '&lt;');
@@ -339,10 +339,11 @@ class Component extends DCLogic {
       };
       const topics = ['Which set should I choose?', 'How much storage does it have?', 'Do you offer worldwide shipping?', 'What if my MemoryOrb arrives damaged?', 'How long does the battery last?', 'Is it a good gift?', 'What colours are there?', 'Can I return it?'];
       const asked = new Set();
-      const setChips = (list) => {
+      const setChips = (list, n) => {
+        chips.classList.toggle('wide', n > 3);
         chips.innerHTML = '';
         const pool = (list && list.length ? list : topics).filter((t) => !asked.has(t));
-        (pool.length ? pool : topics).slice(0, 3).forEach((t) => { const c = mk('button', 'cb-chip', esc(t)); c.type = 'button'; c.addEventListener('click', () => ask(t)); chips.appendChild(c); });
+        (pool.length ? pool : topics).slice(0, n || 3).forEach((t) => { const c = mk('button', 'cb-chip', esc(t)); c.type = 'button'; c.addEventListener('click', () => ask(t)); chips.appendChild(c); });
         setTimeout(scrollEnd, 30);
       };
       // typed reply: the text appears word by word
@@ -372,7 +373,7 @@ class Component extends DCLogic {
       try { const old = JSON.parse(sessionStorage.getItem('mo-chat') || '[]'); if (old.length) { greeted = true; old.forEach(([me, h]) => { const m = mk('div', 'cb-m ' + (me ? 'me' : 'bot'), h); body.appendChild(m); }); } } catch (x) {}
       const open = () => {
         win.classList.add('open'); fab.classList.add('hide'); tip.classList.remove('show'); tipDone = true;
-        if (!greeted) { greeted = true; setTimeout(() => { add('Hi! I am the MemoryOrb assistant. I can help you choose a set, explain how it works and answer questions about shipping and returns.', 'bot'); setChips(['Which set should I choose?', 'How much storage does it have?', 'Do you offer worldwide shipping?']); }, 250); }
+        if (!greeted) { greeted = true; setTimeout(() => { add('Hi! I am the MemoryOrb assistant. Pick a topic below or type your own question.', 'bot'); setChips(topics, 6); }, 250); }
         else setChips();
         setTimeout(() => { scrollEnd(); try { if (window.innerWidth > 700) inp.focus(); } catch (x) {} }, 400);
       };
