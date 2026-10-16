@@ -1092,6 +1092,10 @@ html:not(.js-rv) .panel{--pf:1}
 .sw:hover .sw-art{transform:translateY(-6px);border-color:var(--brass-hi);box-shadow:0 0 0 1px var(--brass-hi),0 18px 34px -14px rgba(0,0,0,.9),0 0 26px -4px rgba(217,181,107,.55);filter:brightness(1.08)}
 .sw:hover .sw-name{color:var(--brass-hi)}
 }
+/* reviews: no arrows, no clones, no big quote mark below 640px */
+.q-arr{display:none}
+.q-clone{display:none!important}
+.q-track .quote::before{display:none}
 /* tablet: the fine diagonal texture of the "Choose your EverOrb" card behind the dark sections:
    from "Moments that stay with you" (going around the outer ring of the photo) all the way down to the FAQ wave (the comparison table keeps a solid background) */
 @media (min-width:640px){
@@ -1104,8 +1108,6 @@ html:not(.js-rv) .panel{--pf:1}
 .why .sec-head::before{content:"";position:absolute;left:50%;bottom:-18px;width:300vw;height:3000px;transform:translateX(-50%);z-index:-1;pointer-events:none;background:repeating-linear-gradient(115deg,rgba(217,181,107,.055) 0 1px,transparent 1px 16px);-webkit-mask-image:linear-gradient(180deg,#000 calc(100% - 44px),transparent);mask-image:linear-gradient(180deg,#000 calc(100% - 44px),transparent)}
 .lens-sec::after,.why::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(90deg,var(--ink-2) 0,rgba(16,14,11,.55) 12%,transparent 34%,transparent 66%,rgba(16,14,11,.55) 88%,var(--ink-2) 100%)}
 /* tablet: smaller review cards with arrows beside them */
-.q-arr{display:none}
-.q-clone{display:none!important}
 @media (min-width:640px){
 .q-wrap{position:relative}
 .q-clone{display:flex!important}
