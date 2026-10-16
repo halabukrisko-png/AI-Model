@@ -1162,11 +1162,11 @@ html:not(.js-rv) .panel{--pf:1}
 @media all{
 .lens-sec,.why{isolation:isolate;overflow:hidden;overflow:clip;contain:paint}
 .lens-stage{container-type:size}
-.lens-stage::before{content:"";position:absolute;left:50%;top:50%;width:300vw;height:3000px;transform:translate(-50%,-50%);z-index:-1;pointer-events:none;background:repeating-linear-gradient(115deg,rgba(217,181,107,.055) 0 1px,transparent 1px 16px);-webkit-mask-image:radial-gradient(circle at 50% 50%,transparent 0,transparent calc(54cqw),#000 calc(54cqw + 18px));mask-image:radial-gradient(circle at 50% 50%,transparent 0,transparent calc(54cqw),#000 calc(54cqw + 18px))}
 .why{position:relative}
+.lens-sec{position:relative}
+.lens-sec::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:repeating-linear-gradient(115deg,rgba(217,181,107,.055) 0 1px,transparent 1px 16px)}
 .why::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:repeating-linear-gradient(115deg,rgba(217,181,107,.055) 0 1px,transparent 1px 16px);-webkit-mask-image:linear-gradient(180deg,#000 calc(100% - 190px),transparent calc(100% - 56px));mask-image:linear-gradient(180deg,#000 calc(100% - 190px),transparent calc(100% - 56px))}
 .why .compare{max-width:560px;margin-inline:auto;background:var(--ink-2)}
-.why .sec-head::before{content:"";position:absolute;left:50%;bottom:-18px;width:300vw;height:3000px;transform:translateX(-50%);z-index:-1;pointer-events:none;background:repeating-linear-gradient(115deg,rgba(217,181,107,.055) 0 1px,transparent 1px 16px);-webkit-mask-image:linear-gradient(180deg,#000 calc(100% - 44px),transparent);mask-image:linear-gradient(180deg,#000 calc(100% - 44px),transparent)}
 .lens-sec::after,.why::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(90deg,var(--ink-2) 0,rgba(16,14,11,.55) 12%,transparent 34%,transparent 66%,rgba(16,14,11,.55) 88%,var(--ink-2) 100%)}
 /* tablet: smaller review cards with arrows beside them */
 @media (min-width:640px){
