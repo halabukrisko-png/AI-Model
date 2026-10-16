@@ -296,6 +296,8 @@ html.is-scrolled .hdr-in{height:var(--hdr-s)}
 .buy-note{margin-top:16px;display:flex;justify-content:center;gap:18px;flex-wrap:wrap;font-size:12px;font-weight:600;color:var(--fg-3);letter-spacing:.02em}
 .buy-note span{display:inline-flex;align-items:center;gap:7px}
 .buy-note svg{color:var(--brass)}
+.tab-only{display:none!important}
+@media (min-width:640px){.tab-only{display:inline-flex!important}.not-tab{display:none}}
 .buy-note span+span{position:relative;padding-left:20px}.buy-note span+span::before{content:"";position:absolute;left:0;top:50%;height:16px;width:1px;transform:translateY(-50%);background:linear-gradient(180deg,transparent,rgba(217,181,107,.6),transparent)}
 
 /* ---- trust (paper) ---- */
@@ -553,6 +555,7 @@ section.details-sec.details-sec{padding-top:6px!important}
 .hero-copy .lead{max-width:none!important;white-space:nowrap;font-size:min(16px,3.7vw)!important}
 /* ---- cart ---- */
 .cart-btn{position:relative}
+.cart-btn[aria-current="page"]{color:var(--brass-hi);background:rgba(217,181,107,.14);box-shadow:inset 0 0 0 1px rgba(217,181,107,.55),0 0 16px -4px rgba(217,181,107,.5)}
 .cart-badge{position:absolute;top:5px;right:3px;min-width:18px;height:18px;padding:0 5px;border-radius:9px;display:grid;place-items:center;font-size:11px;font-weight:800;line-height:1;color:#1a1306;background:linear-gradient(180deg,var(--brass-hi),var(--brass));box-shadow:0 2px 8px rgba(0,0,0,.5)}
 .cart{max-width:640px;margin:0 auto}
 .cart-empty{display:flex;flex-direction:column;align-items:center;gap:16px;margin-top:26px;padding:34px 20px;text-align:center;border:1px dashed rgba(217,181,107,.35);border-radius:var(--r-lg);background:rgba(255,255,255,.02);color:var(--fg-2)}
@@ -1056,6 +1059,191 @@ html:not(.js-rv) .panel{--pf:1}
   html.js-rv .rvs{opacity:1}
   .stat .bar{stroke-dasharray:var(--v) 100}
 }
+/* tablet: photo carousel with arrow buttons beside the photos */
+.gal-arr{display:none}
+@media (min-width:640px){
+.hero-media{padding-inline:64px;max-width:640px;margin-inline:auto;box-sizing:border-box}
+#gallery.gal{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;margin-inline:-14px;padding-inline:14px;scroll-padding-inline:14px;gap:16px}
+#gallery.gal .slide{flex:none;width:100%;aspect-ratio:1/1}
+.gal-dots{display:flex!important}
+#gallery.gal{border-radius:30px}
+#gallery.gal .slide{border-radius:30px;box-shadow:0 34px 60px -30px rgba(0,0,0,.95),0 0 0 1px rgba(217,181,107,.38),inset 0 1px 0 rgba(242,219,163,.16)}
+#gallery.gal .slide .zoom{border-radius:50%}
+#gallery.gal .slide .gcap{border-radius:999px}
+.gal-arr{position:absolute;top:calc((100% - 19px)/2);transform:translateY(-50%);z-index:4;display:flex;align-items:center;justify-content:center;width:60px;height:60px;padding:0;border-radius:50%;background:linear-gradient(180deg,rgba(38,31,20,.96),rgba(16,13,9,.96));border:1px solid rgba(217,181,107,.6);color:var(--brass-hi);box-shadow:0 10px 22px -8px rgba(0,0,0,.85),inset 0 1px 0 rgba(242,219,163,.22);cursor:pointer;transition:opacity .25s,background .25s,border-color .25s,transform .2s}
+.gal-arr svg{stroke-width:1.8;transition:transform .2s}
+.gal-arr:hover{border-color:var(--brass-hi);background:linear-gradient(180deg,rgba(58,47,28,.98),rgba(24,19,12,.98))}
+.gal-prev:hover svg{transform:translateX(-2px)}.gal-next:hover svg{transform:translateX(2px)}
+.gal-arr:active{transform:translateY(-50%) scale(.94)}
+.gal-arr:focus-visible{outline:2px solid var(--brass-hi);outline-offset:3px}
+.gal-arr:disabled{opacity:.28;pointer-events:none}
+.gal-dots i{border-radius:999px;height:4px}
+.gal-prev{left:6px}.gal-next{right:6px}
+}
+@media (min-width:900px){.hero .hero-grid,.hero.is-compact .hero-grid{grid-template-columns:minmax(0,640px);justify-content:center;gap:28px}.hero-media{padding-inline:64px;max-width:640px;width:100%}.hero-copy{max-width:640px;width:100%;margin-inline:auto}}
+/* tablet: colour tiles taller, a bit bigger, highlighted on hover */
+@media (min-width:640px){
+.swatches{max-width:600px;margin-inline:auto;gap:22px 18px}
+.pt-col{max-width:600px;margin-inline:auto}
+.sw{width:calc((100% - 36px)/3);gap:12px}
+.sw-art{aspect-ratio:1/1;border-radius:20px;transition:transform .3s var(--ease),box-shadow .3s var(--ease),border-color .3s,filter .3s}
+.sw-art img{object-fit:cover}
+.sw-name{font-size:15px}
+.sw:hover .sw-art{transform:translateY(-6px);border-color:var(--brass-hi);box-shadow:0 0 0 1px var(--brass-hi),0 18px 34px -14px rgba(0,0,0,.9),0 0 26px -4px rgba(217,181,107,.55);filter:brightness(1.08)}
+.sw:hover .sw-name{color:var(--brass-hi)}
+}
+/* tablet: the fine diagonal texture of the "Choose your EverOrb" card behind the dark sections:
+   from "Moments that stay with you" (going around the outer ring of the photo) all the way down to the FAQ wave (the comparison table keeps a solid background) */
+@media (min-width:640px){
+.lens-sec,.why{isolation:isolate;overflow:clip}
+.lens-stage{container-type:size}
+.lens-stage::before{content:"";position:absolute;left:50%;top:50%;width:300vw;height:3000px;transform:translate(-50%,-50%);z-index:-1;pointer-events:none;background:repeating-linear-gradient(115deg,rgba(217,181,107,.055) 0 1px,transparent 1px 16px);-webkit-mask-image:radial-gradient(circle at 50% 50%,transparent 0,transparent calc(54cqw),#000 calc(54cqw + 18px));mask-image:radial-gradient(circle at 50% 50%,transparent 0,transparent calc(54cqw),#000 calc(54cqw + 18px))}
+.why{position:relative}
+.why::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:repeating-linear-gradient(115deg,rgba(217,181,107,.055) 0 1px,transparent 1px 16px)}
+.why .compare{max-width:560px;margin-inline:auto;background:var(--ink-2)}
+.why .sec-head::before{content:"";position:absolute;left:50%;bottom:-18px;width:300vw;height:3000px;transform:translateX(-50%);z-index:-1;pointer-events:none;background:repeating-linear-gradient(115deg,rgba(217,181,107,.055) 0 1px,transparent 1px 16px);-webkit-mask-image:linear-gradient(180deg,#000 calc(100% - 44px),transparent);mask-image:linear-gradient(180deg,#000 calc(100% - 44px),transparent)}
+.lens-sec::after,.why::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(90deg,var(--ink-2) 0,rgba(16,14,11,.55) 12%,transparent 34%,transparent 66%,rgba(16,14,11,.55) 88%,var(--ink-2) 100%)}
+/* tablet: smaller review cards with arrows beside them */
+.q-arr{display:none}
+.q-clone{display:none!important}
+@media (min-width:640px){
+.q-wrap{position:relative}
+.q-clone{display:flex!important}
+.q-track{max-width:none;width:100%;margin-inline:0;gap:20px;padding:14px 0 30px!important;scroll-padding-inline:0;scroll-behavior:smooth;-webkit-mask-image:linear-gradient(90deg,transparent 0,rgba(0,0,0,.06) calc((50% - 240px)*.15),rgba(0,0,0,.2) calc((50% - 240px)*.38),rgba(0,0,0,.42) calc((50% - 240px)*.62),rgba(0,0,0,.7) calc((50% - 240px)*.82),#000 calc(50% - 240px),#000 calc(50% + 240px),rgba(0,0,0,.7) calc(50% + 240px + (50% - 240px)*.18),rgba(0,0,0,.42) calc(50% + 240px + (50% - 240px)*.38),rgba(0,0,0,.2) calc(50% + 240px + (50% - 240px)*.62),rgba(0,0,0,.06) calc(50% + 240px + (50% - 240px)*.85),transparent 100%);mask-image:linear-gradient(90deg,transparent 0,rgba(0,0,0,.06) calc((50% - 240px)*.15),rgba(0,0,0,.2) calc((50% - 240px)*.38),rgba(0,0,0,.42) calc((50% - 240px)*.62),rgba(0,0,0,.7) calc((50% - 240px)*.82),#000 calc(50% - 240px),#000 calc(50% + 240px),rgba(0,0,0,.7) calc(50% + 240px + (50% - 240px)*.18),rgba(0,0,0,.42) calc(50% + 240px + (50% - 240px)*.38),rgba(0,0,0,.2) calc(50% + 240px + (50% - 240px)*.62),rgba(0,0,0,.06) calc(50% + 240px + (50% - 240px)*.85),transparent 100%)}
+.q-track::before,.q-track::after{content:"";flex:0 0 calc(50% - 260px)}
+.q-track .quote{flex:0 0 480px!important;padding:40px 22px 26px;box-shadow:0 12px 22px -14px rgba(0,0,0,.65)}
+.q-arr{position:absolute;top:calc(50% - 8px);transform:translateY(-50%);z-index:4;display:flex;align-items:center;justify-content:center;width:60px;height:60px;padding:0;border-radius:50%;background:linear-gradient(180deg,rgba(38,31,20,.96),rgba(16,13,9,.96));border:1px solid rgba(217,181,107,.6);color:var(--brass-hi);box-shadow:0 10px 22px -8px rgba(0,0,0,.85),inset 0 1px 0 rgba(242,219,163,.22);cursor:pointer;transition:border-color .25s,background .25s,transform .2s}
+.q-arr:hover{border-color:var(--brass-hi);background:linear-gradient(180deg,rgba(58,47,28,.98),rgba(24,19,12,.98))}
+.q-arr:active{transform:translateY(-50%) scale(.94)}
+.q-arr:focus-visible{outline:2px solid var(--brass-hi);outline-offset:3px}
+.q-track .quote::before{transition:opacity .6s}
+.q-track .quote.is-on::before{opacity:.95}
+.q-track .quote{transition:border-color .6s,box-shadow .6s}
+.q-track .quote.is-on{box-shadow:0 14px 26px -14px rgba(0,0,0,.7)}
+.q-track .quote::after{display:none}
+.q-track .quote::before{display:none}
+.q-track .quote p{padding-top:6px}
+.q-track .quote .pframe,.q-track .quote .pdot{z-index:3}
+.q-prev{left:14px}
+.q-next{right:14px}
+}
+.faq .wave.top{--sky:var(--ink-2)!important}
+.gar{display:none!important}
+@media (min-width:640px){.lens-stage{margin-top:60px}.lens-sec{padding-bottom:0}.why{padding-top:0}}
+.footer .pays{justify-content:flex-start}
+@media (min-width:1100px){.footer .foot-grid{grid-template-columns:1fr max-content;column-gap:110px}.footer .pays{display:grid;grid-template-columns:repeat(4,max-content);gap:10px;justify-content:start}}
+/* tablet: no logo or orb in the footer */
+.footer .lg-ftr{display:none!important}
+.stats.st-sm .sec-head .h2{font-size:46px;line-height:1.1}
+@media (min-width:900px){.stats.st-sm .sec-head .h2{font-size:64px}}
+/* tablet: smaller, better fitting contact form */
+.ct-form{max-width:460px;margin-inline:auto!important;padding:22px 22px 24px!important;border-radius:24px!important}
+.ct-form label{font-size:11px!important;letter-spacing:.2em!important;margin-bottom:8px!important}
+.ct-form label:not(:first-child){margin-top:16px!important}
+.ct-form .dcin{height:48px!important;font-size:15px!important;padding:0 16px!important;border-radius:12px!important}
+.ct-form textarea.dcin{height:112px!important;padding:13px 16px!important}
+.tr-card [role=tablist]{padding:5px!important;border-radius:15px!important}
+.tr-card [role=tab]{height:44px!important;font-size:12px!important;letter-spacing:.12em!important;border-radius:11px!important}
+.tr-card form{margin-top:22px!important}
+.tr-card>p{font-size:14px!important}
+.cart{max-width:520px}
+.cart .cart-list{border-radius:22px;margin-top:22px}
+.cart .cart-item{gap:13px;padding:13px 15px}
+.cart .cart-sw{width:72px;height:72px;border-radius:16px}
+.cart .cart-name{font-size:15px}
+.cart .cart-sub{font-size:12px}
+.cart .cart-qty{margin-top:8px}
+.cart .cart-qty button{width:30px;height:30px;font-size:16px}
+.cart .cart-price{font-size:15.5px}
+.cart .cart-rm{padding:6px 10px;font-size:12px}
+.cart .cart-sum{font-size:15px}
+.cart .btn-block{min-height:50px!important;font-size:13px!important}
+.ct-form button[type=submit]{height:50px!important;margin-top:22px!important;font-size:15px!important;border-radius:12px!important}
+/* tablet: every main heading in the same serif style as "Why choose the MemoryOrb?" */
+.h2,.h2.serif{font-family:'Cormorant Garamond',Georgia,serif;font-weight:500;letter-spacing:-.015em;line-height:1.02;font-size:clamp(38px,7.6vw,64px)}
+.h2 em,.h2.serif em{font-size:1em;font-weight:500;color:var(--brass-hi)}
+.h1.pdp-h1{font-family:'Cormorant Garamond',Georgia,serif;font-weight:500;letter-spacing:-.01em;line-height:1.04;font-size:clamp(40px,7.4vw,58px)}
+.h1.pdp-h1 sup{font-size:.34em}
+/* tablet: compact, centered stat cards */
+.stats .stat-grid{grid-template-columns:repeat(2,1fr)!important;max-width:600px;margin:36px auto 0;gap:14px}
+.stats .stat{flex-direction:column;align-items:center;text-align:center;gap:12px;padding:22px 20px 20px;border-radius:20px}
+.stats .stat svg{width:70px;height:70px}
+.stats .stat text{font-size:22px}
+.stats .stat p{font-size:14px;line-height:1.5;max-width:24ch;margin-inline:auto}
+.stats .stat-foot{margin-top:20px;font-size:14px;letter-spacing:.02em;color:var(--fg-2)}
+.faq .faq-frame,.faq .faq-more{max-width:600px;margin-inline:auto}
+.faq .faq-more{margin-top:20px}
+}
+/* stat cards: fade and rise in one after another while scrolling */
+html.js-rv .stat{opacity:0;transform:translate3d(0,30px,0) scale(.97);transition:opacity .9s cubic-bezier(.22,.61,.36,1),transform .9s cubic-bezier(.22,.61,.36,1),border-color var(--t-base),background var(--t-base)}
+html.js-rv .stat.in{opacity:1;transform:none}
+html.js-rv .stat.in:hover{transform:translateY(-3px)}
+@media (prefers-reduced-motion:reduce){html.js-rv .stat{opacity:1;transform:none;transition:none}}
+/* cart rows: product photos, colour change dots, add another colour */
+.cart-sw{background:#0f0d09}
+.cart-sw img{display:block;width:100%;height:100%;object-fit:cover}
+.cart-cols{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}
+.cart-dot{width:20px;height:20px;padding:0;border-radius:50%;border:1px solid rgba(255,255,255,.28);background:var(--c);cursor:pointer;transition:transform .2s,box-shadow .2s,border-color .2s}
+.cart-dot:hover{transform:scale(1.12)}
+.cart-dot.on{border-color:var(--brass-hi);box-shadow:0 0 0 2px #0a0907,0 0 0 3.5px var(--brass-hi)}
+.cart-dot:focus-visible{outline:2px solid var(--brass-hi);outline-offset:3px}
+.cart-add{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;box-sizing:border-box;margin-top:12px;min-height:46px;border:1px dashed rgba(217,181,107,.5);border-radius:14px;background:rgba(217,181,107,.05);color:var(--brass-hi);font:inherit;font-size:14px;font-weight:600;letter-spacing:.04em;cursor:pointer;transition:background .25s,border-color .25s}
+.cart-add:hover{background:rgba(217,181,107,.12);border-color:var(--brass-hi)}
+.cart-add{margin-bottom:6px}
+/* 4 reassurance items in the product frame */
+.trio{grid-template-columns:repeat(2,1fr);row-gap:18px}
+.trio>div:nth-child(odd){border-left:0}
+@media (min-width:640px){.trio{grid-template-columns:repeat(4,1fr);row-gap:0}.trio>div:nth-child(odd){border-left:1px solid var(--line)}.trio>div:first-child{border-left:0}}
+/* empty cart state, all widths */
+.cart-empty{position:relative;gap:10px;margin-top:24px;padding:34px 24px 32px;border:1px solid rgba(217,181,107,.3);border-radius:24px;background:radial-gradient(80% 70% at 50% 0%,rgba(217,181,107,.13),transparent 70%),linear-gradient(180deg,rgba(255,255,255,.04),rgba(0,0,0,.2));box-shadow:0 24px 44px -26px rgba(0,0,0,.9),inset 0 1px 0 rgba(242,219,163,.1)}
+.cart-empty::before{content:"";position:absolute;left:50%;top:0;width:90px;height:2px;transform:translate(-50%,-1px);background:linear-gradient(90deg,transparent,var(--brass-hi),transparent)}
+.cart-empty .acct-ico.big{width:72px;height:72px;margin-bottom:6px;border-color:rgba(217,181,107,.55);background:radial-gradient(circle at 50% 35%,rgba(217,181,107,.22),rgba(217,181,107,.05));box-shadow:0 0 0 7px rgba(217,181,107,.06),0 0 30px -6px rgba(217,181,107,.5)}
+.cart-empty .acct-ico.big svg{width:30px;height:30px}
+.cart-empty .ce-t{font-family:'Cormorant Garamond',Georgia,serif;font-weight:500;font-size:32px;line-height:1.1;letter-spacing:-.01em;color:var(--fg)}
+.cart-empty .ce-t em{font-style:italic;color:var(--brass-hi)}
+.cart-empty p{font-size:15px;color:var(--fg-2);max-width:30ch;margin:0 auto 10px}
+/* photo viewer: tap a gallery photo to see it large, with a close button */
+.lbx{position:fixed;inset:0;z-index:300;display:flex;align-items:center;justify-content:center;padding:max(56px,env(safe-area-inset-top)) 18px max(28px,env(safe-area-inset-bottom));background:rgba(6,5,4,.9);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);opacity:0;transition:opacity .28s ease}
+.lbx.on{opacity:1}
+.lbx figure{margin:0;display:flex;flex-direction:column;align-items:center;gap:14px;max-width:100%;max-height:100%;transform:scale(.94);transition:transform .35s var(--ease)}
+.lbx.on figure{transform:none}
+.lbx img{display:block;max-width:min(94vw,980px);max-height:calc(100vh - 150px);max-height:calc(100dvh - 150px);width:auto;height:auto;object-fit:contain;border-radius:22px;border:1px solid rgba(217,181,107,.4);box-shadow:0 40px 80px -30px rgba(0,0,0,.95),0 0 40px -10px rgba(217,181,107,.3);background:#0f0d09}
+.lbx figcaption{font-size:13px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;color:var(--brass-hi)}
+.lbx-x{position:absolute;top:max(14px,env(safe-area-inset-top));right:16px;display:flex;align-items:center;justify-content:center;width:60px;height:60px;padding:0;border-radius:50%;background:linear-gradient(180deg,rgba(38,31,20,.96),rgba(16,13,9,.96));border:1px solid rgba(217,181,107,.6);color:var(--brass-hi);box-shadow:0 10px 22px -8px rgba(0,0,0,.85),inset 0 1px 0 rgba(242,219,163,.22);cursor:pointer;transition:border-color .25s,transform .2s}
+.lbx-x svg{width:26px;height:26px}
+.lbx-x:hover{border-color:var(--brass-hi)}
+.lbx-x:active{transform:scale(.94)}
+.lbx-x:focus-visible{outline:2px solid var(--brass-hi);outline-offset:3px}
+@media (prefers-reduced-motion:reduce){.lbx,.lbx figure{transition:none}}
+#gallery .slide img{cursor:zoom-in}
+/* tablet: the top photos are an endless carousel like the reviews (centered photo, faded neighbours both sides) */
+.g-clone{display:none!important}
+@media (min-width:640px){
+.g-clone{display:block!important}
+.hero-media{padding-inline:0!important;max-width:none!important;margin-inline:calc(var(--gutter)*-1)!important;width:auto!important}
+#gallery.gal{margin-inline:0!important;padding-inline:0!important;scroll-padding-inline:0!important;gap:20px;border-radius:0;-webkit-mask-image:linear-gradient(90deg,transparent 0,rgba(0,0,0,.06) calc((50% - 230px)*.15),rgba(0,0,0,.2) calc((50% - 230px)*.38),rgba(0,0,0,.42) calc((50% - 230px)*.62),rgba(0,0,0,.7) calc((50% - 230px)*.82),#000 calc(50% - 230px),#000 calc(50% + 230px),rgba(0,0,0,.7) calc(50% + 230px + (50% - 230px)*.18),rgba(0,0,0,.42) calc(50% + 230px + (50% - 230px)*.38),rgba(0,0,0,.2) calc(50% + 230px + (50% - 230px)*.62),rgba(0,0,0,.06) calc(50% + 230px + (50% - 230px)*.85),transparent 100%);mask-image:linear-gradient(90deg,transparent 0,rgba(0,0,0,.06) calc((50% - 230px)*.15),rgba(0,0,0,.2) calc((50% - 230px)*.38),rgba(0,0,0,.42) calc((50% - 230px)*.62),rgba(0,0,0,.7) calc((50% - 230px)*.82),#000 calc(50% - 230px),#000 calc(50% + 230px),rgba(0,0,0,.7) calc(50% + 230px + (50% - 230px)*.18),rgba(0,0,0,.42) calc(50% + 230px + (50% - 230px)*.38),rgba(0,0,0,.2) calc(50% + 230px + (50% - 230px)*.62),rgba(0,0,0,.06) calc(50% + 230px + (50% - 230px)*.85),transparent 100%)}
+#gallery.gal .slide{flex:0 0 440px!important;width:440px!important;scroll-snap-align:center!important}
+#gallery.gal::before,#gallery.gal::after{content:"";flex:0 0 calc(50% - 240px)}
+.gal-prev{left:14px!important}.gal-next{right:14px!important}
+.gal-arr svg,.q-arr svg{width:28px;height:28px}
+}
+@media (min-width:640px){.hero .hero-grid,.hero.is-compact .hero-grid{grid-template-columns:minmax(0,1fr)!important}.hero-media{min-width:0}}
+.nj,.nj *,.nj *::before,.nj *::after{transition:none!important;animation:none!important}
+/* gallery photo: highlighted frame on the current / tapped photo */
+@media all{
+#gallery.gal{padding-block:14px;margin-block:-14px}
+#gallery.gal .slide .gcap{left:16px;bottom:18px;gap:7px;padding:7px 13px 7px 11px;font-size:11px;border:1px solid rgba(217,181,107,.14);background:rgba(14,12,8,.42)}
+@media (min-width:640px){#gallery.gal .slide .gcap{left:22px;bottom:24px;gap:8px;padding:9px 16px 9px 14px;font-size:12.5px}}
+#gallery.gal .slide{transition:box-shadow .35s var(--ease),border-color .35s,transform .25s var(--ease)}
+#gallery.gal .slide.is-on{border-color:rgba(242,219,163,.55);box-shadow:0 30px 54px -26px rgba(0,0,0,.95),0 0 18px -8px rgba(217,181,107,.25)}
+#gallery.gal .slide:active{transform:scale(.99);border-color:rgba(242,219,163,.8);box-shadow:0 0 22px -6px rgba(217,181,107,.4)}
+}
+/* colour tiles: selected / tapped highlight, all widths */
+.sw:active .sw-art{transform:translateY(-2px) scale(.97);border-color:rgba(242,219,163,.8);box-shadow:0 0 18px -6px rgba(217,181,107,.4)}
+.sw[aria-checked="true"] .sw-art{transform:translateY(-6px);border-color:rgba(242,219,163,.6);box-shadow:0 20px 36px -14px rgba(0,0,0,.9),0 0 18px -8px rgba(217,181,107,.3);animation:swPick .45s var(--ease)}
+.sw[aria-checked="true"] .sw-name{color:var(--brass-hi);font-weight:700}
+@keyframes swPick{0%{transform:translateY(0) scale(.95)}60%{transform:translateY(-8px) scale(1.03)}100%{transform:translateY(-6px) scale(1)}}
+@media (prefers-reduced-motion:reduce){.sw[aria-checked="true"] .sw-art{animation:none}}
 </style>
 </helmet>
 <div class="page">
@@ -1102,7 +1290,7 @@ html:not(.js-rv) .panel{--pf:1}
         <a class="nav-link" href="#top" aria-current="{{curTrack}}" onClick="{{goTracking}}">Tracking</a>
       </nav>
       <div class="hdr-act">
-        <button class="icon-btn cart-btn" aria-label="Cart" onClick="{{goCart}}">
+        <button class="icon-btn cart-btn" aria-label="Cart" aria-current="{{curCart}}" onClick="{{goCart}}">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.500 3.500h2.800l2.400 11.500h11l2-8.200H6"/><circle cx="9.500" cy="19.800" r="1.300"/><circle cx="17" cy="19.800" r="1.300"/></svg>
           <span class="cart-badge" style="display:{{cartBadgeDisp}}">{{cartCount}}</span>
         </button>
@@ -1117,11 +1305,13 @@ html:not(.js-rv) .panel{--pf:1}
     <div class="wrap hero-grid">
       <div class="hero-media">
         <div id="gallery" class="gal">
-          <figure class="slide" style="margin:0"><img decoding="async" src="{{heroPhoto}}" alt="MemoryOrb in {{cName}}" fetchpriority="high"><span class="gcap">{{cName}}</span><span class="zoom"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1d1b2b" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="10.500" cy="10.500" r="6.500"/><path d="M15.500 15.500L21 21M10.500 8v5M8 10.500h5"/></svg></span></figure>
+          <figure class="slide is-on" style="margin:0"><img decoding="async" src="{{heroPhoto}}" alt="MemoryOrb in {{cName}}" fetchpriority="high"><span class="gcap">{{cName}}</span><span class="zoom"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1d1b2b" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="10.500" cy="10.500" r="6.500"/><path d="M15.500 15.500L21 21M10.500 8v5M8 10.500h5"/></svg></span></figure>
           <figure class="slide" style="margin:0"><img decoding="async" src="{{lifePhoto}}" alt="{{cName}} MemoryOrb by the Christmas tree"><span class="gcap">Memories inside</span><span class="zoom"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1d1b2b" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="10.500" cy="10.500" r="6.500"/><path d="M15.500 15.500L21 21M10.500 8v5M8 10.500h5"/></svg></span></figure>
           <figure class="slide" style="margin:0"><img decoding="async" src="{{treePhoto}}" alt="{{cName}} MemoryOrb on the Christmas tree"><span class="gcap">On the tree</span><span class="zoom"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1d1b2b" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="10.500" cy="10.500" r="6.500"/><path d="M15.500 15.500L21 21M10.500 8v5M8 10.500h5"/></svg></span></figure>
         </div>
         <div class="gal-dots" data-keep-style="" aria-hidden="true"><i></i><i></i><i></i></div>
+        <button type="button" class="gal-arr gal-prev" aria-label="Previous photo"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button>
+        <button type="button" class="gal-arr gal-next" aria-label="Next photo"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>
       </div>
       <div class="hero-copy" style="display:{{infoDisp}}">
         <h1 class="h1 pdp-h1"><span class="mo-ul"><span class="mo-w">MemoryOrb<sup class="tm">™</sup></span> – $59.99</span></h1>
@@ -1154,6 +1344,7 @@ html:not(.js-rv) .panel{--pf:1}
           <div><span class="t-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 018 0v3"/><circle cx="12" cy="15.500" r="1"/></svg></span>Secure Checkout</div>
           <div><span class="t-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v6c0 4.500-3 7.500-7 9-4-1.500-7-4.500-7-9V6z"/></svg></span>30-Day Guarantee</div>
           <div><span class="t-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7z"/><circle cx="7" cy="17.500" r="1.800"/><circle cx="17" cy="17.500" r="1.800"/></svg></span>Free Shipping</div>
+          <div><span class="t-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v6c0 4.500-3 7.500-7 9-4-1.500-7-4.500-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg></span>Damage Protection</div>
         </div>
         <div class="faq-more desc-close2"><button type="button" class="btn btn-ghost" onClick="{{toggleProd}}"><span>Close description</span><svg class="arr" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 15l6-6 6 6"/></svg></button></div>
       </div>
@@ -1173,7 +1364,7 @@ html:not(.js-rv) .panel{--pf:1}
       </div>
 <div class="pa-grid">
         <div class="pa-col">
-          <div class="panel-t"><span>Colour</span><b>{{cName}}<i class="cdot" style="background:{{cDot}}"></i></b></div>
+          <div class="panel-t pt-col"><span>Colour</span><b>{{cName}}<i class="cdot" style="background:{{cDot}}"></i></b></div>
           <div class="swatches" role="radiogroup" aria-label="Colour">
             <sc-for list="{{cColours}}" as="c" hint-placeholder-count="5">
               <button class="sw" role="radio" aria-checked="{{c.checked}}" onClick="{{c.pick}}">
@@ -1234,6 +1425,7 @@ html:not(.js-rv) .panel{--pf:1}
           <div class="buy-note">
             <span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 018 0v3"/></svg>Secure Checkout</span>
             <span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7z"/><circle cx="7" cy="17.500" r="1.800"/><circle cx="17" cy="17.500" r="1.800"/></svg>Free Shipping</span>
+            <span class="tab-only"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v6c0 4.500-3 7.500-7 9-4-1.500-7-4.500-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg>30-Day Guarantee</span>
           </div>
         </div>
 </div>
@@ -1312,17 +1504,23 @@ html:not(.js-rv) .panel{--pf:1}
       <p class="pg-sub">Review your MemoryOrbs, adjust the quantity and check out when you are ready.</p>
       <div class="cart-empty" style="display:{{cartEmptyDisp}}">
         <span class="acct-ico big"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.500 3.500h2.800l2.400 11.500h11l2-8.200H6"/><circle cx="9.500" cy="19.800" r="1.300"/><circle cx="17" cy="19.800" r="1.300"/></svg></span>
-        <p>Your cart is empty. Pick the MemoryOrb that fits your story.</p>
+        <h2 class="ce-t">Your cart is <em>empty</em></h2>
+        <p>Pick the MemoryOrb that fits your story.</p>
         <a class="btn btn-primary btn-lg" href="#top" onClick="{{goShop}}">Shop the collection</a>
       </div>
       <div style="display:{{cartFullDisp}}">
         <div class="cart-list">
           <sc-for list="{{cartItems}}" as="ci">
             <div class="cart-item">
-              <span class="cart-sw sw-art" style="--c:{{ci.color}}"><i class="cap"></i><i class="ball"></i><i class="lens"></i></span>
+              <span class="cart-sw"><img decoding="async" src="{{ci.photo}}" alt="MemoryOrb {{ci.name}}"></span>
               <div class="cart-info">
                 <div class="cart-name">MemoryOrb<sup class="tm">™</sup> <em>{{ci.name}}</em></div>
                 <div class="cart-sub">{{ci.sub}}</div>
+                <div class="cart-cols" role="radiogroup" aria-label="Change colour">
+                  <sc-for list="{{ci.swatches}}" as="sw" hint-placeholder-count="6">
+                    <button type="button" role="radio" class="cart-dot {{sw.cur}}" aria-checked="{{sw.checked}}" aria-label="{{sw.name}}" title="{{sw.name}}" style="--c:{{sw.color}}" onClick="{{sw.pick}}"></button>
+                  </sc-for>
+                </div>
                 <div class="cart-qty" role="group" aria-label="Quantity">
                   <button type="button" aria-label="Decrease" onClick="{{ci.dec}}">−</button><b>{{ci.qty}}</b><button type="button" aria-label="Increase" onClick="{{ci.inc}}">+</button>
                 </div>
@@ -1330,7 +1528,9 @@ html:not(.js-rv) .panel{--pf:1}
               <div class="cart-side"><div class="cart-price">{{ci.price}}</div><button type="button" class="cart-rm" aria-label="Delete item" onClick="{{ci.remove}}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg><span>Delete</span></button></div>
             </div>
           </sc-for>
+
         </div>
+        <button type="button" class="cart-add" style="display:{{cartAddDisp}}" onClick="{{cartAdd}}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>Add another<span class="not-tab">&nbsp;colour</span></button>
         <div class="cart-sum">
           <div><span>Subtotal</span><b>{{cartSub}}</b></div>
           <div><span>Shipping</span><b class="free-pill"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7"/><circle cx="7" cy="18" r="1.4"/><circle cx="17" cy="18" r="1.4"/></svg>Free</b></div>
@@ -1408,6 +1608,7 @@ html:not(.js-rv) .panel{--pf:1}
           <div><span class="t-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 018 0v3"/><circle cx="12" cy="15.500" r="1"/></svg></span>Secure Checkout</div>
           <div><span class="t-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v6c0 4.500-3 7.500-7 9-4-1.500-7-4.500-7-9V6z"/></svg></span>30-Day Guarantee</div>
           <div><span class="t-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7z"/><circle cx="7" cy="17.500" r="1.800"/><circle cx="17" cy="17.500" r="1.800"/></svg></span>Free Shipping</div>
+          <div><span class="t-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v6c0 4.500-3 7.500-7 9-4-1.500-7-4.500-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg></span>Damage Protection</div>
         </div>
       </div>
     </section>
@@ -1418,7 +1619,7 @@ html:not(.js-rv) .panel{--pf:1}
     <div style="display:flex;justify-content:center"><span class="eyebrow c">MemoryOrb</span></div>
     <h1 style="margin:20px 0 14px;text-align:center;font-family:'Cormorant Garamond',serif;font-weight:500;font-size:46px;line-height:1.1;color:#fff">Get in <em style="color:#f1d99a">touch</em></h1>
     <p class="pg-sub" style="margin:0 auto 34px;font-family:'Manrope',system-ui,sans-serif">Have a question about MemoryOrb or need a hand? Send us a message and we will gladly help.</p>
-    <form onSubmit="{{sendContact}}" style="border:1px solid rgba(243,210,122,.28);border-radius:30px;background:#0d0f0a;padding:28px 24px 30px">
+    <form class="ct-form" onSubmit="{{sendContact}}" style="border:1px solid rgba(243,210,122,.28);border-radius:30px;background:#0d0f0a;padding:28px 24px 30px">
       <label style="display:block;margin:0 0 10px;font-size:13px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.55)">Name</label><input class="dcin" type="text" placeholder="Name" aria-label="Name" style="width:100%;height:58px;box-sizing:border-box;padding:0 20px;border:1px solid rgba(255,255,255,.14);border-radius:14px;background:#14160f;color:#fff;font:inherit;font-size:17px;outline:none">
       <label style="display:block;margin:0 0 10px;font-size:13px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-top:22px">Email</label><input class="dcin" type="email" placeholder="Email" aria-label="Email" style="width:100%;height:58px;box-sizing:border-box;padding:0 20px;border:1px solid rgba(255,255,255,.14);border-radius:14px;background:#14160f;color:#fff;font:inherit;font-size:17px;outline:none">
       <label style="display:block;margin:0 0 10px;font-size:13px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-top:22px">Phone number</label><input class="dcin" type="tel" placeholder="Phone number" aria-label="Phone number" style="width:100%;height:58px;box-sizing:border-box;padding:0 20px;border:1px solid rgba(255,255,255,.14);border-radius:14px;background:#14160f;color:#fff;font:inherit;font-size:17px;outline:none">
@@ -1433,7 +1634,7 @@ html:not(.js-rv) .panel{--pf:1}
     <div style="display:flex;justify-content:center"><span class="eyebrow c">MemoryOrb</span></div>
     <h1 style="margin:20px 0 14px;text-align:center;font-family:'Cormorant Garamond',serif;font-weight:500;font-size:46px;line-height:1.1;color:#fff">Track your <em style="color:#f1d99a">order</em></h1>
     <p class="pg-sub" style="margin:0 auto 34px;font-family:'Manrope',system-ui,sans-serif">Enter your order or tracking number to see where your MemoryOrb is right now.</p>
-    <div style="border:1px solid rgba(243,210,122,.28);border-radius:30px;background:#0d0f0a;padding:28px 24px 30px">
+    <div class="ct-form tr-card" style="border:1px solid rgba(243,210,122,.28);border-radius:30px;background:#0d0f0a;padding:28px 24px 30px">
       <div role="tablist" style="display:flex;gap:6px;padding:6px;border:1px solid rgba(255,255,255,.12);border-radius:18px;background:#14160f">
         <button role="tab" onClick="{{tabOrder}}" style="flex:1;height:54px;border:1px solid {{tabOrderLine}};border-radius:13px;background:{{tabOrderBg}};font:inherit;font-size:14px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:{{tabOrderColor}};cursor:pointer">Order number</button>
         <button role="tab" onClick="{{tabTrack}}" style="flex:1;height:54px;border:1px solid {{tabTrackLine}};border-radius:13px;background:{{tabTrackBg}};font:inherit;font-size:14px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:{{tabTrackColor}};cursor:pointer">Tracking number</button>
@@ -1480,7 +1681,9 @@ html:not(.js-rv) .panel{--pf:1}
       </div>
     </section>
     <section class="quote-sec">
-      <div class="wrap">
+      <div class="wrap q-wrap">
+        <button type="button" class="q-arr q-prev" aria-label="Previous review"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button>
+        <button type="button" class="q-arr q-next" aria-label="Next review"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>
         <div class="q-track" tabindex="0" aria-label="Customer reviews">
         <figure class="quote rv rv-s">
           <p>I replay my daughter's first birthday through the Orb every night. It's like stepping back into that moment…priceless.</p>
@@ -1539,7 +1742,7 @@ html:not(.js-rv) .panel{--pf:1}
     <svg viewBox="0 0 432 120" preserveAspectRatio="none" style="position:absolute;left:0;bottom:0;width:100%;height:120px;display:block"><defs><linearGradient id="skyH" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0a0907"/><stop offset=".4" stop-color="#0a0907"/><stop offset=".78" stop-color="#0b1812"/><stop offset="1" stop-color="#10291f"/></linearGradient></defs><g class="hg"><path d="M0 0H432V54C400 66 350 75 290 62C190 40 90 38 0 78Z" fill="{{skyBg}}"/><path d="M0 78C90 38 190 40 290 62C350 75 400 66 432 54" fill="none" stroke="#f1f6ee" stroke-width="3" stroke-linecap="round" vector-effect="non-scaling-stroke" style="filter:drop-shadow(0 0 5px rgba(242,219,163,.28))"/></g></svg>
   </div>
   <!-- stats -->
-  <section class="stats sec">
+  <section class="stats sec {{statsCls}}">
     <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs><linearGradient id="ringGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f3dda6"/><stop offset="1" stop-color="#c49b4d"/></linearGradient></defs></svg>
     <div class="wrap">
       <div class="sec-head rv"><span class="eyebrow c">By the numbers</span><h2 class="h2">The future is <em>an orb!</em></h2></div>
@@ -1673,19 +1876,204 @@ class Component extends DCLogic {
         if (!on) box.classList.add('on');
       });
     } catch (e) {}
-    // gallery indicator (three bars, active one is longer and brighter)
+    // photo viewer: tap a gallery photo to enlarge it; close with the X, a tap outside, or Esc
+    try {
+      let box = null, back = null;
+      const close = () => {
+        if (!box) return;
+        const b = box; box = null;
+        b.classList.remove('on');
+        document.documentElement.style.overflow = '';
+        document.removeEventListener('keydown', onKey, true);
+        setTimeout(() => { try { b.remove(); } catch (x) {} }, reduce ? 0 : 300);
+        try { if (back) back.focus({ preventScroll: true }); } catch (x) {}
+      };
+      const onKey = (e) => { if (e.key === 'Escape') { e.preventDefault(); close(); } };
+      document.addEventListener('click', (e) => {
+        const sl = e.target.closest && e.target.closest('#gallery .slide');
+        if (!sl || box) return;
+        const img = sl.querySelector('img'); if (!img) return;
+        back = document.activeElement;
+        const cap = sl.querySelector('.gcap');
+        box = document.createElement('div');
+        box.className = 'lbx'; box.setAttribute('role', 'dialog'); box.setAttribute('aria-modal', 'true'); box.setAttribute('aria-label', 'Photo viewer');
+        box.innerHTML = '<button type="button" class="lbx-x" aria-label="Close photo"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button><figure><img alt=""><figcaption></figcaption></figure>';
+        const big = box.querySelector('img'); big.src = img.currentSrc || img.src; big.alt = img.alt || '';
+        box.querySelector('figcaption').textContent = cap ? cap.textContent : '';
+        box.addEventListener('click', (ev) => { if (!ev.target.closest('img')) close(); });
+        document.body.appendChild(box);
+        document.documentElement.style.overflow = 'hidden';
+        document.addEventListener('keydown', onKey, true);
+        requestAnimationFrame(() => { if (box) { box.classList.add('on'); const x = box.querySelector('.lbx-x'); if (x) x.focus({ preventScroll: true }); } });
+      });
+    } catch (e) {}
+    // reviews (tablet): endless carousel - there is always a neighbour card on both sides
+    try {
+      const qt = document.querySelector('.q-track');
+      const tab = () => !!(window.matchMedia && window.matchMedia('(min-width:640px)').matches);
+      const real = () => [...qt.querySelectorAll('.quote:not(.q-clone)')];
+      const all = () => [...qt.querySelectorAll('.quote')];
+      const centerOf = (c) => c.offsetLeft + c.offsetWidth / 2 - qt.clientWidth / 2;
+      const nearest = () => {
+        const cs = all(); let best = 0, bd = 1e9;
+        cs.forEach((c, i) => { const d = Math.abs(centerOf(c) - qt.scrollLeft); if (d < bd) { bd = d; best = i; } });
+        return best;
+      };
+      const jump = (left, target) => {
+        qt.classList.add('nj');
+        if (target) { all().forEach((x) => x.classList.toggle('is-on', x === target)); syncFrames(); }
+        qt.style.scrollBehavior = 'auto'; qt.style.scrollSnapType = 'none';
+        qt.scrollLeft = left;
+        requestAnimationFrame(() => requestAnimationFrame(() => { qt.style.scrollBehavior = ''; qt.style.scrollSnapType = ''; qt.classList.remove('nj'); }));
+      };
+      const qkey = (c) => { const n = c && c.querySelector('.by-n'); return n ? n.textContent : ''; };
+      let curKey = null, frAnim = 0;
+      const setPf = (c, v) => c.style.setProperty('--pf', String(v));
+      const syncFrames = () => {
+        const cs = all(); const on = cs.find((c) => c.classList.contains('is-on'));
+        if (!on) return;
+        const k = qkey(on);
+        if (k === curKey) { cs.forEach((c) => { if (c !== on) setPf(c, 0); }); if (!frAnim) setPf(on, 1); return; }
+        cs.forEach((c) => { if (c !== on) setPf(c, 0); });
+        const wrapJump = qt.classList.contains('nj');
+        curKey = k; cancelAnimationFrame(frAnim); frAnim = 0;
+        if (reduce || wrapJump) { setPf(on, 1); return; }
+        setPf(on, 0);
+        const T0 = performance.now(), DUR = 1500, ease = (x) => (x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2);
+        const step = (now) => { const kk = Math.min(1, (now - T0) / DUR); setPf(on, ease(kk).toFixed(3)); if (kk < 1) frAnim = requestAnimationFrame(step); else frAnim = 0; };
+        frAnim = requestAnimationFrame(step);
+      };
+      const mark = () => {
+        const cs = all(); const b = nearest();
+        cs.forEach((c, i) => c.classList.toggle('is-on', i === b));
+        syncFrames();
+      };
+      const ensure = () => {
+        const r = real();
+        r.forEach((c) => { if (!c.querySelector('.pframe')) c.insertAdjacentHTML('beforeend', '<span class="pframe" aria-hidden="true"><i></i></span><span class="pdot" aria-hidden="true"></span>'); });
+        if (r.length < 3) return;
+        if (!qt.querySelector('.q-clone')) {
+          const n = r.length;
+          const mk = (src) => { const c = src.cloneNode(true); c.classList.remove('rv', 'rv-s'); c.classList.add('q-clone', 'in'); c.setAttribute('aria-hidden', 'true'); c.removeAttribute('id'); return c; };
+          qt.insertBefore(mk(r[n - 2]), r[0]);
+          qt.insertBefore(mk(r[n - 1]), r[0]);
+          const after = r[n - 1].nextSibling;
+          qt.insertBefore(mk(r[0]), after);
+          qt.insertBefore(mk(r[1]), after);
+          if (tab()) jump(centerOf(real()[0]));
+        }
+      };
+      let settle;
+      const onSettle = () => {
+        if (!tab()) return;
+        const cs = all(); const n = cs.length - 4; if (n < 3) return; const b = nearest();
+        if (b <= 1) jump(centerOf(cs[b + n]), cs[b + n]);
+        else if (b >= n + 2) jump(centerOf(cs[b - n]), cs[b - n]);
+        mark();
+      };
+      if (qt) {
+        ensure();
+        new MutationObserver(() => { if (!qt.querySelector('.q-clone')) ensure(); }).observe(qt, { childList: true });
+        qt.addEventListener('scroll', () => { mark(); clearTimeout(settle); settle = setTimeout(onSettle, 140); }, { passive: true });
+        window.addEventListener('resize', () => { ensure(); if (tab()) jump(centerOf(all()[nearest()])); mark(); });
+        window.addEventListener('load', () => { ensure(); if (tab()) jump(centerOf(real()[0])); mark(); });
+        setTimeout(() => { ensure(); mark(); }, 300);
+        mark();
+      }
+      document.addEventListener('click', (e) => {
+        const b = e.target.closest && e.target.closest('.q-arr');
+        if (!b || !qt) return;
+        ensure();
+        const cs = all(); if (cs.length < 5) return;
+        const idx = nearest(); const next = b.classList.contains('q-next');
+        const t = Math.max(0, Math.min(cs.length - 1, idx + (next ? 1 : -1)));
+        qt.scrollTo({ left: centerOf(cs[t]), behavior: reduce ? 'auto' : 'smooth' });
+        if (reduce) onSettle();
+      });
+    } catch (e) {}
+    // gallery: indicator bars + highlighted frame; on tablet an endless carousel with neighbour photos on both sides
     try {
       const gal = document.getElementById('gallery');
       const dots = document.querySelector('.gal-dots');
       if (gal && dots) {
+        const tab = () => !!(window.matchMedia && window.matchMedia('(min-width:640px)').matches);
+        const real = () => [...gal.querySelectorAll('.slide:not(.g-clone)')];
+        const vis = () => [...gal.querySelectorAll('.slide')].filter((x) => x.offsetWidth > 0);
+        const centerOf = (c) => c.offsetLeft + c.offsetWidth / 2 - gal.clientWidth / 2;
+        const nearest = () => {
+          const cs = vis(); let best = 0, bd = 1e9;
+          cs.forEach((c, i) => { const d = Math.abs(centerOf(c) - gal.scrollLeft); if (d < bd) { bd = d; best = i; } });
+          return best;
+        };
+        const jump = (left, target) => {
+          gal.classList.add('nj');
+          if (target) vis().forEach((x) => x.classList.toggle('is-on', x === target));
+          gal.style.scrollBehavior = 'auto'; gal.style.scrollSnapType = 'none';
+          gal.scrollLeft = left;
+          requestAnimationFrame(() => requestAnimationFrame(() => { gal.style.scrollBehavior = ''; gal.style.scrollSnapType = ''; gal.classList.remove('nj'); }));
+        };
+        const sync = () => {
+          const r = real(); const cl = gal.querySelectorAll('.g-clone');
+          if (r.length < 3 || cl.length < 4) return;
+          const n = r.length;
+          [[cl[0], r[n - 2]], [cl[1], r[n - 1]], [cl[2], r[0]], [cl[3], r[1]]].forEach(([c, src]) => {
+            const a = c.querySelector('img'), b = src.querySelector('img');
+            if (a && b && a.getAttribute('src') !== b.getAttribute('src')) { a.setAttribute('src', b.getAttribute('src')); a.alt = b.alt; }
+            const ca = c.querySelector('.gcap'), cb = src.querySelector('.gcap');
+            if (ca && cb && ca.textContent !== cb.textContent) ca.textContent = cb.textContent;
+          });
+        };
+        const ensure = () => {
+          const r = real();
+          if (r.length < 3) return;
+          if (!gal.querySelector('.g-clone')) {
+            const n = r.length;
+            const mk = (src) => { const c = src.cloneNode(true); c.classList.remove('is-on'); c.classList.add('g-clone'); c.setAttribute('aria-hidden', 'true'); return c; };
+            gal.insertBefore(mk(r[n - 2]), r[0]);
+            gal.insertBefore(mk(r[n - 1]), r[0]);
+            const after = r[n - 1].nextSibling;
+            gal.insertBefore(mk(r[0]), after);
+            gal.insertBefore(mk(r[1]), after);
+            if (tab()) jump(centerOf(real()[0]));
+          }
+          sync();
+        };
         const upd = () => {
-          const sl = gal.querySelectorAll('.slide');
-          if (!sl.length) return;
-          const step = sl[1] ? sl[1].offsetLeft - sl[0].offsetLeft : gal.clientWidth;
-          const idx = Math.max(0, Math.min(sl.length - 1, Math.round(gal.scrollLeft / (step || 1))));
+          const cs = vis(); if (!cs.length) return;
+          const n = real().length; let idx;
+          if (tab() && gal.querySelector('.g-clone')) {
+            const b = nearest(); idx = (((b - 2) % n) + n) % n;
+            cs.forEach((x, i) => x.classList.toggle('is-on', i === b));
+          } else {
+            const step = cs[1] ? cs[1].offsetLeft - cs[0].offsetLeft : gal.clientWidth;
+            idx = Math.max(0, Math.min(cs.length - 1, Math.round(gal.scrollLeft / (step || 1))));
+            cs.forEach((x, i) => x.classList.toggle('is-on', i === idx));
+          }
           for (let i = 0; i < 3; i++) dots.style.setProperty('--o' + i, i === idx ? '1' : '.4');
         };
-        gal.addEventListener('scroll', upd, { passive: true });
+        let settle;
+        const onSettle = () => {
+          if (!tab()) return;
+          const cs = vis(); const n = cs.length - 4; if (n < 3) return; const b = nearest();
+          if (b <= 1) jump(centerOf(cs[b + n]), cs[b + n]); else if (b >= n + 2) jump(centerOf(cs[b - n]), cs[b - n]);
+          upd();
+        };
+        ensure();
+        gal.addEventListener('scroll', () => { upd(); clearTimeout(settle); settle = setTimeout(onSettle, 140); }, { passive: true });
+        // re-apply clones, photos and highlighted frame whenever the page re-renders the slides
+        try { new MutationObserver(() => { ensure(); upd(); }).observe(gal, { subtree: true, childList: true, attributes: true, attributeFilter: ['class', 'src'] }); } catch (e) {}
+        window.addEventListener('load', () => { ensure(); if (tab()) jump(centerOf(real()[0])); upd(); });
+        setTimeout(() => { ensure(); upd(); }, 300);
+        window.addEventListener('resize', () => { ensure(); if (tab() && gal.querySelector('.g-clone')) jump(centerOf(vis()[nearest()])); upd(); });
+        document.addEventListener('click', (e) => {
+          const b = e.target.closest && e.target.closest('.gal-arr');
+          if (!b || !tab()) return;
+          ensure();
+          const cs = vis(); if (cs.length < 5) return;
+          const t = Math.max(0, Math.min(cs.length - 1, nearest() + (b.classList.contains('gal-next') ? 1 : -1)));
+          gal.scrollTo({ left: centerOf(cs[t]), behavior: reduce ? 'auto' : 'smooth' });
+          if (reduce) onSettle();
+        });
         upd();
       }
     } catch (e) {}
@@ -1819,11 +2207,16 @@ class Component extends DCLogic {
       const els = document.querySelectorAll('.rvt, .hg, .lg-ftr, .mo-ul, .panel, .stat');
       if (els.length && 'IntersectionObserver' in window) {
         root.classList.add('js-rv');
+        let statQ = 0, statT = null;
         const io = new IntersectionObserver((es) => es.forEach((e) => {
           if (!e.isIntersecting) return;
           const t = e.target;
-          t.classList.add('in');
-          if (t.classList.contains('stat')) document.querySelectorAll('.stat').forEach((x) => x.classList.add('in'));
+          if (t.classList.contains('stat')) {
+            // stat cards appear one after another as they scroll into view
+            const k = statQ++;
+            setTimeout(() => t.classList.add('in'), reduce ? 0 : k * 480);
+            clearTimeout(statT); statT = setTimeout(() => { statQ = 0; }, 400);
+          } else t.classList.add('in');
           if (t.classList.contains('panel')) {
             // frame draws itself automatically (time based, independent of scroll)
             if (reduce) { this._pf = '1'; t.style.setProperty('--pf', '1'); }
@@ -1943,16 +2336,30 @@ class Component extends DCLogic {
     const bizRange = (a, b) => { const x = bizDay(a), y = bizDay(b); return x.slice(0, 3) === y.slice(0, 3) ? x + ' - ' + y.slice(4) : x + ' - ' + y; };
     const shipRange = (a, b) => { const x = shipDay(a), y = shipDay(b); return x.slice(0, 3) === y.slice(0, 3) ? x + ' - ' + y.slice(4) : x + ' - ' + y; };
     const money = (c) => '$' + Math.floor(c / 100) + '.' + String(c % 100).padStart(2, '0');
-    const cartLines = this.state.cart;
+    // cart: one line per colour (qty each); pair / collection prices apply by the total number of orbs
+    const cartLines = (this.state.cart || []).filter((l) => l && l.qty > 0).slice().sort((a, b) => a.colour - b.colour);
+    const cartN = cartLines.reduce((a, l) => a + l.qty, 0);
+    const cartUnit = cartN >= 3 ? 5699 : (cartN === 2 ? 5819 : 5999);
+    const setCart = (next) => this.setState({ cart: next, cnote: false });
+    const moveColour = (from, to) => {
+      if (from === to) return;
+      const merged = {};
+      cartLines.forEach((l) => { const c = l.colour === from ? to : l.colour; merged[c] = (merged[c] || 0) + l.qty; });
+      setCart(Object.keys(merged).map((c) => ({ colour: +c, qty: merged[c] })));
+    };
     const cartItems = cartLines.map((l, i) => ({
-      name: (l.colours || [l.colour]).map((c) => cs[c].name).join(' + '), color: cs[l.colour].color,
-      sub: (l.n === 1 ? 'Single' : l.n === 2 ? 'Pair' : 'Collection') + ' · ' + l.n + (l.n === 1 ? ' orb' : ' orbs'),
-      qty: l.qty, price: money(Math.round(l.unit * l.qty)),
-      inc: () => this.setState({ cart: cartLines.map((x, j) => (j === i ? { ...x, qty: x.qty + 1 } : x)) }),
-      dec: () => this.setState({ cart: cartLines.map((x, j) => (j === i ? { ...x, qty: Math.max(1, x.qty - 1) } : x)) }),
-      remove: () => this.setState({ cart: cartLines.filter((x, j) => j !== i) })
+      name: cs[l.colour].name, color: cs[l.colour].color, photo: cs[l.colour].photo,
+      sub: money(cartUnit) + ' each',
+      qty: l.qty, price: money(cartUnit * l.qty),
+      inc: () => setCart(cartLines.map((x, j) => (j === i ? { ...x, qty: x.qty + 1 } : x))),
+      dec: () => setCart(cartLines.map((x, j) => (j === i ? { ...x, qty: Math.max(1, x.qty - 1) } : x))),
+      remove: () => setCart(cartLines.filter((x, j) => j !== i)),
+      swatches: cs.map((c, k) => ({ name: c.name, color: c.color, checked: k === l.colour ? 'true' : 'false', cur: k === l.colour ? 'on' : '', pick: () => moveColour(l.colour, k) }))
     }));
-    const cartTotalCents = cartLines.reduce((a, l) => a + Math.round(l.unit * l.qty), 0);
+    const freeColour = cs.findIndex((c, k) => !cartLines.some((l) => l.colour === k));
+    const cartAddDisp = freeColour >= 0 ? 'flex' : 'none';
+    const cartAdd = () => { if (freeColour >= 0) setCart(cartLines.concat([{ colour: freeColour, qty: 1 }])); };
+    const cartTotalCents = cartUnit * cartN;
     const cartCountN = cartLines.reduce((a, l) => a + l.qty, 0);
     const cents = 5999 * this.state.qty;
     const ctaTotal = '$' + Math.floor(cents / 100) + '.' + String(cents % 100).padStart(2, '0');
@@ -1989,6 +2396,8 @@ class Component extends DCLogic {
       curHome: this.state.page === 'home' ? 'page' : 'false',
       curContact: this.state.page === 'contact' ? 'page' : 'false',
       curTrack: this.state.page === 'tracking' ? 'page' : 'false',
+      curCart: this.state.page === 'cart' ? 'page' : 'false',
+      statsCls: (this.state.page === 'home' || this.state.page === 'products') ? '' : 'st-sm',
       selOrder: this.state.tab === 0 ? 'true' : 'false',
       selTrack: this.state.tab === 1 ? 'true' : 'false',
       trackDisp: this.state.page === 'tracking' ? 'block' : 'none',
@@ -2160,7 +2569,7 @@ class Component extends DCLogic {
       accountDisp: this.state.page === 'account' ? 'block' : 'none',
       shipD1: shipDay(0), shipD2: bizRange(1, 3), shipD3: shipRange(10, 12),
       cartDisp: this.state.page === 'cart' ? 'block' : 'none',
-      cartItems, cartSub: money(cartTotalCents), cartCount: cartCountN, cartBadgeDisp: cartCountN > 0 ? 'grid' : 'none',
+      cartItems, cartAdd, cartAddDisp, cartSub: money(cartTotalCents), cartCount: cartCountN, cartBadgeDisp: cartCountN > 0 ? 'grid' : 'none',
       cartEmptyDisp: cartLines.length ? 'none' : 'flex', cartFullDisp: cartLines.length ? 'block' : 'none',
       cartNoteDisp: this.state.cnote ? 'flex' : 'none',
       cartCheckout: () => this.setState({ cnote: true }),
@@ -2176,16 +2585,20 @@ class Component extends DCLogic {
           setTimeout(() => { try { const m = document.querySelector('.bundle-row.is-miss'); if (m) m.scrollIntoView({ behavior: 'smooth', block: 'center' }); } catch (x) {} }, 50);
           return;
         }
-        const unit = totals[n - 1] / n;
-        const key = colours.join(',');
-        const ex = cartLines.findIndex((l) => (l.colours || [l.colour]).join(',') === key && l.n === n);
-        const next = ex >= 0 ? cartLines.map((l, j) => (j === ex ? { ...l, qty: l.qty + 1 } : l)) : cartLines.concat([{ colour: this.state.colour, colours, n, qty: 1, unit: unit * n }]);
+        const merged = {};
+        (this.state.cart || []).forEach((l) => { merged[l.colour] = (merged[l.colour] || 0) + l.qty; });
+        colours.forEach((c) => { merged[c] = (merged[c] || 0) + 1; });
+        const next = Object.keys(merged).map((c) => ({ colour: +c, qty: merged[c] }));
         this.setState({ cart: next, page: 'cart', cnote: false }); try { window.scrollTo(0, 0); } catch (x) {}
       },
       userName: this.state.user ? this.state.user.name : '', userInit: this.state.user ? this.state.user.name.charAt(0).toUpperCase() : '', userMail: this.state.user ? this.state.user.mail : '',
       noop: (e) => { try { e.preventDefault(); } catch (x) {} },
       logout: (e) => { this.setState({ user: null, page: 'login', lt: 0, lsent: false }); try { window.scrollTo(0, 0); } catch (x) {} },
-      goShop: (e) => { try { e.preventDefault(); } catch (x) {} this.setState({ page: 'products', menu: false }); try { window.scrollTo(0, 0); } catch (x) {} },
+      goShop: (e) => { try { e.preventDefault(); } catch (x) {} this.setState({ page: 'home', menu: false });
+        // jump to the "Choose your MemoryOrb" (colours) section once the page has switched
+        const toColours = () => { try { const el = document.getElementById('colours'); if (el && el.offsetParent !== null) { const hd = document.querySelector('header.hdr'); const off = (hd ? hd.offsetHeight : 0) + 14; window.scrollTo(0, Math.max(0, el.getBoundingClientRect().top + (window.scrollY || 0) - off)); return true; } } catch (x) {} return false; };
+        let n = 0; const tryScroll = () => { if (toColours() || ++n > 12) return; setTimeout(tryScroll, 80); };
+        try { window.scrollTo(0, 0); } catch (x) {} setTimeout(tryScroll, 60); },
       goLogin: (e) => { this.setState({ page: this.state.user ? 'account' : 'login', menu: false, lsent: false }); try { window.scrollTo(0, 0); } catch (x) {} },
       lgNameDisp0: this.state.lt === 0 ? 'block' : 'none',
       lgIn: this.state.lt === 0 ? 'true' : 'false', lgUp: this.state.lt === 1 ? 'true' : 'false',

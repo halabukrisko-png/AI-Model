@@ -69,19 +69,204 @@ class Component extends DCLogic {
         if (!on) box.classList.add('on');
       });
     } catch (e) {}
-    // gallery indicator (three bars, active one is longer and brighter)
+    // photo viewer: tap a gallery photo to enlarge it; close with the X, a tap outside, or Esc
+    try {
+      let box = null, back = null;
+      const close = () => {
+        if (!box) return;
+        const b = box; box = null;
+        b.classList.remove('on');
+        document.documentElement.style.overflow = '';
+        document.removeEventListener('keydown', onKey, true);
+        setTimeout(() => { try { b.remove(); } catch (x) {} }, reduce ? 0 : 300);
+        try { if (back) back.focus({ preventScroll: true }); } catch (x) {}
+      };
+      const onKey = (e) => { if (e.key === 'Escape') { e.preventDefault(); close(); } };
+      document.addEventListener('click', (e) => {
+        const sl = e.target.closest && e.target.closest('#gallery .slide');
+        if (!sl || box) return;
+        const img = sl.querySelector('img'); if (!img) return;
+        back = document.activeElement;
+        const cap = sl.querySelector('.gcap');
+        box = document.createElement('div');
+        box.className = 'lbx'; box.setAttribute('role', 'dialog'); box.setAttribute('aria-modal', 'true'); box.setAttribute('aria-label', 'Photo viewer');
+        box.innerHTML = '<button type="button" class="lbx-x" aria-label="Close photo"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button><figure><img alt=""><figcaption></figcaption></figure>';
+        const big = box.querySelector('img'); big.src = img.currentSrc || img.src; big.alt = img.alt || '';
+        box.querySelector('figcaption').textContent = cap ? cap.textContent : '';
+        box.addEventListener('click', (ev) => { if (!ev.target.closest('img')) close(); });
+        document.body.appendChild(box);
+        document.documentElement.style.overflow = 'hidden';
+        document.addEventListener('keydown', onKey, true);
+        requestAnimationFrame(() => { if (box) { box.classList.add('on'); const x = box.querySelector('.lbx-x'); if (x) x.focus({ preventScroll: true }); } });
+      });
+    } catch (e) {}
+    // reviews (tablet): endless carousel - there is always a neighbour card on both sides
+    try {
+      const qt = document.querySelector('.q-track');
+      const tab = () => !!(window.matchMedia && window.matchMedia('(min-width:640px)').matches);
+      const real = () => [...qt.querySelectorAll('.quote:not(.q-clone)')];
+      const all = () => [...qt.querySelectorAll('.quote')];
+      const centerOf = (c) => c.offsetLeft + c.offsetWidth / 2 - qt.clientWidth / 2;
+      const nearest = () => {
+        const cs = all(); let best = 0, bd = 1e9;
+        cs.forEach((c, i) => { const d = Math.abs(centerOf(c) - qt.scrollLeft); if (d < bd) { bd = d; best = i; } });
+        return best;
+      };
+      const jump = (left, target) => {
+        qt.classList.add('nj');
+        if (target) { all().forEach((x) => x.classList.toggle('is-on', x === target)); syncFrames(); }
+        qt.style.scrollBehavior = 'auto'; qt.style.scrollSnapType = 'none';
+        qt.scrollLeft = left;
+        requestAnimationFrame(() => requestAnimationFrame(() => { qt.style.scrollBehavior = ''; qt.style.scrollSnapType = ''; qt.classList.remove('nj'); }));
+      };
+      const qkey = (c) => { const n = c && c.querySelector('.by-n'); return n ? n.textContent : ''; };
+      let curKey = null, frAnim = 0;
+      const setPf = (c, v) => c.style.setProperty('--pf', String(v));
+      const syncFrames = () => {
+        const cs = all(); const on = cs.find((c) => c.classList.contains('is-on'));
+        if (!on) return;
+        const k = qkey(on);
+        if (k === curKey) { cs.forEach((c) => { if (c !== on) setPf(c, 0); }); if (!frAnim) setPf(on, 1); return; }
+        cs.forEach((c) => { if (c !== on) setPf(c, 0); });
+        const wrapJump = qt.classList.contains('nj');
+        curKey = k; cancelAnimationFrame(frAnim); frAnim = 0;
+        if (reduce || wrapJump) { setPf(on, 1); return; }
+        setPf(on, 0);
+        const T0 = performance.now(), DUR = 1500, ease = (x) => (x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2);
+        const step = (now) => { const kk = Math.min(1, (now - T0) / DUR); setPf(on, ease(kk).toFixed(3)); if (kk < 1) frAnim = requestAnimationFrame(step); else frAnim = 0; };
+        frAnim = requestAnimationFrame(step);
+      };
+      const mark = () => {
+        const cs = all(); const b = nearest();
+        cs.forEach((c, i) => c.classList.toggle('is-on', i === b));
+        syncFrames();
+      };
+      const ensure = () => {
+        const r = real();
+        r.forEach((c) => { if (!c.querySelector('.pframe')) c.insertAdjacentHTML('beforeend', '<span class="pframe" aria-hidden="true"><i></i></span><span class="pdot" aria-hidden="true"></span>'); });
+        if (r.length < 3) return;
+        if (!qt.querySelector('.q-clone')) {
+          const n = r.length;
+          const mk = (src) => { const c = src.cloneNode(true); c.classList.remove('rv', 'rv-s'); c.classList.add('q-clone', 'in'); c.setAttribute('aria-hidden', 'true'); c.removeAttribute('id'); return c; };
+          qt.insertBefore(mk(r[n - 2]), r[0]);
+          qt.insertBefore(mk(r[n - 1]), r[0]);
+          const after = r[n - 1].nextSibling;
+          qt.insertBefore(mk(r[0]), after);
+          qt.insertBefore(mk(r[1]), after);
+          if (tab()) jump(centerOf(real()[0]));
+        }
+      };
+      let settle;
+      const onSettle = () => {
+        if (!tab()) return;
+        const cs = all(); const n = cs.length - 4; if (n < 3) return; const b = nearest();
+        if (b <= 1) jump(centerOf(cs[b + n]), cs[b + n]);
+        else if (b >= n + 2) jump(centerOf(cs[b - n]), cs[b - n]);
+        mark();
+      };
+      if (qt) {
+        ensure();
+        new MutationObserver(() => { if (!qt.querySelector('.q-clone')) ensure(); }).observe(qt, { childList: true });
+        qt.addEventListener('scroll', () => { mark(); clearTimeout(settle); settle = setTimeout(onSettle, 140); }, { passive: true });
+        window.addEventListener('resize', () => { ensure(); if (tab()) jump(centerOf(all()[nearest()])); mark(); });
+        window.addEventListener('load', () => { ensure(); if (tab()) jump(centerOf(real()[0])); mark(); });
+        setTimeout(() => { ensure(); mark(); }, 300);
+        mark();
+      }
+      document.addEventListener('click', (e) => {
+        const b = e.target.closest && e.target.closest('.q-arr');
+        if (!b || !qt) return;
+        ensure();
+        const cs = all(); if (cs.length < 5) return;
+        const idx = nearest(); const next = b.classList.contains('q-next');
+        const t = Math.max(0, Math.min(cs.length - 1, idx + (next ? 1 : -1)));
+        qt.scrollTo({ left: centerOf(cs[t]), behavior: reduce ? 'auto' : 'smooth' });
+        if (reduce) onSettle();
+      });
+    } catch (e) {}
+    // gallery: indicator bars + highlighted frame; on tablet an endless carousel with neighbour photos on both sides
     try {
       const gal = document.getElementById('gallery');
       const dots = document.querySelector('.gal-dots');
       if (gal && dots) {
+        const tab = () => !!(window.matchMedia && window.matchMedia('(min-width:640px)').matches);
+        const real = () => [...gal.querySelectorAll('.slide:not(.g-clone)')];
+        const vis = () => [...gal.querySelectorAll('.slide')].filter((x) => x.offsetWidth > 0);
+        const centerOf = (c) => c.offsetLeft + c.offsetWidth / 2 - gal.clientWidth / 2;
+        const nearest = () => {
+          const cs = vis(); let best = 0, bd = 1e9;
+          cs.forEach((c, i) => { const d = Math.abs(centerOf(c) - gal.scrollLeft); if (d < bd) { bd = d; best = i; } });
+          return best;
+        };
+        const jump = (left, target) => {
+          gal.classList.add('nj');
+          if (target) vis().forEach((x) => x.classList.toggle('is-on', x === target));
+          gal.style.scrollBehavior = 'auto'; gal.style.scrollSnapType = 'none';
+          gal.scrollLeft = left;
+          requestAnimationFrame(() => requestAnimationFrame(() => { gal.style.scrollBehavior = ''; gal.style.scrollSnapType = ''; gal.classList.remove('nj'); }));
+        };
+        const sync = () => {
+          const r = real(); const cl = gal.querySelectorAll('.g-clone');
+          if (r.length < 3 || cl.length < 4) return;
+          const n = r.length;
+          [[cl[0], r[n - 2]], [cl[1], r[n - 1]], [cl[2], r[0]], [cl[3], r[1]]].forEach(([c, src]) => {
+            const a = c.querySelector('img'), b = src.querySelector('img');
+            if (a && b && a.getAttribute('src') !== b.getAttribute('src')) { a.setAttribute('src', b.getAttribute('src')); a.alt = b.alt; }
+            const ca = c.querySelector('.gcap'), cb = src.querySelector('.gcap');
+            if (ca && cb && ca.textContent !== cb.textContent) ca.textContent = cb.textContent;
+          });
+        };
+        const ensure = () => {
+          const r = real();
+          if (r.length < 3) return;
+          if (!gal.querySelector('.g-clone')) {
+            const n = r.length;
+            const mk = (src) => { const c = src.cloneNode(true); c.classList.remove('is-on'); c.classList.add('g-clone'); c.setAttribute('aria-hidden', 'true'); return c; };
+            gal.insertBefore(mk(r[n - 2]), r[0]);
+            gal.insertBefore(mk(r[n - 1]), r[0]);
+            const after = r[n - 1].nextSibling;
+            gal.insertBefore(mk(r[0]), after);
+            gal.insertBefore(mk(r[1]), after);
+            if (tab()) jump(centerOf(real()[0]));
+          }
+          sync();
+        };
         const upd = () => {
-          const sl = gal.querySelectorAll('.slide');
-          if (!sl.length) return;
-          const step = sl[1] ? sl[1].offsetLeft - sl[0].offsetLeft : gal.clientWidth;
-          const idx = Math.max(0, Math.min(sl.length - 1, Math.round(gal.scrollLeft / (step || 1))));
+          const cs = vis(); if (!cs.length) return;
+          const n = real().length; let idx;
+          if (tab() && gal.querySelector('.g-clone')) {
+            const b = nearest(); idx = (((b - 2) % n) + n) % n;
+            cs.forEach((x, i) => x.classList.toggle('is-on', i === b));
+          } else {
+            const step = cs[1] ? cs[1].offsetLeft - cs[0].offsetLeft : gal.clientWidth;
+            idx = Math.max(0, Math.min(cs.length - 1, Math.round(gal.scrollLeft / (step || 1))));
+            cs.forEach((x, i) => x.classList.toggle('is-on', i === idx));
+          }
           for (let i = 0; i < 3; i++) dots.style.setProperty('--o' + i, i === idx ? '1' : '.4');
         };
-        gal.addEventListener('scroll', upd, { passive: true });
+        let settle;
+        const onSettle = () => {
+          if (!tab()) return;
+          const cs = vis(); const n = cs.length - 4; if (n < 3) return; const b = nearest();
+          if (b <= 1) jump(centerOf(cs[b + n]), cs[b + n]); else if (b >= n + 2) jump(centerOf(cs[b - n]), cs[b - n]);
+          upd();
+        };
+        ensure();
+        gal.addEventListener('scroll', () => { upd(); clearTimeout(settle); settle = setTimeout(onSettle, 140); }, { passive: true });
+        // re-apply clones, photos and highlighted frame whenever the page re-renders the slides
+        try { new MutationObserver(() => { ensure(); upd(); }).observe(gal, { subtree: true, childList: true, attributes: true, attributeFilter: ['class', 'src'] }); } catch (e) {}
+        window.addEventListener('load', () => { ensure(); if (tab()) jump(centerOf(real()[0])); upd(); });
+        setTimeout(() => { ensure(); upd(); }, 300);
+        window.addEventListener('resize', () => { ensure(); if (tab() && gal.querySelector('.g-clone')) jump(centerOf(vis()[nearest()])); upd(); });
+        document.addEventListener('click', (e) => {
+          const b = e.target.closest && e.target.closest('.gal-arr');
+          if (!b || !tab()) return;
+          ensure();
+          const cs = vis(); if (cs.length < 5) return;
+          const t = Math.max(0, Math.min(cs.length - 1, nearest() + (b.classList.contains('gal-next') ? 1 : -1)));
+          gal.scrollTo({ left: centerOf(cs[t]), behavior: reduce ? 'auto' : 'smooth' });
+          if (reduce) onSettle();
+        });
         upd();
       }
     } catch (e) {}
@@ -215,11 +400,16 @@ class Component extends DCLogic {
       const els = document.querySelectorAll('.rvt, .hg, .lg-ftr, .mo-ul, .panel, .stat');
       if (els.length && 'IntersectionObserver' in window) {
         root.classList.add('js-rv');
+        let statQ = 0, statT = null;
         const io = new IntersectionObserver((es) => es.forEach((e) => {
           if (!e.isIntersecting) return;
           const t = e.target;
-          t.classList.add('in');
-          if (t.classList.contains('stat')) document.querySelectorAll('.stat').forEach((x) => x.classList.add('in'));
+          if (t.classList.contains('stat')) {
+            // stat cards appear one after another as they scroll into view
+            const k = statQ++;
+            setTimeout(() => t.classList.add('in'), reduce ? 0 : k * 480);
+            clearTimeout(statT); statT = setTimeout(() => { statQ = 0; }, 400);
+          } else t.classList.add('in');
           if (t.classList.contains('panel')) {
             // frame draws itself automatically (time based, independent of scroll)
             if (reduce) { this._pf = '1'; t.style.setProperty('--pf', '1'); }
@@ -339,16 +529,30 @@ class Component extends DCLogic {
     const bizRange = (a, b) => { const x = bizDay(a), y = bizDay(b); return x.slice(0, 3) === y.slice(0, 3) ? x + ' - ' + y.slice(4) : x + ' - ' + y; };
     const shipRange = (a, b) => { const x = shipDay(a), y = shipDay(b); return x.slice(0, 3) === y.slice(0, 3) ? x + ' - ' + y.slice(4) : x + ' - ' + y; };
     const money = (c) => '$' + Math.floor(c / 100) + '.' + String(c % 100).padStart(2, '0');
-    const cartLines = this.state.cart;
+    // cart: one line per colour (qty each); pair / collection prices apply by the total number of orbs
+    const cartLines = (this.state.cart || []).filter((l) => l && l.qty > 0).slice().sort((a, b) => a.colour - b.colour);
+    const cartN = cartLines.reduce((a, l) => a + l.qty, 0);
+    const cartUnit = cartN >= 3 ? 5699 : (cartN === 2 ? 5819 : 5999);
+    const setCart = (next) => this.setState({ cart: next, cnote: false });
+    const moveColour = (from, to) => {
+      if (from === to) return;
+      const merged = {};
+      cartLines.forEach((l) => { const c = l.colour === from ? to : l.colour; merged[c] = (merged[c] || 0) + l.qty; });
+      setCart(Object.keys(merged).map((c) => ({ colour: +c, qty: merged[c] })));
+    };
     const cartItems = cartLines.map((l, i) => ({
-      name: (l.colours || [l.colour]).map((c) => cs[c].name).join(' + '), color: cs[l.colour].color,
-      sub: (l.n === 1 ? 'Single' : l.n === 2 ? 'Pair' : 'Collection') + ' · ' + l.n + (l.n === 1 ? ' orb' : ' orbs'),
-      qty: l.qty, price: money(Math.round(l.unit * l.qty)),
-      inc: () => this.setState({ cart: cartLines.map((x, j) => (j === i ? { ...x, qty: x.qty + 1 } : x)) }),
-      dec: () => this.setState({ cart: cartLines.map((x, j) => (j === i ? { ...x, qty: Math.max(1, x.qty - 1) } : x)) }),
-      remove: () => this.setState({ cart: cartLines.filter((x, j) => j !== i) })
+      name: cs[l.colour].name, color: cs[l.colour].color, photo: cs[l.colour].photo,
+      sub: money(cartUnit) + ' each',
+      qty: l.qty, price: money(cartUnit * l.qty),
+      inc: () => setCart(cartLines.map((x, j) => (j === i ? { ...x, qty: x.qty + 1 } : x))),
+      dec: () => setCart(cartLines.map((x, j) => (j === i ? { ...x, qty: Math.max(1, x.qty - 1) } : x))),
+      remove: () => setCart(cartLines.filter((x, j) => j !== i)),
+      swatches: cs.map((c, k) => ({ name: c.name, color: c.color, checked: k === l.colour ? 'true' : 'false', cur: k === l.colour ? 'on' : '', pick: () => moveColour(l.colour, k) }))
     }));
-    const cartTotalCents = cartLines.reduce((a, l) => a + Math.round(l.unit * l.qty), 0);
+    const freeColour = cs.findIndex((c, k) => !cartLines.some((l) => l.colour === k));
+    const cartAddDisp = freeColour >= 0 ? 'flex' : 'none';
+    const cartAdd = () => { if (freeColour >= 0) setCart(cartLines.concat([{ colour: freeColour, qty: 1 }])); };
+    const cartTotalCents = cartUnit * cartN;
     const cartCountN = cartLines.reduce((a, l) => a + l.qty, 0);
     const cents = 5999 * this.state.qty;
     const ctaTotal = '$' + Math.floor(cents / 100) + '.' + String(cents % 100).padStart(2, '0');
@@ -385,6 +589,8 @@ class Component extends DCLogic {
       curHome: this.state.page === 'home' ? 'page' : 'false',
       curContact: this.state.page === 'contact' ? 'page' : 'false',
       curTrack: this.state.page === 'tracking' ? 'page' : 'false',
+      curCart: this.state.page === 'cart' ? 'page' : 'false',
+      statsCls: (this.state.page === 'home' || this.state.page === 'products') ? '' : 'st-sm',
       selOrder: this.state.tab === 0 ? 'true' : 'false',
       selTrack: this.state.tab === 1 ? 'true' : 'false',
       trackDisp: this.state.page === 'tracking' ? 'block' : 'none',
@@ -556,7 +762,7 @@ class Component extends DCLogic {
       accountDisp: this.state.page === 'account' ? 'block' : 'none',
       shipD1: shipDay(0), shipD2: bizRange(1, 3), shipD3: shipRange(10, 12),
       cartDisp: this.state.page === 'cart' ? 'block' : 'none',
-      cartItems, cartSub: money(cartTotalCents), cartCount: cartCountN, cartBadgeDisp: cartCountN > 0 ? 'grid' : 'none',
+      cartItems, cartAdd, cartAddDisp, cartSub: money(cartTotalCents), cartCount: cartCountN, cartBadgeDisp: cartCountN > 0 ? 'grid' : 'none',
       cartEmptyDisp: cartLines.length ? 'none' : 'flex', cartFullDisp: cartLines.length ? 'block' : 'none',
       cartNoteDisp: this.state.cnote ? 'flex' : 'none',
       cartCheckout: () => this.setState({ cnote: true }),
@@ -572,16 +778,20 @@ class Component extends DCLogic {
           setTimeout(() => { try { const m = document.querySelector('.bundle-row.is-miss'); if (m) m.scrollIntoView({ behavior: 'smooth', block: 'center' }); } catch (x) {} }, 50);
           return;
         }
-        const unit = totals[n - 1] / n;
-        const key = colours.join(',');
-        const ex = cartLines.findIndex((l) => (l.colours || [l.colour]).join(',') === key && l.n === n);
-        const next = ex >= 0 ? cartLines.map((l, j) => (j === ex ? { ...l, qty: l.qty + 1 } : l)) : cartLines.concat([{ colour: this.state.colour, colours, n, qty: 1, unit: unit * n }]);
+        const merged = {};
+        (this.state.cart || []).forEach((l) => { merged[l.colour] = (merged[l.colour] || 0) + l.qty; });
+        colours.forEach((c) => { merged[c] = (merged[c] || 0) + 1; });
+        const next = Object.keys(merged).map((c) => ({ colour: +c, qty: merged[c] }));
         this.setState({ cart: next, page: 'cart', cnote: false }); try { window.scrollTo(0, 0); } catch (x) {}
       },
       userName: this.state.user ? this.state.user.name : '', userInit: this.state.user ? this.state.user.name.charAt(0).toUpperCase() : '', userMail: this.state.user ? this.state.user.mail : '',
       noop: (e) => { try { e.preventDefault(); } catch (x) {} },
       logout: (e) => { this.setState({ user: null, page: 'login', lt: 0, lsent: false }); try { window.scrollTo(0, 0); } catch (x) {} },
-      goShop: (e) => { try { e.preventDefault(); } catch (x) {} this.setState({ page: 'products', menu: false }); try { window.scrollTo(0, 0); } catch (x) {} },
+      goShop: (e) => { try { e.preventDefault(); } catch (x) {} this.setState({ page: 'home', menu: false });
+        // jump to the "Choose your MemoryOrb" (colours) section once the page has switched
+        const toColours = () => { try { const el = document.getElementById('colours'); if (el && el.offsetParent !== null) { const hd = document.querySelector('header.hdr'); const off = (hd ? hd.offsetHeight : 0) + 14; window.scrollTo(0, Math.max(0, el.getBoundingClientRect().top + (window.scrollY || 0) - off)); return true; } } catch (x) {} return false; };
+        let n = 0; const tryScroll = () => { if (toColours() || ++n > 12) return; setTimeout(tryScroll, 80); };
+        try { window.scrollTo(0, 0); } catch (x) {} setTimeout(tryScroll, 60); },
       goLogin: (e) => { this.setState({ page: this.state.user ? 'account' : 'login', menu: false, lsent: false }); try { window.scrollTo(0, 0); } catch (x) {} },
       lgNameDisp0: this.state.lt === 0 ? 'block' : 'none',
       lgIn: this.state.lt === 0 ? 'true' : 'false', lgUp: this.state.lt === 1 ? 'true' : 'false',
