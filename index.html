@@ -1239,6 +1239,8 @@ html.js-rv .stat.in:hover{transform:translateY(-3px)}
 @media all{
 #gallery.gal{padding-block:14px;margin-block:-14px}
 #gallery.gal .slide .gcap{left:16px;bottom:18px;gap:7px;padding:7px 13px 7px 11px;font-size:11px;border:1px solid rgba(217,181,107,.14);background:rgba(14,12,8,.42)}
+/* mobile: chip as it was before */
+@media (max-width:639px){#gallery.gal .slide .gcap{left:14px;bottom:14px;gap:8px;padding:7px 12px 7px 10px;font-size:10.5px;letter-spacing:.16em;border:1px solid rgba(217,181,107,.35);background:rgba(14,12,8,.55)}#gallery.gal .slide .gcap::before{width:5px;height:5px}}
 @media (min-width:640px){#gallery.gal .slide .gcap{left:22px;bottom:24px;gap:8px;padding:9px 16px 9px 14px;font-size:12.5px}}
 #gallery.gal .slide{transition:box-shadow .35s var(--ease),border-color .35s,transform .25s var(--ease)}
 #gallery.gal .slide.is-on{border-color:rgba(242,219,163,.55);box-shadow:0 30px 54px -26px rgba(0,0,0,.95),0 0 18px -8px rgba(217,181,107,.25)}
