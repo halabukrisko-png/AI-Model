@@ -650,7 +650,7 @@ class Component extends DCLogic {
             return;
           }
           quick(true, false);
-          if (open) requestAnimationFrame(() => requestAnimationFrame(() => { try { const t = document.querySelector('.descwrap .details-sec'); if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' }); } catch (x) {} }));
+          if (open) requestAnimationFrame(() => requestAnimationFrame(() => { try { const h = document.querySelector('.descwrap .details-sec .sec-head'), hd = document.querySelector('header.hdr'); if (h) { const hb = hd ? hd.getBoundingClientRect().bottom : 56; window.scrollTo({ top: Math.max(0, window.scrollY + h.getBoundingClientRect().top - hb - 12), behavior: 'smooth' }); } } catch (x) {} }));
           return;
         }
         this.setState({ page: 'products', menu: false }); try { window.scrollTo(0, 0); } catch (x) {}
