@@ -1096,6 +1096,17 @@ html:not(.js-rv) .panel{--pf:1}
 .sw:hover .sw-art{transform:translateY(-6px);border-color:var(--brass-hi);box-shadow:0 0 0 1px var(--brass-hi),0 18px 34px -14px rgba(0,0,0,.9),0 0 26px -4px rgba(217,181,107,.55);filter:brightness(1.08)}
 .sw:hover .sw-name{color:var(--brass-hi)}
 }
+/* review cards: refined look */
+.q-track .quote,.quote{padding-top:58px!important;border:1px solid rgba(217,181,107,.32);background:radial-gradient(100% 60% at 50% 0%,rgba(217,181,107,.14),transparent 72%),linear-gradient(180deg,#1b1710 0%,#12100b 55%,#0f0d09 100%);box-shadow:inset 0 1px 0 rgba(242,219,163,.28),inset 0 0 0 1px rgba(255,255,255,.025),0 28px 50px -28px rgba(0,0,0,.95),0 0 40px -22px rgba(217,181,107,.35)}
+.quote .quote-by{position:static}
+.quote .stars{position:absolute!important;top:24px;left:50%;transform:translateX(-50%);margin:0!important;gap:5px}
+.quote .stars svg{width:16px;height:16px;filter:drop-shadow(0 0 6px rgba(217,181,107,.55))}
+.q-track .quote p{padding-top:4px!important;font-size:clamp(21px,5.4vw,26px);line-height:1.34;color:#f6efdd}
+.quote .quote-by{flex-wrap:wrap!important;justify-content:center;row-gap:10px;margin-top:22px}
+.quote .avatar{background:radial-gradient(circle at 34% 28%,#3c3015,#1a1509 75%);border:1px solid rgba(242,219,163,.7);color:var(--brass-hi);font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-weight:600;letter-spacing:.02em;box-shadow:0 0 0 4px rgba(217,181,107,.1),0 8px 18px -8px rgba(0,0,0,.8)}
+.quote .by-n{font-size:20px;color:#fff}
+.quote .verified{padding:4px 11px 4px 9px;border:1px solid rgba(111,208,122,.4);border-radius:999px;background:rgba(111,208,122,.08);font-size:11px;font-weight:700;letter-spacing:.04em}
+@media (max-width:520px){.quote{padding-inline:16px!important}.quote .quote-by{flex-wrap:wrap!important;gap:8px 12px}.quote .avatar{width:44px;height:44px;font-size:14px}.quote .verified{font-size:10.5px;padding:3px 9px 3px 7px}.quote .by-n{font-size:19px}}
 /* reviews: phone shows small arrows beside the cards (no clones, no big quote mark) */
 .q-wrap{position:relative}
 .q-arr{display:flex;position:absolute;top:calc(50% - 8px);transform:translateY(-50%);z-index:4;align-items:center;justify-content:center;width:32px;height:32px;padding:0;border-radius:50%;background:linear-gradient(180deg,rgba(38,31,20,.96),rgba(16,13,9,.96));border:1px solid rgba(217,181,107,.6);color:var(--brass-hi);box-shadow:0 6px 14px -6px rgba(0,0,0,.85);cursor:pointer;-webkit-tap-highlight-color:transparent}
