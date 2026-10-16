@@ -1104,6 +1104,17 @@ html:not(.js-rv) .panel{--pf:1}
 .quote .by-n{font-size:20px;color:#fff}
 .quote .verified{padding:4px 11px 4px 9px;border:1px solid rgba(111,208,122,.4);border-radius:999px;background:rgba(111,208,122,.08);font-size:11px;font-weight:700;letter-spacing:.04em}
 @media (max-width:520px){.quote{padding-inline:16px!important}.quote .quote-by{flex-wrap:wrap!important;gap:8px 12px}.quote .avatar{width:44px;height:44px;font-size:14px}.quote .verified{font-size:10.5px;padding:3px 9px 3px 7px}.quote .by-n{font-size:19px}}
+/* review cards: second pass */
+.q-track .quote::before{display:block!important;content:""!important;position:absolute;left:7px!important;top:7px!important;right:7px;bottom:7px;width:auto!important;height:auto!important;transform:none!important;border:1px solid rgba(217,181,107,.17);border-radius:calc(var(--r-lg) - 6px);background:none;opacity:1!important;pointer-events:none;font-size:0}
+.q-track .quote .quote-by::after{content:"";position:absolute;top:-4px;left:50%;width:7px;height:7px;transform:translateX(-50%) rotate(45deg);background:linear-gradient(135deg,#f7e7bd,#c79a4a);box-shadow:0 0 10px rgba(242,219,163,.5)}
+.q-track .quote{transition:opacity .6s,transform .6s cubic-bezier(.22,.8,.2,1),border-color .6s,box-shadow .6s}
+.q-track .quote:not(.is-on){opacity:.55;transform:scale(.965)}
+.q-track .quote.is-on{opacity:1;transform:none}
+.quote p{text-shadow:0 1px 12px rgba(0,0,0,.5)}
+.quote .stars{padding:0 14px}
+.quote .stars::before,.quote .stars::after{content:"";position:absolute;top:50%;width:26px;height:1px;background:linear-gradient(90deg,transparent,rgba(217,181,107,.6))}
+.quote .stars::before{right:100%;transform:scaleX(1)}
+.quote .stars::after{left:100%;transform:scaleX(-1)}
 /* reviews: phone shows small arrows beside the cards (no clones, no big quote mark) */
 .q-wrap{position:relative}
 .q-arr{display:flex;position:absolute;top:calc(50% - 8px);transform:translateY(-50%);z-index:4;align-items:center;justify-content:center;width:32px;height:32px;padding:0;border-radius:50%;background:linear-gradient(180deg,rgba(38,31,20,.96),rgba(16,13,9,.96));border:1px solid rgba(217,181,107,.6);color:var(--brass-hi);box-shadow:0 6px 14px -6px rgba(0,0,0,.85);cursor:pointer;-webkit-tap-highlight-color:transparent}
