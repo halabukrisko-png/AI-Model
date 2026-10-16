@@ -1237,7 +1237,7 @@ html:not(.js-rv) .panel{--pf:1}
 }
 .faq .wave.top{--sky:var(--ink-2)!important}
 .gar{display:none!important}
-@media (min-width:640px){.lens-stage{margin-top:60px}.lens-sec{padding-bottom:0}.why{padding-top:0}}
+@media (min-width:640px){.lens-stage{margin-top:36px}.lens-sec{padding-bottom:0}.why{padding-top:0}}
 @media (min-width:640px){.faq.on-green{padding-block:calc(30px + clamp(16px,3vw,36px)) calc(26px + clamp(16px,3vw,36px))}.faq .faq-frame{margin-top:28px}}
 .footer .pays{display:grid;grid-template-columns:repeat(4,max-content);gap:10px;justify-content:start}
 @media (min-width:1100px){.footer .foot-grid{grid-template-columns:1fr max-content;column-gap:110px}.footer .pays{display:grid;grid-template-columns:repeat(4,max-content);gap:10px;justify-content:start}}
@@ -2397,9 +2397,11 @@ class Component extends DCLogic {
         const st = ls && ls.querySelector('.lens-stage'); if (!st) return;
         const a = ls.getBoundingClientRect(), b = st.getBoundingClientRect();
         if (!b.width) return;
-        ls.style.setProperty('--cx', (b.left - a.left + b.width / 2) + 'px');
-        ls.style.setProperty('--cy', (b.top - a.top + b.height / 2) + 'px');
-        ls.style.setProperty('--cr', (Math.min(b.width, b.height) * 0.54) + 'px');
+        // scale-invariant: browsers disagree on whether getBoundingClientRect() includes the page's CSS zoom (tablet), so convert to the section's own CSS px
+        const sx = a.width ? ls.offsetWidth / a.width : 1, sy = a.height ? ls.offsetHeight / a.height : 1;
+        ls.style.setProperty('--cx', ((b.left - a.left + b.width / 2) * sx) + 'px');
+        ls.style.setProperty('--cy', ((b.top - a.top + b.height / 2) * sy) + 'px');
+        ls.style.setProperty('--cr', (Math.min(b.width * sx, b.height * sy) * 0.54) + 'px');
       };
       if (ls) { place(); setTimeout(place, 400); window.addEventListener('load', place); window.addEventListener('resize', place); setInterval(place, 1500); }
     } catch (e) {}

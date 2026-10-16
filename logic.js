@@ -475,9 +475,11 @@ class Component extends DCLogic {
         const st = ls && ls.querySelector('.lens-stage'); if (!st) return;
         const a = ls.getBoundingClientRect(), b = st.getBoundingClientRect();
         if (!b.width) return;
-        ls.style.setProperty('--cx', (b.left - a.left + b.width / 2) + 'px');
-        ls.style.setProperty('--cy', (b.top - a.top + b.height / 2) + 'px');
-        ls.style.setProperty('--cr', (Math.min(b.width, b.height) * 0.54) + 'px');
+        // scale-invariant: browsers disagree on whether getBoundingClientRect() includes the page's CSS zoom (tablet), so convert to the section's own CSS px
+        const sx = a.width ? ls.offsetWidth / a.width : 1, sy = a.height ? ls.offsetHeight / a.height : 1;
+        ls.style.setProperty('--cx', ((b.left - a.left + b.width / 2) * sx) + 'px');
+        ls.style.setProperty('--cy', ((b.top - a.top + b.height / 2) * sy) + 'px');
+        ls.style.setProperty('--cr', (Math.min(b.width * sx, b.height * sy) * 0.54) + 'px');
       };
       if (ls) { place(); setTimeout(place, 400); window.addEventListener('load', place); window.addEventListener('resize', place); setInterval(place, 1500); }
     } catch (e) {}
