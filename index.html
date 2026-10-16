@@ -1096,8 +1096,12 @@ html:not(.js-rv) .panel{--pf:1}
 .sw:hover .sw-art{transform:translateY(-6px);border-color:var(--brass-hi);box-shadow:0 0 0 1px var(--brass-hi),0 18px 34px -14px rgba(0,0,0,.9),0 0 26px -4px rgba(217,181,107,.55);filter:brightness(1.08)}
 .sw:hover .sw-name{color:var(--brass-hi)}
 }
-/* reviews: no arrows, no clones, no big quote mark below 640px */
-.q-arr{display:none}
+/* reviews: phone shows small arrows beside the cards (no clones, no big quote mark) */
+.q-wrap{position:relative}
+.q-arr{display:flex;position:absolute;top:calc(50% - 8px);transform:translateY(-50%);z-index:4;align-items:center;justify-content:center;width:32px;height:32px;padding:0;border-radius:50%;background:linear-gradient(180deg,rgba(38,31,20,.96),rgba(16,13,9,.96));border:1px solid rgba(217,181,107,.6);color:var(--brass-hi);box-shadow:0 6px 14px -6px rgba(0,0,0,.85);cursor:pointer;-webkit-tap-highlight-color:transparent}
+.q-arr svg{width:18px;height:18px}
+.q-prev{left:2px}.q-next{right:2px}
+.q-arr:active{transform:translateY(-50%) scale(.92)}
 .q-clone{display:none!important}
 .q-track .quote::before{display:none}
 /* tablet: the fine diagonal texture of the "Choose your EverOrb" card behind the dark sections:

@@ -176,6 +176,15 @@ class Component extends DCLogic {
       document.addEventListener('click', (e) => {
         const b = e.target.closest && e.target.closest('.q-arr');
         if (!b || !qt) return;
+        if (window.innerWidth < 640) {
+          // phone: plain previous / next review, no looping
+          const rs = real(); if (!rs.length) return;
+          const mid = qt.scrollLeft + qt.clientWidth / 2;
+          let ci = 0, bd = 1e9; rs.forEach((c, k) => { const d = Math.abs(c.offsetLeft + c.offsetWidth / 2 - mid); if (d < bd) { bd = d; ci = k; } });
+          const ti = Math.max(0, Math.min(rs.length - 1, ci + (b.classList.contains('q-next') ? 1 : -1)));
+          qt.scrollTo({ left: rs[ti].offsetLeft + rs[ti].offsetWidth / 2 - qt.clientWidth / 2, behavior: reduce ? 'auto' : 'smooth' });
+          return;
+        }
         ensure();
         const cs = all(); if (cs.length < 5) return;
         const idx = nearest(); const next = b.classList.contains('q-next');
