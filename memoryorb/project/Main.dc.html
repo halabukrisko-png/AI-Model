@@ -2223,7 +2223,8 @@ class Component extends DCLogic {
       document.body.appendChild(fab); document.body.appendChild(tip); document.body.appendChild(win);
       const body = win.querySelector('.cb-body'), chips = win.querySelector('.cb-chips'), inp = win.querySelector('.cb-in');
       const esc = (t) => t.replace(/&/g, '&amp;').replace(/</g, '&lt;');
-      const scrollEnd = () => { body.scrollTop = body.scrollHeight; };
+      // a fresh chat always shows the welcome message at the top; once the visitor has written, follow the newest message
+      const scrollEnd = () => { body.scrollTop = body.querySelector('.cb-m.me') ? body.scrollHeight : 0; };
       const add = (txt, who, html) => { const m = mk('div', 'cb-m ' + who, html ? txt : esc(txt)); body.appendChild(m); scrollEnd(); return m; };
       const go = (page) => {
         close();
