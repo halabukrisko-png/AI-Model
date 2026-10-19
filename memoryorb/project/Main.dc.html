@@ -131,10 +131,10 @@ sup.tm{font-size:.28em;vertical-align:top;position:relative;top:.55em;margin-lef
 .mo-ul::before{content:"";position:absolute;left:50%;bottom:calc(-.14em - 3px);width:7px;height:7px;transform:translateX(-50%) rotate(45deg);background:linear-gradient(135deg,#f7e7bd,#c79a4a);box-shadow:0 0 10px rgba(242,219,163,.6);pointer-events:none}
 /* FAQ: green starts exactly at the wave curve, the stripes of the section above run right up to it */
 .faq.on-green{background:none!important;isolation:isolate}
-.faq.on-green::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:var(--emerald);-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 432 44' preserveAspectRatio='none'%3E%3Cpath d='M0 34C110 22 230 24 330 32C380 36 410 32 432 30V44H0Z' fill='%23000'/%3E%3C/svg%3E") 0 -1px/100% 56px no-repeat,linear-gradient(#000,#000) 0 55px/100% 100% no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 432 44' preserveAspectRatio='none'%3E%3Cpath d='M0 34C110 22 230 24 330 32C380 36 410 32 432 30V44H0Z' fill='%23000'/%3E%3C/svg%3E") 0 -1px/100% 56px no-repeat,linear-gradient(#000,#000) 0 55px/100% 100% no-repeat}
+.faq.on-green::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:var(--emerald);-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 432 44' preserveAspectRatio='none'%3E%3Cpath d='M0 34C110 22 230 24 330 32C380 36 410 32 432 30V44H0Z' fill='%23000'/%3E%3C/svg%3E") 0 -1px/100% 56px no-repeat,linear-gradient(#000,#000) 0 53px/100% 100% no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 432 44' preserveAspectRatio='none'%3E%3Cpath d='M0 34C110 22 230 24 330 32C380 36 410 32 432 30V44H0Z' fill='%23000'/%3E%3C/svg%3E") 0 -1px/100% 56px no-repeat,linear-gradient(#000,#000) 0 53px/100% 100% no-repeat}
 .faq .wave.top .sky{fill:transparent!important}
-.prodx{background:linear-gradient(180deg,var(--ink-2) 0,var(--ink-2) 70px,var(--ink) 260px)!important}
-.faq.on-green::after{content:"";position:absolute;left:0;right:0;top:-1px;height:56px;z-index:-1;pointer-events:none;background:repeating-linear-gradient(115deg,rgba(217,181,107,.055) 0 1px,transparent 1px 16px);-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 432 44' preserveAspectRatio='none'%3E%3Cpath d='M0 0H432V30C410 32 380 36 330 32C230 24 110 22 0 34Z' fill='%23000'/%3E%3C/svg%3E") 0 0/100% 56px no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 432 44' preserveAspectRatio='none'%3E%3Cpath d='M0 0H432V30C410 32 380 36 330 32C230 24 110 22 0 34Z' fill='%23000'/%3E%3C/svg%3E") 0 0/100% 56px no-repeat}
+.prodx{background:linear-gradient(180deg,transparent 0,transparent 56px,var(--ink-2) 57px,var(--ink-2) 70px,var(--ink) 260px)!important}
+.faq.on-green::after{display:none!important}
 .cb-fab{position:fixed}
 .cb-ping{position:absolute;inset:-2px;border-radius:50%;border:2px solid rgba(242,219,163,.7);animation:cbPing 2.8s ease-out infinite;pointer-events:none}
 @keyframes cbPing{0%{transform:scale(1);opacity:.8}70%,100%{transform:scale(1.5);opacity:0}}
@@ -398,6 +398,8 @@ html.is-scrolled .hdr-in{height:var(--hdr-s)}
 .lens-stage .lframe{position:absolute;left:18.33%;top:22.97%;width:61.85%;height:61.92%;border-radius:50%;pointer-events:none;border:1.5px solid #d9b56b;box-shadow:0 0 14px rgba(217,181,107,.28),inset 0 0 12px rgba(217,181,107,.14);z-index:2}
 .lens-stage .r1{inset:5%;opacity:.55}
 .lens-stage .r2{inset:-4%;opacity:.3}
+.lens-stage .r2{display:none}
+.lens-stage .r1{opacity:.85;border-color:rgba(217,181,107,.5);box-shadow:0 0 22px -6px rgba(217,181,107,.35),inset 0 0 22px -10px rgba(217,181,107,.25)}
 .lens-stage .r3{inset:-14%;opacity:.14}
 
 /* ---- compare ---- */
@@ -453,6 +455,7 @@ html:not(.js-rv) .stat .bar{stroke-dasharray:var(--v) 100}
 .lg-hdr .ch.orb-red,.lg-ftr .ch.orb-red,.footer .lg-ftr .ch.orb-red,.lg-ftr.go .ch.orb-red{animation:orbGlow 2.8s ease-in-out infinite!important;animation-delay:0s!important}
 .footer .to-top{top:auto!important;bottom:12px;border:1px solid rgba(217,181,107,.65)!important;background:transparent!important;color:var(--brass-hi)!important;box-shadow:none;transition:background .25s,color .25s,box-shadow .25s}
 .footer .to-top:hover{background:transparent!important;transform:none}
+.footer .to-top{right:calc(var(--gutter) + 56px)}
 .footer .to-top:active,.footer .to-top:focus-visible{background:radial-gradient(circle at 35% 28%,#f3dda6,#d9b56b 75%)!important;color:#1a1306!important;box-shadow:0 0 18px -2px rgba(217,181,107,.7)}
 .footer{margin-top:-40px!important}
 .footer .foot-grid{margin-top:-18px}
@@ -1207,10 +1210,12 @@ html:not(.js-rv) .panel{--pf:1}
 .lens-stage{container-type:size}
 .why{position:relative}
 .lens-sec{position:relative}
-.lens-sec::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:repeating-linear-gradient(115deg,rgba(217,181,107,.055) 0 1px,transparent 1px 16px);-webkit-mask-image:radial-gradient(circle at var(--cx,50%) var(--cy,50%),transparent 0,transparent var(--cr,0px),#000 calc(var(--cr,0px) + 18px));mask-image:radial-gradient(circle at var(--cx,50%) var(--cy,50%),transparent 0,transparent var(--cr,0px),#000 calc(var(--cr,0px) + 18px))}
-.why::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:repeating-linear-gradient(115deg,rgba(217,181,107,.055) 0 1px,transparent 1px 16px);}
+.lens-sec::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:url("data:image/svg+xml,%3Csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20width=%2717.66%27%20height=%2737.86%27%20viewBox=%270%200%2017.66%2037.86%27%3E%3Cg%20stroke=%27rgb%28217%2C181%2C107%29%27%20stroke-opacity=%27.042%27%20stroke-width=%271%27%20fill=%27none%27%3E%3Cline%20x1=%27-24.72%27%20y1=%2753.00%27%20x2=%277.06%27%20y2=%27-15.14%27/%3E%3Cline%20x1=%27-7.06%27%20y1=%2753.00%27%20x2=%2724.72%27%20y2=%27-15.14%27/%3E%3Cline%20x1=%2710.60%27%20y1=%2753.00%27%20x2=%2742.38%27%20y2=%27-15.14%27/%3E%3C/g%3E%3C/svg%3E") 0 0/17.66px 37.86px repeat;-webkit-mask-image:radial-gradient(circle at var(--cx,50%) var(--cy,50%),transparent 0,transparent var(--cr,0px),#000 calc(var(--cr,0px) + 18px));mask-image:radial-gradient(circle at var(--cx,50%) var(--cy,50%),transparent 0,transparent var(--cr,0px),#000 calc(var(--cr,0px) + 18px))}
+.why{padding-bottom:calc(clamp(56px,8vw,104px) + 56px)}
+.faq.on-green{margin-top:-56px}
+.why::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:url("data:image/svg+xml,%3Csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20width=%2717.66%27%20height=%2737.86%27%20viewBox=%270%200%2017.66%2037.86%27%3E%3Cg%20stroke=%27rgb%28217%2C181%2C107%29%27%20stroke-opacity=%27.042%27%20stroke-width=%271%27%20fill=%27none%27%3E%3Cline%20x1=%27-24.72%27%20y1=%2753.00%27%20x2=%277.06%27%20y2=%27-15.14%27/%3E%3Cline%20x1=%27-7.06%27%20y1=%2753.00%27%20x2=%2724.72%27%20y2=%27-15.14%27/%3E%3Cline%20x1=%2710.60%27%20y1=%2753.00%27%20x2=%2742.38%27%20y2=%27-15.14%27/%3E%3C/g%3E%3C/svg%3E") 0 var(--sy,0px)/17.66px 37.86px repeat}
 .why .compare{max-width:560px;margin-inline:auto;background:var(--ink-2)}
-.lens-sec::after,.why::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(90deg,var(--ink-2) 0,rgba(16,14,11,.55) 12%,transparent 34%,transparent 66%,rgba(16,14,11,.55) 88%,var(--ink-2) 100%)}
+.lens-sec::after,.why::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(90deg,var(--ink-2) 0,rgba(16,14,11,.85) 14%,rgba(16,14,11,.55) 28%,rgba(16,14,11,.2) 40%,transparent 50%,rgba(16,14,11,.2) 60%,rgba(16,14,11,.55) 72%,rgba(16,14,11,.85) 86%,var(--ink-2) 100%),linear-gradient(180deg,rgba(16,14,11,.55) 0,transparent 14%,transparent 86%,rgba(16,14,11,.55) 100%)}
 /* tablet: smaller review cards with arrows beside them */
 @media (min-width:640px){
 .q-wrap{position:relative}
@@ -1235,8 +1240,11 @@ html:not(.js-rv) .panel{--pf:1}
 }
 .faq .wave.top{--sky:var(--ink-2)!important}
 .gar{display:none!important}
-@media (min-width:640px){.lens-stage{margin-top:60px}.lens-sec{padding-bottom:0}.why{padding-top:0}}
-.footer .pays{justify-content:flex-start}
+@media (min-width:640px){.lens-stage{margin-top:2px}.lens-sec{padding-bottom:40px}.why{padding-top:0}}
+@media (min-width:640px){.faq.on-green{padding-block:calc(52px + clamp(16px,3vw,36px)) calc(26px + clamp(16px,3vw,36px))}.faq .faq-frame{margin-top:28px}}
+.faq .faq-more{margin-top:8px}
+.faq .faq-frame+.faq-more,.faq .faq-more{margin-top:6px}
+.footer .pays{display:grid;grid-template-columns:repeat(4,max-content);gap:10px;justify-content:start}
 @media (min-width:1100px){.footer .foot-grid{grid-template-columns:1fr max-content;column-gap:110px}.footer .pays{display:grid;grid-template-columns:repeat(4,max-content);gap:10px;justify-content:start}}
 /* tablet: no logo or orb in the footer */
 .footer .lg-ftr{display:none!important}
@@ -1300,6 +1308,12 @@ html.js-rv .stat.in:hover{transform:translateY(-3px)}
 .trio{grid-template-columns:repeat(2,1fr);row-gap:18px}
 .trio>div:nth-child(odd){border-left:0}
 @media (min-width:640px){.trio{grid-template-columns:repeat(4,1fr);row-gap:0}.trio>div:nth-child(odd){border-left:1px solid var(--line)}.trio>div:first-child{border-left:0}}
+.q-head{max-width:720px;margin:0 auto;padding:0 var(--gutter)}
+.quote-sec .q-head+.q-wrap{margin-top:44px}.quote-sec .q-head{margin-top:-28px}
+.quote-sec{padding-block:calc(var(--section)*.55) calc(var(--section)*.45)}
+.bundle-hint{margin:12px 0 0;padding:10px 14px;border:1px solid rgba(232,90,90,.5);border-radius:12px;background:rgba(232,90,90,.08);color:#ffb0b0;font-size:13.5px;text-align:center}
+@media (min-width:1100px){.pdp-price{font-size:.72em;letter-spacing:0}}
+@media (min-width:1100px){.pdp-h1 .mo-price{font-size:.74em;vertical-align:.04em}.pdp-h1 .mo-dash{font-size:.74em}}
 /* empty cart state, all widths */
 .cart-empty{position:relative;gap:10px;margin-top:24px;padding:34px 24px 32px;border:1px solid rgba(217,181,107,.3);border-radius:24px;background:radial-gradient(80% 70% at 50% 0%,rgba(217,181,107,.13),transparent 70%),linear-gradient(180deg,rgba(255,255,255,.04),rgba(0,0,0,.2));box-shadow:0 24px 44px -26px rgba(0,0,0,.9),inset 0 1px 0 rgba(242,219,163,.1)}
 .cart-empty::before{content:"";position:absolute;left:20px;right:20px;top:0;height:2px;transform:translateY(-1px);background:linear-gradient(90deg,transparent,var(--brass-hi) 18%,var(--brass-hi) 82%,transparent)}
@@ -1529,6 +1543,7 @@ html.js-rv .stat.in:hover{transform:translateY(-3px)}
               </div>
             </sc-for>
           </div>
+          <p class="bundle-hint" style="display:{{berrDisp}}">Please choose how many MemoryOrbs you want first.</p>
           <div class="buy-cta"><button class="btn btn-primary btn-lg btn-block" type="button" onClick="{{addToCart}}">Get my MemoryOrb</button></div>
           <div class="buy-note">
             <span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 018 0v3"/></svg>Secure Checkout</span>
@@ -1789,6 +1804,7 @@ html.js-rv .stat.in:hover{transform:translateY(-3px)}
       </div>
     </section>
     <section class="quote-sec">
+      <div class="q-head"><div class="sec-head rv"><span class="eyebrow c">Reviews</span><h2 class="h2 serif">Loved by <em>our customers</em></h2><p class="lead">Real stories from people who keep their memories close.</p></div></div>
       <div class="wrap q-wrap">
         <button type="button" class="q-arr q-prev" aria-label="Previous review"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button>
         <button type="button" class="q-arr q-next" aria-label="Next review"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>
@@ -1917,7 +1933,7 @@ html.js-rv .stat.in:hover{transform:translateY(-3px)}
 class Component extends DCLogic {
   constructor(props) {
     super(props);
-    this.state = { prod: false, page: 'home', sent: false, tab: 0, tsent: false, bundle: 2, thumb: 0, colour: 0, outlet: 0, qty: 1, cf: 0, menu: false, flip: [false, false, false, false], cmp: 1, lt: 0, lsent: false, user: null, cart: [], cnote: false, faqN: 1, descOpen: false, extra: ['', ''], cerr: false };
+    this.state = { prod: false, page: 'home', sent: false, tab: 0, tsent: false, bundle: 0, thumb: 0, colour: 0, outlet: 0, qty: 1, cf: 0, menu: false, flip: [false, false, false, false], cmp: 1, lt: 0, lsent: false, user: null, cart: [], cnote: false, faqN: 1, descOpen: false, extra: ['', ''], cerr: false };
   }
   componentDidMount() {
     const root = document.documentElement;
@@ -2014,6 +2030,21 @@ class Component extends DCLogic {
         document.addEventListener('keydown', onKey, true);
         requestAnimationFrame(() => { if (box) { box.classList.add('on'); const x = box.querySelector('.lbx-x'); if (x) x.focus({ preventScroll: true }); } });
       });
+    } catch (e) {}
+    // reviews: turn to the next one by itself after a while (pauses on hover / touch / when out of view / when the tab is hidden)
+    try {
+      let hold = false, lastAct = 0, vis = false;
+      const qs = document.querySelector('.quote-sec');
+      if (qs && !reduce) {
+        const bump = () => { lastAct = Date.now(); };
+        ['pointerdown', 'touchstart', 'wheel', 'keydown', 'focusin'].forEach((ev) => qs.addEventListener(ev, bump, { passive: true }));
+        qs.addEventListener('mouseenter', () => { hold = true; }); qs.addEventListener('mouseleave', () => { hold = false; bump(); });
+        if ('IntersectionObserver' in window) new IntersectionObserver((es) => es.forEach((e) => { vis = e.isIntersecting; }), { threshold: 0.4 }).observe(qs); else vis = true;
+        setInterval(() => {
+          if (hold || !vis || document.hidden || Date.now() - lastAct < 7000) return;
+          const nx = qs.querySelector('.q-next'); if (nx && nx.offsetParent !== null) nx.click();
+        }, 5500);
+      }
     } catch (e) {}
     // reviews (tablet): endless carousel - there is always a neighbour card on both sides
     try {
@@ -2214,7 +2245,8 @@ class Component extends DCLogic {
       document.body.appendChild(fab); document.body.appendChild(tip); document.body.appendChild(win);
       const body = win.querySelector('.cb-body'), chips = win.querySelector('.cb-chips'), inp = win.querySelector('.cb-in');
       const esc = (t) => t.replace(/&/g, '&amp;').replace(/</g, '&lt;');
-      const scrollEnd = () => { body.scrollTop = body.scrollHeight; };
+      // a fresh chat always shows the welcome message at the top; once the visitor has written, follow the newest message
+      const scrollEnd = () => { body.scrollTop = body.querySelector('.cb-m.me') ? body.scrollHeight : 0; };
       const add = (txt, who, html) => { const m = mk('div', 'cb-m ' + who, html ? txt : esc(txt)); body.appendChild(m); scrollEnd(); return m; };
       const go = (page) => {
         close();
@@ -2390,9 +2422,14 @@ class Component extends DCLogic {
         const st = ls && ls.querySelector('.lens-stage'); if (!st) return;
         const a = ls.getBoundingClientRect(), b = st.getBoundingClientRect();
         if (!b.width) return;
-        ls.style.setProperty('--cx', (b.left - a.left + b.width / 2) + 'px');
-        ls.style.setProperty('--cy', (b.top - a.top + b.height / 2) + 'px');
-        ls.style.setProperty('--cr', (Math.min(b.width, b.height) * 0.54) + 'px');
+        // scale-invariant: browsers disagree on whether getBoundingClientRect() includes the page's CSS zoom (tablet), so convert to the section's own CSS px
+        const sx = a.width ? ls.offsetWidth / a.width : 1, sy = a.height ? ls.offsetHeight / a.height : 1;
+        ls.style.setProperty('--cx', ((b.left - a.left + b.width / 2) * sx) + 'px');
+        ls.style.setProperty('--cy', ((b.top - a.top + b.height / 2) * sy) + 'px');
+        // keep the stripe layers of the photo section and the "Why choose" section one continuous pattern (tile height 37.86px)
+        const why = document.querySelector('.why');
+        if (why) { const H = 37.86, lh = a.height * (ls.offsetWidth / (a.width || 1)); why.style.setProperty('--sy', ((H - (lh % H)) % H).toFixed(2) + 'px'); }
+        ls.style.setProperty('--cr', (Math.min(b.width * sx, b.height * sy) * 0.5) + 'px');
       };
       if (ls) { place(); setTimeout(place, 400); window.addEventListener('load', place); window.addEventListener('resize', place); setInterval(place, 1500); }
     } catch (e) {}
@@ -2527,7 +2564,7 @@ class Component extends DCLogic {
         bg: selected ? '#16130a' : '#000',
         ringColor: selected ? '#f3d27a' : '#8a7a4a',
         cls: selected ? 'is-on' : '',
-        pick: () => this.setState({ bundle: d.id, cerr: false })
+        pick: () => this.setState({ bundle: d.id, cerr: false, berr: false })
       };
     });
     const bgs = [
@@ -2630,6 +2667,7 @@ class Component extends DCLogic {
       curContact: this.state.page === 'contact' ? 'page' : 'false',
       curTrack: this.state.page === 'tracking' ? 'page' : 'false',
       curCart: this.state.page === 'cart' ? 'page' : 'false',
+      berrDisp: this.state.berr && !this.state.bundle ? 'block' : 'none',
       statsCls: (this.state.page === 'home' || this.state.page === 'products') ? '' : 'st-sm',
       selOrder: this.state.tab === 0 ? 'true' : 'false',
       selTrack: this.state.tab === 1 ? 'true' : 'false',
@@ -2810,6 +2848,7 @@ class Component extends DCLogic {
       addToCart: (e) => {
         try { e.preventDefault(); } catch (x) {}
         const totals = [5999, 11638, 17097]; const n = this.state.bundle;
+        if (!n) { this.setState({ berr: true }); setTimeout(() => { try { const m = document.getElementById('bundles'); if (m) m.scrollIntoView({ behavior: 'smooth', block: 'center' }); } catch (x) {} }, 50); return; }
         const extra = this.state.extra || ['', ''];
         const colours = [this.state.colour];
         for (let k = 0; k < n - 1; k++) colours.push(extra[k] === '' ? '' : +extra[k]);

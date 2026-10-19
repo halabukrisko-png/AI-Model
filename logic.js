@@ -2,7 +2,7 @@
 class Component extends DCLogic {
   constructor(props) {
     super(props);
-    this.state = { prod: false, page: 'home', sent: false, tab: 0, tsent: false, bundle: 2, thumb: 0, colour: 0, outlet: 0, qty: 1, cf: 0, menu: false, flip: [false, false, false, false], cmp: 1, lt: 0, lsent: false, user: null, cart: [], cnote: false, faqN: 1, descOpen: false, extra: ['', ''], cerr: false };
+    this.state = { prod: false, page: 'home', sent: false, tab: 0, tsent: false, bundle: 0, thumb: 0, colour: 0, outlet: 0, qty: 1, cf: 0, menu: false, flip: [false, false, false, false], cmp: 1, lt: 0, lsent: false, user: null, cart: [], cnote: false, faqN: 1, descOpen: false, extra: ['', ''], cerr: false };
   }
   componentDidMount() {
     const root = document.documentElement;
@@ -99,6 +99,21 @@ class Component extends DCLogic {
         document.addEventListener('keydown', onKey, true);
         requestAnimationFrame(() => { if (box) { box.classList.add('on'); const x = box.querySelector('.lbx-x'); if (x) x.focus({ preventScroll: true }); } });
       });
+    } catch (e) {}
+    // reviews: turn to the next one by itself after a while (pauses on hover / touch / when out of view / when the tab is hidden)
+    try {
+      let hold = false, lastAct = 0, vis = false;
+      const qs = document.querySelector('.quote-sec');
+      if (qs && !reduce) {
+        const bump = () => { lastAct = Date.now(); };
+        ['pointerdown', 'touchstart', 'wheel', 'keydown', 'focusin'].forEach((ev) => qs.addEventListener(ev, bump, { passive: true }));
+        qs.addEventListener('mouseenter', () => { hold = true; }); qs.addEventListener('mouseleave', () => { hold = false; bump(); });
+        if ('IntersectionObserver' in window) new IntersectionObserver((es) => es.forEach((e) => { vis = e.isIntersecting; }), { threshold: 0.4 }).observe(qs); else vis = true;
+        setInterval(() => {
+          if (hold || !vis || document.hidden || Date.now() - lastAct < 7000) return;
+          const nx = qs.querySelector('.q-next'); if (nx && nx.offsetParent !== null) nx.click();
+        }, 5500);
+      }
     } catch (e) {}
     // reviews (tablet): endless carousel - there is always a neighbour card on both sides
     try {
@@ -299,7 +314,8 @@ class Component extends DCLogic {
       document.body.appendChild(fab); document.body.appendChild(tip); document.body.appendChild(win);
       const body = win.querySelector('.cb-body'), chips = win.querySelector('.cb-chips'), inp = win.querySelector('.cb-in');
       const esc = (t) => t.replace(/&/g, '&amp;').replace(/</g, '&lt;');
-      const scrollEnd = () => { body.scrollTop = body.scrollHeight; };
+      // a fresh chat always shows the welcome message at the top; once the visitor has written, follow the newest message
+      const scrollEnd = () => { body.scrollTop = body.querySelector('.cb-m.me') ? body.scrollHeight : 0; };
       const add = (txt, who, html) => { const m = mk('div', 'cb-m ' + who, html ? txt : esc(txt)); body.appendChild(m); scrollEnd(); return m; };
       const go = (page) => {
         close();
@@ -475,9 +491,14 @@ class Component extends DCLogic {
         const st = ls && ls.querySelector('.lens-stage'); if (!st) return;
         const a = ls.getBoundingClientRect(), b = st.getBoundingClientRect();
         if (!b.width) return;
-        ls.style.setProperty('--cx', (b.left - a.left + b.width / 2) + 'px');
-        ls.style.setProperty('--cy', (b.top - a.top + b.height / 2) + 'px');
-        ls.style.setProperty('--cr', (Math.min(b.width, b.height) * 0.54) + 'px');
+        // scale-invariant: browsers disagree on whether getBoundingClientRect() includes the page's CSS zoom (tablet), so convert to the section's own CSS px
+        const sx = a.width ? ls.offsetWidth / a.width : 1, sy = a.height ? ls.offsetHeight / a.height : 1;
+        ls.style.setProperty('--cx', ((b.left - a.left + b.width / 2) * sx) + 'px');
+        ls.style.setProperty('--cy', ((b.top - a.top + b.height / 2) * sy) + 'px');
+        // keep the stripe layers of the photo section and the "Why choose" section one continuous pattern (tile height 37.86px)
+        const why = document.querySelector('.why');
+        if (why) { const H = 37.86, lh = a.height * (ls.offsetWidth / (a.width || 1)); why.style.setProperty('--sy', ((H - (lh % H)) % H).toFixed(2) + 'px'); }
+        ls.style.setProperty('--cr', (Math.min(b.width * sx, b.height * sy) * 0.5) + 'px');
       };
       if (ls) { place(); setTimeout(place, 400); window.addEventListener('load', place); window.addEventListener('resize', place); setInterval(place, 1500); }
     } catch (e) {}
@@ -612,7 +633,7 @@ class Component extends DCLogic {
         bg: selected ? '#16130a' : '#000',
         ringColor: selected ? '#f3d27a' : '#8a7a4a',
         cls: selected ? 'is-on' : '',
-        pick: () => this.setState({ bundle: d.id, cerr: false })
+        pick: () => this.setState({ bundle: d.id, cerr: false, berr: false })
       };
     });
     const bgs = [
@@ -715,6 +736,7 @@ class Component extends DCLogic {
       curContact: this.state.page === 'contact' ? 'page' : 'false',
       curTrack: this.state.page === 'tracking' ? 'page' : 'false',
       curCart: this.state.page === 'cart' ? 'page' : 'false',
+      berrDisp: this.state.berr && !this.state.bundle ? 'block' : 'none',
       statsCls: (this.state.page === 'home' || this.state.page === 'products') ? '' : 'st-sm',
       selOrder: this.state.tab === 0 ? 'true' : 'false',
       selTrack: this.state.tab === 1 ? 'true' : 'false',
@@ -895,6 +917,7 @@ class Component extends DCLogic {
       addToCart: (e) => {
         try { e.preventDefault(); } catch (x) {}
         const totals = [5999, 11638, 17097]; const n = this.state.bundle;
+        if (!n) { this.setState({ berr: true }); setTimeout(() => { try { const m = document.getElementById('bundles'); if (m) m.scrollIntoView({ behavior: 'smooth', block: 'center' }); } catch (x) {} }, 50); return; }
         const extra = this.state.extra || ['', ''];
         const colours = [this.state.colour];
         for (let k = 0; k < n - 1; k++) colours.push(extra[k] === '' ? '' : +extra[k]);
