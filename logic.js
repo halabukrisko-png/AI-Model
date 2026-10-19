@@ -311,7 +311,7 @@ class Component extends DCLogic {
       const tip = mk('div', 'cb-tip', 'Need help choosing? <b>Ask me</b>'); tip.setAttribute('aria-hidden', 'true');
       const win = mk('div', 'cb-win'); win.setAttribute('role', 'dialog'); win.setAttribute('aria-label', 'MemoryOrb assistant');
       win.innerHTML = '<div class="cb-hd"><span class="cb-av">' + ic + '<i class="cb-on"></i></span><span><b>MemoryOrb – Assistant</b><small>Online · replies instantly</small></span><button type="button" class="cb-x" aria-label="Close chat"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div><div class="cb-body"></div><div class="cb-chips"></div><div class="cb-links"><a data-go="buy">Buy now</a><a data-go="tracking">Track order</a><a data-go="contact">Contact us</a></div><form class="cb-form"><input class="cb-in" type="text" placeholder="Ask about MemoryOrb..." aria-label="Your question" autocomplete="off"><button class="cb-send" type="submit" aria-label="Send"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></form>';
-      document.body.appendChild(fab); document.body.appendChild(tip); document.body.appendChild(win);
+      fab.classList.add('late'); setTimeout(() => fab.classList.remove('late'), 5000); document.body.appendChild(fab); document.body.appendChild(tip); document.body.appendChild(win);
       const body = win.querySelector('.cb-body'), chips = win.querySelector('.cb-chips'), inp = win.querySelector('.cb-in');
       const esc = (t) => t.replace(/&/g, '&amp;').replace(/</g, '&lt;');
       // a fresh chat always shows the welcome message at the top; once the visitor has written, follow the newest message
@@ -442,7 +442,7 @@ class Component extends DCLogic {
       };
       function close() { win.classList.remove('open'); fab.classList.remove('hide'); }
       let tipDone = false;
-      setTimeout(() => { if (!tipDone && !win.classList.contains('open')) { tip.classList.add('show'); setTimeout(() => tip.classList.remove('show'), 7000); tipDone = true; } }, 9000);
+      setTimeout(() => { if (!tipDone && !win.classList.contains('open')) { tip.classList.add('show'); setTimeout(() => tip.classList.remove('show'), 7000); tipDone = true; } }, 7500);
       tip.addEventListener('click', open);
       fab.addEventListener('click', open);
       win.querySelector('.cb-x').addEventListener('click', close);

@@ -127,8 +127,6 @@ sup.tm{font-size:.28em;vertical-align:top;position:relative;top:.55em;margin-lef
 /* price + underline */
 .pdp-h1 .mo-dash{color:rgba(217,181,107,.7);font-weight:400;margin:0 .04em}
 .pdp-h1 .mo-price{font-weight:600;font-variant-numeric:lining-nums;letter-spacing:-.01em;background:linear-gradient(180deg,#fff6dc 0%,#f2dba3 45%,#c99a45 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;filter:drop-shadow(0 0 14px rgba(217,181,107,.35))}
-.mo-ul::after{height:2px!important;bottom:-.14em!important;background:linear-gradient(90deg,rgba(242,219,163,0) 0%,rgba(242,219,163,.55) 12%,#fff1c9 50%,rgba(242,219,163,.55) 88%,rgba(242,219,163,0) 100%)!important;filter:drop-shadow(0 0 7px rgba(242,219,163,.5))!important}
-.mo-ul::before{content:"";position:absolute;left:50%;bottom:calc(-.14em - 3px);width:7px;height:7px;transform:translateX(-50%) rotate(45deg);background:linear-gradient(135deg,#f7e7bd,#c79a4a);box-shadow:0 0 10px rgba(242,219,163,.6);pointer-events:none}
 /* FAQ: green starts exactly at the wave curve, the stripes of the section above run right up to it */
 .faq.on-green{background:none!important;isolation:isolate}
 .faq.on-green::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:var(--emerald);-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 432 44' preserveAspectRatio='none'%3E%3Cpath d='M0 34C110 22 230 24 330 32C380 36 410 32 432 30V44H0Z' fill='%23000'/%3E%3C/svg%3E") 0 -1px/100% 56px no-repeat,linear-gradient(#000,#000) 0 53px/100% 100% no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 432 44' preserveAspectRatio='none'%3E%3Cpath d='M0 34C110 22 230 24 330 32C380 36 410 32 432 30V44H0Z' fill='%23000'/%3E%3C/svg%3E") 0 -1px/100% 56px no-repeat,linear-gradient(#000,#000) 0 53px/100% 100% no-repeat}
@@ -136,10 +134,10 @@ sup.tm{font-size:.28em;vertical-align:top;position:relative;top:.55em;margin-lef
 .prodx{background:linear-gradient(180deg,transparent 0,transparent 56px,var(--ink-2) 57px,var(--ink-2) 70px,var(--ink) 260px)!important}
 .faq.on-green::after{display:none!important}
 .cb-fab{position:fixed}
-.cb-ping{position:absolute;inset:-2px;border-radius:50%;border:2px solid rgba(242,219,163,.7);animation:cbPing 2.8s ease-out infinite;pointer-events:none}
-@keyframes cbPing{0%{transform:scale(1);opacity:.8}70%,100%{transform:scale(1.5);opacity:0}}
+.cb-ping{position:absolute;inset:-2px;border-radius:50%;border:2px solid rgba(242,219,163,.7);animation:cbPing 9s ease-out infinite 1.5s;pointer-events:none}
+@keyframes cbPing{0%{transform:scale(1);opacity:.8}10%,100%{transform:scale(1.6);opacity:0}}
 .cb-tip{position:fixed;right:84px;bottom:calc(30px + env(safe-area-inset-bottom));z-index:89;max-width:200px;padding:10px 14px;border-radius:14px 14px 4px 14px;background:linear-gradient(180deg,#1f1a11,#13100a);border:1px solid rgba(217,181,107,.5);color:var(--fg);font:600 13px 'Manrope',sans-serif;box-shadow:0 14px 30px -12px rgba(0,0,0,.9);opacity:0;transform:translate3d(10px,0,0);pointer-events:none;transition:opacity .4s,transform .5s cubic-bezier(.22,.8,.2,1)}
-.cb-tip.show{opacity:1;transform:none;pointer-events:auto;cursor:pointer}
+.cb-fab.late{opacity:0;pointer-events:none;transform:scale(.6)}.cb-tip{transform-origin:100% 100%}.cb-tip::after{content:'';position:absolute;right:-6px;bottom:15px;width:10px;height:10px;background:#13100a;border-top:1px solid rgba(217,181,107,.5);border-right:1px solid rgba(217,181,107,.5);transform:rotate(45deg)}.cb-tip.show{opacity:1;transform:none;pointer-events:auto;cursor:pointer}
 .cb-tip b{color:var(--brass-hi)}
 .cb-av{position:relative}
 .cb-on{position:absolute;right:-1px;bottom:-1px;width:10px;height:10px;border-radius:50%;background:#5fd486;border:2px solid #1a150d;box-shadow:0 0 8px rgba(95,212,134,.8)}
@@ -151,7 +149,7 @@ sup.tm{font-size:.28em;vertical-align:top;position:relative;top:.55em;margin-lef
 .cb-chip{flex:none;white-space:nowrap}
 .cb-fab{width:44px!important;height:44px!important;right:14px}
 .cb-fab svg{width:20px!important;height:20px!important}
-.cb-tip{right:68px;bottom:calc(22px + env(safe-area-inset-bottom))}
+.cb-tip{right:70px;bottom:calc(20px + env(safe-area-inset-bottom));border-radius:14px}
 .cb-chips.wide{flex-wrap:wrap;overflow:visible;gap:7px}
 .cb-chips.wide .cb-chip{white-space:normal;text-align:left;padding:7px 11px;font-size:12.5px}
 .cb-cards{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:2px;animation:cbIn .5s .15s cubic-bezier(.22,.8,.2,1) both}
@@ -2242,7 +2240,7 @@ class Component extends DCLogic {
       const tip = mk('div', 'cb-tip', 'Need help choosing? <b>Ask me</b>'); tip.setAttribute('aria-hidden', 'true');
       const win = mk('div', 'cb-win'); win.setAttribute('role', 'dialog'); win.setAttribute('aria-label', 'MemoryOrb assistant');
       win.innerHTML = '<div class="cb-hd"><span class="cb-av">' + ic + '<i class="cb-on"></i></span><span><b>MemoryOrb – Assistant</b><small>Online · replies instantly</small></span><button type="button" class="cb-x" aria-label="Close chat"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div><div class="cb-body"></div><div class="cb-chips"></div><div class="cb-links"><a data-go="buy">Buy now</a><a data-go="tracking">Track order</a><a data-go="contact">Contact us</a></div><form class="cb-form"><input class="cb-in" type="text" placeholder="Ask about MemoryOrb..." aria-label="Your question" autocomplete="off"><button class="cb-send" type="submit" aria-label="Send"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></form>';
-      document.body.appendChild(fab); document.body.appendChild(tip); document.body.appendChild(win);
+      fab.classList.add('late'); setTimeout(() => fab.classList.remove('late'), 5000); document.body.appendChild(fab); document.body.appendChild(tip); document.body.appendChild(win);
       const body = win.querySelector('.cb-body'), chips = win.querySelector('.cb-chips'), inp = win.querySelector('.cb-in');
       const esc = (t) => t.replace(/&/g, '&amp;').replace(/</g, '&lt;');
       // a fresh chat always shows the welcome message at the top; once the visitor has written, follow the newest message
@@ -2373,7 +2371,7 @@ class Component extends DCLogic {
       };
       function close() { win.classList.remove('open'); fab.classList.remove('hide'); }
       let tipDone = false;
-      setTimeout(() => { if (!tipDone && !win.classList.contains('open')) { tip.classList.add('show'); setTimeout(() => tip.classList.remove('show'), 7000); tipDone = true; } }, 9000);
+      setTimeout(() => { if (!tipDone && !win.classList.contains('open')) { tip.classList.add('show'); setTimeout(() => tip.classList.remove('show'), 7000); tipDone = true; } }, 7500);
       tip.addEventListener('click', open);
       fab.addEventListener('click', open);
       win.querySelector('.cb-x').addEventListener('click', close);
