@@ -308,10 +308,10 @@ class Component extends DCLogic {
       const mk = (t, c, h) => { const e = document.createElement(t); if (c) e.className = c; if (h != null) e.innerHTML = h; return e; };
       const ic = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 01-11.6 7.1L4 20l1-4.6A8 8 0 1121 12z"/><path d="M8.5 11h.01M12 11h.01M15.5 11h.01"/></svg>';
       const fab = mk('button', 'cb-fab', ic + '<i class="cb-ping"></i>'); fab.setAttribute('aria-label', 'Open chat');
-      const tip = mk('div', 'cb-tip', 'Need help choosing? <b>Ask me</b>'); tip.setAttribute('aria-hidden', 'true');
+      const tip = mk('div', 'cb-tip', 'Need help? <b>Ask me</b>'); tip.setAttribute('aria-hidden', 'true');
       const win = mk('div', 'cb-win'); win.setAttribute('role', 'dialog'); win.setAttribute('aria-label', 'MemoryOrb assistant');
       win.innerHTML = '<div class="cb-hd"><span class="cb-av">' + ic + '<i class="cb-on"></i></span><span><b>MemoryOrb – Assistant</b><small>Online · replies instantly</small></span><button type="button" class="cb-x" aria-label="Close chat"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div><div class="cb-body"></div><div class="cb-chips"></div><div class="cb-more"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></div><div class="cb-links"><a data-go="buy">Buy now</a><a data-go="tracking">Track order</a><a data-go="contact">Contact us</a></div><form class="cb-form"><input class="cb-in" type="text" placeholder="Ask about MemoryOrb..." aria-label="Your question" autocomplete="off"><button class="cb-send" type="submit" aria-label="Send"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></form>';
-      fab.classList.add('late'); setTimeout(() => fab.classList.remove('late'), 5000); document.body.appendChild(fab); document.body.appendChild(tip); document.body.appendChild(win);
+      fab.classList.add('late'); setTimeout(() => { fab.classList.remove('late'); fab.classList.add('enter'); setTimeout(() => fab.classList.remove('enter'), 1000); }, 5000); document.body.appendChild(fab); document.body.appendChild(tip); document.body.appendChild(win);
       const body = win.querySelector('.cb-body'), chips = win.querySelector('.cb-chips'), inp = win.querySelector('.cb-in');
       const esc = (t) => t.replace(/&/g, '&amp;').replace(/</g, '&lt;');
       // a fresh chat always shows the welcome message at the top; once the visitor has written, follow the newest message
@@ -344,7 +344,17 @@ class Component extends DCLogic {
         return kb;
       };
       const C = '<a data-go="contact">Contact page</a>';
+      const norm = (t) => t.toLowerCase().replace(/[^a-z0-9\s]/g, ' ').replace(/\s+/g, ' ').trim();
+      const CUR = {
+        'how much storage does it have': 'MemoryOrb has 4GB of built-in storage, enough space to keep your favourite photos and videos together in one place.',
+        'do you offer worldwide shipping': 'Yes, we ship worldwide and shipping is free. Orders are usually processed within 1–3 business days, and you get a tracking number by email once your order ships.',
+        'what colours are there': 'MemoryOrb comes in six colours: Black, White, Blue, Green, Red and Grey. In a Pair or Collection you can pick a different colour for each orb.',
+        'what if my memoryorb arrives damaged': 'We are here to help! If your order arrives damaged or defective, contact our support team with your order number and photos of the issue and we will make it right.'
+      };
       const intents = [
+        { re: /\b(storage|gb|gigabyte|space|capacity)\b/i, a: CUR['how much storage does it have'], next: ['How do I upload photos?', 'How long does the battery last?'] },
+        { re: /\b(format|jpg|jpeg|png|mp4|file type)\w*/i, a: 'MemoryOrb supports JPG, JPEG, PNG, MP4 and other compatible photo and video formats. Check the product instructions before transferring your files.', next: ['How do I upload photos?', 'How much storage does it have?'] },
+        { re: /\b(worldwide|international|abroad|overseas)\b|\b(do|can) you (ship|deliver)\b/i, a: CUR['do you offer worldwide shipping'], next: ['What if my MemoryOrb arrives damaged?', 'Can I return it?'] },
         { re: /\b(buy|purchase|order now|get one|add to cart|where can i (get|buy))\b/i, a: 'You can pick your colours and set in the <a data-go="buy">shop section</a>. Shipping is free and every order has a 30-day guarantee.', html: true, next: ['Which set should I choose?', 'What colours are there?'] },
         { re: /\b(hi|hello|hey|ahoj|good (morning|evening|day))\b/i, a: 'Hello! I can help with the MemoryOrb, shipping, returns and choosing the right set. What would you like to know?', next: ['Which set should I choose?', 'How much storage does it have?'] },
         { re: /(which|what).*\b(set|bundle|pack|option|one|choose|pick|best|recommend)\b|\bshould i (get|buy|choose)|recommend/i, a: 'Most customers pick the <b>Pair ($116.38)</b>, one for you and one as a gift. The <b>Single ($59.99)</b> is perfect to start, and the <b>Collection ($170.97)</b> is the best value for families. You can choose a different colour for every orb.', html: true, next: ['What colours are there?', 'Is it a good gift?'] },
@@ -359,6 +369,9 @@ class Component extends DCLogic {
         { re: /\b(thanks|thank you|thx|dakujem|ďakujem|great|perfect|nice)\b/i, a: 'You are welcome! Anything else I can help with?' }
       ];
       const answer = (q) => {
+        const nq = norm(q);
+        const ex = build().find((e) => norm(e.q) === nq); if (ex) return { a: ex.a, q: ex.q };
+        if (CUR[nq]) return { a: CUR[nq] };
         for (const it of intents) if (it.re.test(q)) return it;
         const qt = tok(q); if (!qt.length) return null;
         const syn = { sound: 'audio', speaker: 'audio', music: 'audio', volume: 'audio', picture: 'photo', image: 'photo', pic: 'photo', video: 'video', charge: 'battery', power: 'battery', deliver: 'ship', delivery: 'ship', post: 'ship', refund: 'return', broken: 'damaged', defective: 'damaged', present: 'gift', store: 'storage', memory: 'storage', space: 'storage', gb: 'storage', format: 'format', file: 'format', setup: 'set', usb: 'upload', wifi: 'upload', transfer: 'upload', copy: 'upload', change: 'replace', delete: 'replace', mobile: 'phone' };
