@@ -400,7 +400,7 @@ class Component extends DCLogic {
       const updMore = () => more.classList.toggle('on', chips.classList.contains('scroll') && chips.scrollTop + chips.clientHeight < chips.scrollHeight - 6);
       chips.addEventListener('scroll', updMore, { passive: true });
       const showChips = (view, relList) => {
-        chips.innerHTML = ''; chips.classList.add('wide'); chips.classList.toggle('scroll', view === 'all');
+        chips.innerHTML = ''; chips.classList.add('wide'); chips.classList.toggle('scroll', view === 'all'); win.classList.toggle('sc', view === 'all');
         if (view === 'main') { MAIN.forEach((t) => chips.appendChild(qchip(t))); chips.appendChild(nav('Additional questions ›', () => showChips('extra'), 'go')); }
         else if (view === 'extra') { EXTRA.forEach((t) => chips.appendChild(qchip(t))); chips.appendChild(nav('More ›', () => showChips('all'), 'go')); chips.appendChild(nav('‹ Back', () => showChips('main'))); }
         else if (view === 'all') { allQs().forEach((t) => chips.appendChild(qchip(t))); chips.appendChild(nav('‹ Back', () => showChips('extra'))); }
