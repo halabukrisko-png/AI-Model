@@ -323,7 +323,8 @@ class Component extends DCLogic {
       const IC = { buy: '<path d="M3 4h2l2.4 11h10.2L20 7H6.2"/><circle cx="9" cy="19" r="1.4"/><circle cx="17" cy="19" r="1.4"/>', track: '<path d="M3 7h11v9H3zM14 10h4l3 3v3h-7z"/><circle cx="7" cy="17.5" r="1.8"/><circle cx="17" cy="17.5" r="1.8"/>', contact: '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/>', desc: '<circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/>' };
       const card = (go, t, sub) => '<a class="cb-card" data-go="' + go + '"><span class="cb-ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">' + IC[go === 'tracking' ? 'track' : go] + '</svg></span><span class="cb-ct"><b>' + t + '</b><small>' + sub + '</small></span></a>';
       const g = mk('div', 'cb-cards', card('buy', T('Buy a MemoryOrb'), T('Choose colours and a set.')) + card('tracking', T('Track my order'), T('See where it is.')) + card('contact', SK ? 'Kontaktujte nás' : 'Contact us', T('We reply within an hour.')) + card('desc', T('Product details'), T('Specs, care and more.')));
-      win.querySelector('.cb-pin').appendChild(g);
+      const hi = mk('div', 'cb-m bot cb-hi', T('Hi! I am the MemoryOrb assistant. What would you like to do? 🙂'));
+      const pin = win.querySelector('.cb-pin'); pin.appendChild(hi); pin.appendChild(g);
       const esc = (t) => t.replace(/&/g, '&amp;').replace(/</g, '&lt;');
       // a fresh chat always shows the welcome message at the top; once the visitor has written, follow the newest message
       const scrollEnd = () => { body.scrollTop = body.querySelector('.cb-m.me') ? body.scrollHeight : 0; };
@@ -457,11 +458,10 @@ class Component extends DCLogic {
       win.addEventListener('click', (e) => { const a = e.target.closest && e.target.closest('[data-go]'); if (a) { e.preventDefault(); go(a.getAttribute('data-go')); } });
       win.querySelector('form').addEventListener('submit', (e) => { e.preventDefault(); const v = inp.value; inp.value = ''; ask(v); });
       let greeted = false;
-      try { const old = JSON.parse(sessionStorage.getItem('mo-chat') || '[]'); if (old.length) { greeted = true; old.forEach(([me, h]) => { const m = mk('div', 'cb-m ' + (me ? 'me' : 'bot'), h); body.appendChild(m); }); } } catch (x) {}
+      try { const old = JSON.parse(sessionStorage.getItem('mo-chat') || '[]'); if (old.length) { greeted = true; old.forEach(([me, h]) => { if (!me && h === esc(T('Hi! I am the MemoryOrb assistant. What would you like to do? 🙂'))) return; const m = mk('div', 'cb-m ' + (me ? 'me' : 'bot'), h); body.appendChild(m); }); } } catch (x) {}
       const open = () => {
         win.classList.add('open'); fab.classList.add('hide'); tip.classList.remove('show'); tipDone = true;
-        if (!greeted) { greeted = true; setTimeout(() => { add(T('Hi! I am the MemoryOrb assistant. What would you like to do? 🙂'), 'bot');
-          scrollEnd(); setChips(); }, 250); }
+        if (!greeted) { greeted = true; setTimeout(() => { scrollEnd(); setChips(); }, 250); }
         else setChips();
         setTimeout(() => { scrollEnd(); try { if (window.innerWidth > 700) inp.focus(); } catch (x) {} }, 400);
       };
