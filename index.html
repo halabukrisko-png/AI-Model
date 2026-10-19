@@ -1072,7 +1072,7 @@ html:not(.js-rv) .panel{--pf:1}
 .shop-price b{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:600;color:var(--brass-hi);font-variant-numeric:lining-nums}
 .shop-price s{font-size:14px;color:var(--fg-3)}
 
-.pg.pg-flat{background:#0a0907}.pol-h{font:600 20px 'Cormorant Garamond',serif;color:var(--brass-hi);margin:22px 0 8px;letter-spacing:.01em}.pol-ul{margin:0 0 6px;padding-left:20px}.pol-ul li{margin:0 0 6px}.pg-card a:not(.btn){color:var(--brass-hi)}.pg-card a.btn-primary{color:#1a1307}
+.pg.pg-flat{background:#0a0907}.pol-h{font:600 20px 'Cormorant Garamond',serif;font-variant-numeric:lining-nums;font-feature-settings:'lnum' 1;color:var(--brass-hi);margin:22px 0 8px;letter-spacing:.01em}.pol-ul{margin:0 0 6px;padding-left:20px}.pol-ul li{margin:0 0 6px}.pg-card a:not(.btn){color:var(--brass-hi)}.pg-card a.btn-primary{color:#1a1307}
 @media (min-width:640px){.shop-grid{grid-template-columns:repeat(2,1fr)}}
 @media (min-width:900px){.shop-grid{grid-template-columns:repeat(3,1fr)}.pg-h{font-size:64px}}
 /* ---- scroll reveal ---- */
@@ -1673,6 +1673,38 @@ html.js-rv .stat.in:hover{transform:translateY(-3px)}
       <p style="margin:18px 0 0">We appreciate your trust in MemoryOrb™ and thank you for choosing us.</p>
     </div>
   </div>
+  <div class="pg pg-flat" style="display:{{termsPolDisp}}">
+    <div style="display:flex;justify-content:center"><span class="eyebrow c">Policies</span></div>
+    <h1 class="pg-h">Terms of <em style="color:#f1d99a">Service</em></h1>
+    <p class="pg-sub">Last updated: {{shipUpd}}</p>
+    <div class="pg-card" style="text-align:left;line-height:1.7;font-size:15px;color:var(--fg-2)">
+      <p style="margin:0 0 18px">Welcome to MemoryOrb™. By visiting our website or placing an order, you agree to the terms below. Please read them carefully.</p>
+      <h2 class="pol-h">1. About These Terms</h2>
+      <ul class="pol-ul"><li>These terms apply to your use of our website and to every purchase you make from us.</li><li>We may update these terms from time to time. The date at the top shows when they were last updated, and continued use of the site means you accept the current version.</li></ul>
+      <h2 class="pol-h">2. Products and Pricing</h2>
+      <ul class="pol-ul"><li>We do our best to describe and show our products accurately, but colours may look slightly different on your screen.</li><li>Prices are shown in US dollars and may change without notice. The price you see at checkout is the price you pay.</li><li>We reserve the right to correct errors in pricing or product information and to cancel orders affected by such errors.</li></ul>
+      <h2 class="pol-h">3. Orders and Payment</h2>
+      <ul class="pol-ul"><li>Placing an order is an offer to buy. An order is accepted when we confirm it by email.</li><li>Payments are processed securely by our payment provider. By ordering, you confirm that you are allowed to use the payment method.</li><li>We may refuse or cancel an order, for example in case of suspected fraud or lack of stock, and will refund any payment taken.</li></ul>
+      <h2 class="pol-h">4. Shipping and Returns</h2>
+      <ul class="pol-ul"><li>Delivery is governed by our <a href="#top" onClick="{{goShipPol}}">Shipping Policy</a>.</li><li>Returns and refunds are governed by our <a href="#top" onClick="{{goRefPol}}">Refund Policy</a>, including our 30-day guarantee and Damage Protection Guarantee.</li></ul>
+      <h2 class="pol-h">5. Your Content</h2>
+      <ul class="pol-ul"><li>You keep ownership of the photos and videos you put on your MemoryOrb.</li><li>You are responsible for the content you upload and must have the right to use it.</li><li>We do not access the content stored on your device.</li></ul>
+      <h2 class="pol-h">6. Proper Use</h2>
+      <ul class="pol-ul"><li>Use your MemoryOrb as described in the included user manual.</li><li>Do not use our website for anything unlawful, to interfere with its operation or to try to gain unauthorised access.</li><li>Damage caused by misuse, modification or ignoring the instructions may not be covered by the guarantee.</li></ul>
+      <h2 class="pol-h">7. Intellectual Property</h2>
+      <ul class="pol-ul"><li>The MemoryOrb name, logo, website text, images and design belong to us or our licensors.</li><li>You may not copy, reproduce or use them for commercial purposes without our written permission.</li></ul>
+      <h2 class="pol-h">8. Limitation of Liability</h2>
+      <ul class="pol-ul"><li>To the extent permitted by law, we are not liable for indirect or consequential losses arising from the use of our website or products.</li><li>Nothing in these terms limits any rights you have under applicable consumer protection laws, or our liability where it cannot legally be limited.</li></ul>
+      <h2 class="pol-h">9. Privacy</h2>
+      <ul class="pol-ul"><li>How we handle your personal information is explained in our <a href="#top" onClick="{{goPrivPol}}">Privacy Policy</a>.</li></ul>
+      <h2 class="pol-h">10. Governing Law</h2>
+      <ul class="pol-ul"><li>These terms are governed by the laws that apply in the country where our business is established, without affecting your mandatory consumer rights where you live.</li></ul>
+      <h2 class="pol-h">11. Contact Us</h2>
+      <p style="margin:0 0 8px">If you have any questions about these terms, please reach out. Our support team typically responds within one hour.</p>
+      <a class="btn btn-primary" href="#top" onClick="{{goContact}}" style="display:flex;justify-content:center;margin-top:18px">Contact us</a>
+      <p style="margin:18px 0 0">We appreciate your trust in MemoryOrb™ and thank you for choosing us.</p>
+    </div>
+  </div>
   <div class="pg pg-flat" style="display:{{loginDisp}}">
     <div style="display:flex;justify-content:center"><span class="eyebrow c">MemoryOrb</span></div>
     <h1 class="pg-h" style="display:{{lgNameDisp0}}">Welcome <em style="color:#f1d99a">back</em></h1>
@@ -1989,7 +2021,7 @@ html.js-rv .stat.in:hover{transform:translateY(-3px)}
             <a class="rvt" href="#top" onClick="{{goPrivPol}}" style="transition-delay:.25s">Privacy Policy</a>
             <a class="rvt" href="#top" onClick="{{goRefPol}}" style="transition-delay:.25s">Refund Policy</a>
             <a class="rvt" href="#top" onClick="{{goShipPol}}" style="transition-delay:.5s">Shipping Policy</a>
-            <a class="rvt" href="#" style="transition-delay:.5s">Terms of Service</a>
+            <a class="rvt" href="#top" onClick="{{goTermsPol}}" style="transition-delay:.5s">Terms of Service</a>
             <a class="rvt" href="#top" onClick="{{goContact}}" style="transition-delay:.75s">Contact Information</a>
           </nav>
         </div>
@@ -2007,7 +2039,7 @@ html.js-rv .stat.in:hover{transform:translateY(-3px)}
   </div>
 </div>
 </template>
-<script src="runtime.js?v=1792415412"></script>
-<script src="logic.js?v=1792415412"></script>
+<script src="runtime.js?v=1792415652"></script>
+<script src="logic.js?v=1792415652"></script>
 </body>
 </html>

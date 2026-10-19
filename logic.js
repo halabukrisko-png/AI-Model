@@ -822,6 +822,8 @@ class Component extends DCLogic {
       refPolDisp: this.state.page === 'refund' ? 'block' : 'none',
       goPrivPol: (e) => { this.setState({ page: 'privacy', menu: false }); try { window.scrollTo(0, 0); } catch (x) {} },
       goRefPol: (e) => { this.setState({ page: 'refund', menu: false }); try { window.scrollTo(0, 0); } catch (x) {} },
+      termsPolDisp: this.state.page === 'terms' ? 'block' : 'none',
+      goTermsPol: (e) => { this.setState({ page: 'terms', menu: false }); try { window.scrollTo(0, 0); } catch (x) {} },
       shipPolDisp: this.state.page === 'shipping' ? 'block' : 'none',
       goShipPol: (e) => { this.setState({ page: 'shipping', menu: false }); try { window.scrollTo(0, 0); } catch (x) {} },
       contactDisp: this.state.page === 'contact' ? 'block' : 'none',
