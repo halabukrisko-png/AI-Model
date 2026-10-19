@@ -1022,9 +1022,11 @@ footer h2,footer p,footer nav a{text-shadow:0 2px 7px rgba(0,0,0,.6)}
 /* ---- scroll-triggered champagne underline under "MemoryOrb™" (plays once) ---- */
 .mo-ul{position:relative}
 .mo-ul::after{content:"";position:absolute;left:0;right:0;bottom:-.1em;height:1px;pointer-events:none;background:linear-gradient(90deg,rgba(242,219,163,0) 0%,rgba(242,219,163,.45) 14%,#f2dba3 50%,rgba(242,219,163,.45) 86%,rgba(242,219,163,0) 100%);filter:drop-shadow(0 0 5px rgba(242,219,163,.32)) drop-shadow(0 3px 7px rgba(242,219,163,.14));transform-origin:left center}
-html.js-rv .mo-ul::after{transform:scaleX(0);transition:transform 1.8s cubic-bezier(.45,.05,.15,1) .7s}
-html.js-rv .mo-ul.in::after{transform:scaleX(1)}
-@media (prefers-reduced-motion:reduce){html.js-rv .mo-ul::after{transform:scaleX(1);transition:none}}
+html.js-rv .mo-ul::after{animation:moDraw 1.7s cubic-bezier(.45,.05,.15,1) .5s both}
+.mo-ul::before{content:"";position:absolute;left:0;width:26%;bottom:-.1em;height:1px;pointer-events:none;background:linear-gradient(90deg,rgba(255,244,214,0),#fff6dc,rgba(255,244,214,0));filter:drop-shadow(0 0 6px rgba(255,236,190,.9));opacity:0;animation:moGlint 5.5s ease-in-out 2.6s infinite}
+@keyframes moDraw{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes moGlint{0%{transform:translateX(-110%);opacity:0}12%{opacity:1}55%{transform:translateX(370%);opacity:1}62%,100%{transform:translateX(390%);opacity:0}}
+@media (prefers-reduced-motion:reduce){html.js-rv .mo-ul::after{animation:none}.mo-ul::before{animation:none;opacity:0}}
 /* ---- colour panel: champagne-gold frame grows from the top centre to both sides as you scroll ---- */
 .panel{position:relative;border-color:transparent}
 .pa-head{position:relative;z-index:1;margin:6px auto 26px;gap:14px}
@@ -2039,7 +2041,7 @@ html.js-rv .stat.in:hover{transform:translateY(-3px)}
   </div>
 </div>
 </template>
-<script src="runtime.js?v=1792415776"></script>
-<script src="logic.js?v=1792415776"></script>
+<script src="runtime.js?v=1792415860"></script>
+<script src="logic.js?v=1792415860"></script>
 </body>
 </html>
