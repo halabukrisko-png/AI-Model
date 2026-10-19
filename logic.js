@@ -328,7 +328,7 @@ class Component extends DCLogic {
       const esc = (t) => t.replace(/&/g, '&amp;').replace(/</g, '&lt;');
       // a fresh chat always shows the welcome message at the top; once the visitor has written, follow the newest message
       const scrollEnd = () => { body.scrollTop = body.querySelector('.cb-m.me') ? body.scrollHeight : 0; };
-      const add = (txt, who, html) => { const m = mk('div', 'cb-m ' + who, html ? txt : esc(txt)); body.appendChild(m); scrollEnd(); return m; };
+      const add = (txt, who, html) => { if (who === 'me') win.classList.add('talk'); const m = mk('div', 'cb-m ' + who, html ? txt : esc(txt)); body.appendChild(m); scrollEnd(); return m; };
       const go = (page) => {
         close();
         if (page === 'buy' || page === 'desc') {
@@ -458,7 +458,7 @@ class Component extends DCLogic {
       win.addEventListener('click', (e) => { const a = e.target.closest && e.target.closest('[data-go]'); if (a) { e.preventDefault(); go(a.getAttribute('data-go')); } });
       win.querySelector('form').addEventListener('submit', (e) => { e.preventDefault(); const v = inp.value; inp.value = ''; ask(v); });
       let greeted = false;
-      try { const old = JSON.parse(sessionStorage.getItem('mo-chat') || '[]'); if (old.length) { greeted = true; old.forEach(([me, h]) => { if (!me && h === esc(T('Hi! I am the MemoryOrb assistant. What would you like to do? 🙂'))) return; const m = mk('div', 'cb-m ' + (me ? 'me' : 'bot'), h); body.appendChild(m); }); } } catch (x) {}
+      try { const old = JSON.parse(sessionStorage.getItem('mo-chat') || '[]'); if (old.length) { greeted = true; old.forEach(([me, h]) => { if (me) win.classList.add('talk'); if (!me && h === esc(T('Hi! I am the MemoryOrb assistant. What would you like to do? 🙂'))) return; const m = mk('div', 'cb-m ' + (me ? 'me' : 'bot'), h); body.appendChild(m); }); } } catch (x) {}
       const open = () => {
         win.classList.add('open'); fab.classList.add('hide'); tip.classList.remove('show'); tipDone = true;
         if (!greeted) { greeted = true; setTimeout(() => { scrollEnd(); setChips(); }, 250); }
