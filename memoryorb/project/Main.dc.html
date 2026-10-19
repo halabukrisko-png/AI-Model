@@ -87,7 +87,7 @@ sup.tm{font-size:.28em;vertical-align:top;position:relative;top:.55em;margin-lef
 .cb-fab:hover{transform:translateY(-2px)}
 .cb-fab svg{width:24px;height:24px}
 .cb-fab.hide{opacity:0;pointer-events:none;transform:scale(.6)}
-.cb-win{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom));z-index:95;width:min(380px,calc(100vw - 24px));height:min(560px,calc(100dvh - 32px));display:flex;flex-direction:column;border-radius:20px;border:1px solid rgba(217,181,107,.4);background:#100e0a;box-shadow:0 30px 70px -20px rgba(0,0,0,.9);overflow:hidden;opacity:0;transform:translate3d(0,24px,0) scale(.97);pointer-events:none;transform-origin:100% 100%;transition:opacity .35s ease,transform .45s cubic-bezier(.22,.8,.2,1);font-family:'Manrope',system-ui,sans-serif}
+.cb-win{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom));z-index:95;width:min(380px,calc(100vw - 24px));height:auto;max-height:min(560px,calc(100dvh - 32px));display:flex;flex-direction:column;border-radius:20px;border:1px solid rgba(217,181,107,.4);background:#100e0a;box-shadow:0 30px 70px -20px rgba(0,0,0,.9);overflow:hidden;opacity:0;transform:translate3d(0,24px,0) scale(.97);pointer-events:none;transform-origin:100% 100%;transition:opacity .35s ease,transform .45s cubic-bezier(.22,.8,.2,1);font-family:'Manrope',system-ui,sans-serif}
 .cb-win.open{opacity:1;transform:none;pointer-events:auto}
 .cb-hd{display:flex;align-items:center;gap:12px;padding:14px 16px;background:linear-gradient(180deg,rgba(217,181,107,.18),rgba(217,181,107,.04));border-bottom:1px solid rgba(217,181,107,.25)}
 .cb-av{flex:none;width:36px;height:36px;border-radius:50%;background:radial-gradient(circle at 34% 28%,#f6e3ae,#d9b56b 78%);display:grid;place-items:center;color:#1a1306}
@@ -112,7 +112,7 @@ sup.tm{font-size:.28em;vertical-align:top;position:relative;top:.55em;margin-lef
 .cb-send{flex:none;width:44px;height:44px;border-radius:12px;border:0;background:linear-gradient(180deg,#f1d99b,#c29a4d);color:#1a1307;cursor:pointer;display:grid;place-items:center}
 @keyframes cbIn{0%{opacity:0;transform:translate3d(0,10px,0)}100%{opacity:1;transform:none}}
 @keyframes cbDot{0%,100%{opacity:.3;transform:translateY(0)}50%{opacity:1;transform:translateY(-3px)}}
-@media (max-width:480px){.cb-win{right:8px;left:8px;width:auto;bottom:calc(8px + env(safe-area-inset-bottom));height:min(88dvh,700px)}}
+@media (max-width:480px){.cb-win{right:8px;left:8px;width:auto;bottom:calc(8px + env(safe-area-inset-bottom));height:auto;max-height:min(88dvh,700px)}}
 @media (prefers-reduced-motion:reduce){.cb-win,.cb-m{transition:none;animation:none}}
 /* striped dark pages + livelier banner */
 
@@ -166,7 +166,7 @@ sup.tm{font-size:.28em;vertical-align:top;position:relative;top:.55em;margin-lef
 .cb-m a[data-go]{display:inline-flex;align-items:center;margin:2px 0;padding:4px 11px;border-radius:999px;border:1px solid rgba(217,181,107,.55);background:rgba(217,181,107,.12);color:var(--brass-hi);text-decoration:none;font-weight:700;font-size:13px}
 .cb-m a[data-go]:hover{background:var(--brass-hi);color:#1a1306}
 .cb-chips{max-height:34vh;overflow-y:auto}
-.cb-chips.wide,.cb-chips.scroll{overflow-x:hidden;overflow-y:auto;-webkit-overflow-scrolling:touch}.cb-win.sc .cb-body{flex:0 1 auto}.cb-win.sc .cb-chips.scroll{flex:1 1 0;max-height:none;min-height:96px}.cb-chips.scroll{max-height:24dvh}.cb-more{flex:none;height:34px;margin-top:-34px;position:relative;z-index:2;pointer-events:none;display:flex;align-items:flex-end;justify-content:center;padding-bottom:3px;background:linear-gradient(180deg,rgba(16,14,10,0),#100e0a 85%);opacity:0;transition:opacity .25s;color:var(--brass-hi)}.cb-more.on{opacity:1}.cb-more svg{width:20px;height:20px;animation:cbNudge 1.4s ease-in-out infinite}@keyframes cbNudge{0%,100%{transform:translateY(-2px)}50%{transform:translateY(3px)}}.cb-chips.scroll{padding:10px 14px 12px;border-top:1px solid rgba(217,181,107,.2);background:#100e0a}.cb-links{padding-top:10px;background:#100e0a;position:relative}.cb-chips,.cb-links,.cb-form,.cb-hd{flex:none}.cb-body{min-height:0}.cb-chips.wide .cb-chip{flex:none}
+.cb-chips.wide,.cb-chips.scroll{overflow-x:hidden;overflow-y:auto;-webkit-overflow-scrolling:touch}.cb-win .cb-body{flex:0 1 auto}.cb-chips.scroll{max-height:30dvh}.cb-more{flex:none;height:34px;margin-top:-34px;position:relative;z-index:2;pointer-events:none;display:flex;align-items:flex-end;justify-content:center;padding-bottom:3px;background:linear-gradient(180deg,rgba(16,14,10,0),#100e0a 85%);opacity:0;transition:opacity .25s;color:var(--brass-hi)}.cb-more.on{opacity:1}.cb-more svg{width:20px;height:20px;animation:cbNudge 1.4s ease-in-out infinite}@keyframes cbNudge{0%,100%{transform:translateY(-2px)}50%{transform:translateY(3px)}}.cb-chips.scroll{padding:10px 14px 12px;border-top:1px solid rgba(217,181,107,.2);background:#100e0a}.cb-links{padding-top:10px;background:#100e0a;position:relative}.cb-chips,.cb-links,.cb-form,.cb-hd{flex:none}.cb-body{min-height:0}.cb-chips.wide .cb-chip{flex:none}
 .cb-chip.nav{border-style:dashed;background:transparent;color:var(--fg-2)}
 .cb-chip.nav.go{border-style:solid;color:var(--brass-hi);font-weight:700}
 @media (prefers-reduced-motion:reduce){.cb-ping{animation:none}.cb-tip{transition:none}}
@@ -1069,7 +1069,7 @@ html:not(.js-rv) .panel{--pf:1}
 .shop-price b{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:600;color:var(--brass-hi);font-variant-numeric:lining-nums}
 .shop-price s{font-size:14px;color:var(--fg-3)}
 
-.pg.pg-flat{background:#0a0907}.pol-h{font:600 20px 'Cormorant Garamond',serif;color:var(--brass-hi);margin:22px 0 8px;letter-spacing:.01em}.pol-ul{margin:0 0 6px;padding-left:20px}.pol-ul li{margin:0 0 6px}.pg-card a{color:var(--brass-hi)}
+.pg.pg-flat{background:#0a0907}.pol-h{font:600 20px 'Cormorant Garamond',serif;color:var(--brass-hi);margin:22px 0 8px;letter-spacing:.01em}.pol-ul{margin:0 0 6px;padding-left:20px}.pol-ul li{margin:0 0 6px}.pg-card a:not(.btn){color:var(--brass-hi)}.pg-card a.btn-primary{color:#1a1307}
 @media (min-width:640px){.shop-grid{grid-template-columns:repeat(2,1fr)}}
 @media (min-width:900px){.shop-grid{grid-template-columns:repeat(3,1fr)}.pg-h{font-size:64px}}
 /* ---- scroll reveal ---- */
@@ -1618,6 +1618,58 @@ html.js-rv .stat.in:hover{transform:translateY(-3px)}
       <p style="margin:18px 0 0">We appreciate your trust in MemoryOrb™ and thank you for choosing us.</p>
     </div>
   </div>
+  <div class="pg pg-flat" style="display:{{privPolDisp}}">
+    <div style="display:flex;justify-content:center"><span class="eyebrow c">Policies</span></div>
+    <h1 class="pg-h">Privacy <em style="color:#f1d99a">Policy</em></h1>
+    <p class="pg-sub">Last updated: {{shipUpd}}</p>
+    <div class="pg-card" style="text-align:left;line-height:1.7;font-size:15px;color:var(--fg-2)">
+      <p style="margin:0 0 18px">At MemoryOrb™, we respect your privacy. This policy explains what information we collect, how we use it and the choices you have.</p>
+      <h2 class="pol-h">1. Information We Collect</h2>
+      <ul class="pol-ul"><li>Order details: your name, email address, phone number, shipping and billing address.</li><li>Payment information is processed securely by our payment provider. We do not store your full card details.</li><li>Technical data such as device type, browser and pages visited, collected through cookies and similar tools.</li><li>Messages you send us through the Contact page or the chat assistant.</li></ul>
+      <h2 class="pol-h">2. How We Use Your Information</h2>
+      <ul class="pol-ul"><li>To process and deliver your order and to send order and tracking updates.</li><li>To answer your questions and provide customer support.</li><li>To prevent fraud and keep our store secure.</li><li>To improve our website and your shopping experience.</li><li>To send promotional emails, only if you have agreed to receive them. You can unsubscribe at any time.</li></ul>
+      <h2 class="pol-h">3. Sharing Your Information</h2>
+      <ul class="pol-ul"><li>We share information only with trusted partners that help us run the store, such as payment providers, shipping carriers and tracking services.</li><li>These partners may use your information only to provide their services to us.</li><li>We do not sell your personal information.</li><li>We may disclose information when required by law.</li></ul>
+      <h2 class="pol-h">4. Cookies</h2>
+      <ul class="pol-ul"><li>We use cookies to keep your cart, remember your preferences and understand how the site is used.</li><li>You can disable cookies in your browser settings, but some parts of the site may not work properly.</li></ul>
+      <h2 class="pol-h">5. Data Security</h2>
+      <ul class="pol-ul"><li>We use industry-standard measures to protect your information. Checkout is encrypted.</li><li>No method of transmission over the internet is completely secure, so we cannot guarantee absolute security.</li></ul>
+      <h2 class="pol-h">6. Your Rights</h2>
+      <ul class="pol-ul"><li>Depending on where you live, you may have the right to access, correct or delete your personal information, or to object to certain processing.</li><li>To make a request, contact our support team and we will respond within a reasonable time.</li></ul>
+      <h2 class="pol-h">7. Children</h2>
+      <ul class="pol-ul"><li>Our store is not directed at children under 16 and we do not knowingly collect their information.</li></ul>
+      <h2 class="pol-h">8. Changes to This Policy</h2>
+      <ul class="pol-ul"><li>We may update this policy from time to time. The date at the top shows when it was last updated.</li></ul>
+      <h2 class="pol-h">9. Contact Us</h2>
+      <p style="margin:0 0 8px">If you have any questions about this policy or your personal information, please reach out. Our support team typically responds within one hour.</p>
+      <a class="btn btn-primary" href="#top" onClick="{{goContact}}" style="display:flex;justify-content:center;margin-top:18px">Contact us</a>
+      <p style="margin:18px 0 0">We appreciate your trust in MemoryOrb™ and thank you for choosing us.</p>
+    </div>
+  </div>
+  <div class="pg pg-flat" style="display:{{refPolDisp}}">
+    <div style="display:flex;justify-content:center"><span class="eyebrow c">Policies</span></div>
+    <h1 class="pg-h">Refund <em style="color:#f1d99a">Policy</em></h1>
+    <p class="pg-sub">Last updated: {{shipUpd}}</p>
+    <div class="pg-card" style="text-align:left;line-height:1.7;font-size:15px;color:var(--fg-2)">
+      <p style="margin:0 0 18px">At MemoryOrb™, we want you to love your MemoryOrb. If you are not completely satisfied, we are here to help. Please review our refund policy below.</p>
+      <h2 class="pol-h">1. 30-Day Guarantee</h2>
+      <ul class="pol-ul"><li>Every order is covered by our 30-day guarantee.</li><li>If you are not satisfied, contact our support team within 30 days of delivery to discuss a return or refund.</li></ul>
+      <h2 class="pol-h">2. How to Request a Return</h2>
+      <ul class="pol-ul"><li>Contact us through the Contact page with your order number and the details of your request.</li><li>We will guide you through the next steps and tell you how and where to send the item back.</li><li>Please do not send a package back before we have confirmed your return.</li></ul>
+      <h2 class="pol-h">3. Condition of Returned Items</h2>
+      <ul class="pol-ul"><li>Items should be returned in their original condition with all included accessories and the user manual, and preferably in the original packaging.</li><li>We may refuse a refund for items that show signs of misuse or damage not caused in transit.</li></ul>
+      <h2 class="pol-h">4. Refunds</h2>
+      <ul class="pol-ul"><li>Once we receive and inspect your return, we will notify you about the status of your refund.</li><li>Approved refunds are issued to your original payment method. Processing times depend on your bank or card provider.</li><li>Original shipping was free, so there is no shipping fee to refund. Return shipping costs and any customs charges may not be refundable unless the item was faulty.</li></ul>
+      <h2 class="pol-h">5. Damaged or Defective Items</h2>
+      <ul class="pol-ul"><li>If your MemoryOrb arrives damaged or defective, contact us with your order number and photos of the issue.</li><li>Every order is covered by our Damage Protection Guarantee. We will repair, replace or refund the item in accordance with applicable consumer protection laws.</li></ul>
+      <h2 class="pol-h">6. Personalised Content</h2>
+      <ul class="pol-ul"><li>Photos and videos you upload to your MemoryOrb are yours. Before returning a device, please remove any personal content you do not want to share.</li></ul>
+      <h2 class="pol-h">7. Contact Us</h2>
+      <p style="margin:0 0 8px">If you have any questions about returns or refunds, please reach out. Our support team typically responds within one hour.</p>
+      <a class="btn btn-primary" href="#top" onClick="{{goContact}}" style="display:flex;justify-content:center;margin-top:18px">Contact us</a>
+      <p style="margin:18px 0 0">We appreciate your trust in MemoryOrb™ and thank you for choosing us.</p>
+    </div>
+  </div>
   <div class="pg pg-flat" style="display:{{loginDisp}}">
     <div style="display:flex;justify-content:center"><span class="eyebrow c">MemoryOrb</span></div>
     <h1 class="pg-h" style="display:{{lgNameDisp0}}">Welcome <em style="color:#f1d99a">back</em></h1>
@@ -1931,8 +1983,8 @@ html.js-rv .stat.in:hover{transform:translateY(-3px)}
         <div>
           <h2 class="foot-h rvt" style="transition-delay:0s">Quick links</h2>
           <nav class="foot-nav" aria-label="Quick links">
-            <a class="rvt" href="#" style="transition-delay:.25s">Privacy Policy</a>
-            <a class="rvt" href="#" style="transition-delay:.25s">Refund Policy</a>
+            <a class="rvt" href="#top" onClick="{{goPrivPol}}" style="transition-delay:.25s">Privacy Policy</a>
+            <a class="rvt" href="#top" onClick="{{goRefPol}}" style="transition-delay:.25s">Refund Policy</a>
             <a class="rvt" href="#top" onClick="{{goShipPol}}" style="transition-delay:.5s">Shipping Policy</a>
             <a class="rvt" href="#" style="transition-delay:.5s">Terms of Service</a>
             <a class="rvt" href="#top" onClick="{{goContact}}" style="transition-delay:.75s">Contact Information</a>
@@ -2772,6 +2824,10 @@ class Component extends DCLogic {
       infoDisp: this.state.page === 'home' ? 'block' : 'none',
       homeDisp: (this.state.page === 'home' || this.state.page === 'products') ? 'block' : 'none',
       shipUpd: new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
+      privPolDisp: this.state.page === 'privacy' ? 'block' : 'none',
+      refPolDisp: this.state.page === 'refund' ? 'block' : 'none',
+      goPrivPol: (e) => { this.setState({ page: 'privacy', menu: false }); try { window.scrollTo(0, 0); } catch (x) {} },
+      goRefPol: (e) => { this.setState({ page: 'refund', menu: false }); try { window.scrollTo(0, 0); } catch (x) {} },
       shipPolDisp: this.state.page === 'shipping' ? 'block' : 'none',
       goShipPol: (e) => { this.setState({ page: 'shipping', menu: false }); try { window.scrollTo(0, 0); } catch (x) {} },
       contactDisp: this.state.page === 'contact' ? 'block' : 'none',
