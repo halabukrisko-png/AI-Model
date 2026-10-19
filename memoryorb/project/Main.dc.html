@@ -1596,7 +1596,7 @@ html.js-rv .stat.in:hover{transform:translateY(-3px)}
   <div class="pg pg-flat" style="display:{{shipPolDisp}}">
     <div style="display:flex;justify-content:center"><span class="eyebrow c">Policies</span></div>
     <h1 class="pg-h">Shipping <em style="color:#f1d99a">Policy</em></h1>
-    <p class="pg-sub">Last updated: October 19, 2026</p>
+    <p class="pg-sub">Last updated: {{shipUpd}}</p>
     <div class="pg-card" style="text-align:left;line-height:1.7;font-size:15px;color:var(--fg-2)">
       <p style="margin:0 0 18px">At MemoryOrb™, we want every MemoryOrb to arrive safely and give you a smooth shopping experience. Please review our shipping policy below for information about order processing, delivery and tracking.</p>
       <h2 class="pol-h">1. Order Processing</h2>
@@ -2771,6 +2771,7 @@ class Component extends DCLogic {
       galDisp: (this.state.page === 'home' || this.state.page === 'products') ? 'block' : 'none',
       infoDisp: this.state.page === 'home' ? 'block' : 'none',
       homeDisp: (this.state.page === 'home' || this.state.page === 'products') ? 'block' : 'none',
+      shipUpd: new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
       shipPolDisp: this.state.page === 'shipping' ? 'block' : 'none',
       goShipPol: (e) => { this.setState({ page: 'shipping', menu: false }); try { window.scrollTo(0, 0); } catch (x) {} },
       contactDisp: this.state.page === 'contact' ? 'block' : 'none',

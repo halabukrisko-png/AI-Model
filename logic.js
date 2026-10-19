@@ -817,6 +817,7 @@ class Component extends DCLogic {
       galDisp: (this.state.page === 'home' || this.state.page === 'products') ? 'block' : 'none',
       infoDisp: this.state.page === 'home' ? 'block' : 'none',
       homeDisp: (this.state.page === 'home' || this.state.page === 'products') ? 'block' : 'none',
+      shipUpd: new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
       shipPolDisp: this.state.page === 'shipping' ? 'block' : 'none',
       goShipPol: (e) => { this.setState({ page: 'shipping', menu: false }); try { window.scrollTo(0, 0); } catch (x) {} },
       contactDisp: this.state.page === 'contact' ? 'block' : 'none',
