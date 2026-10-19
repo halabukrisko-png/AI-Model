@@ -112,7 +112,7 @@ sup.tm{font-size:.28em;vertical-align:top;position:relative;top:.55em;margin-lef
 .cb-send{flex:none;width:44px;height:44px;border-radius:12px;border:0;background:linear-gradient(180deg,#f1d99b,#c29a4d);color:#1a1307;cursor:pointer;display:grid;place-items:center}
 @keyframes cbIn{0%{opacity:0;transform:translate3d(0,10px,0)}100%{opacity:1;transform:none}}
 @keyframes cbDot{0%,100%{opacity:.3;transform:translateY(0)}50%{opacity:1;transform:translateY(-3px)}}
-@media (max-width:480px){.cb-win{right:8px;left:8px;width:auto;bottom:calc(8px + env(safe-area-inset-bottom));height:min(78dvh,620px)}}
+@media (max-width:480px){.cb-win{right:8px;left:8px;width:auto;bottom:calc(8px + env(safe-area-inset-bottom));height:min(88dvh,700px)}}
 @media (prefers-reduced-motion:reduce){.cb-win,.cb-m{transition:none;animation:none}}
 /* striped dark pages + livelier banner */
 
@@ -166,7 +166,7 @@ sup.tm{font-size:.28em;vertical-align:top;position:relative;top:.55em;margin-lef
 .cb-m a[data-go]{display:inline-flex;align-items:center;margin:2px 0;padding:4px 11px;border-radius:999px;border:1px solid rgba(217,181,107,.55);background:rgba(217,181,107,.12);color:var(--brass-hi);text-decoration:none;font-weight:700;font-size:13px}
 .cb-m a[data-go]:hover{background:var(--brass-hi);color:#1a1306}
 .cb-chips{max-height:34vh;overflow-y:auto}
-.cb-chips.wide,.cb-chips.scroll{overflow-x:hidden;overflow-y:auto;-webkit-overflow-scrolling:touch}.cb-chips.scroll{max-height:30dvh}.cb-chips.scroll{padding:10px 14px 12px;border-top:1px solid rgba(217,181,107,.2);background:#100e0a}.cb-links{padding-top:10px;background:#100e0a;position:relative}.cb-chips,.cb-links,.cb-form,.cb-hd{flex:none}.cb-body{min-height:0}.cb-chips.wide .cb-chip{flex:none}
+.cb-chips.wide,.cb-chips.scroll{overflow-x:hidden;overflow-y:auto;-webkit-overflow-scrolling:touch}.cb-chips.scroll{max-height:24dvh}.cb-more{flex:none;height:34px;margin-top:-34px;position:relative;z-index:2;pointer-events:none;display:flex;align-items:flex-end;justify-content:center;padding-bottom:3px;background:linear-gradient(180deg,rgba(16,14,10,0),#100e0a 85%);opacity:0;transition:opacity .25s;color:var(--brass-hi)}.cb-more.on{opacity:1}.cb-more svg{width:20px;height:20px;animation:cbNudge 1.4s ease-in-out infinite}@keyframes cbNudge{0%,100%{transform:translateY(-2px)}50%{transform:translateY(3px)}}.cb-chips.scroll{padding:10px 14px 12px;border-top:1px solid rgba(217,181,107,.2);background:#100e0a}.cb-links{padding-top:10px;background:#100e0a;position:relative}.cb-chips,.cb-links,.cb-form,.cb-hd{flex:none}.cb-body{min-height:0}.cb-chips.wide .cb-chip{flex:none}
 .cb-chip.nav{border-style:dashed;background:transparent;color:var(--fg-2)}
 .cb-chip.nav.go{border-style:solid;color:var(--brass-hi);font-weight:700}
 @media (prefers-reduced-motion:reduce){.cb-ping{animation:none}.cb-tip{transition:none}}
@@ -2239,7 +2239,7 @@ class Component extends DCLogic {
       const fab = mk('button', 'cb-fab', ic + '<i class="cb-ping"></i>'); fab.setAttribute('aria-label', 'Open chat');
       const tip = mk('div', 'cb-tip', 'Need help choosing? <b>Ask me</b>'); tip.setAttribute('aria-hidden', 'true');
       const win = mk('div', 'cb-win'); win.setAttribute('role', 'dialog'); win.setAttribute('aria-label', 'MemoryOrb assistant');
-      win.innerHTML = '<div class="cb-hd"><span class="cb-av">' + ic + '<i class="cb-on"></i></span><span><b>MemoryOrb – Assistant</b><small>Online · replies instantly</small></span><button type="button" class="cb-x" aria-label="Close chat"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div><div class="cb-body"></div><div class="cb-chips"></div><div class="cb-links"><a data-go="buy">Buy now</a><a data-go="tracking">Track order</a><a data-go="contact">Contact us</a></div><form class="cb-form"><input class="cb-in" type="text" placeholder="Ask about MemoryOrb..." aria-label="Your question" autocomplete="off"><button class="cb-send" type="submit" aria-label="Send"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></form>';
+      win.innerHTML = '<div class="cb-hd"><span class="cb-av">' + ic + '<i class="cb-on"></i></span><span><b>MemoryOrb – Assistant</b><small>Online · replies instantly</small></span><button type="button" class="cb-x" aria-label="Close chat"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div><div class="cb-body"></div><div class="cb-chips"></div><div class="cb-more"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></div><div class="cb-links"><a data-go="buy">Buy now</a><a data-go="tracking">Track order</a><a data-go="contact">Contact us</a></div><form class="cb-form"><input class="cb-in" type="text" placeholder="Ask about MemoryOrb..." aria-label="Your question" autocomplete="off"><button class="cb-send" type="submit" aria-label="Send"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></form>';
       fab.classList.add('late'); setTimeout(() => fab.classList.remove('late'), 5000); document.body.appendChild(fab); document.body.appendChild(tip); document.body.appendChild(win);
       const body = win.querySelector('.cb-body'), chips = win.querySelector('.cb-chips'), inp = win.querySelector('.cb-in');
       const esc = (t) => t.replace(/&/g, '&amp;').replace(/</g, '&lt;');
@@ -2325,13 +2325,16 @@ class Component extends DCLogic {
       const nav = (label, fn, cls) => { const c = mk('button', 'cb-chip nav ' + (cls || ''), label); c.type = 'button'; c.addEventListener('click', fn); return c; };
       const qchip = (t) => { const c = mk('button', 'cb-chip', esc(t)); c.type = 'button'; c.addEventListener('click', () => ask(t)); return c; };
       // views: main -> additional -> more (all FAQ), plus 'rel' (two related questions after an answer)
+      const more = win.querySelector('.cb-more');
+      const updMore = () => more.classList.toggle('on', chips.classList.contains('scroll') && chips.scrollTop + chips.clientHeight < chips.scrollHeight - 6);
+      chips.addEventListener('scroll', updMore, { passive: true });
       const showChips = (view, relList) => {
         chips.innerHTML = ''; chips.classList.add('wide'); chips.classList.toggle('scroll', view === 'all');
         if (view === 'main') { MAIN.forEach((t) => chips.appendChild(qchip(t))); chips.appendChild(nav('Additional questions ›', () => showChips('extra'), 'go')); }
         else if (view === 'extra') { EXTRA.forEach((t) => chips.appendChild(qchip(t))); chips.appendChild(nav('More ›', () => showChips('all'), 'go')); chips.appendChild(nav('‹ Back', () => showChips('main'))); }
         else if (view === 'all') { allQs().forEach((t) => chips.appendChild(qchip(t))); chips.appendChild(nav('‹ Back', () => showChips('extra'))); }
         else { (relList || []).forEach((t) => chips.appendChild(qchip(t))); chips.appendChild(nav('‹ Back to main menu', () => showChips('main'))); }
-        setTimeout(scrollEnd, 30);
+        chips.scrollTop = 0; setTimeout(scrollEnd, 30); setTimeout(updMore, 60);
       };
       const setChips = () => showChips('main');
       // typed reply: the text appears word by word

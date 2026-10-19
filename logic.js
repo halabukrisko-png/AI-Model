@@ -310,7 +310,7 @@ class Component extends DCLogic {
       const fab = mk('button', 'cb-fab', ic + '<i class="cb-ping"></i>'); fab.setAttribute('aria-label', 'Open chat');
       const tip = mk('div', 'cb-tip', 'Need help choosing? <b>Ask me</b>'); tip.setAttribute('aria-hidden', 'true');
       const win = mk('div', 'cb-win'); win.setAttribute('role', 'dialog'); win.setAttribute('aria-label', 'MemoryOrb assistant');
-      win.innerHTML = '<div class="cb-hd"><span class="cb-av">' + ic + '<i class="cb-on"></i></span><span><b>MemoryOrb – Assistant</b><small>Online · replies instantly</small></span><button type="button" class="cb-x" aria-label="Close chat"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div><div class="cb-body"></div><div class="cb-chips"></div><div class="cb-links"><a data-go="buy">Buy now</a><a data-go="tracking">Track order</a><a data-go="contact">Contact us</a></div><form class="cb-form"><input class="cb-in" type="text" placeholder="Ask about MemoryOrb..." aria-label="Your question" autocomplete="off"><button class="cb-send" type="submit" aria-label="Send"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></form>';
+      win.innerHTML = '<div class="cb-hd"><span class="cb-av">' + ic + '<i class="cb-on"></i></span><span><b>MemoryOrb – Assistant</b><small>Online · replies instantly</small></span><button type="button" class="cb-x" aria-label="Close chat"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div><div class="cb-body"></div><div class="cb-chips"></div><div class="cb-more"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></div><div class="cb-links"><a data-go="buy">Buy now</a><a data-go="tracking">Track order</a><a data-go="contact">Contact us</a></div><form class="cb-form"><input class="cb-in" type="text" placeholder="Ask about MemoryOrb..." aria-label="Your question" autocomplete="off"><button class="cb-send" type="submit" aria-label="Send"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></form>';
       fab.classList.add('late'); setTimeout(() => fab.classList.remove('late'), 5000); document.body.appendChild(fab); document.body.appendChild(tip); document.body.appendChild(win);
       const body = win.querySelector('.cb-body'), chips = win.querySelector('.cb-chips'), inp = win.querySelector('.cb-in');
       const esc = (t) => t.replace(/&/g, '&amp;').replace(/</g, '&lt;');
@@ -396,13 +396,16 @@ class Component extends DCLogic {
       const nav = (label, fn, cls) => { const c = mk('button', 'cb-chip nav ' + (cls || ''), label); c.type = 'button'; c.addEventListener('click', fn); return c; };
       const qchip = (t) => { const c = mk('button', 'cb-chip', esc(t)); c.type = 'button'; c.addEventListener('click', () => ask(t)); return c; };
       // views: main -> additional -> more (all FAQ), plus 'rel' (two related questions after an answer)
+      const more = win.querySelector('.cb-more');
+      const updMore = () => more.classList.toggle('on', chips.classList.contains('scroll') && chips.scrollTop + chips.clientHeight < chips.scrollHeight - 6);
+      chips.addEventListener('scroll', updMore, { passive: true });
       const showChips = (view, relList) => {
         chips.innerHTML = ''; chips.classList.add('wide'); chips.classList.toggle('scroll', view === 'all');
         if (view === 'main') { MAIN.forEach((t) => chips.appendChild(qchip(t))); chips.appendChild(nav('Additional questions ›', () => showChips('extra'), 'go')); }
         else if (view === 'extra') { EXTRA.forEach((t) => chips.appendChild(qchip(t))); chips.appendChild(nav('More ›', () => showChips('all'), 'go')); chips.appendChild(nav('‹ Back', () => showChips('main'))); }
         else if (view === 'all') { allQs().forEach((t) => chips.appendChild(qchip(t))); chips.appendChild(nav('‹ Back', () => showChips('extra'))); }
         else { (relList || []).forEach((t) => chips.appendChild(qchip(t))); chips.appendChild(nav('‹ Back to main menu', () => showChips('main'))); }
-        setTimeout(scrollEnd, 30);
+        chips.scrollTop = 0; setTimeout(scrollEnd, 30); setTimeout(updMore, 60);
       };
       const setChips = () => showChips('main');
       // typed reply: the text appears word by word
