@@ -348,7 +348,7 @@ class Component extends DCLogic {
       const CUR = {
         'how much storage does it have': 'MemoryOrb has 4GB of built-in storage, enough space to keep your favourite photos and videos together in one place.',
         'do you offer worldwide shipping': 'Yes, we ship worldwide and shipping is free. Orders are usually processed within 1–3 business days, and you get a tracking number by email once your order ships.',
-        'what colours are there': 'MemoryOrb comes in six colours: Black, White, Blue, Green, Red and Grey. In a Pair or Collection you can pick a different colour for each orb.',
+        'what colours are there': 'MemoryOrb comes in six colours: Black, White, Blue, Green, Red and Grey. In a Pair or Collection you can pick a different colour for each MemoryOrb.',
         'what if my memoryorb arrives damaged': 'We are here to help! If your order arrives damaged or defective, contact our support team with your order number and photos of the issue and we will make it right.'
       };
       const intents = [
@@ -357,9 +357,9 @@ class Component extends DCLogic {
         { re: /\b(worldwide|international|abroad|overseas)\b|\b(do|can) you (ship|deliver)\b/i, a: CUR['do you offer worldwide shipping'], next: ['What if my MemoryOrb arrives damaged?', 'Can I return it?'] },
         { re: /\b(buy|purchase|order now|get one|add to cart|where can i (get|buy))\b/i, a: 'You can pick your colours and set in the <a data-go="buy">shop section</a>. Shipping is free and every order has a 30-day guarantee.', html: true, next: ['Which set should I choose?', 'What colours are there?'] },
         { re: /\b(hi|hello|hey|ahoj|good (morning|evening|day))\b/i, a: 'Hello! I can help with the MemoryOrb, shipping, returns and choosing the right set. What would you like to know?', next: ['Which set should I choose?', 'How much storage does it have?'] },
-        { re: /(which|what).*\b(set|bundle|pack|option|one|choose|pick|best|recommend)\b|\bshould i (get|buy|choose)|recommend/i, a: 'Most customers pick the <b>Pair ($116.38)</b>, one for you and one as a gift. The <b>Single ($59.99)</b> is perfect to start, and the <b>Collection ($170.97)</b> is the best value for families. You can choose a different colour for every orb.', html: true, next: ['What colours are there?', 'Is it a good gift?'] },
+        { re: /(which|what).*\b(set|bundle|pack|option|one|choose|pick|best|recommend)\b|\bshould i (get|buy|choose)|recommend/i, a: 'Most customers pick the <b>Pair ($116.38)</b>, one for you and one as a gift. The <b>Single ($59.99)</b> is perfect to start, and the <b>Collection ($170.97)</b> is the best value for families. You can choose a different colour for every MemoryOrb.', html: true, next: ['What colours are there?', 'Is it a good gift?'] },
         { re: /\b(price|cost|how much|\$|pay|discount|sale|cheap|offer|coupon|code)\b/i, a: 'A single MemoryOrb is $59.99. The Pair is $116.38 (save $55) and the Collection of three is $170.97 (save $85). Shipping is free.', next: ['Which set should I choose?', 'How long does shipping take?'] },
-        { re: /\b(colou?r|black|white|blue|green|red|grey|gray)\b/i, a: 'MemoryOrb comes in six colours: Black, White, Blue, Green, Red and Grey. In a Pair or Collection you can pick a different colour for each orb.', next: ['Which set should I choose?', 'Is it a good gift?'] },
+        { re: /\b(colou?r|black|white|blue|green|red|grey|gray)\b/i, a: 'MemoryOrb comes in six colours: Black, White, Blue, Green, Red and Grey. In a Pair or Collection you can pick a different colour for each MemoryOrb.', next: ['Which set should I choose?', 'Is it a good gift?'] },
         { re: /\b(track|where is my|order status|parcel|package|my order)\b/i, a: 'You can follow your order on the <a data-go="tracking">Tracking page</a>. Enter your order number and your email or phone number.', html: true },
         { re: /\b(how long|when|how fast|days|time)\b.*\b(ship|deliver|arriv|get here|come)\w*|\b(ship|deliver)\w*\b.*\b(take|long|time|days)\b/i, a: 'We ship worldwide with free shipping. Your estimated delivery dates are shown at checkout and in your order confirmation.', next: ['What if it arrives damaged?', 'Can I return it?'] },
         { re: /\b(europe|usa|america|canada|australia|asia|country|countries|international|abroad|overseas|worldwide)\b/i, a: 'Yes, we ship worldwide, and shipping is free. Delivery times and any local fees are shown at checkout.' },
@@ -659,7 +659,7 @@ class Component extends DCLogic {
       'linear-gradient(135deg,#1c1c1e,#0c0c0d)',
       'linear-gradient(135deg,#6b4a2c,#3a2616)'
     ];
-    const labels = ['Orb on gift box', 'Orb in hand', 'Orb by the tree', 'Charging cable', 'Orb base'];
+    const labels = ['MemoryOrb on gift box', 'MemoryOrb in hand', 'MemoryOrb by the tree', 'Charging cable', 'MemoryOrb base'];
     const thumbs = bgs.map((bg, i) => ({
       bg,
       label: labels[i],
