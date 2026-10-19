@@ -425,6 +425,12 @@ class Component extends DCLogic {
       const more = win.querySelector('.cb-more');
       const updMore = () => more.classList.toggle('on', chips.classList.contains('scroll') && chips.scrollTop + chips.clientHeight < chips.scrollHeight - 6);
       chips.addEventListener('scroll', updMore, { passive: true });
+      chips.addEventListener('wheel', (e) => { if (chips.scrollWidth > chips.clientWidth && Math.abs(e.deltaY) > Math.abs(e.deltaX)) { chips.scrollLeft += e.deltaY; e.preventDefault(); } }, { passive: false });
+      let dragX = null, dragMoved = false;
+      chips.addEventListener('pointerdown', (e) => { if (e.pointerType === 'mouse') { dragX = e.clientX; dragMoved = false; } });
+      window.addEventListener('pointermove', (e) => { if (dragX == null) return; const dx = e.clientX - dragX; if (Math.abs(dx) > 4) { dragMoved = true; chips.classList.add('dragging'); } if (dragMoved) { chips.scrollLeft -= dx; dragX = e.clientX; } });
+      window.addEventListener('pointerup', () => { dragX = null; setTimeout(() => chips.classList.remove('dragging'), 0); });
+      chips.addEventListener('click', (e) => { if (dragMoved) { e.stopPropagation(); e.preventDefault(); dragMoved = false; } }, true);
       const showChips = (view, relList) => {
         chips.innerHTML = ''; chips.classList.add('wide'); chips.classList.toggle('scroll', view === 'all'); win.classList.toggle('sc', view === 'all');
         if (view === 'main') { MAIN.forEach((t) => chips.appendChild(qchip(t))); chips.appendChild(nav('Additional questions ›', () => showChips('extra'), 'go')); }
