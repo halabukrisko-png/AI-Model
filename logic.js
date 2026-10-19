@@ -535,6 +535,11 @@ class Component extends DCLogic {
       };
       if (ls) { place(); setTimeout(place, 400); window.addEventListener('load', place); window.addEventListener('resize', place); setInterval(place, 1500); }
     } catch (e) {}
+    // stripes above the white wave line continue the page pattern
+    try {
+      const phase = () => { const sk = document.querySelector('.gz .sky'), pg = document.querySelector('.page'); if (!sk || !pg) return; const H2 = 37.86, a = sk.getBoundingClientRect(), pr = pg.getBoundingClientRect(); if (!a.height) return; const k = sk.offsetHeight / a.height; const t = (a.top - pr.top) * k; sk.style.setProperty('--gy', ((H2 - (((t % H2) + H2) % H2)) % H2).toFixed(2) + 'px'); };
+      phase(); setTimeout(phase, 500); window.addEventListener('resize', phase); window.addEventListener('load', phase); setInterval(phase, 1200);
+    } catch (e) {}
     // footer garland: the lights drop in from above when it scrolls into view
     try {
       const gar = document.querySelector('svg.gar');
@@ -789,6 +794,7 @@ class Component extends DCLogic {
       goTracking: (e) => { this.setState({ page: 'tracking', menu: false, tsent: false }); try { window.scrollTo(0, 0); } catch (x) {} },
       sendTrack: (e) => { try { e.preventDefault(); } catch (x) {} this.setState({ tsent: true }); },
       skyBg: '#0a0907',
+      skyCls: ['contact', 'tracking', 'cart', 'login', 'account', 'shipping', 'privacy', 'refund', 'terms'].includes(this.state.page) ? 'sky-st' : '',
       colDisp: this.state.page === 'home' ? 'block' : 'none',
       prodDisp: this.state.page === 'products' ? 'block' : 'none',
       faqDisp: (this.state.page === 'products' || this.state.page === 'home') ? 'block' : 'none',
