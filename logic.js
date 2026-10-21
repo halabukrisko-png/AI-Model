@@ -1,4 +1,8 @@
 
+// Shopify checkout config. Fill in the variant IDs (the number after /variants/ in the Shopify admin URL).
+const SHOP = 'w5xfi9-hn.myshopify.com';
+const BUNDLE_DISCOUNT = { 1: '', 2: '', 3: '' }; // optional Shopify discount codes per bundle size
+
 class Component extends DCLogic {
   constructor(props) {
     super(props);
@@ -21,6 +25,22 @@ class Component extends DCLogic {
       els.forEach((el) => io.observe(el));
     } catch (err) {}
   }
+  syncOrbs() {
+    document.querySelectorAll('#bundles select').forEach((s) => { s.value = String(this.state.colour); });
+  }
+  checkout() {
+    const sels = Array.from(document.querySelectorAll('#bundles select'));
+    const picks = sels.length ? sels.map((s) => Number(s.value)) : [this.state.colour];
+    const counts = {};
+    for (const i of picks) {
+      const id = this.colours[i].variant;
+      if (!id) { alert('Sorry, ' + this.colours[i].name + ' is not available right now.'); return; }
+      counts[id] = (counts[id] || 0) + 1;
+    }
+    const items = Object.keys(counts).map((id) => id + ':' + counts[id]).join(',');
+    const code = BUNDLE_DISCOUNT[this.state.bundle];
+    window.location.href = 'https://' + SHOP + '/cart/' + items + (code ? '?discount=' + encodeURIComponent(code) : '');
+  }
   renderVals() {
     const defs = [
       { id: 1, name: 'Adopt 1', save: 'Save $25', price: '$59.99', was: '$85.70' },
@@ -40,7 +60,7 @@ class Component extends DCLogic {
         borderColor: selected ? '#f3d27a' : '#6f6339',
         bg: selected ? '#16130a' : '#000',
         ringColor: selected ? '#f3d27a' : '#8a7a4a',
-        pick: () => this.setState({ bundle: d.id })
+        pick: () => { this.setState({ bundle: d.id }); setTimeout(() => this.syncOrbs(), 0); }
       };
     });
     const bgs = [
@@ -59,12 +79,13 @@ class Component extends DCLogic {
       pick: () => this.setState({ thumb: i })
     }));
     const cs = [
-      { name: 'Black', color: '#16161a' }, { name: 'White', color: '#f1efea' }, { name: 'Blue', color: '#3b86d9' },
-      { name: 'Pink', color: '#e58aa8' }, { name: 'Orange', color: '#f08a2a' }
+      { name: 'Black', color: '#16161a', variant: '' }, { name: 'White', color: '#f1efea', variant: '58279901233534' }, { name: 'Grey', color: '#8a8d91', variant: '' },
+      { name: 'Navy Blue', color: '#1f3a68', variant: '' }, { name: 'Red', color: '#c0262f', variant: '' }, { name: 'Green', color: '#3f8f4f', variant: '' }
     ];
+    this.colours = cs;
     const cColours = cs.map((c, i) => {
       const sel = this.state.colour === i;
-      return { ...c, hasPhoto: c.name === 'Black', selected: sel, checked: sel ? 'true' : 'false', border: sel ? '#e8353a' : 'transparent', ringW: sel ? 5 : 3, ringC: sel ? '#113a00' : 'transparent', pick: () => this.setState({ colour: i }) };
+      return { ...c, hasPhoto: c.name === 'Black', selected: sel, checked: sel ? 'true' : 'false', border: sel ? '#e8353a' : 'transparent', ringW: sel ? 5 : 3, ringC: sel ? '#113a00' : 'transparent', pick: () => { this.setState({ colour: i }); setTimeout(() => this.syncOrbs(), 0); } };
     });
     const os = [
       { name: 'Type C', desc: 'Fast & modern charging', isUsb: true, isWifi: false },
@@ -130,6 +151,7 @@ class Component extends DCLogic {
       sendContact: (e) => { try { e.preventDefault(); } catch (x) {} this.setState({ sent: true }); },
       menuOpen: this.state.menu, openMenu: () => this.setState({ menu: true }), closeMenu: () => this.setState({ menu: false }),
       bundles, thumbs, cColours, cName: cs[this.state.colour].name, cOutlets, cf, cfDots, cfPrev, cfNext, cfPrevColor, cfNextColor, cQty: this.state.qty, ctaTotal,
+      checkout: () => this.checkout(),
       cInc: () => this.setState({ qty: Math.min(9, this.state.qty + 1) }),
       cDec: () => this.setState({ qty: Math.max(1, this.state.qty - 1) })
     };

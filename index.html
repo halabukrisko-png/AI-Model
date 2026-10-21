@@ -223,8 +223,12 @@ select{font-family:inherit}
                 <label style="position:relative;display:block">
                   <span style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Colour for orb {{r.n}}</span>
                   <select style="appearance:none;height:44px;min-width:112px;padding:0 34px 0 12px;border-radius:6px;border:1px solid #6f6339;background:#14130d;color:#fff;font-size:15px">
-                    <option>Black</option>
-                    <option>Clear</option>
+                    <option value="0">Black</option>
+                    <option value="1">White</option>
+                    <option value="2">Grey</option>
+                    <option value="3">Navy Blue</option>
+                    <option value="4">Red</option>
+                    <option value="5">Green</option>
                   </select>
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="position:absolute;right:12px;top:15px;pointer-events:none" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
                 </label>
@@ -237,7 +241,7 @@ select{font-family:inherit}
   </div>
 
   <div style="padding:14px 0 0">
-    <button style="width:100%;height:58px;border:1px solid #f3d27a;border-radius:10px;background:#000;color:#fff;font-size:22px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;box-shadow:0 8px 20px rgba(0,0,0,.6),0 0 18px rgba(243,210,122,.18)">Get my MemoryOrb</button>
+    <button type="button" onClick="{{checkout}}" style="width:100%;height:58px;border:1px solid #f3d27a;border-radius:10px;background:#000;color:#fff;font-size:22px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;box-shadow:0 8px 20px rgba(0,0,0,.6),0 0 18px rgba(243,210,122,.18)">Get my MemoryOrb</button>
   </div>
 
         </div>
