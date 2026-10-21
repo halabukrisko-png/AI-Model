@@ -521,6 +521,26 @@ class Component extends DCLogic {
       window.addEventListener('scroll', closePop, { passive: true });
       window.addEventListener('resize', closePop);
     } catch (e) {}
+    // "Moments that stay with you": photo -> arrow -> video
+    try {
+      const st = document.querySelector('.lens-stage'); if (st) {
+        const ph = st.querySelector('.lens-photo'), vd = st.querySelector('.lens-vid'), vid = vd && vd.querySelector('video');
+        const nx = st.querySelector('.lens-next'), pv = st.querySelector('.lens-prev'), sn = st.querySelector('.lens-snd');
+        let showVid = false, vis = true;
+        const sync = () => {
+          if (ph) ph.style.opacity = showVid ? '0' : '1';
+          if (vd) { vd.style.opacity = showVid ? '1' : '0'; vd.style.pointerEvents = showVid ? 'auto' : 'none'; }
+          nx.classList.toggle('on', !showVid); pv.classList.toggle('on', showVid); sn.classList.toggle('on', showVid);
+          if (vid) { if (showVid && vis) { const pr = vid.play(); if (pr && pr.catch) pr.catch(() => {}); } else vid.pause(); }
+        };
+        nx.addEventListener('click', () => { showVid = true; sync(); });
+        pv.addEventListener('click', () => { showVid = false; sync(); });
+        sn.addEventListener('click', () => { if (!vid) return; vid.muted = !vid.muted; sn.classList.toggle('un', !vid.muted); if (!vid.muted && vid.paused) vid.play().catch(() => {}); });
+        if (vid) { vid.muted = true; }
+        if ('IntersectionObserver' in window) new IntersectionObserver((es) => { vis = es[0].isIntersecting; sync(); }, { threshold: 0.25 }).observe(st);
+        sync();
+      }
+    } catch (e) {}
     // stripes keep clear of the round photo: tell the CSS where the circle is
     try {
       const ls = document.querySelector('.lens-sec');

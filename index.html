@@ -412,6 +412,18 @@ html.is-scrolled .hdr-in{height:var(--hdr-s)}
 .lens-stage img{position:absolute;left:0;top:0;width:100%;height:100%;object-fit:cover;clip-path:circle(30.95% at 49.25% 53.93%)}
 .lens-stage .ring{position:absolute;border-radius:50%;border:1px solid var(--line-2);pointer-events:none}
 .lens-stage .lframe{position:absolute;left:18.33%;top:22.97%;width:61.85%;height:61.92%;border-radius:50%;pointer-events:none;border:1.5px solid #d9b56b;box-shadow:0 0 14px rgba(217,181,107,.28),inset 0 0 12px rgba(217,181,107,.14);z-index:2}
+.lens-stage .lens-vid{opacity:0;pointer-events:none}
+.lens-stage .lens-img{transition:opacity .6s ease}
+.lens-stage .lens-img video{position:absolute;left:0;top:0;width:100%;height:100%;object-fit:cover;clip-path:circle(30.95% at 49.25% 53.93%);background:#000}
+.lens-arr{position:absolute;top:calc(53.93% - 22px);z-index:5;width:44px;height:44px;border-radius:50%;border:1px solid rgba(217,181,107,.7);background:linear-gradient(180deg,rgba(38,31,20,.96),rgba(16,13,9,.96));color:var(--brass-hi);display:grid;place-items:center;padding:0;cursor:pointer;opacity:0;pointer-events:none;transition:opacity .4s,transform .3s;box-shadow:0 8px 18px -8px rgba(0,0,0,.9);-webkit-tap-highlight-color:transparent}
+.lens-arr svg{width:22px;height:22px}
+.lens-arr.on{opacity:1;pointer-events:auto}
+.lens-next{right:-2%}.lens-prev{left:-2%}
+.lens-arr:active{transform:scale(.92)}
+.lens-snd{position:absolute;left:50%;bottom:9%;transform:translateX(-50%);z-index:5;width:40px;height:40px;border-radius:50%;border:1px solid rgba(217,181,107,.7);background:rgba(16,13,9,.85);color:var(--brass-hi);display:grid;place-items:center;padding:0;cursor:pointer;opacity:0;pointer-events:none;transition:opacity .4s}
+.lens-snd.on{opacity:1;pointer-events:auto}
+.lens-snd svg{width:20px;height:20px}.lens-snd .sx{display:inline}.lens-snd .sw{display:none}.lens-snd.un .sx{display:none}.lens-snd.un .sw{display:inline}
+@media (min-width:640px){.lens-next{right:-8%}.lens-prev{left:-8%}}
 .lens-stage .r1{inset:5%;opacity:.55}
 .lens-stage .r2{inset:-4%;opacity:.3}
 .lens-stage .r2{display:none}
@@ -1594,7 +1606,9 @@ html.js-rv .stat.in:hover{transform:translateY(-3px)}
           <p class="lead">Keep the moments you love within reach.</p></div>
         <div class="lens-stage rvt">
           <i class="ring r2" aria-hidden="true"></i><i class="ring r1" aria-hidden="true"></i>
-          <div class="lens-img" data-px="-0.03" data-keep-style=""><img decoding="async" src="assets/a44a6f24bcf91873e9204fc5abe70cc2.png" alt="A family sharing a birthday moment, shown inside a round MemoryOrb lens" loading="lazy"><i class="lframe" aria-hidden="true"></i></div>
+          <div class="lens-img lens-photo" data-px="-0.03" data-keep-style=""><img decoding="async" src="assets/lens-girl.webp" alt="A little girl in a pink hat, shown inside a round MemoryOrb lens" loading="lazy"><i class="lframe" aria-hidden="true"></i></div>
+          <div class="lens-img lens-vid" data-px="-0.03" data-keep-style=""><video muted loop playsinline preload="none" aria-label="MemoryOrb on the Christmas tree showing a family memory"><source src="assets/lens-video.mp4" type="video/mp4"><source src="assets/lens-video.webm" type="video/webm"></video><i class="lframe" aria-hidden="true"></i></div>
+          <button type="button" class="lens-arr lens-next on" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button><button type="button" class="lens-arr lens-prev" aria-label="Back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></button><button type="button" class="lens-snd" aria-label="Sound"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path class="sw" d="M16 9a4 4 0 010 6M18.5 6.5a8 8 0 010 11"/><path class="sx" d="M16 9l5 6M21 9l-5 6"/></svg></button>
         </div>
       </div>
     </section>
@@ -2172,7 +2186,7 @@ html.js-rv .stat.in:hover{transform:translateY(-3px)}
   </div>
 </div>
 </template>
-<script src="runtime.js?v=1792575082"></script>
-<script src="logic.js?v=1792575082"></script>
+<script src="runtime.js?v=1792575569"></script>
+<script src="logic.js?v=1792575569"></script>
 </body>
 </html>
