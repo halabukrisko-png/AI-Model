@@ -79,7 +79,7 @@ class Component extends DCLogic {
       pick: () => this.setState({ thumb: i })
     }));
     const cs = [
-      { name: 'Black', color: '#16161a', variant: '' }, { name: 'White', color: '#f1efea', variant: '58279901233534' }, { name: 'Grey', color: '#8a8d91', variant: '' },
+      { name: 'Black', color: '#16161a', variant: '58279901266302' }, { name: 'White', color: '#f1efea', variant: '58279901233534' }, { name: 'Grey', color: '#8a8d91', variant: '' },
       { name: 'Navy Blue', color: '#1f3a68', variant: '' }, { name: 'Red', color: '#c0262f', variant: '' }, { name: 'Green', color: '#3f8f4f', variant: '' }
     ];
     this.colours = cs;
