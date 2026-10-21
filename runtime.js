@@ -87,16 +87,18 @@
       return out.join('');
     }
 
-    var KEEP = ['in', 'go'];
+    var KEEP = ['in', 'go', 'on', 'fall'];
     function syncAttrs(from, to) {
       var i, a;
       for (i = from.attributes.length - 1; i >= 0; i--) {
         a = from.attributes[i];
+        if (a.name === 'style' && from.hasAttribute('data-keep-style')) continue;
         if (a.name !== 'class' && !to.hasAttribute(a.name)) from.removeAttribute(a.name);
       }
       for (i = 0; i < to.attributes.length; i++) {
         a = to.attributes[i];
         if (a.name === 'class') continue;
+        if (a.name === 'style' && from.hasAttribute('data-keep-style') && from.getAttribute('style')) continue;
         if (from.getAttribute(a.name) !== a.value) from.setAttribute(a.name, a.value);
       }
       // class: take template classes, keep classes added by scripts
@@ -107,7 +109,8 @@
     }
     function morph(from, to) {
       var tn = from.nodeName;
-      if (tn === 'INPUT' || tn === 'TEXTAREA' || tn === 'SELECT') return;
+      if (tn === 'SELECT') { syncAttrs(from, to); return; }
+      if (tn === 'INPUT' || tn === 'TEXTAREA') return;
       if (tn === 'DETAILS') { var was = from.hasAttribute('open'); syncAttrs(from, to); if (was) from.setAttribute('open', ''); else from.removeAttribute('open'); }
       else syncAttrs(from, to);
       var fc = from.firstChild, tc = to.firstChild;
@@ -130,10 +133,12 @@
       var box = document.createElement('div');
       box.innerHTML = html();
       morph(root, box);
+      root.querySelectorAll('select[data-val]').forEach(function (sel) { var v = sel.getAttribute('data-val'); if (sel.value !== v) sel.value = v; });
     }
     inst.__render = render;
 
     root.innerHTML = html();
+    root.querySelectorAll('select[data-val]').forEach(function (sel) { var v = sel.getAttribute('data-val'); if (sel.value !== v) sel.value = v; });
     ['click', 'submit', 'input', 'change'].forEach(function (ev) {
       root.addEventListener(ev, function (e) {
         var el = e.target.closest ? e.target.closest('[data-h-' + ev + ']') : null;
