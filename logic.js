@@ -43,9 +43,9 @@ class Component extends DCLogic {
   }
   renderVals() {
     const defs = [
-      { id: 1, name: 'Adopt 1', save: 'Save $25', price: '$59.99', was: '$85.70' },
-      { id: 2, name: 'Adopt 2', save: 'Save $55', price: '$116.38', was: '$171.40', popular: true },
-      { id: 3, name: 'Adopt 3', save: 'Save $85', price: '$170.97', was: '$257.10' }
+      { id: 1, name: 'Adopt 1', save: '', price: '$59.99', was: '' },
+      { id: 2, name: 'Adopt 2', save: 'Save $3.60', price: '$116.38', was: '$119.98', popular: true },
+      { id: 3, name: 'Adopt 3', save: 'Save $9.00', price: '$170.97', was: '$179.97' }
     ];
     const bundles = defs.map((d) => {
       const selected = this.state.bundle === d.id;
@@ -56,6 +56,8 @@ class Component extends DCLogic {
         selected,
         checked: selected ? 'true' : 'false',
         popular: !!d.popular,
+        hasSave: !!d.save,
+        hasWas: !!d.was,
         rows,
         borderColor: selected ? '#f3d27a' : '#6f6339',
         bg: selected ? '#16130a' : '#000',
@@ -99,9 +101,9 @@ class Component extends DCLogic {
     const ctaTotal = '$' + Math.floor(cents / 100) + '.' + String(cents % 100).padStart(2, '0');
     const cfs = [
       { title: 'Damage Protection Guarantee', text: 'Shop with confidence, risk-free.' },
-      { title: 'Free Shipping Today', text: '[DESCRIPTION]' },
-      { title: '30-Day Guarantee', text: '[DESCRIPTION]' },
-      { title: '5000+ Happy Customers', text: '[DESCRIPTION]' }
+      { title: 'Free Shipping', text: 'Free shipping on every order.' },
+      { title: '30-Day Guarantee', text: 'Not happy? Contact us within 30 days of delivery.' },
+      { title: 'Secure Checkout', text: 'Pay safely with your card or PayPal.' }
     ];
     const ci = this.state.cf;
     const cf = { ...cfs[ci], ic0: ci === 0, ic1: ci === 1, ic2: ci === 2, ic3: ci === 3 };
