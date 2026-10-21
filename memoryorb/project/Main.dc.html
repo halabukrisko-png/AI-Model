@@ -412,15 +412,19 @@ html.is-scrolled .hdr-in{height:var(--hdr-s)}
 .lens-stage .lens-vid{opacity:0;pointer-events:none}
 .lens-stage .lens-img{transition:opacity .6s ease}
 .lens-stage .lens-img video{position:absolute;left:0;top:0;width:100%;height:100%;object-fit:cover;clip-path:circle(30.95% at 49.25% 53.93%);background:#000}
-.lens-arr{position:absolute;top:calc(53.93% - 22px);z-index:5;width:44px;height:44px;border-radius:50%;border:1px solid rgba(217,181,107,.7);background:linear-gradient(180deg,rgba(38,31,20,.96),rgba(16,13,9,.96));color:var(--brass-hi);display:grid;place-items:center;padding:0;cursor:pointer;opacity:0;pointer-events:none;transition:opacity .4s,transform .3s;box-shadow:0 8px 18px -8px rgba(0,0,0,.9);-webkit-tap-highlight-color:transparent}
-.lens-arr svg{width:22px;height:22px}
-.lens-arr.on{opacity:1;pointer-events:auto}
-.lens-next{right:-2%}.lens-prev{left:-2%}
-.lens-arr:active{transform:scale(.92)}
-.lens-snd{position:absolute;left:50%;bottom:9%;transform:translateX(-50%);z-index:5;width:40px;height:40px;border-radius:50%;border:1px solid rgba(217,181,107,.7);background:rgba(16,13,9,.85);color:var(--brass-hi);display:grid;place-items:center;padding:0;cursor:pointer;opacity:0;pointer-events:none;transition:opacity .4s}
+.lens-ctl{display:flex;align-items:center;justify-content:center;gap:14px;margin:18px auto 22px;position:relative}
+.lens-arr{width:40px;height:40px;border-radius:50%;border:1px solid rgba(217,181,107,.55);background:linear-gradient(180deg,rgba(38,31,20,.9),rgba(16,13,9,.9));color:var(--brass-hi);display:grid;place-items:center;padding:0;cursor:pointer;transition:opacity .3s,border-color .3s,background .3s,transform .2s;-webkit-tap-highlight-color:transparent}
+.lens-arr svg{width:20px;height:20px}
+.lens-arr:hover{border-color:var(--brass-hi);background:linear-gradient(180deg,rgba(60,48,26,.95),rgba(24,19,12,.95))}
+.lens-arr:active{transform:scale(.93)}
+.lens-arr.off{opacity:.3;pointer-events:none}
+.lens-tabs{display:flex;padding:4px;border-radius:999px;border:1px solid rgba(217,181,107,.4);background:rgba(16,13,9,.7)}
+.lens-tab{border:0;background:transparent;color:var(--fg-3);font:700 11px 'Manrope',sans-serif;letter-spacing:.16em;text-transform:uppercase;padding:9px 18px;border-radius:999px;cursor:pointer;transition:background .35s,color .35s}
+.lens-tab.on{background:linear-gradient(180deg,#f1d99b,#d1ab5e);color:#1a1307}
+.lens-snd{position:absolute;right:calc(50% - 190px);top:50%;transform:translateY(-50%);width:36px;height:36px;border-radius:50%;border:1px solid rgba(217,181,107,.55);background:rgba(16,13,9,.85);color:var(--brass-hi);display:grid;place-items:center;padding:0;cursor:pointer;opacity:0;pointer-events:none;transition:opacity .35s}
 .lens-snd.on{opacity:1;pointer-events:auto}
-.lens-snd svg{width:20px;height:20px}.lens-snd .sx{display:inline}.lens-snd .sw{display:none}.lens-snd.un .sx{display:none}.lens-snd.un .sw{display:inline}
-@media (min-width:640px){.lens-next{right:-8%}.lens-prev{left:-8%}}
+.lens-snd svg{width:18px;height:18px}.lens-snd .sx{display:inline}.lens-snd .sw{display:none}.lens-snd.un .sx{display:none}.lens-snd.un .sw{display:inline}
+@media (max-width:480px){.lens-snd{right:8px}.lens-ctl{gap:10px}.lens-tab{padding:9px 14px}}
 .lens-stage .r1{inset:5%;opacity:.55}
 .lens-stage .r2{inset:-4%;opacity:.3}
 .lens-stage .r2{display:none}
@@ -1605,7 +1609,12 @@ html.js-rv .stat.in:hover{transform:translateY(-3px)}
           <i class="ring r2" aria-hidden="true"></i><i class="ring r1" aria-hidden="true"></i>
           <div class="lens-img lens-photo" data-px="-0.03" data-keep-style=""><img decoding="async" src="assets/lens-girl.webp" alt="A little girl in a pink hat, shown inside a round MemoryOrb lens" loading="lazy"><i class="lframe" aria-hidden="true"></i></div>
           <div class="lens-img lens-vid" data-px="-0.03" data-keep-style=""><video muted loop playsinline preload="none" aria-label="MemoryOrb on the Christmas tree showing a family memory"><source src="assets/lens-video.mp4" type="video/mp4"><source src="assets/lens-video.webm" type="video/webm"></video><i class="lframe" aria-hidden="true"></i></div>
-          <button type="button" class="lens-arr lens-next on" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button><button type="button" class="lens-arr lens-prev" aria-label="Back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></button><button type="button" class="lens-snd" aria-label="Sound"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path class="sw" d="M16 9a4 4 0 010 6M18.5 6.5a8 8 0 010 11"/><path class="sx" d="M16 9l5 6M21 9l-5 6"/></svg></button>
+        </div>
+        <div class="lens-ctl">
+          <button type="button" class="lens-arr lens-prev" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></button>
+          <div class="lens-tabs" role="tablist"><button type="button" class="lens-tab on" role="tab" data-i="0">Photo</button><button type="button" class="lens-tab" role="tab" data-i="1">Video</button></div>
+          <button type="button" class="lens-arr lens-next" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
+          <button type="button" class="lens-snd" aria-label="Sound"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path class="sw" d="M16 9a4 4 0 010 6M18.5 6.5a8 8 0 010 11"/><path class="sx" d="M16 9l5 6M21 9l-5 6"/></svg></button>
         </div>
       </div>
     </section>
@@ -2710,16 +2719,18 @@ class Component extends DCLogic {
     try {
       const st = document.querySelector('.lens-stage'); if (st) {
         const ph = st.querySelector('.lens-photo'), vd = st.querySelector('.lens-vid'), vid = vd && vd.querySelector('video');
-        const nx = st.querySelector('.lens-next'), pv = st.querySelector('.lens-prev'), sn = st.querySelector('.lens-snd');
+        const ctl = st.parentElement.querySelector('.lens-ctl'); const nx = ctl.querySelector('.lens-next'), pv = ctl.querySelector('.lens-prev'), sn = ctl.querySelector('.lens-snd'), tabs = [...ctl.querySelectorAll('.lens-tab')];
         let showVid = false, vis = true;
         const sync = () => {
           if (ph) ph.style.opacity = showVid ? '0' : '1';
           if (vd) { vd.style.opacity = showVid ? '1' : '0'; vd.style.pointerEvents = showVid ? 'auto' : 'none'; }
-          nx.classList.toggle('on', !showVid); pv.classList.toggle('on', showVid); sn.classList.toggle('on', showVid);
+          nx.classList.toggle('off', showVid); pv.classList.toggle('off', !showVid); sn.classList.toggle('on', showVid);
+          tabs.forEach((t, i) => t.classList.toggle('on', (i === 1) === showVid));
           if (vid) { if (showVid && vis) { const pr = vid.play(); if (pr && pr.catch) pr.catch(() => {}); } else vid.pause(); }
         };
         nx.addEventListener('click', () => { showVid = true; sync(); });
         pv.addEventListener('click', () => { showVid = false; sync(); });
+        tabs.forEach((t, i) => t.addEventListener('click', () => { showVid = i === 1; sync(); }));
         sn.addEventListener('click', () => { if (!vid) return; vid.muted = !vid.muted; sn.classList.toggle('un', !vid.muted); if (!vid.muted && vid.paused) vid.play().catch(() => {}); });
         if (vid) { vid.muted = true; }
         if ('IntersectionObserver' in window) new IntersectionObserver((es) => { vis = es[0].isIntersecting; sync(); }, { threshold: 0.25 }).observe(st);

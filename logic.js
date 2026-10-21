@@ -525,16 +525,18 @@ class Component extends DCLogic {
     try {
       const st = document.querySelector('.lens-stage'); if (st) {
         const ph = st.querySelector('.lens-photo'), vd = st.querySelector('.lens-vid'), vid = vd && vd.querySelector('video');
-        const nx = st.querySelector('.lens-next'), pv = st.querySelector('.lens-prev'), sn = st.querySelector('.lens-snd');
+        const ctl = st.parentElement.querySelector('.lens-ctl'); const nx = ctl.querySelector('.lens-next'), pv = ctl.querySelector('.lens-prev'), sn = ctl.querySelector('.lens-snd'), tabs = [...ctl.querySelectorAll('.lens-tab')];
         let showVid = false, vis = true;
         const sync = () => {
           if (ph) ph.style.opacity = showVid ? '0' : '1';
           if (vd) { vd.style.opacity = showVid ? '1' : '0'; vd.style.pointerEvents = showVid ? 'auto' : 'none'; }
-          nx.classList.toggle('on', !showVid); pv.classList.toggle('on', showVid); sn.classList.toggle('on', showVid);
+          nx.classList.toggle('off', showVid); pv.classList.toggle('off', !showVid); sn.classList.toggle('on', showVid);
+          tabs.forEach((t, i) => t.classList.toggle('on', (i === 1) === showVid));
           if (vid) { if (showVid && vis) { const pr = vid.play(); if (pr && pr.catch) pr.catch(() => {}); } else vid.pause(); }
         };
         nx.addEventListener('click', () => { showVid = true; sync(); });
         pv.addEventListener('click', () => { showVid = false; sync(); });
+        tabs.forEach((t, i) => t.addEventListener('click', () => { showVid = i === 1; sync(); }));
         sn.addEventListener('click', () => { if (!vid) return; vid.muted = !vid.muted; sn.classList.toggle('un', !vid.muted); if (!vid.muted && vid.paused) vid.play().catch(() => {}); });
         if (vid) { vid.muted = true; }
         if ('IntersectionObserver' in window) new IntersectionObserver((es) => { vis = es[0].isIntersecting; sync(); }, { threshold: 0.25 }).observe(st);
