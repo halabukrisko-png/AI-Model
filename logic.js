@@ -1,4 +1,8 @@
 
+// Shopify checkout: cart lines are sent to the store as a cart permalink (variant ID : quantity).
+const SHOPIFY_DOMAIN = 'w5xfi9-hn.myshopify.com';
+const SHOPIFY_VARIANTS = { Black: '58279901266302', White: '58279901233534', Grey: '58279901299070', Blue: '58279901331838', Red: '58279901364606', Green: '58279901397374' };
+
 class Component extends DCLogic {
   constructor(props) {
     super(props);
@@ -1004,7 +1008,15 @@ class Component extends DCLogic {
       cartItems, cartAdd, cartAddDisp, cartSub: money(cartTotalCents), cartCount: cartCountN, cartBadgeDisp: cartCountN > 0 ? 'grid' : 'none',
       cartEmptyDisp: cartLines.length ? 'none' : 'flex', cartFullDisp: cartLines.length ? 'block' : 'none',
       cartNoteDisp: this.state.cnote ? 'flex' : 'none',
-      cartCheckout: () => this.setState({ cnote: true }),
+      cartCheckout: () => {
+        const items = [];
+        for (const l of cartLines) {
+          const id = SHOPIFY_VARIANTS[cs[l.colour].name];
+          if (!id) { this.setState({ cnote: true }); return; }
+          items.push(id + ':' + l.qty);
+        }
+        if (items.length) window.location.href = 'https://' + SHOPIFY_DOMAIN + '/cart/' + items.join(',');
+      },
       goCart: (e) => { try { e.preventDefault(); } catch (x) {} this.setState({ page: 'cart', menu: false, cnote: false }); try { window.scrollTo(0, 0); } catch (x) {} },
       addToCart: (e) => {
         try { e.preventDefault(); } catch (x) {}
