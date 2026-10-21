@@ -665,6 +665,14 @@ section.details-sec.details-sec{padding-top:6px!important}
 .cart-btn{position:relative}
 .cart-btn[aria-current="page"]{color:var(--brass-hi);background:rgba(217,181,107,.14);box-shadow:inset 0 0 0 1px rgba(217,181,107,.55),0 0 16px -4px rgba(217,181,107,.5)}
 .cart-badge{position:absolute;top:5px;right:3px;min-width:18px;height:18px;padding:0 5px;border-radius:9px;display:grid;place-items:center;font-size:11px;font-weight:800;line-height:1;color:#1a1306;background:linear-gradient(180deg,var(--brass-hi),var(--brass));box-shadow:0 2px 8px rgba(0,0,0,.5)}
+/* cart button: fine ring, calmer active state, badge with a dark cut-out ring */
+.cart-btn{width:44px;height:44px;border:1px solid rgba(217,181,107,.3);background:rgba(217,181,107,.04);transition:border-color .3s,background .3s,box-shadow .3s,transform .2s}
+.cart-btn svg{width:22px;height:22px}
+.cart-btn:hover{border-color:rgba(217,181,107,.75);background:rgba(217,181,107,.1)}
+.cart-btn:active{transform:scale(.94)}
+.cart-btn[aria-current="page"]{color:var(--brass-hi);border-color:rgba(217,181,107,.8);background:rgba(217,181,107,.08);box-shadow:0 0 0 4px rgba(217,181,107,.07)}
+.cart-badge{top:-4px;right:-4px;min-width:20px;height:20px;padding:0 5px;box-sizing:border-box;border-radius:10px;border:2px solid var(--ink);font-size:10.5px;box-shadow:0 2px 6px rgba(0,0,0,.45);animation:badgePop .5s cubic-bezier(.2,1.5,.3,1)}
+@keyframes badgePop{0%{transform:scale(.3);opacity:0}100%{transform:scale(1);opacity:1}}
 .cart{max-width:640px;margin:0 auto}
 .cart-empty{display:flex;flex-direction:column;align-items:center;gap:16px;margin-top:26px;padding:34px 20px;text-align:center;border:1px dashed rgba(217,181,107,.35);border-radius:var(--r-lg);background:rgba(255,255,255,.02);color:var(--fg-2)}
 .cart-list{margin-top:26px;border:1px solid rgba(217,181,107,.3);border-radius:var(--r-lg);overflow:hidden;background:linear-gradient(180deg,rgba(217,181,107,.05),rgba(0,0,0,.2));box-shadow:0 24px 50px -28px rgba(0,0,0,.9)}
@@ -2031,7 +2039,7 @@ html.js-rv .stat.in:hover{transform:translateY(-3px)}
         <label style="display:block;margin:0 0 10px;font-size:13px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-top:22px">Email or phone number</label><input class="dcin" type="text" aria-label="Email or phone number" style="width:100%;height:58px;box-sizing:border-box;padding:0 20px;border:1px solid rgba(255,255,255,.14);border-radius:14px;background:#14160f;color:#fff;font:inherit;font-size:17px;outline:none">
         <button type="submit" style="margin-top:28px;width:100%;height:60px;border:0;border-radius:14px;background:linear-gradient(180deg,#f6dd96 0%,#e3bd62 55%,#c9a04a 100%);color:#17140a;font:inherit;font-size:18px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;box-shadow:0 10px 26px rgba(243,210,122,.22)">Track</button>
       </form>
-      <p style="margin:18px 0 0;text-align:center;font-size:16px;font-style:italic;letter-spacing:.1em;color:rgba(255,255,255,.4)">Powered by Track123</p>
+      <p style="margin:18px 0 0;text-align:center;font-size:16px;font-style:italic;letter-spacing:.1em;color:rgba(255,255,255,.4)">Powered by MemoryOrb Tracking</p>
       <p style="display:{{trackSentDisp}};margin:14px 0 0;text-align:center;font-size:15px;color:#7fdc8a">No order found yet. This is a preview.</p>
     </div>
   </div>
