@@ -1,10 +1,40 @@
 
+// Shopify checkout: cart lines are sent to the store as a cart permalink (variant ID : quantity); ?checkout skips the Shopify cart page.
+const SHOPIFY_DOMAIN = 'w5xfi9-hn.myshopify.com';
+const SHOPIFY_VARIANTS = { Black: '58279901266302', White: '58279901233534', Grey: '58279901299070', Blue: '58279901331838', Red: '58279901364606', Green: '58279901397374' };
+
 class Component extends DCLogic {
   constructor(props) {
     super(props);
     this.state = { prod: false, page: 'home', sent: false, tab: 0, tsent: false, bundle: 0, thumb: 0, colour: 0, outlet: 0, qty: 1, cf: 0, menu: false, flip: [false, false, false, false], cmp: 1, lt: 0, lsent: false, user: null, cart: [], cnote: false, faqN: 1, descOpen: false, extra: ['', ''], cerr: false };
   }
+  setState(patch) {
+    super.setState(patch);
+    try { localStorage.setItem('mo-cart', JSON.stringify(this.state.cart || [])); } catch (x) {}
+  }
+  applyCartHash() {
+    try {
+      const saved = JSON.parse(localStorage.getItem('mo-cart') || '[]');
+      const cart = Array.isArray(saved) ? saved.filter((l) => l && l.qty > 0 && l.colour >= 0 && l.colour < 6) : [];
+      const hm = /^#cart(?:=([\w:,]*))?$/.exec(location.hash);
+      const open = !!hm;
+      // #cart=<variantId>:<qty>,... is the cart held by Shopify; it wins over the locally saved one
+      const names = ['Black', 'White', 'Blue', 'Green', 'Red', 'Grey'];
+      const fromShopify = [];
+      ((hm && hm[1]) || '').split(',').forEach((pair) => {
+        const [id, q] = pair.split(':');
+        const colour = names.findIndex((n) => SHOPIFY_VARIANTS[n] === id);
+        if (colour >= 0 && +q > 0) fromShopify.push({ colour: colour, qty: Math.min(9, +q) });
+      });
+      const use = fromShopify.length ? fromShopify : (this.state.cart && this.state.cart.length ? this.state.cart : cart);
+      if (use.length || open) this.setState({ cart: use, page: open ? 'cart' : this.state.page, menu: false });
+      if (open) window.scrollTo(0, 0);
+    } catch (x) {}
+  }
   componentDidMount() {
+    // restore the cart saved in this browser; a #cart link (e.g. from Shopify checkout) opens it
+    this.applyCartHash();
+    window.addEventListener('hashchange', () => this.applyCartHash());
     const root = document.documentElement;
     const reduce = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
     // description items: click to highlight (one per group, click again to clear)
@@ -1004,7 +1034,15 @@ class Component extends DCLogic {
       cartItems, cartAdd, cartAddDisp, cartSub: money(cartTotalCents), cartCount: cartCountN, cartBadgeDisp: cartCountN > 0 ? 'grid' : 'none',
       cartEmptyDisp: cartLines.length ? 'none' : 'flex', cartFullDisp: cartLines.length ? 'block' : 'none',
       cartNoteDisp: this.state.cnote ? 'flex' : 'none',
-      cartCheckout: () => this.setState({ cnote: true }),
+      cartCheckout: () => {
+        const items = [];
+        for (const l of cartLines) {
+          const id = SHOPIFY_VARIANTS[cs[l.colour].name];
+          if (!id) { this.setState({ cnote: true }); return; }
+          items.push(id + ':' + l.qty);
+        }
+        if (items.length) window.location.href = 'https://' + SHOPIFY_DOMAIN + '/cart/' + items.join(',') + '?checkout';
+      },
       goCart: (e) => { try { e.preventDefault(); } catch (x) {} this.setState({ page: 'cart', menu: false, cnote: false }); try { window.scrollTo(0, 0); } catch (x) {} },
       addToCart: (e) => {
         try { e.preventDefault(); } catch (x) {}
