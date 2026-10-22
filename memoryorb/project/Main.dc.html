@@ -2256,7 +2256,19 @@ class Component extends DCLogic {
     super(props);
     this.state = { prod: false, page: 'home', sent: false, tab: 0, tsent: false, bundle: 0, thumb: 0, colour: 0, outlet: 0, qty: 1, cf: 0, menu: false, flip: [false, false, false, false], cmp: 1, lt: 0, lsent: false, user: null, cart: [], cnote: false, faqN: 1, descOpen: false, extra: ['', ''], cerr: false };
   }
+  setState(patch) {
+    super.setState(patch);
+    try { localStorage.setItem('mo-cart', JSON.stringify(this.state.cart || [])); } catch (x) {}
+  }
   componentDidMount() {
+    // restore the cart saved in this browser; a #cart link (e.g. from Shopify checkout) opens it
+    try {
+      const saved = JSON.parse(localStorage.getItem('mo-cart') || '[]');
+      const cart = Array.isArray(saved) ? saved.filter((l) => l && l.qty > 0 && l.colour >= 0 && l.colour < 6) : [];
+      const open = location.hash === '#cart';
+      if (cart.length || open) this.setState({ cart: cart, page: open ? 'cart' : this.state.page });
+      if (open) window.scrollTo(0, 0);
+    } catch (x) {}
     const root = document.documentElement;
     const reduce = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
     // description items: click to highlight (one per group, click again to clear)
