@@ -2265,8 +2265,18 @@ class Component extends DCLogic {
     try {
       const saved = JSON.parse(localStorage.getItem('mo-cart') || '[]');
       const cart = Array.isArray(saved) ? saved.filter((l) => l && l.qty > 0 && l.colour >= 0 && l.colour < 6) : [];
-      const open = location.hash === '#cart';
-      if (cart.length || open) this.setState({ cart: cart, page: open ? 'cart' : this.state.page });
+      const hm = /^#cart(?:=([\w:,]*))?$/.exec(location.hash);
+      const open = !!hm;
+      // #cart=<variantId>:<qty>,... is the cart held by Shopify; it wins over the locally saved one
+      const names = ['Black', 'White', 'Blue', 'Green', 'Red', 'Grey'];
+      const fromShopify = [];
+      ((hm && hm[1]) || '').split(',').forEach((pair) => {
+        const [id, q] = pair.split(':');
+        const colour = names.findIndex((n) => SHOPIFY_VARIANTS[n] === id);
+        if (colour >= 0 && +q > 0) fromShopify.push({ colour: colour, qty: Math.min(9, +q) });
+      });
+      const use = fromShopify.length ? fromShopify : cart;
+      if (use.length || open) this.setState({ cart: use, page: open ? 'cart' : this.state.page });
       if (open) window.scrollTo(0, 0);
     } catch (x) {}
     const root = document.documentElement;
