@@ -16,6 +16,9 @@
   img{-ms-interpolation-mode:bicubic;border:0;outline:none;text-decoration:none;display:block}
   body{margin:0!important;padding:0!important;width:100%!important;background:#000000}
   a{color:#f2dba3}
+  .frame{transition:box-shadow .3s,background .3s;animation:frameGlow 3.2s ease-in-out infinite}
+  .frame:hover{background:rgba(217,181,107,.14)}
+  @keyframes frameGlow{0%,100%{box-shadow:0 0 0 0 rgba(217,181,107,0)}50%{box-shadow:0 0 0 5px rgba(217,181,107,.22)}}
   @media only screen and (max-width:620px){
     .wrap{width:100%!important}
     .px{padding-left:20px!important;padding-right:20px!important}
@@ -24,6 +27,7 @@
     .stack-pad{padding:0 0 18px 0!important}
     .logo{width:230px!important;height:auto!important}
     .btn a{padding:16px 26px!important}
+    .stack-t{display:block!important;padding:6px 0!important}
   }
 </style>
 </head>
@@ -52,7 +56,7 @@
       <!-- hero -->
       <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
       <tr><td class="px" align="center" style="padding:42px 44px 10px;">
-        <div style="font:700 11px/16px Arial,Helvetica,sans-serif;letter-spacing:3px;text-transform:uppercase;color:#d9b56b;">Order confirmed</div>
+        <div style="font:700 11px/16px Arial,Helvetica,sans-serif;letter-spacing:3px;text-transform:uppercase;color:#d9b56b;"><span style="color:#6b5630;">&#9679;</span>&nbsp;&nbsp;Order confirmed&nbsp;&nbsp;<span style="color:#6b5630;">&#9679;</span></div>
         <h1 class="h1" style="margin:14px 0 0;font:500 38px/44px Georgia,'Times New Roman',serif;color:#ffffff;">Thank you{% if customer.first_name != blank %}, {{ customer.first_name | escape }}{% endif %},<br><em style="color:#f2dba3;font-style:italic;">your MemoryOrb is on its way</em></h1>
         <p style="margin:18px 0 0;font:400 16px/26px Arial,Helvetica,sans-serif;color:#cfc8ba;">We have received your order and our team has started preparing it. You will get another email with your tracking number as soon as it ships.</p>
       </td></tr>
@@ -73,7 +77,11 @@
             <a href="{{ order_status_url }}" target="_blank" style="display:inline-block;padding:17px 38px;font:700 13px/16px Arial,Helvetica,sans-serif;letter-spacing:2px;text-transform:uppercase;color:#1a1307;text-decoration:none;border-radius:12px;">View your order</a>
           </td>
         </tr></table>
-        <div style="margin-top:14px;font:400 13px/20px Arial,Helvetica,sans-serif;color:#8d8576;">or <a href="{{ shop.url }}" style="color:#d9b56b;text-decoration:underline;">visit our store</a></div>
+        <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin-top:14px;"><tr>
+          <td align="center" class="frame" style="border:1px solid #d9b56b;border-radius:12px;">
+            <a href="{{ shop.url }}" target="_blank" style="display:inline-block;padding:14px 32px;font:700 12px/16px Arial,Helvetica,sans-serif;letter-spacing:2px;text-transform:uppercase;color:#f2dba3;text-decoration:none;border-radius:12px;">Visit our store</a>
+          </td>
+        </tr></table>
       </td></tr>
 
       <!-- divider -->
@@ -113,7 +121,7 @@
           <tr><td colspan="2" style="padding:10px 0 0;"><div style="height:1px;line-height:1px;font-size:0;background:#3a2f1b;">&nbsp;</div></td></tr>
           <tr>
             <td style="padding:14px 0 4px;font:700 17px/24px Arial,Helvetica,sans-serif;color:#ffffff;">Total</td>
-            <td align="right" style="padding:14px 0 4px;font:600 26px/30px Georgia,'Times New Roman',serif;color:#f2dba3;">{{ total_price | money_with_currency }}</td>
+            <td align="right" style="padding:14px 0 4px;white-space:nowrap;"><span style="font:600 30px/34px Georgia,'Times New Roman',serif;color:#f2dba3;">{{ total_price | money }}</span>&nbsp;<span style="font:700 11px/16px Arial,Helvetica,sans-serif;letter-spacing:2px;color:#8d8576;">{{ currency }}</span></td>
           </tr>
         </table>
       </td></tr>
@@ -138,9 +146,9 @@
         <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#171410;border:1px solid #2f2819;border-radius:16px;"><tr><td style="padding:22px 24px;">
           <div style="font:700 11px/16px Arial,Helvetica,sans-serif;letter-spacing:3px;text-transform:uppercase;color:#d9b56b;">What happens next</div>
           <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-top:14px;">
-            <tr><td valign="top" width="28" style="padding:0 0 12px;font:700 14px/22px Georgia,serif;color:#f2dba3;">1</td><td style="padding:0 0 12px;font:400 14px/22px Arial,Helvetica,sans-serif;color:#cfc8ba;"><b style="color:#ffffff;">We prepare your MemoryOrb</b> and send it out within 1&ndash;3 business days.</td></tr>
-            <tr><td valign="top" width="28" style="padding:0 0 12px;font:700 14px/22px Georgia,serif;color:#f2dba3;">2</td><td style="padding:0 0 12px;font:400 14px/22px Arial,Helvetica,sans-serif;color:#cfc8ba;"><b style="color:#ffffff;">You receive your tracking number</b> by email and can follow the parcel on our Tracking page.</td></tr>
-            <tr><td valign="top" width="28" style="padding:0;font:700 14px/22px Georgia,serif;color:#f2dba3;">3</td><td style="padding:0;font:400 14px/22px Arial,Helvetica,sans-serif;color:#cfc8ba;"><b style="color:#ffffff;">Add your memories.</b> Transfer your favourite photos and videos by Wi-Fi or USB Type-C, following the manual in the box.</td></tr>
+            <tr><td valign="top" width="28" style="padding:0 0 12px;font:700 14px/22px Georgia,serif;color:#f2dba3;">1</td><td style="padding:0 0 12px;font:400 14px/22px Arial,Helvetica,sans-serif;color:#cfc8ba;">We prepare your MemoryOrb and send it out within 1&ndash;3 business days.</td></tr>
+            <tr><td valign="top" width="28" style="padding:0 0 12px;font:700 14px/22px Georgia,serif;color:#f2dba3;">2</td><td style="padding:0 0 12px;font:400 14px/22px Arial,Helvetica,sans-serif;color:#cfc8ba;">You receive your tracking number by email and can follow the parcel on our Tracking page.</td></tr>
+            <tr><td valign="top" width="28" style="padding:0;font:700 14px/22px Georgia,serif;color:#f2dba3;">3</td><td style="padding:0;font:400 14px/22px Arial,Helvetica,sans-serif;color:#cfc8ba;">Add your memories. Transfer your favourite photos and videos by Wi-Fi or USB Type-C, following the manual in the box.</td></tr>
           </table>
         </td></tr></table>
       </td></tr>
@@ -155,11 +163,9 @@
     <!-- trust row -->
     <tr><td align="center" style="padding:26px 10px 0;">
       <table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr>
-        <td style="padding:0 12px;font:600 11px/16px Arial,Helvetica,sans-serif;letter-spacing:1.5px;text-transform:uppercase;color:#8d8576;">Free shipping</td>
-        <td style="font-size:11px;color:#4b4333;">|</td>
-        <td style="padding:0 12px;font:600 11px/16px Arial,Helvetica,sans-serif;letter-spacing:1.5px;text-transform:uppercase;color:#8d8576;">30-day guarantee</td>
-        <td style="font-size:11px;color:#4b4333;">|</td>
-        <td style="padding:0 12px;font:600 11px/16px Arial,Helvetica,sans-serif;letter-spacing:1.5px;text-transform:uppercase;color:#8d8576;">Damage protection</td>
+        <td class="stack-t" align="center" style="padding:0 14px;"><img src="{{ 'memoryorb-icon-shipping.png' | file_url }}" width="26" height="26" alt="" style="display:inline-block;vertical-align:middle;width:26px;height:26px;"><span style="display:inline-block;vertical-align:middle;padding-left:8px;font:600 11px/16px Arial,Helvetica,sans-serif;letter-spacing:1.5px;text-transform:uppercase;color:#a99f8c;">Free shipping</span></td>
+        <td class="stack-t" align="center" style="padding:0 14px;"><img src="{{ 'memoryorb-icon-guarantee.png' | file_url }}" width="26" height="26" alt="" style="display:inline-block;vertical-align:middle;width:26px;height:26px;"><span style="display:inline-block;vertical-align:middle;padding-left:8px;font:600 11px/16px Arial,Helvetica,sans-serif;letter-spacing:1.5px;text-transform:uppercase;color:#a99f8c;">30-day guarantee</span></td>
+        <td class="stack-t" align="center" style="padding:0 14px;"><img src="{{ 'memoryorb-icon-protection.png' | file_url }}" width="26" height="26" alt="" style="display:inline-block;vertical-align:middle;width:26px;height:26px;"><span style="display:inline-block;vertical-align:middle;padding-left:8px;font:600 11px/16px Arial,Helvetica,sans-serif;letter-spacing:1.5px;text-transform:uppercase;color:#a99f8c;">Damage protection</span></td>
       </tr></table>
     </td></tr>
 
