@@ -1,3 +1,5 @@
+{% comment %} Image base URL. Default is the public GitHub copy. Later host the 4 images on your own domain or in Shopify Files and change only this line. {% endcomment %}
+{% assign img_base = 'https://raw.githubusercontent.com/halabukrisko-png/AI-Model/main/email/' %}
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
 <head>
@@ -42,7 +44,7 @@
 
     <!-- logo -->
     <tr><td align="center" style="padding:6px 0 26px;">
-      <img class="logo" src="{{ 'memoryorb-logo.png' | file_url }}" width="290" alt="MemoryOrb" style="width:290px;max-width:100%;height:auto;">
+      <img class="logo" src="{{ img_base }}memoryorb-logo.png" width="290" alt="MemoryOrb" style="width:290px;max-width:100%;height:auto;">
     </td></tr>
 
     <!-- card -->
@@ -163,9 +165,9 @@
     <!-- trust row -->
     <tr><td align="center" style="padding:26px 10px 0;">
       <table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr>
-        <td class="stack-t" align="center" style="padding:0 14px;"><img src="{{ 'memoryorb-icon-shipping.png' | file_url }}" width="26" height="26" alt="" style="display:inline-block;vertical-align:middle;width:26px;height:26px;"><span style="display:inline-block;vertical-align:middle;padding-left:8px;font:600 11px/16px Arial,Helvetica,sans-serif;letter-spacing:1.5px;text-transform:uppercase;color:#a99f8c;">Free shipping</span></td>
-        <td class="stack-t" align="center" style="padding:0 14px;"><img src="{{ 'memoryorb-icon-guarantee.png' | file_url }}" width="26" height="26" alt="" style="display:inline-block;vertical-align:middle;width:26px;height:26px;"><span style="display:inline-block;vertical-align:middle;padding-left:8px;font:600 11px/16px Arial,Helvetica,sans-serif;letter-spacing:1.5px;text-transform:uppercase;color:#a99f8c;">30-day guarantee</span></td>
-        <td class="stack-t" align="center" style="padding:0 14px;"><img src="{{ 'memoryorb-icon-protection.png' | file_url }}" width="26" height="26" alt="" style="display:inline-block;vertical-align:middle;width:26px;height:26px;"><span style="display:inline-block;vertical-align:middle;padding-left:8px;font:600 11px/16px Arial,Helvetica,sans-serif;letter-spacing:1.5px;text-transform:uppercase;color:#a99f8c;">Damage protection</span></td>
+        <td class="stack-t" align="center" style="padding:0 14px;"><img src="{{ img_base }}memoryorb-icon-shipping.png" width="26" height="26" alt="" style="display:inline-block;vertical-align:middle;width:26px;height:26px;"><span style="display:inline-block;vertical-align:middle;padding-left:8px;font:600 11px/16px Arial,Helvetica,sans-serif;letter-spacing:1.5px;text-transform:uppercase;color:#a99f8c;">Free shipping</span></td>
+        <td class="stack-t" align="center" style="padding:0 14px;"><img src="{{ img_base }}memoryorb-icon-guarantee.png" width="26" height="26" alt="" style="display:inline-block;vertical-align:middle;width:26px;height:26px;"><span style="display:inline-block;vertical-align:middle;padding-left:8px;font:600 11px/16px Arial,Helvetica,sans-serif;letter-spacing:1.5px;text-transform:uppercase;color:#a99f8c;">30-day guarantee</span></td>
+        <td class="stack-t" align="center" style="padding:0 14px;"><img src="{{ img_base }}memoryorb-icon-protection.png" width="26" height="26" alt="" style="display:inline-block;vertical-align:middle;width:26px;height:26px;"><span style="display:inline-block;vertical-align:middle;padding-left:8px;font:600 11px/16px Arial,Helvetica,sans-serif;letter-spacing:1.5px;text-transform:uppercase;color:#a99f8c;">Damage protection</span></td>
       </tr></table>
     </td></tr>
 
