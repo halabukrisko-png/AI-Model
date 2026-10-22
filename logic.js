@@ -1,5 +1,5 @@
 
-// Shopify checkout: cart lines are sent to the store as a cart permalink (variant ID : quantity).
+// Shopify checkout: cart lines are sent to the store as a cart permalink (variant ID : quantity); ?checkout skips the Shopify cart page.
 const SHOPIFY_DOMAIN = 'w5xfi9-hn.myshopify.com';
 const SHOPIFY_VARIANTS = { Black: '58279901266302', White: '58279901233534', Grey: '58279901299070', Blue: '58279901331838', Red: '58279901364606', Green: '58279901397374' };
 
@@ -1015,7 +1015,7 @@ class Component extends DCLogic {
           if (!id) { this.setState({ cnote: true }); return; }
           items.push(id + ':' + l.qty);
         }
-        if (items.length) window.location.href = 'https://' + SHOPIFY_DOMAIN + '/cart/' + items.join(',');
+        if (items.length) window.location.href = 'https://' + SHOPIFY_DOMAIN + '/cart/' + items.join(',') + '?checkout';
       },
       goCart: (e) => { try { e.preventDefault(); } catch (x) {} this.setState({ page: 'cart', menu: false, cnote: false }); try { window.scrollTo(0, 0); } catch (x) {} },
       addToCart: (e) => {
