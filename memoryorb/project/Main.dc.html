@@ -2260,8 +2260,7 @@ class Component extends DCLogic {
     super.setState(patch);
     try { localStorage.setItem('mo-cart', JSON.stringify(this.state.cart || [])); } catch (x) {}
   }
-  componentDidMount() {
-    // restore the cart saved in this browser; a #cart link (e.g. from Shopify checkout) opens it
+  applyCartHash() {
     try {
       const saved = JSON.parse(localStorage.getItem('mo-cart') || '[]');
       const cart = Array.isArray(saved) ? saved.filter((l) => l && l.qty > 0 && l.colour >= 0 && l.colour < 6) : [];
@@ -2275,10 +2274,15 @@ class Component extends DCLogic {
         const colour = names.findIndex((n) => SHOPIFY_VARIANTS[n] === id);
         if (colour >= 0 && +q > 0) fromShopify.push({ colour: colour, qty: Math.min(9, +q) });
       });
-      const use = fromShopify.length ? fromShopify : cart;
-      if (use.length || open) this.setState({ cart: use, page: open ? 'cart' : this.state.page });
+      const use = fromShopify.length ? fromShopify : (this.state.cart && this.state.cart.length ? this.state.cart : cart);
+      if (use.length || open) this.setState({ cart: use, page: open ? 'cart' : this.state.page, menu: false });
       if (open) window.scrollTo(0, 0);
     } catch (x) {}
+  }
+  componentDidMount() {
+    // restore the cart saved in this browser; a #cart link (e.g. from Shopify checkout) opens it
+    this.applyCartHash();
+    window.addEventListener('hashchange', () => this.applyCartHash());
     const root = document.documentElement;
     const reduce = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
     // description items: click to highlight (one per group, click again to clear)
