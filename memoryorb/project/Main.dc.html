@@ -2052,12 +2052,14 @@ html.js-rv .stat.in:hover{transform:translateY(-3px)}
     <h1 style="margin:20px 0 14px;text-align:center;font-family:'Cormorant Garamond',serif;font-weight:500;font-size:46px;line-height:1.1;color:#fff">Get in <em style="color:#f1d99a">touch</em></h1>
     <p class="pg-sub" style="margin:0 auto 34px;font-family:'Manrope',system-ui,sans-serif">Have a question about MemoryOrb or need a hand? Send us a message and we will gladly help.</p>
     <form class="ct-form" onSubmit="{{sendContact}}" style="border:1px solid rgba(243,210,122,.34);border-radius:30px;background:radial-gradient(120% 70% at 50% 0%,rgba(217,181,107,.13),transparent 60%),#0d0f0a;padding:30px 24px 28px;box-shadow:0 30px 60px -30px rgba(0,0,0,.9),0 0 0 6px rgba(217,181,107,.04)">
+      <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
       <label style="display:block;margin:0 0 10px;font-size:13px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.55)">Name</label><input class="dcin" type="text" placeholder="Name" aria-label="Name" style="width:100%;height:58px;box-sizing:border-box;padding:0 20px;border:1px solid rgba(255,255,255,.14);border-radius:14px;background:#14160f;color:#fff;font:inherit;font-size:17px;outline:none">
       <label style="display:block;margin:0 0 10px;font-size:13px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-top:22px">Email</label><input class="dcin" type="email" placeholder="Email" aria-label="Email" style="width:100%;height:58px;box-sizing:border-box;padding:0 20px;border:1px solid rgba(255,255,255,.14);border-radius:14px;background:#14160f;color:#fff;font:inherit;font-size:17px;outline:none">
       <label style="display:block;margin:0 0 10px;font-size:13px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-top:22px">Phone number</label><input class="dcin" type="tel" placeholder="Phone number" aria-label="Phone number" style="width:100%;height:58px;box-sizing:border-box;padding:0 20px;border:1px solid rgba(255,255,255,.14);border-radius:14px;background:#14160f;color:#fff;font:inherit;font-size:17px;outline:none">
       <label style="display:block;margin:0 0 10px;font-size:13px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-top:22px">Comment</label><textarea class="dcin" placeholder="Comment" aria-label="Comment" style="width:100%;height:58px;box-sizing:border-box;padding:0 20px;border:1px solid rgba(255,255,255,.14);border-radius:14px;background:#14160f;color:#fff;font:inherit;font-size:17px;outline:none;height:150px;padding:16px 20px;resize:none"></textarea>
       <button type="submit" style="margin-top:28px;width:100%;height:60px;border:0;border-radius:14px;background:linear-gradient(180deg,#f6dd96 0%,#e3bd62 55%,#c9a04a 100%);color:#17140a;font:inherit;font-size:18px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;box-shadow:0 10px 26px rgba(243,210,122,.22)">Send</button>
-      <p style="display:{{sentDisp}};margin:18px 0 0;text-align:center;font-size:15px;color:#7fdc8a">Thank you, your message was sent.</p>
+      <p style="display:{{sentDisp}};margin:18px 0 0;text-align:center;font-size:15px;color:#7fdc8a">Thank you, your message was sent. We usually reply within one hour.</p>
+      <p style="display:{{cErrDisp}};margin:18px 0 0;text-align:center;font-size:15px;line-height:1.5;color:#f0a28f">{{cErr}}</p>
     </form>
   </div>
 
@@ -2331,7 +2333,7 @@ const SHOPIFY_VARIANTS = { Black: '58279901266302', White: '58279901233534', Blu
 class Component extends DCLogic {
   constructor(props) {
     super(props);
-    this.state = { prod: false, page: 'home', sent: false, tab: 1, tsent: false, tload: false, terr: '', tres: null, bundle: 0, thumb: 0, colour: 0, outlet: 0, qty: 1, cf: 0, menu: false, flip: [false, false, false, false], cmp: 1, lt: 0, lsent: false, user: null, cart: [], cnote: false, faqN: 1, descOpen: false, extra: ['', ''], cerr: false };
+    this.state = { prod: false, page: 'home', sent: false, tab: 1, tsent: false, cbusy: false, cerr: '', tload: false, terr: '', tres: null, bundle: 0, thumb: 0, colour: 0, outlet: 0, qty: 1, cf: 0, menu: false, flip: [false, false, false, false], cmp: 1, lt: 0, lsent: false, user: null, cart: [], cnote: false, faqN: 1, descOpen: false, extra: ['', ''], cerr: false };
   }
   setState(patch) {
     super.setState(patch);
@@ -3275,6 +3277,7 @@ class Component extends DCLogic {
       goShipPol: (e) => { this.setState({ page: 'shipping', menu: false }); try { window.scrollTo(0, 0); } catch (x) {} },
       contactDisp: this.state.page === 'contact' ? 'block' : 'none',
       sentDisp: this.state.sent ? 'block' : 'none',
+      cErr: this.state.cerr, cErrDisp: this.state.cerr ? 'block' : 'none',
       homeBg: this.state.page === 'home' ? 'rgba(255,255,255,.07)' : 'transparent',
       contactBg: this.state.page === 'contact' ? 'rgba(255,255,255,.07)' : 'transparent',
       openSpecs: (e) => {
@@ -3362,7 +3365,22 @@ class Component extends DCLogic {
       goColours: (e) => { try { e.preventDefault(); } catch (x) {} this.setState({ page: 'home', menu: false }); setTimeout(() => { try { const t = document.getElementById('colours'); if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' }); } catch (x) {} }, 60); },
       goHome: (e) => { this.setState({ page: 'home', menu: false }); try { window.scrollTo(0, 0); } catch (x) {} },
       goContact: (e) => { this.setState({ page: 'contact', menu: false, sent: false }); try { window.scrollTo(0, 0); } catch (x) {} },
-      sendContact: (e) => { try { e.preventDefault(); } catch (x) {} this.setState({ sent: true }); },
+      sendContact: (e) => {
+        try { e.preventDefault(); } catch (x) {}
+        if (this.state.cbusy) return;
+        const f = e.target, inp = f.querySelectorAll('input.dcin'), ta = f.querySelector('textarea');
+        const hp = f.querySelector('input[name=website]');
+        const data = { name: (inp[0] && inp[0].value || '').trim(), email: (inp[1] && inp[1].value || '').trim(), phone: (inp[2] && inp[2].value || '').trim(), message: (ta && ta.value || '').trim(), website: hp ? hp.value : '' };
+        if (!data.name || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email) || data.message.length < 3) { this.setState({ sent: false, cerr: 'Please fill in your name, a valid email and your message.' }); return; }
+        this.setState({ cbusy: true, cerr: '', sent: false });
+        fetch('/api/contact', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) })
+          .then((r) => r.json().then((j) => ({ ok: r.ok, j })))
+          .then(({ ok, j }) => {
+            if (ok) { try { f.reset(); } catch (x) {} this.setState({ cbusy: false, sent: true, cerr: '' }); }
+            else this.setState({ cbusy: false, sent: false, cerr: j && j.error === 'rate_limited' ? 'Too many messages. Please try again later.' : 'We could not send your message right now. Please email us directly.' });
+          })
+          .catch(() => this.setState({ cbusy: false, sent: false, cerr: 'We could not send your message right now. Please email us directly.' }));
+      },
       menuOpen: this.state.menu, openMenu: () => this.setState({ menu: true }), closeMenu: () => this.setState({ menu: false }),
       pfv: this._pf || '0',
       cmpCls: 'c' + this.state.cmp,

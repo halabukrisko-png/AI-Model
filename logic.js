@@ -6,7 +6,7 @@ const SHOPIFY_VARIANTS = { Black: '58279901266302', White: '58279901233534', Blu
 class Component extends DCLogic {
   constructor(props) {
     super(props);
-    this.state = { prod: false, page: 'home', sent: false, tab: 1, tsent: false, tload: false, terr: '', tres: null, bundle: 0, thumb: 0, colour: 0, outlet: 0, qty: 1, cf: 0, menu: false, flip: [false, false, false, false], cmp: 1, lt: 0, lsent: false, user: null, cart: [], cnote: false, faqN: 1, descOpen: false, extra: ['', ''], cerr: false };
+    this.state = { prod: false, page: 'home', sent: false, tab: 1, tsent: false, cbusy: false, cerr: '', tload: false, terr: '', tres: null, bundle: 0, thumb: 0, colour: 0, outlet: 0, qty: 1, cf: 0, menu: false, flip: [false, false, false, false], cmp: 1, lt: 0, lsent: false, user: null, cart: [], cnote: false, faqN: 1, descOpen: false, extra: ['', ''], cerr: false };
   }
   setState(patch) {
     super.setState(patch);
@@ -950,6 +950,7 @@ class Component extends DCLogic {
       goShipPol: (e) => { this.setState({ page: 'shipping', menu: false }); try { window.scrollTo(0, 0); } catch (x) {} },
       contactDisp: this.state.page === 'contact' ? 'block' : 'none',
       sentDisp: this.state.sent ? 'block' : 'none',
+      cErr: this.state.cerr, cErrDisp: this.state.cerr ? 'block' : 'none',
       homeBg: this.state.page === 'home' ? 'rgba(255,255,255,.07)' : 'transparent',
       contactBg: this.state.page === 'contact' ? 'rgba(255,255,255,.07)' : 'transparent',
       openSpecs: (e) => {
@@ -1037,7 +1038,22 @@ class Component extends DCLogic {
       goColours: (e) => { try { e.preventDefault(); } catch (x) {} this.setState({ page: 'home', menu: false }); setTimeout(() => { try { const t = document.getElementById('colours'); if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' }); } catch (x) {} }, 60); },
       goHome: (e) => { this.setState({ page: 'home', menu: false }); try { window.scrollTo(0, 0); } catch (x) {} },
       goContact: (e) => { this.setState({ page: 'contact', menu: false, sent: false }); try { window.scrollTo(0, 0); } catch (x) {} },
-      sendContact: (e) => { try { e.preventDefault(); } catch (x) {} this.setState({ sent: true }); },
+      sendContact: (e) => {
+        try { e.preventDefault(); } catch (x) {}
+        if (this.state.cbusy) return;
+        const f = e.target, inp = f.querySelectorAll('input.dcin'), ta = f.querySelector('textarea');
+        const hp = f.querySelector('input[name=website]');
+        const data = { name: (inp[0] && inp[0].value || '').trim(), email: (inp[1] && inp[1].value || '').trim(), phone: (inp[2] && inp[2].value || '').trim(), message: (ta && ta.value || '').trim(), website: hp ? hp.value : '' };
+        if (!data.name || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email) || data.message.length < 3) { this.setState({ sent: false, cerr: 'Please fill in your name, a valid email and your message.' }); return; }
+        this.setState({ cbusy: true, cerr: '', sent: false });
+        fetch('/api/contact', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) })
+          .then((r) => r.json().then((j) => ({ ok: r.ok, j })))
+          .then(({ ok, j }) => {
+            if (ok) { try { f.reset(); } catch (x) {} this.setState({ cbusy: false, sent: true, cerr: '' }); }
+            else this.setState({ cbusy: false, sent: false, cerr: j && j.error === 'rate_limited' ? 'Too many messages. Please try again later.' : 'We could not send your message right now. Please email us directly.' });
+          })
+          .catch(() => this.setState({ cbusy: false, sent: false, cerr: 'We could not send your message right now. Please email us directly.' }));
+      },
       menuOpen: this.state.menu, openMenu: () => this.setState({ menu: true }), closeMenu: () => this.setState({ menu: false }),
       pfv: this._pf || '0',
       cmpCls: 'c' + this.state.cmp,

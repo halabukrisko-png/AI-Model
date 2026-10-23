@@ -12,3 +12,6 @@ Custom tracking for the Tracking page. Needs these **Environment Variables** in 
 Never commit these values or share them. Without the Shopify variables the "Order number" tab answers that lookup is not available and the "Tracking number" tab works.
 
 The Track123 answer is read tolerantly (field names are searched), because the exact response schema was not confirmed. If events do not show up, set `TRACK_DEBUG=1`, call the endpoint with `?debug=1` once and adjust `normalize()`.
+
+# /api/contact
+Sends the Contact form to your e-mail through Resend. Variables: `RESEND_API_KEY`, `CONTACT_TO` (several addresses separated by commas), `CONTACT_FROM` (an address on your verified Resend domain). Redeploy after setting them.
