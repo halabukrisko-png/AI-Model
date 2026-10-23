@@ -2070,15 +2070,11 @@ html.js-rv .stat.in:hover{transform:translateY(-3px)}
   <div style="display:{{trackDisp}};background:#0a0907;color:#fff;font-family:'Poppins','Manrope',sans-serif;padding:56px 20px 40px;min-height:0;box-sizing:border-box">
     <div style="display:flex;justify-content:center"><span class="eyebrow c">MemoryOrb</span></div>
     <h1 style="margin:20px 0 14px;text-align:center;font-family:'Cormorant Garamond',serif;font-weight:500;font-size:46px;line-height:1.1;color:#fff">Track your <em style="color:#f1d99a">order</em></h1>
-    <p class="pg-sub" style="margin:0 auto 34px;font-family:'Manrope',system-ui,sans-serif">Enter your order or tracking number to see where your MemoryOrb is right now.</p>
+    <p class="pg-sub" style="margin:0 auto 34px;font-family:'Manrope',system-ui,sans-serif">Enter the tracking number from your shipping email to see where your MemoryOrb is right now.</p>
     <div class="ct-form tr-card" style="border:1px solid rgba(243,210,122,.28);border-radius:30px;background:#0d0f0a;padding:28px 24px 30px">
-      <div role="tablist" style="display:flex;gap:6px;padding:6px;border:1px solid rgba(255,255,255,.12);border-radius:18px;background:#14160f">
-        <button role="tab" onClick="{{tabOrder}}" style="flex:1;height:54px;border:1px solid {{tabOrderLine}};border-radius:13px;background:{{tabOrderBg}};font:inherit;font-size:14px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:{{tabOrderColor}};cursor:pointer">Order number</button>
-        <button role="tab" onClick="{{tabTrack}}" style="flex:1;height:54px;border:1px solid {{tabTrackLine}};border-radius:13px;background:{{tabTrackBg}};font:inherit;font-size:14px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:{{tabTrackColor}};cursor:pointer">Tracking number</button>
-      </div>
-      <form onSubmit="{{sendTrack}}" style="margin-top:30px">
+      
+      <form onSubmit="{{sendTrack}}" style="margin-top:6px">
         <label style="display:block;margin:0 0 10px;font-size:13px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.55)">{{trackLabel}}</label><input class="dcin" type="text" aria-label="{{trackLabel}}" style="width:100%;height:58px;box-sizing:border-box;padding:0 20px;border:1px solid rgba(255,255,255,.14);border-radius:14px;background:#14160f;color:#fff;font:inherit;font-size:17px;outline:none">
-        <div style="display:{{trackContactDisp}}"><label style="display:block;margin:0 0 10px;font-size:13px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-top:22px">Email or phone number</label><input class="dcin" type="text" aria-label="Email or phone number" style="width:100%;height:58px;box-sizing:border-box;padding:0 20px;border:1px solid rgba(255,255,255,.14);border-radius:14px;background:#14160f;color:#fff;font:inherit;font-size:17px;outline:none"></div>
         <button type="submit" style="margin-top:28px;width:100%;height:60px;border:0;border-radius:14px;background:linear-gradient(180deg,#f6dd96 0%,#e3bd62 55%,#c9a04a 100%);color:#17140a;font:inherit;font-size:18px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;box-shadow:0 10px 26px rgba(243,210,122,.22)">Track</button>
       </form>
       <p style="margin:18px 0 0;text-align:center;font-size:16px;font-style:italic;letter-spacing:.1em;color:rgba(255,255,255,.4)">Powered by MemoryOrb Tracking</p>
@@ -2329,7 +2325,7 @@ html.js-rv .stat.in:hover{transform:translateY(-3px)}
   </div>
 </div>
 </template>
-<script src="runtime.js?v=1792780078"></script>
-<script src="logic.js?v=1792780078"></script>
+<script src="runtime.js?v=1792780859"></script>
+<script src="logic.js?v=1792780859"></script>
 </body>
 </html>
