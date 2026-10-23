@@ -1273,6 +1273,21 @@ html:not(.js-rv) .panel{--pf:1}
 .gift-pills li{padding:8px 14px;border:1px solid rgba(217,181,107,.35);border-radius:999px;font-size:13.5px;color:var(--fg-2);background:rgba(217,181,107,.06)}
 .gift-cta{display:flex;justify-content:center;max-width:360px;margin:28px auto 0}
 @media (min-width:640px){.gift-why{grid-template-columns:1fr 1fr}.gift-h{font-size:28px}}
+.tr-res{margin-top:24px}
+.tr-box{border:1px solid rgba(243,210,122,.28);border-radius:18px;background:#14160f;padding:20px 18px;margin-top:12px;text-align:left}
+.tr-top{display:flex;justify-content:space-between;gap:10px;font:600 12px 'Manrope',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.5)}
+.tr-no{color:#f2dba3;word-break:break-all}
+.tr-stat{margin-top:12px;font:600 26px/1.15 'Cormorant Garamond',serif;color:#fff}
+.tr-stat.issue{color:#f0a28f}
+.tr-bar{display:grid;grid-template-columns:repeat(5,1fr);gap:5px;margin-top:16px}
+.tr-bar i{height:5px;border-radius:3px;background:rgba(255,255,255,.12)}
+.tr-bar i.on{background:linear-gradient(90deg,#d9b56b,#f2dba3)}
+.tr-lbl{display:grid;grid-template-columns:repeat(5,1fr);gap:5px;margin-top:7px;font:500 9.5px/1.25 'Manrope',sans-serif;color:rgba(255,255,255,.42);text-align:center}
+.tr-ev{display:flex;gap:12px;margin-top:16px}
+.tr-ev>i{flex:none;width:9px;height:9px;margin-top:6px;border-radius:50%;background:#d9b56b;box-shadow:0 0 0 4px rgba(217,181,107,.15)}
+.tr-ev b{display:block;font:600 14px/1.4 'Manrope',sans-serif;color:#fff}
+.tr-ev small{display:block;margin-top:2px;font:400 12px/1.4 'Manrope',sans-serif;color:rgba(255,255,255,.5)}
+.tr-none{margin:16px 0 0;font:400 13px/1.5 'Manrope',sans-serif;color:rgba(255,255,255,.55)}
 /* tablet: smaller review cards with arrows beside them */
 @media (min-width:640px){
 .q-wrap{position:relative}
@@ -2047,11 +2062,26 @@ html.js-rv .stat.in:hover{transform:translateY(-3px)}
       </div>
       <form onSubmit="{{sendTrack}}" style="margin-top:30px">
         <label style="display:block;margin:0 0 10px;font-size:13px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.55)">{{trackLabel}}</label><input class="dcin" type="text" aria-label="{{trackLabel}}" style="width:100%;height:58px;box-sizing:border-box;padding:0 20px;border:1px solid rgba(255,255,255,.14);border-radius:14px;background:#14160f;color:#fff;font:inherit;font-size:17px;outline:none">
-        <label style="display:block;margin:0 0 10px;font-size:13px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-top:22px">Email or phone number</label><input class="dcin" type="text" aria-label="Email or phone number" style="width:100%;height:58px;box-sizing:border-box;padding:0 20px;border:1px solid rgba(255,255,255,.14);border-radius:14px;background:#14160f;color:#fff;font:inherit;font-size:17px;outline:none">
+        <div style="display:{{trackContactDisp}}"><label style="display:block;margin:0 0 10px;font-size:13px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-top:22px">Email or phone number</label><input class="dcin" type="text" aria-label="Email or phone number" style="width:100%;height:58px;box-sizing:border-box;padding:0 20px;border:1px solid rgba(255,255,255,.14);border-radius:14px;background:#14160f;color:#fff;font:inherit;font-size:17px;outline:none"></div>
         <button type="submit" style="margin-top:28px;width:100%;height:60px;border:0;border-radius:14px;background:linear-gradient(180deg,#f6dd96 0%,#e3bd62 55%,#c9a04a 100%);color:#17140a;font:inherit;font-size:18px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;box-shadow:0 10px 26px rgba(243,210,122,.22)">Track</button>
       </form>
       <p style="margin:18px 0 0;text-align:center;font-size:16px;font-style:italic;letter-spacing:.1em;color:rgba(255,255,255,.4)">Powered by MemoryOrb Tracking</p>
-      <p style="display:{{trackSentDisp}};margin:14px 0 0;text-align:center;font-size:15px;color:#7fdc8a">No order found yet. This is a preview.</p>
+      <p style="display:{{trackErrDisp}};margin:20px 0 0;text-align:center;font-size:15px;line-height:1.5;color:#f0a28f">{{trackErr}}</p>
+      <p style="display:{{trackLoadDisp}};margin:20px 0 0;text-align:center;font-size:15px;color:rgba(255,255,255,.6)">Looking up your parcel…</p>
+      <div class="tr-res" style="display:{{trackResDisp}}">
+        <sc-for list="{{trackResults}}" as="tr">
+          <div class="tr-box">
+            <div class="tr-top"><span class="tr-no">{{tr.no}}</span><span class="tr-car">{{tr.carrier}}</span></div>
+            <div class="tr-stat {{tr.cls}}">{{tr.text}}</div>
+            <div class="tr-bar"><i class="{{tr.s0}}"></i><i class="{{tr.s1}}"></i><i class="{{tr.s2}}"></i><i class="{{tr.s3}}"></i><i class="{{tr.s4}}"></i></div>
+            <div class="tr-lbl"><span>Registered</span><span>Shipped</span><span>In transit</span><span>Out for delivery</span><span>Delivered</span></div>
+            <sc-for list="{{tr.events}}" as="ev">
+              <div class="tr-ev"><i></i><div><b>{{ev.text}}</b><small>{{ev.when}} {{ev.where}}</small></div></div>
+            </sc-for>
+            <p class="tr-none" style="display:{{tr.noEvDisp}}">No scan events yet. The carrier usually shows the first update within 48 hours of dispatch.</p>
+          </div>
+        </sc-for>
+      </div>
     </div>
   </div>
 
@@ -2291,7 +2321,7 @@ const SHOPIFY_VARIANTS = { Black: '58279901266302', White: '58279901233534', Blu
 class Component extends DCLogic {
   constructor(props) {
     super(props);
-    this.state = { prod: false, page: 'home', sent: false, tab: 0, tsent: false, bundle: 0, thumb: 0, colour: 0, outlet: 0, qty: 1, cf: 0, menu: false, flip: [false, false, false, false], cmp: 1, lt: 0, lsent: false, user: null, cart: [], cnote: false, faqN: 1, descOpen: false, extra: ['', ''], cerr: false };
+    this.state = { prod: false, page: 'home', sent: false, tab: 0, tsent: false, tload: false, terr: '', tres: null, bundle: 0, thumb: 0, colour: 0, outlet: 0, qty: 1, cf: 0, menu: false, flip: [false, false, false, false], cmp: 1, lt: 0, lsent: false, user: null, cart: [], cnote: false, faqN: 1, descOpen: false, extra: ['', ''], cerr: false };
   }
   setState(patch) {
     super.setState(patch);
@@ -3124,7 +3154,17 @@ class Component extends DCLogic {
       selTrack: this.state.tab === 1 ? 'true' : 'false',
       trackDisp: this.state.page === 'tracking' ? 'block' : 'none',
       trackBg: this.state.page === 'tracking' ? 'rgba(255,255,255,.07)' : 'transparent',
-      trackSentDisp: this.state.tsent ? 'block' : 'none',
+      trackSentDisp: 'none',
+      trackContactDisp: this.state.tab === 0 ? 'block' : 'none',
+      trackErr: this.state.terr, trackErrDisp: this.state.terr ? 'block' : 'none',
+      trackLoadDisp: this.state.tload ? 'block' : 'none',
+      trackResDisp: (this.state.tres && this.state.tres.length) ? 'block' : 'none',
+      trackResults: (this.state.tres || []).map((r) => ({
+        no: r.trackingNumber, carrier: r.carrier || '', text: r.text, cls: r.issue ? 'issue' : '',
+        s0: r.step >= 0 ? 'on' : '', s1: r.step >= 1 ? 'on' : '', s2: r.step >= 2 ? 'on' : '', s3: r.step >= 3 ? 'on' : '', s4: r.step >= 4 ? 'on' : '',
+        events: (r.events || []).map((e) => ({ text: e.text, when: e.when, where: e.where ? '· ' + e.where : '' })),
+        noEvDisp: (r.events || []).length ? 'none' : 'block'
+      })),
       trackLabel: this.state.tab === 0 ? 'Order Number' : 'Tracking Number',
       tabOrderLine: this.state.tab === 0 ? 'rgba(243,210,122,.7)' : 'transparent',
       tabOrderBg: this.state.tab === 0 ? 'rgba(243,210,122,.12)' : 'transparent',
@@ -3132,10 +3172,25 @@ class Component extends DCLogic {
       tabTrackLine: this.state.tab === 1 ? 'rgba(243,210,122,.7)' : 'transparent',
       tabOrderColor: this.state.tab === 0 ? '#f3d27a' : 'rgba(255,255,255,.55)',
       tabTrackColor: this.state.tab === 1 ? '#f3d27a' : 'rgba(255,255,255,.55)',
-      tabOrder: () => this.setState({ tab: 0, tsent: false }),
-      tabTrack: () => this.setState({ tab: 1, tsent: false }),
+      tabOrder: () => this.setState({ tab: 0, tsent: false, terr: '', tres: null }),
+      tabTrack: () => this.setState({ tab: 1, tsent: false, terr: '', tres: null }),
       goTracking: (e) => { this.setState({ page: 'tracking', menu: false, tsent: false }); try { window.scrollTo(0, 0); } catch (x) {} },
-      sendTrack: (e) => { try { e.preventDefault(); } catch (x) {} this.setState({ tsent: true }); },
+      sendTrack: (e) => {
+        try { e.preventDefault(); } catch (x) {}
+        const form = e.target, ins = form.querySelectorAll('input');
+        const v1 = (ins[0] && ins[0].value || '').trim(), v2 = (ins[1] && ins[1].value || '').trim();
+        const byOrder = this.state.tab === 0;
+        const msg = { not_found: 'We could not find that order. Please check the order number and your email or phone number.', not_shipped_yet: 'Your order has not shipped yet. We will email you the tracking number as soon as it does.', invalid_number: 'That tracking number does not look right. Please check it and try again.', order_lookup_disabled: 'Order lookup is not available yet. Please use the tracking number from your shipping email.', rate_limited: 'Too many tries. Please wait a minute and try again.' };
+        if (!v1 || (byOrder && !v2)) { this.setState({ terr: byOrder ? 'Please enter your order number and your email or phone number.' : 'Please enter your tracking number.', tres: null }); return; }
+        this.setState({ tload: true, terr: '', tres: null });
+        fetch('/api/track', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(byOrder ? { order: v1, contact: v2 } : { trackingNumber: v1 }) })
+          .then((r) => r.json().then((j) => ({ ok: r.ok, j })))
+          .then(({ ok, j }) => {
+            if (ok && j && j.results) this.setState({ tload: false, tres: j.results, terr: '' });
+            else this.setState({ tload: false, tres: null, terr: (!byOrder && j && j.error === 'not_found') ? 'We could not find that tracking number. Please check it and try again.' : (msg[j && j.error] || 'Tracking is temporarily unavailable. Please try again later.') });
+          })
+          .catch(() => this.setState({ tload: false, tres: null, terr: 'Tracking is temporarily unavailable. Please try again later.' }));
+      },
       skyBg: '#0a0907',
       skyCls: ['contact', 'tracking', 'cart', 'login', 'account', 'shipping', 'privacy', 'refund', 'terms'].includes(this.state.page) ? 'sky-st' : '',
       colDisp: this.state.page === 'home' ? 'block' : 'none',

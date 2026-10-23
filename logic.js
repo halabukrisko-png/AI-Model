@@ -6,7 +6,7 @@ const SHOPIFY_VARIANTS = { Black: '58279901266302', White: '58279901233534', Blu
 class Component extends DCLogic {
   constructor(props) {
     super(props);
-    this.state = { prod: false, page: 'home', sent: false, tab: 0, tsent: false, bundle: 0, thumb: 0, colour: 0, outlet: 0, qty: 1, cf: 0, menu: false, flip: [false, false, false, false], cmp: 1, lt: 0, lsent: false, user: null, cart: [], cnote: false, faqN: 1, descOpen: false, extra: ['', ''], cerr: false };
+    this.state = { prod: false, page: 'home', sent: false, tab: 0, tsent: false, tload: false, terr: '', tres: null, bundle: 0, thumb: 0, colour: 0, outlet: 0, qty: 1, cf: 0, menu: false, flip: [false, false, false, false], cmp: 1, lt: 0, lsent: false, user: null, cart: [], cnote: false, faqN: 1, descOpen: false, extra: ['', ''], cerr: false };
   }
   setState(patch) {
     super.setState(patch);
@@ -839,7 +839,17 @@ class Component extends DCLogic {
       selTrack: this.state.tab === 1 ? 'true' : 'false',
       trackDisp: this.state.page === 'tracking' ? 'block' : 'none',
       trackBg: this.state.page === 'tracking' ? 'rgba(255,255,255,.07)' : 'transparent',
-      trackSentDisp: this.state.tsent ? 'block' : 'none',
+      trackSentDisp: 'none',
+      trackContactDisp: this.state.tab === 0 ? 'block' : 'none',
+      trackErr: this.state.terr, trackErrDisp: this.state.terr ? 'block' : 'none',
+      trackLoadDisp: this.state.tload ? 'block' : 'none',
+      trackResDisp: (this.state.tres && this.state.tres.length) ? 'block' : 'none',
+      trackResults: (this.state.tres || []).map((r) => ({
+        no: r.trackingNumber, carrier: r.carrier || '', text: r.text, cls: r.issue ? 'issue' : '',
+        s0: r.step >= 0 ? 'on' : '', s1: r.step >= 1 ? 'on' : '', s2: r.step >= 2 ? 'on' : '', s3: r.step >= 3 ? 'on' : '', s4: r.step >= 4 ? 'on' : '',
+        events: (r.events || []).map((e) => ({ text: e.text, when: e.when, where: e.where ? '· ' + e.where : '' })),
+        noEvDisp: (r.events || []).length ? 'none' : 'block'
+      })),
       trackLabel: this.state.tab === 0 ? 'Order Number' : 'Tracking Number',
       tabOrderLine: this.state.tab === 0 ? 'rgba(243,210,122,.7)' : 'transparent',
       tabOrderBg: this.state.tab === 0 ? 'rgba(243,210,122,.12)' : 'transparent',
@@ -847,10 +857,25 @@ class Component extends DCLogic {
       tabTrackLine: this.state.tab === 1 ? 'rgba(243,210,122,.7)' : 'transparent',
       tabOrderColor: this.state.tab === 0 ? '#f3d27a' : 'rgba(255,255,255,.55)',
       tabTrackColor: this.state.tab === 1 ? '#f3d27a' : 'rgba(255,255,255,.55)',
-      tabOrder: () => this.setState({ tab: 0, tsent: false }),
-      tabTrack: () => this.setState({ tab: 1, tsent: false }),
+      tabOrder: () => this.setState({ tab: 0, tsent: false, terr: '', tres: null }),
+      tabTrack: () => this.setState({ tab: 1, tsent: false, terr: '', tres: null }),
       goTracking: (e) => { this.setState({ page: 'tracking', menu: false, tsent: false }); try { window.scrollTo(0, 0); } catch (x) {} },
-      sendTrack: (e) => { try { e.preventDefault(); } catch (x) {} this.setState({ tsent: true }); },
+      sendTrack: (e) => {
+        try { e.preventDefault(); } catch (x) {}
+        const form = e.target, ins = form.querySelectorAll('input');
+        const v1 = (ins[0] && ins[0].value || '').trim(), v2 = (ins[1] && ins[1].value || '').trim();
+        const byOrder = this.state.tab === 0;
+        const msg = { not_found: 'We could not find that order. Please check the order number and your email or phone number.', not_shipped_yet: 'Your order has not shipped yet. We will email you the tracking number as soon as it does.', invalid_number: 'That tracking number does not look right. Please check it and try again.', order_lookup_disabled: 'Order lookup is not available yet. Please use the tracking number from your shipping email.', rate_limited: 'Too many tries. Please wait a minute and try again.' };
+        if (!v1 || (byOrder && !v2)) { this.setState({ terr: byOrder ? 'Please enter your order number and your email or phone number.' : 'Please enter your tracking number.', tres: null }); return; }
+        this.setState({ tload: true, terr: '', tres: null });
+        fetch('/api/track', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(byOrder ? { order: v1, contact: v2 } : { trackingNumber: v1 }) })
+          .then((r) => r.json().then((j) => ({ ok: r.ok, j })))
+          .then(({ ok, j }) => {
+            if (ok && j && j.results) this.setState({ tload: false, tres: j.results, terr: '' });
+            else this.setState({ tload: false, tres: null, terr: (!byOrder && j && j.error === 'not_found') ? 'We could not find that tracking number. Please check it and try again.' : (msg[j && j.error] || 'Tracking is temporarily unavailable. Please try again later.') });
+          })
+          .catch(() => this.setState({ tload: false, tres: null, terr: 'Tracking is temporarily unavailable. Please try again later.' }));
+      },
       skyBg: '#0a0907',
       skyCls: ['contact', 'tracking', 'cart', 'login', 'account', 'shipping', 'privacy', 'refund', 'terms'].includes(this.state.page) ? 'sky-st' : '',
       colDisp: this.state.page === 'home' ? 'block' : 'none',
