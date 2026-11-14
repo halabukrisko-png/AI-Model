@@ -6,7 +6,9 @@ body = src[src.index('<x-dc>') + 6:src.index('</x-dc>')]
 code = re.search(r'<script type="text/x-dc"[^>]*>(.*?)</script>', src, re.S).group(1)
 title = re.search(r'<title>(.*?)</title>', src).group(1)
 files = {os.path.splitext(os.path.basename(f))[0]: os.path.basename(f) for f in glob.glob('assets/*')}
-body = re.sub(r'/_blob/([0-9a-f]+)', lambda m: 'assets/' + files[m.group(1)], body)
+_sub = lambda t: re.sub(r"/_blob/([\w-]+)", lambda m: 'assets/' + files[m.group(1)], t)
+body = _sub(body)
+code = _sub(code)
 open('logic.js', 'w', encoding='utf-8').write(code + '\nDC.mount(Component);\n')
 open('index.html', 'w', encoding='utf-8').write(f'''<!doctype html>
 <html lang="en">

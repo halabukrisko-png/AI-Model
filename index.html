@@ -170,13 +170,13 @@ select{font-family:inherit}
 
     <!-- colours -->
     <div role="radiogroup" aria-label="Colour" style="margin-top:22px;display:flex;flex-wrap:wrap;justify-content:center;gap:10px 10px">
-      <sc-for list="{{cColours}}" as="c" hint-placeholder-count="5">
+      <sc-for list="{{cColours}}" as="c" hint-placeholder-count="6">
         <button role="radio" aria-checked="{{c.checked}}" onClick="{{c.pick}}" style="all:unset;box-sizing:border-box;cursor:pointer;width:calc((100% - 20px) / 3);display:flex;flex-direction:column;align-items:center;gap:8px">
           <span style="position:relative;display:block;width:100%;aspect-ratio:1/1;border-radius:8px;overflow:hidden;box-sizing:border-box;border:2px solid {{c.border}};background:radial-gradient(circle at 30% 30%,#d9b48a 0,#7a5636 55%,#3a2a1c 100%)">
             <span style="position:absolute;left:50%;top:-4%;width:14%;height:22%;transform:translateX(-50%);border-radius:4px;background:{{c.color}}"></span>
             <span style="position:absolute;left:14%;right:14%;top:16%;bottom:12%;border-radius:50%;background:{{c.color}};box-shadow:inset -6px -8px 14px rgba(0,0,0,.25),inset 6px 6px 12px rgba(255,255,255,.18)"></span>
             <span style="position:absolute;left:31%;right:31%;top:36%;bottom:32%;border-radius:50%;background:radial-gradient(circle at 50% 40%,#e8c9a0 0,#a9743f 70%)"></span>
-            <sc-if value="{{c.hasPhoto}}" hint-placeholder-val="{{ false }}"><img src="assets/628c7c017972c2bd329545a766ecac1a.webp" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></sc-if>
+            <sc-if value="{{c.hasPhoto}}" hint-placeholder-val="{{ false }}"><img src="{{c.photoSrc}}" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></sc-if>
             <sc-if value="{{c.selected}}" hint-placeholder-val="{{ false }}">
               <span style="position:absolute;right:6px;top:6px;width:24px;height:24px;border-radius:50%;background:#c0262f;display:flex;align-items:center;justify-content:center">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"/></svg>
