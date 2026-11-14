@@ -59,12 +59,13 @@ class Component extends DCLogic {
       pick: () => this.setState({ thumb: i })
     }));
     const cs = [
-      { name: 'Black', color: '#16161a' }, { name: 'White', color: '#f1efea' }, { name: 'Blue', color: '#3b86d9' },
-      { name: 'Pink', color: '#e58aa8' }, { name: 'Orange', color: '#f08a2a' }
+      { name: 'White', color: '#f1efea', photo: 'assets/colour-white.webp' }, { name: 'Red', color: '#b3202a', photo: 'assets/colour-red.webp' },
+      { name: 'Black', color: '#16161a', photo: 'assets/colour-black.webp' }, { name: 'Blue', color: '#3b86d9', photo: 'assets/colour-blue.webp' },
+      { name: 'Grey', color: '#8a8d91', photo: 'assets/colour-grey.webp' }, { name: 'Green', color: '#2f7d4a', photo: 'assets/colour-green.webp' }
     ];
     const cColours = cs.map((c, i) => {
       const sel = this.state.colour === i;
-      return { ...c, hasPhoto: c.name === 'Black', selected: sel, checked: sel ? 'true' : 'false', border: sel ? '#e8353a' : 'transparent', ringW: sel ? 5 : 3, ringC: sel ? '#113a00' : 'transparent', pick: () => this.setState({ colour: i }) };
+      return { ...c, hasPhoto: true, photoSrc: c.photo, selected: sel, checked: sel ? 'true' : 'false', border: sel ? '#e8353a' : 'transparent', ringW: sel ? 5 : 3, ringC: sel ? '#113a00' : 'transparent', pick: () => this.setState({ colour: i }) };
     });
     const os = [
       { name: 'Type C', desc: 'Fast & modern charging', isUsb: true, isWifi: false },
